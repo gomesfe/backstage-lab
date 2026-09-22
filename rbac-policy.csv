@@ -1,0 +1,43 @@
+# Políticas de acesso do Atlas.
+#
+#   p, <role>, <permissão ou resourceType>, <ação>, <allow|deny>
+#   g, <user:default/... ou group:default/...>, <role>
+#
+# Deny sempre ganha de allow, e o que não é liberado fica negado.
+# Com `permission.rbac.watch: true` no app-config, salvar este arquivo
+# recarrega as regras sem reiniciar o backend.
+
+# ---------------------------------------------------------------- roles ----
+
+# admin: tudo.
+p, role:default/admin, *, *, allow
+
+# atlas: o desenvolvedor comum. Lê o catálogo, usa templates, registra
+# componentes — mas não apaga nada nem mexe em permissão.
+p, role:default/atlas, catalog-entity, read, allow
+p, role:default/atlas, catalog.entity.create, create, allow
+p, role:default/atlas, catalog.entity.refresh, update, allow
+p, role:default/atlas, catalog.location.create, create, allow
+p, role:default/atlas, catalog.entity.delete, delete, deny
+p, role:default/atlas, catalog.location.delete, delete, deny
+p, role:default/atlas, scaffolder-template, read, allow
+p, role:default/atlas, scaffolder-action, use, allow
+p, role:default/atlas, scaffolder.task.create, create, allow
+p, role:default/atlas, scaffolder.task.read, read, allow
+p, role:default/atlas, scaffolder.task.cancel, use, allow
+
+# guest: só leitura.
+p, role:default/guest, catalog-entity, read, allow
+p, role:default/guest, scaffolder-template, read, allow
+
+# ------------------------------------------------------------- vínculos ----
+
+# Ajuste para o seu usuário do GitHub.
+g, user:default/gomesfe, role:default/admin
+
+# Grupos vindos do catálogo (org.yaml) ou do GitHub.
+g, group:default/plataforma, role:default/admin
+g, group:default/desenvolvimento, role:default/atlas
+
+# O usuário guest do provider de desenvolvimento.
+g, user:development/guest, role:default/guest

@@ -28,6 +28,7 @@ backend.add(import('@backstage/plugin-auth-backend'));
 // See https://backstage.io/docs/backend-system/building-backends/migrating#the-auth-plugin
 backend.add(import('@backstage/plugin-auth-backend-module-guest-provider'));
 // See https://backstage.io/docs/auth/guest/provider
+backend.add(import('@backstage/plugin-auth-backend-module-github-provider'));
 
 // catalog plugin
 backend.add(import('@backstage/plugin-catalog-backend'));
@@ -40,10 +41,9 @@ backend.add(import('@backstage/plugin-catalog-backend-module-logs'));
 
 // permission plugin
 backend.add(import('@backstage/plugin-permission-backend'));
-// See https://backstage.io/docs/permissions/getting-started for how to create your own permission policy
-backend.add(
-  import('@backstage/plugin-permission-backend-module-allow-all-policy'),
-);
+// Política do Atlas: roles e vínculos vêm de rbac-policy.csv na raiz do repo.
+// Substitui o allow-all que o create-app traz.
+backend.add(import('@internal/plugin-rbac-backend'));
 
 // search plugin
 backend.add(import('@backstage/plugin-search-backend'));

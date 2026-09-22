@@ -1,5 +1,22 @@
 ---
+# Estrutura organizacional do lab.
+#
+# O login do GitHub é resolvido por `usernameMatchingUserEntityName`: o seu
+# username vira `user:default/<username>`. Se não existir um User aqui com esse
+# nome, o catálogo não conhece seus grupos, o RBAC não encontra vínculo e cai
+# no default fechado. Ou seja: para entrar, você precisa estar listado abaixo.
+#
 # https://backstage.io/docs/features/software-catalog/descriptor-format#kind-user
+apiVersion: backstage.io/v1alpha1
+kind: User
+metadata:
+  name: gomesfe
+  description: Engenharia de plataforma
+spec:
+  profile:
+    displayName: Felipe Gomes
+  memberOf: [plataforma]
+---
 apiVersion: backstage.io/v1alpha1
 kind: User
 metadata:
@@ -8,6 +25,24 @@ spec:
   memberOf: [guests]
 ---
 # https://backstage.io/docs/features/software-catalog/descriptor-format#kind-group
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: plataforma
+  description: Time dono do portal e da infraestrutura
+spec:
+  type: team
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: desenvolvimento
+  description: Times de produto que consomem o portal
+spec:
+  type: team
+  children: []
+---
 apiVersion: backstage.io/v1alpha1
 kind: Group
 metadata:
