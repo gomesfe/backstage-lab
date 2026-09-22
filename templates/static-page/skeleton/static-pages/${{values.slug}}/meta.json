@@ -1,0 +1,9 @@
+{
+  "slug": "${{ values.slug }}",
+  "title": "${{ values.title }}",
+  "path": "/p/${{ values.slug }}",
+  "icon": "${{ values.icon }}",
+  "nav": ${{ values.nav }},
+  "owner": "${{ values.owner }}",
+  "description": "${{ values.description }}"
+}

@@ -1,0 +1,110 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: static-page
+  title: Tela estática
+  description: |
+    Cria uma tela nova no portal a partir de HTML + CSS puro, sem mexer em React.
+    O resultado é um Pull Request no repositório de front adicionando
+    static-pages/<slug>/.
+  tags:
+    - frontend
+    - html
+    - sem-codigo
+spec:
+  owner: team-plataforma
+  type: website
+
+  parameters:
+    - title: A tela
+      required:
+        - slug
+        - title
+      properties:
+        slug:
+          title: Identificador
+          type: string
+          description: kebab-case. Vira a pasta e o final da URL.
+          pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+          ui:autofocus: true
+          ui:help: 'ex: custos-por-time'
+        title:
+          title: Título
+          type: string
+          description: Aparece no header da página e na sidebar.
+        description:
+          title: Descrição
+          type: string
+          description: Subtítulo do header.
+        icon:
+          title: Ícone da sidebar
+          type: string
+          default: dashboard
+          enum:
+            - dashboard
+            - docs
+            - extension
+            - group
+            - library
+        nav:
+          title: Mostrar na sidebar
+          type: boolean
+          default: true
+        owner:
+          title: Time dono
+          type: string
+          ui:field: OwnerPicker
+          ui:options:
+            catalogFilter:
+              kind: Group
+
+    - title: Onde publicar
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repositório de front
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+
+  steps:
+    - id: fetch
+      name: Gerar os arquivos da tela
+      action: fetch:template
+      input:
+        url: ./skeleton
+        values:
+          slug: ${{ parameters.slug }}
+          title: ${{ parameters.title }}
+          description: ${{ parameters.description }}
+          icon: ${{ parameters.icon }}
+          nav: ${{ parameters.nav }}
+          owner: ${{ parameters.owner }}
+
+    - id: pr
+      name: Abrir PR no repo de front
+      action: publish:github:pull-request
+      input:
+        repoUrl: ${{ parameters.repoUrl }}
+        branchName: static-page/${{ parameters.slug }}
+        title: 'feat(tela): ${{ parameters.title }}'
+        description: |
+          Tela estática gerada pelo template `static-page`.
+
+          - slug: `${{ parameters.slug }}`
+          - rota: `/p/${{ parameters.slug }}`
+
+          Para rodar localmente depois do merge:
+
+          ```
+          yarn pages:sync
+          yarn pages:preview ${{ parameters.slug }}
+          ```
+
+  output:
+    links:
+      - title: Ver o Pull Request
+        url: ${{ steps.pr.output.remoteUrl }}

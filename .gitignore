@@ -24,7 +24,7 @@ node_modules/
 !.yarn/versions
 
 # Node version directives
-.nvmrc
+# (.nvmrc é versionado neste repo de propósito: o lab exige Node 22)
 
 # dotenv environment variables file
 .env
@@ -54,3 +54,7 @@ e2e-test-report/
 
 # Cache
 .cache/
+
+# Telas estáticas: derivados de static-pages/, regerados por `yarn pages:sync`
+packages/app/src/modules/static-pages/generated.ts
+packages/app/public/static-pages/

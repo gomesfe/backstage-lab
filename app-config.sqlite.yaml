@@ -1,0 +1,7 @@
+# Override para rodar o lab sem Docker/Postgres.
+#   yarn start:sqlite
+# O catálogo fica em memória e some quando o backend reinicia.
+backend:
+  database:
+    client: better-sqlite3
+    connection: ':memory:'

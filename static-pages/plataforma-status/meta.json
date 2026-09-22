@@ -1,0 +1,9 @@
+{
+  "slug": "plataforma-status",
+  "title": "Status da Plataforma",
+  "path": "/p/plataforma-status",
+  "icon": "dashboard",
+  "nav": true,
+  "owner": "team-plataforma",
+  "description": "Tela gerada pelo template estático"
+}

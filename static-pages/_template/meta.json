@@ -1,0 +1,9 @@
+{
+  "slug": "__SLUG__",
+  "title": "__TITLE__",
+  "path": "/p/__SLUG__",
+  "icon": "dashboard",
+  "nav": true,
+  "owner": "team-plataforma",
+  "description": "Tela gerada pelo template estático"
+}

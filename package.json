@@ -6,9 +6,15 @@
     "node": "22 || 24"
   },
   "scripts": {
-    "start": "backstage-cli repo start",
+    "start": "yarn pages:sync && backstage-cli repo start",
+    "start:sqlite": "node scripts/use-sqlite.mjs && yarn start",
+    "db:up": "docker compose up -d",
+    "db:down": "docker compose down",
+    "pages:new": "node scripts/new-static-page.mjs",
+    "pages:sync": "node scripts/sync-static-pages.mjs",
+    "pages:preview": "node scripts/preview-static-page.mjs",
     "build:backend": "yarn workspace backend build",
-    "build:all": "backstage-cli repo build --all",
+    "build:all": "yarn pages:sync && backstage-cli repo build --all",
     "build-image": "yarn workspace backend build-image",
     "tsc": "tsc",
     "tsc:full": "tsc --skipLibCheck false --incremental false",
@@ -20,7 +26,8 @@
     "lint": "backstage-cli repo lint --since origin/master",
     "lint:all": "backstage-cli repo lint",
     "prettier:check": "prettier --check .",
-    "new": "backstage-cli new"
+    "new": "backstage-cli new",
+    "db:pg": "node scripts/use-sqlite.mjs --off"
   },
   "backstage": {
     "cli": {
