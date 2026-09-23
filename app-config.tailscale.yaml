@@ -1,0 +1,55 @@
+# Portal servido pela rede Tailscale.
+#
+# Diferente do modo de desenvolvimento, aqui o backend serve também o bundle
+# do frontend (plugin app-backend): uma origem só, uma porta só. Isso elimina
+# a configuração de CORS e faz o endereço do portal ser um endereço único —
+# que é o que você quer digitar no celular.
+#
+# ATLAS_PUBLIC_URL é preenchido por scripts/serve-tailscale.mjs a partir do
+# nome da sua máquina no tailnet.
+
+app:
+  baseUrl: ${ATLAS_PUBLIC_URL}
+
+backend:
+  baseUrl: ${ATLAS_PUBLIC_URL}
+  listen:
+    port: 7007
+    # Escuta só no loopback: quem publica na rede é o `tailscale serve`, que
+    # faz o proxy a partir daqui. Escutar em 0.0.0.0 exporia o backend sem
+    # TLS para qualquer máquina da sua LAN, o que não é o que pedimos.
+    host: 127.0.0.1
+  cors:
+    origin: ${ATLAS_PUBLIC_URL}
+    methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
+    credentials: true
+
+  # SQLite em arquivo, não o Postgres do docker-compose.
+  #
+  # Um portal que você quer alcançar do celular não pode depender do daemon do
+  # Docker estar de pé: se ele não subiu, o portal não sobe, e o diagnóstico
+  # vira "falha ao conectar no banco" em vez de "liga o Docker".
+  #
+  # Diferente do fallback de desenvolvimento, aqui é arquivo e não `:memory:`,
+  # então catálogo, tarefas do scaffolder e API keys sobrevivem ao reinício.
+  #
+  # Para usar Postgres: `yarn db:up` e apague este bloco.
+  # `directory` e não um filename: o Backstage dá um arquivo por plugin.
+  database:
+    client: better-sqlite3
+    connection:
+      directory: ../../.atlas-data
+
+atlas:
+  env: lab
+  provisioning:
+    # Mesmo servido na rede, o lab continua sem abrir PR de verdade.
+    # Troque para `github` quando tiver o GITHUB_TOKEN configurado.
+    mode: local
+
+auth:
+  providers:
+    # O guest continua aceitável aqui: a rede Tailscale só tem os seus
+    # dispositivos. Ao expor isto fora do tailnet, remova este bloco e ligue
+    # o provider do GitHub — veja docs/rbac.md.
+    guest: {}

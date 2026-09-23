@@ -61,3 +61,6 @@ packages/app/public/static-pages/
 
 # Saída do modo de provisionamento local
 .atlas-out/
+
+# Banco do modo hospedado
+.atlas-data/

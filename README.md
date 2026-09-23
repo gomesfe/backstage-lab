@@ -56,6 +56,40 @@ fosse problema de catálogo.
 
 `yarn start:together` mantém o comportamento original, se você quiser comparar.
 
+## Acessar de outros dispositivos
+
+O portal roda na sua máquina e fica alcançável pelos seus outros aparelhos
+através da rede Tailscale — sem abrir porta no roteador e sem nada exposto
+publicamente.
+
+```bash
+# uma vez
+& "$env:ProgramFiles\Tailscale	ailscale.exe" up   # login
+# ative MagicDNS e HTTPS Certificates em
+# https://login.tailscale.com/admin/dns
+
+yarn build:hosted        # a cada mudança no código
+yarn serve:tailscale
+```
+
+O endereço aparece no terminal (`https://<sua-máquina>.<tailnet>.ts.net`).
+
+Três diferenças em relação a `yarn start`:
+
+- **Uma porta só.** O backend serve também o bundle do frontend, então não há
+  CORS entre origens e o endereço do portal é um só — que é o que você quer
+  digitar no celular.
+- **Sem hot reload.** É bundle construído; mexeu no código, `yarn build:hosted`
+  de novo.
+- **SQLite em arquivo, em `.atlas-data/`.** Não depende do Docker estar de pé,
+  e catálogo, tarefas e API keys sobrevivem ao reinício. Para usar o Postgres,
+  suba com `yarn db:up` e apague o bloco `database` do
+  `app-config.tailscale.yaml`.
+
+O login guest continua ligado nesse modo: na rede Tailscale só entram os seus
+dispositivos. Ao expor o portal fora do tailnet, remova o bloco `auth` do
+`app-config.tailscale.yaml` e ligue o OAuth do GitHub.
+
 ## Criar uma tela
 
 ```bash

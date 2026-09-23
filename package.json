@@ -10,6 +10,8 @@
     "start:backend": "yarn workspace backend start",
     "start:app": "yarn workspace app start",
     "start:together": "yarn pages:sync && yarn templates:sync && backstage-cli repo start",
+    "build:hosted": "yarn pages:sync && yarn templates:sync && yarn tsc && yarn workspace app build",
+    "serve:tailscale": "node scripts/serve-tailscale.mjs",
     "start:sqlite": "node scripts/use-sqlite.mjs && yarn start",
     "db:up": "docker compose up -d",
     "db:down": "docker compose down",
