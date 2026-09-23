@@ -113,14 +113,48 @@ function componentOverrides(tokens: AtlasPalette) {
     BackstageHeader: {
       styleOverrides: {
         header: {
+          maxWidth: atlasTokens.maxWidth,
+          margin: '16px auto 0',
+          width: 'calc(100% - 32px)',
+          borderRadius: radius.lg,
+          border: `1px solid ${tokens.border}`,
           backgroundImage: 'none',
           backgroundColor: tokens.bgCard,
-          borderBottom: `1px solid ${tokens.border}`,
           boxShadow: 'none',
         },
         title: { color: tokens.textPrimary, fontWeight: 800 },
         subtitle: { color: tokens.textSecondary },
         type: { color: tokens.textSecondary },
+      },
+    },
+    // O SidebarPage continua sendo o shell — ele fornece contextos que vários
+    // componentes consomem — mas a barra lateral virou barra de topo, então o
+    // espaço que ele reserva à esquerda passaria a ser margem morta.
+    BackstageSidebarPage: {
+      styleOverrides: {
+        root: {
+          paddingLeft: '0 !important',
+          paddingBottom: '0 !important',
+        },
+      },
+    },
+    // Largura do shell do Atlas: conteúdo centralizado, com respiro nas bordas.
+    BackstageContent: {
+      styleOverrides: {
+        root: {
+          maxWidth: atlasTokens.maxWidth,
+          margin: '0 auto',
+          width: '100%',
+        },
+      },
+    },
+    BackstageHeaderTabs: {
+      styleOverrides: {
+        tabsWrapper: {
+          maxWidth: atlasTokens.maxWidth,
+          margin: '0 auto',
+          width: '100%',
+        },
       },
     },
     // O cabeçalho dos cards do catálogo/scaffolder desenha a cor da fonte a

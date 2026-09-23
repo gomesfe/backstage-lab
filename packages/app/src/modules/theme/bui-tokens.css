@@ -1,0 +1,58 @@
+/*
+ * Tokens do Atlas para o @backstage/ui (BUI).
+ *
+ * O portal mistura dois sistemas: os componentes clássicos seguem o tema MUI,
+ * e os novos (`bui-*`) leem variáveis CSS próprias. Tematizar só o MUI deixa
+ * botões azuis do Backstage espalhados — foi assim que o "+ Create" do
+ * catálogo apareceu em azul enquanto todo o resto já estava lima.
+ *
+ * Os seletores `[data-theme-mode]` são os que a própria BUI usa; o Backstage
+ * os alterna junto com o tema MUI.
+ */
+
+:root,
+[data-theme-mode='light'] {
+  --bui-accent-bg: #44a844;
+  --bui-accent-bg-hover: #389338;
+  --bui-accent-bg-disabled: rgba(68, 168, 68, 0.4);
+  --bui-accent-fg: #ffffff;
+  --bui-accent-fg-disabled: rgba(255, 255, 255, 0.6);
+
+  --bui-bg-app: #f2f4f7;
+  --bui-bg-surface-1: #ffffff;
+  --bui-bg-surface-2: #f8fafc;
+  /* Ação primária. A BUI usa `solid` (não `accent`) nos botões principais —
+     é o token do "+ Create" do catálogo. */
+  --bui-bg-solid: #44a844;
+  --bui-bg-solid-hover: #389338;
+  --bui-fg-solid: #ffffff;
+
+  --bui-fg-primary: #0f172a;
+  --bui-fg-secondary: #475569;
+  --bui-fg-link: #389338;
+
+  --bui-border: rgba(0, 0, 0, 0.08);
+  --bui-border-hover: rgba(0, 0, 0, 0.15);
+}
+
+[data-theme-mode='dark'] {
+  --bui-accent-bg: #44a844;
+  --bui-accent-bg-hover: #389338;
+  --bui-accent-bg-disabled: rgba(68, 168, 68, 0.4);
+  --bui-accent-fg: #ffffff;
+  --bui-accent-fg-disabled: rgba(255, 255, 255, 0.6);
+
+  --bui-bg-app: #0b0c0e;
+  --bui-bg-surface-1: #1a1b1f;
+  --bui-bg-surface-2: #141518;
+  --bui-bg-solid: #44a844;
+  --bui-bg-solid-hover: #389338;
+  --bui-fg-solid: #ffffff;
+
+  --bui-fg-primary: #ffffff;
+  --bui-fg-secondary: #9ea3b0;
+  --bui-fg-link: #44a844;
+
+  --bui-border: rgba(255, 255, 255, 0.07);
+  --bui-border-hover: rgba(255, 255, 255, 0.12);
+}
