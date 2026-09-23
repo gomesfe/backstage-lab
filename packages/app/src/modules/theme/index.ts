@@ -1,2 +1,3 @@
 export { themeModule } from './themeModule';
-export { customThemeAtlas, darkThemeAtlas } from './themes';
+export { atlasDarkTheme, atlasLightTheme } from './themes';
+export { atlasTokens } from './tokens';

@@ -16,6 +16,11 @@ scripts/            o pipeline que valida e pluga as telas no front
 templates/          software template "Tela estática" (abre PR com a tela nova)
 ```
 
+O visual segue o Atlas Design System — tokens em
+[`packages/app/src/modules/theme/tokens.ts`](packages/app/src/modules/theme/tokens.ts),
+portados de `src/styles/atlas.css` do redesign no Figma Make. O código-fonte
+do redesign fica fora do repo, em `../design-ref/`, como referência.
+
 Permissões e login em [`docs/rbac.md`](docs/rbac.md), plugins em
 [`plugins/README.md`](plugins/README.md), software templates em
 [`docs/templates.md`](docs/templates.md).
