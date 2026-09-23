@@ -1,0 +1,39 @@
+{
+  "name": "@internal/plugin-scaffolder-backend-module-atlas",
+  "description": "Ações próprias do scaffolder do Atlas",
+  "version": "0.1.0",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "private": true,
+  "publishConfig": {
+    "access": "public",
+    "main": "dist/index.cjs.js",
+    "types": "dist/index.d.ts"
+  },
+  "backstage": {
+    "role": "backend-plugin-module",
+    "pluginId": "scaffolder",
+    "pluginPackage": "@backstage/plugin-scaffolder-backend"
+  },
+  "scripts": {
+    "start": "backstage-cli package start",
+    "build": "backstage-cli package build",
+    "lint": "backstage-cli package lint",
+    "test": "backstage-cli package test",
+    "clean": "backstage-cli package clean"
+  },
+  "dependencies": {
+    "@backstage/backend-plugin-api": "^1.5.0",
+    "@backstage/cli-common": "^0.1.15",
+    "@backstage/config": "^1.3.9",
+    "@backstage/errors": "^1.2.7",
+    "@backstage/plugin-scaffolder-node": "^0.13.7"
+  },
+  "devDependencies": {
+    "@backstage/backend-test-utils": "^1.10.0",
+    "@backstage/cli": "^0.36.6"
+  },
+  "files": [
+    "dist"
+  ]
+}

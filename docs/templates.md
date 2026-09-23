@@ -62,6 +62,52 @@ versionados de propósito — o catálogo os lê do disco, não os gera.
 sem isso, alguém edita o gerado à mão e a próxima `sync` descarta o trabalho
 em silêncio.
 
+## Exercitar um template sem GitHub
+
+`atlas.provisioning.mode` no `app-config.yaml` decide como o template publica:
+
+| modo | o que faz |
+| --- | --- |
+| `github` | abre Pull Request de verdade. Precisa de `GITHUB_TOKEN`. |
+| `local` | escreve os arquivos em `.atlas-out/` e não toca em nada remoto. |
+
+No modo `local` você percorre o fluxo inteiro — Choose, formulário, Review,
+Create, log da tarefa — e inspeciona exatamente o que iria no PR. A pasta de
+saída leva o id da tarefa no nome, então duas execuções do mesmo template não
+se sobrescrevem e dá para comparar.
+
+A escolha é do ambiente, não de quem preenche o formulário: como campo do
+formulário, alguém escolheria `local` em produção achando que era um ensaio, e
+o recurso nunca seria provisionado. Por isso `mode: local` com `atlas.env:
+prod` falha na inicialização.
+
+Cada template ganha três passos em vez de um:
+
+```yaml
+- id: mode          # traz o modo do config para dentro do alcance do `if:`
+  action: atlas:mode
+- id: local
+  if: ${{ steps.mode.output.isLocal }}
+  action: atlas:publish:local
+- id: pr
+  if: ${{ steps.mode.output.isGithub }}
+  action: publish:github:pull-request
+```
+
+O passo `atlas:mode` existe porque o `if:` de um passo só enxerga parâmetros e
+saídas de outros passos — não enxerga o `app-config`.
+
+## Duas armadilhas de contexto
+
+**`values` só existe dentro do skeleton.** No input de um passo — `targetPath`,
+`branchName`, `title` — o contexto é `parameters` e `steps`. Usar `values` ali
+renderiza vazio, e o erro que aparece é sobre caminho inválido, não sobre a
+variável.
+
+**Permissões sem ação.** `scaffolder.action.execute` declara `attributes: {}`.
+No `rbac-policy.csv`, só o curinga na coluna de ação casa com ela:
+`p, role:default/atlas, scaffolder-action, *, allow`.
+
 ## O que o portal não faz
 
 Nenhum template roda `terraform apply`. Eles abrem PR. Quem aplica é o

@@ -19,6 +19,8 @@ backend.add(import('@backstage/plugin-scaffolder-backend-module-github'));
 backend.add(
   import('@backstage/plugin-scaffolder-backend-module-notifications'),
 );
+// Ações próprias: modo de provisionamento e publicação local
+backend.add(import('@internal/plugin-scaffolder-backend-module-atlas'));
 
 // techdocs plugin
 backend.add(import('@backstage/plugin-techdocs-backend'));

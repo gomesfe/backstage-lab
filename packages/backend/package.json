@@ -47,6 +47,7 @@
     "@backstage/plugin-user-settings-backend": "^0.4.7",
     "@internal/plugin-api-keys-backend": "^0.1.0",
     "@internal/plugin-rbac-backend": "^0.1.0",
+    "@internal/plugin-scaffolder-backend-module-atlas": "^0.1.0",
     "app": "link:../app",
     "better-sqlite3": "^12.0.0",
     "node-gyp": "^10.0.0",

@@ -21,10 +21,12 @@ p, role:default/atlas, catalog.location.create, create, allow
 p, role:default/atlas, catalog.entity.delete, delete, deny
 p, role:default/atlas, catalog.location.delete, delete, deny
 p, role:default/atlas, scaffolder-template, read, allow
-p, role:default/atlas, scaffolder-action, use, allow
+# scaffolder.action.execute e scaffolder.task.cancel não declaram ação:
+# `attributes: {}`. Só o curinga na coluna de ação casa com elas.
+p, role:default/atlas, scaffolder-action, *, allow
 p, role:default/atlas, scaffolder.task.create, create, allow
 p, role:default/atlas, scaffolder.task.read, read, allow
-p, role:default/atlas, scaffolder.task.cancel, use, allow
+p, role:default/atlas, scaffolder.task.cancel, *, allow
 # API keys: emite e revoga as próprias, não enxerga as dos outros.
 p, role:default/atlas, api-keys.key.read, read, allow
 p, role:default/atlas, api-keys.key.create, create, allow
@@ -46,3 +48,8 @@ g, group:default/desenvolvimento, role:default/atlas
 
 # O usuário guest do provider de desenvolvimento.
 g, user:development/guest, role:default/guest
+
+# Para exercitar templates no lab antes de configurar o OAuth do GitHub,
+# descomente a linha abaixo. Ela dá ao guest a role de desenvolvedor.
+# Deixe comentada em qualquer ambiente compartilhado.
+# g, user:development/guest, role:default/atlas

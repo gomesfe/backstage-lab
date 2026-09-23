@@ -52,7 +52,7 @@ export class AtlasPermissionPolicy implements PermissionPolicy {
     for (const rule of policy.rules) {
       if (!roles.has(rule.role)) continue;
       if (!matches(rule.target, targets)) continue;
-      if (rule.action !== '*' && rule.action !== action) continue;
+      if (!actionMatches(rule.action, action)) continue;
 
       if (rule.effect === 'deny') {
         return { result: AuthorizeResult.DENY };
@@ -73,8 +73,29 @@ function targetsOf(permission: Permission): string[] {
   return targets;
 }
 
-function actionOf(permission: Permission): string {
-  return permission.attributes.action ?? 'read';
+/**
+ * Nem toda permissão declara uma ação. `scaffolder.action.execute` e
+ * `scaffolder.task.cancel`, por exemplo, têm `attributes: {}`.
+ */
+function actionOf(permission: Permission): string | undefined {
+  return permission.attributes.action;
+}
+
+/**
+ * Uma permissão sem ação só casa com o curinga.
+ *
+ * A alternativa — assumir uma ação padrão — cria um erro silencioso: a regra
+ * parece certa no CSV, nunca casa, e o default fechado devolve um deny que
+ * não aponta para a linha errada. Exigir `*` obriga quem escreve a regra a
+ * perceber que aquela permissão não tem ação.
+ */
+function actionMatches(
+  ruleAction: string,
+  permissionAction: string | undefined,
+): boolean {
+  if (ruleAction === '*') return true;
+  if (permissionAction === undefined) return false;
+  return ruleAction === permissionAction;
 }
 
 function matches(ruleTarget: string, targets: readonly string[]): boolean {

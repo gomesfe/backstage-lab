@@ -6,7 +6,7 @@
     "node": "22 || 24"
   },
   "scripts": {
-    "start": "yarn pages:sync && yarn templates:sync && concurrently -n back,front -c cyan,magenta \"yarn start:backend\" \"yarn start:app\"",
+    "start": "yarn pages:sync && yarn templates:sync && node scripts/start-dev.mjs",
     "start:backend": "yarn workspace backend start",
     "start:app": "yarn workspace app start",
     "start:together": "yarn pages:sync && yarn templates:sync && backstage-cli repo start",
@@ -54,7 +54,6 @@
     "@jest/environment-jsdom-abstract": "~30.2.0",
     "@playwright/test": "^1.32.3",
     "@types/jest": "^30.0.0",
-    "concurrently": "^9.1.0",
     "jest": "~30.2.0",
     "jsdom": "^27.1.0",
     "node-gyp": "^10.0.0",

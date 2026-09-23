@@ -58,3 +58,6 @@ e2e-test-report/
 # Telas estáticas: derivados de static-pages/, regerados por `yarn pages:sync`
 packages/app/src/modules/static-pages/generated.ts
 packages/app/public/static-pages/
+
+# Saída do modo de provisionamento local
+.atlas-out/

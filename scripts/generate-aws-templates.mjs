@@ -269,13 +269,22 @@ function templateYaml(spec) {
       parameters,
       steps: [
         {
+          // O `if:` de um passo não enxerga o app-config, só parâmetros e
+          // saídas. Este passo traz o modo para dentro do alcance dele.
+          id: 'mode',
+          name: 'Ler o modo de provisionamento',
+          action: 'atlas:mode',
+        },
+        {
           id: 'fetch',
           name: 'Gerar o Terraform',
           action: 'fetch:template',
           input: {
             url: './skeleton',
+            // `values` só existe dentro do skeleton, durante a renderização
+            // dos arquivos. No input de um passo, o contexto é `parameters`.
             targetPath:
-              '${{ values.squad | replace("group:default/", "") }}/${{ values.nome }}/${{ values.ambiente }}',
+              '${{ parameters.squad | replace("group:default/", "") }}/${{ parameters.nome }}/${{ parameters.ambiente }}',
             values: {
               nome: '${{ parameters.nome }}',
               squad: '${{ parameters.squad }}',
@@ -291,8 +300,18 @@ function templateYaml(spec) {
           },
         },
         {
+          id: 'local',
+          name: 'Escrever os arquivos localmente',
+          if: '${{ steps.mode.output.isLocal }}',
+          action: 'atlas:publish:local',
+          input: {
+            name: `\${{ parameters.nome }}-\${{ parameters.ambiente }}`,
+          },
+        },
+        {
           id: 'pr',
           name: 'Abrir PR na infraestrutura',
+          if: '${{ steps.mode.output.isGithub }}',
           action: 'publish:github:pull-request',
           input: {
             repoUrl: '${{ parameters.repoUrl }}',
@@ -317,6 +336,18 @@ function templateYaml(spec) {
           {
             title: 'Ver o Pull Request',
             url: '${{ steps.pr.output.remoteUrl }}',
+            // Em modo local o passo `pr` não roda e a URL fica vazia; o
+            // Backstage esconde links sem URL, então só sobra o relevante.
+          },
+          {
+            title: 'Arquivos gerados',
+            url: '${{ steps.local.output.remoteUrl }}',
+          },
+        ],
+        text: [
+          {
+            title: 'Modo',
+            content: '${{ steps.mode.output.mode }}',
           },
         ],
       },

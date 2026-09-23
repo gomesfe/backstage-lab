@@ -62,20 +62,30 @@ spec:
             allowedHosts:
               - github.com
   steps:
+    - id: mode
+      name: Ler o modo de provisionamento
+      action: atlas:mode
     - id: fetch
       name: Gerar o Terraform
       action: fetch:template
       input:
         url: ./skeleton
-        targetPath: ${{ values.squad | replace("group:default/", "") }}/${{ values.nome }}/${{ values.ambiente }}
+        targetPath: ${{ parameters.squad | replace("group:default/", "") }}/${{ parameters.nome }}/${{ parameters.ambiente }}
         values:
           nome: ${{ parameters.nome }}
           squad: ${{ parameters.squad }}
           ambiente: ${{ parameters.ambiente }}
           repoUrl: ${{ parameters.repoUrl }}
           recoveryWindowDays: ${{ parameters.recoveryWindowDays }}
+    - id: local
+      name: Escrever os arquivos localmente
+      if: ${{ steps.mode.output.isLocal }}
+      action: atlas:publish:local
+      input:
+        name: ${{ parameters.nome }}-${{ parameters.ambiente }}
     - id: pr
       name: Abrir PR na infraestrutura
+      if: ${{ steps.mode.output.isGithub }}
       action: publish:github:pull-request
       input:
         repoUrl: ${{ parameters.repoUrl }}
@@ -94,3 +104,8 @@ spec:
     links:
       - title: Ver o Pull Request
         url: ${{ steps.pr.output.remoteUrl }}
+      - title: Arquivos gerados
+        url: ${{ steps.local.output.remoteUrl }}
+    text:
+      - title: Modo
+        content: ${{ steps.mode.output.mode }}

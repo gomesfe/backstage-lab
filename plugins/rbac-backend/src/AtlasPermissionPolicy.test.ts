@@ -23,6 +23,14 @@ const taskCreate = createPermission({
   attributes: { action: 'create' },
 });
 
+// Permissão sem ação declarada. O scaffolder tem várias assim
+// (`scaffolder.action.execute`, `scaffolder.task.cancel`).
+const actionExecute = createPermission({
+  name: 'scaffolder.action.execute',
+  attributes: {},
+  resourceType: 'scaffolder-action',
+});
+
 function userFor(
   userEntityRef: string,
   ownershipEntityRefs: string[] = [],
@@ -109,6 +117,42 @@ describe('AtlasPermissionPolicy', () => {
     await expect(
       policy.handle(query(catalogDelete), userFor('user:default/bob')),
     ).resolves.toEqual({ result: AuthorizeResult.DENY });
+  });
+
+  it('libera permissão sem ação pelo curinga', async () => {
+    const policy = policyFor(`
+      p, role:default/atlas, scaffolder-action, *, allow
+      g, user:default/bob, role:default/atlas
+    `);
+
+    await expect(
+      policy.handle(query(actionExecute), userFor('user:default/bob')),
+    ).resolves.toEqual({ result: AuthorizeResult.ALLOW });
+  });
+
+  it('não libera permissão sem ação com uma ação concreta na regra', async () => {
+    // Este era o bug: a regra parecia certa, nunca casava, e o default
+    // fechado devolvia um deny que não apontava para a linha errada.
+    const policy = policyFor(`
+      p, role:default/atlas, scaffolder-action, use, allow
+      p, role:default/atlas, scaffolder-action, read, allow
+      g, user:default/bob, role:default/atlas
+    `);
+
+    await expect(
+      policy.handle(query(actionExecute), userFor('user:default/bob')),
+    ).resolves.toEqual({ result: AuthorizeResult.DENY });
+  });
+
+  it('o curinga do admin cobre permissão sem ação', async () => {
+    const policy = policyFor(`
+      p, role:default/admin, *, *, allow
+      g, user:default/alice, role:default/admin
+    `);
+
+    await expect(
+      policy.handle(query(actionExecute), userFor('user:default/alice')),
+    ).resolves.toEqual({ result: AuthorizeResult.ALLOW });
   });
 
   it('deixa o deny ganhar do allow, mesmo vindo depois', async () => {

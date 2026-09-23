@@ -105,6 +105,12 @@ organization:
 atlas:
   env: local
   version: 0.1.0
+  provisioning:
+    # github = abre Pull Request de verdade (precisa de GITHUB_TOKEN)
+    # local  = escreve os arquivos em disco e não toca em nada remoto
+    # É decisão do ambiente, não de quem preenche o formulário.
+    mode: local
+    localOutputDir: .atlas-out
 
 backend:
   # Used for enabling authentication, secret is shared by all backend plugins
