@@ -1,0 +1,48 @@
+{
+  "name": "@internal/plugin-admin",
+  "description": "Painel de administração do Atlas: API keys e roles",
+  "version": "0.1.0",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "private": true,
+  "publishConfig": {
+    "access": "public",
+    "main": "dist/index.esm.js",
+    "types": "dist/index.d.ts"
+  },
+  "backstage": {
+    "role": "frontend-plugin",
+    "pluginId": "admin",
+    "pluginPackage": "@internal/plugin-admin"
+  },
+  "sideEffects": false,
+  "scripts": {
+    "start": "backstage-cli package start",
+    "build": "backstage-cli package build",
+    "lint": "backstage-cli package lint",
+    "test": "backstage-cli package test",
+    "clean": "backstage-cli package clean"
+  },
+  "dependencies": {
+    "@backstage/core-components": "^0.18.14",
+    "@backstage/core-plugin-api": "^1.12.10",
+    "@backstage/errors": "^1.2.7",
+    "@backstage/frontend-plugin-api": "^0.18.1",
+    "@material-ui/core": "^4.12.2",
+    "@material-ui/icons": "^4.9.1",
+    "react-use": "^17.2.4"
+  },
+  "peerDependencies": {
+    "react": "^16.13.1 || ^17.0.0 || ^18.0.0"
+  },
+  "devDependencies": {
+    "@backstage/cli": "^0.36.6",
+    "@backstage/frontend-test-utils": "^0.6.4",
+    "@testing-library/jest-dom": "^6.0.0",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.0.0"
+  },
+  "files": [
+    "dist"
+  ]
+}

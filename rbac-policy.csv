@@ -25,6 +25,11 @@ p, role:default/atlas, scaffolder-action, use, allow
 p, role:default/atlas, scaffolder.task.create, create, allow
 p, role:default/atlas, scaffolder.task.read, read, allow
 p, role:default/atlas, scaffolder.task.cancel, use, allow
+# API keys: emite e revoga as próprias, não enxerga as dos outros.
+p, role:default/atlas, api-keys.key.read, read, allow
+p, role:default/atlas, api-keys.key.create, create, allow
+p, role:default/atlas, api-keys.key.read-all, read, deny
+p, role:default/atlas, api-keys.key.revoke-any, delete, deny
 
 # guest: só leitura.
 p, role:default/guest, catalog-entity, read, allow

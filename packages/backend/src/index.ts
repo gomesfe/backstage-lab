@@ -45,6 +45,9 @@ backend.add(import('@backstage/plugin-permission-backend'));
 // Substitui o allow-all que o create-app traz.
 backend.add(import('@internal/plugin-rbac-backend'));
 
+// API keys: emissão, revogação e TTL para acesso programático
+backend.add(import('@internal/plugin-api-keys-backend'));
+
 // search plugin
 backend.add(import('@backstage/plugin-search-backend'));
 

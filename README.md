@@ -9,10 +9,15 @@ portal.
 ```
 packages/app        front-end (React) — o "repo de front"
 packages/backend    back-end (Node) — catalog, scaffolder, auth, techdocs
-static-pages/       as telas em HTML/CSS puro  ←  onde você trabalha no dia a dia
+plugins/            plugins próprios: rbac-backend, api-keys-backend, admin
+rbac-policy.csv     quem pode o quê  →  docs/rbac.md
+static-pages/       as telas em HTML/CSS puro  ←  trabalho do dia a dia
 scripts/            o pipeline que valida e pluga as telas no front
 templates/          software template "Tela estática" (abre PR com a tela nova)
 ```
+
+Permissões, login e API keys estão em [`docs/rbac.md`](docs/rbac.md) e
+[`plugins/README.md`](plugins/README.md).
 
 `packages/app` e `packages/backend` são dois deployables independentes — é
 assim que o Backstage separa front e back. Eles moram no mesmo repo porque
@@ -28,7 +33,7 @@ Pré-requisitos: Node 22 (`.nvmrc`), yarn via corepack, Docker Desktop.
 nvm use 22.23.2
 corepack enable
 yarn install
-cp .env.example .env     # preencha GITHUB_TOKEN se for usar o template
+cp .env.example .env     # GITHUB_TOKEN e o OAuth App, veja o próprio arquivo
 yarn db:up               # Postgres no Docker
 yarn start               # front em :3000, back em :7007
 ```
