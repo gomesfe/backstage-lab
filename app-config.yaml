@@ -1,5 +1,5 @@
 app:
-  title: Scaffolded Backstage App
+  title: Atlas
   baseUrl: http://localhost:3000
 
   # Enable all packages by default, this will discover packages from packages/app/package.json
@@ -97,7 +97,14 @@ app:
               height: 4
 
 organization:
-  name: My Company
+  name: Núclea
+
+# Identidade desta instalação. Lida pelo front via atlasEnvApiRef.
+# Um ambiente desconhecido aqui derruba o app de propósito: `prd` em vez de
+# `prod` desligaria as proteções de produção em silêncio.
+atlas:
+  env: local
+  version: 0.1.0
 
 backend:
   # Used for enabling authentication, secret is shared by all backend plugins

@@ -42,6 +42,20 @@ yarn start               # front em :3000, back em :7007
 Sem Docker no momento? `yarn start:sqlite` usa um SQLite em memória. Para
 voltar ao Postgres: `yarn db:pg`.
 
+### Por que front e back sobem em processos separados
+
+`yarn start` roda dois processos com `concurrently`, em vez do
+`backstage-cli repo start` que o `create-app` gera.
+
+O motivo é concreto: com os dois no mesmo processo pai, o backend conversa com
+esse pai por IPC para carregar o dev store — e quando o webpack do front satura
+a máquina, essa chamada estoura o timeout. O sintoma é feio e enganoso: o
+backend derruba metade dos plugins com `IPC request 'DevDataStore.load' timed
+out`, o front continua servindo normalmente, e o portal aparece vazio como se
+fosse problema de catálogo.
+
+`yarn start:together` mantém o comportamento original, se você quiser comparar.
+
 ## Criar uma tela
 
 ```bash

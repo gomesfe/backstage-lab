@@ -13,6 +13,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { SidebarSearchModal } from '@backstage/plugin-search';
 import { UserSettingsSignInAvatar } from '@backstage/plugin-user-settings';
 import { NotificationsSidebarItem } from '@backstage/plugin-notifications';
+import { EnvBadge } from '@internal/plugin-components';
 
 export const SidebarContent = NavContentBlueprint.make({
   params: {
@@ -28,6 +29,7 @@ export const SidebarContent = NavContentBlueprint.make({
       return (
         <Sidebar>
           <SidebarLogo />
+          <EnvBadge />
           <SidebarGroup label="Search" icon={<SearchIcon />} to="/search">
             <SidebarSearchModal />
           </SidebarGroup>

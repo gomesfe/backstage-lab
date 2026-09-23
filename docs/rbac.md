@@ -60,6 +60,20 @@ Sem uma entidade `User` em [`examples/org.yaml`](../examples/org.yaml), o
 catálogo não conhece seus grupos, nenhum vínculo casa, e o default fechado te
 deixa de fora. Ao adicionar alguém ao portal, adicione nos dois lugares.
 
+## Ambientes
+
+O front sabe em que ambiente está por `atlas.env` no `app-config.yaml`
+(`local`, `dev`, `lab` ou `prod`), exposto pela `atlasEnvApiRef` do
+`@internal/plugin-components`. O selo na sidebar mostra qual é.
+
+Um valor desconhecido **derruba o app na inicialização**, de propósito: `prd`
+em vez de `prod` desligaria em silêncio tudo que é condicionado a produção.
+
+Isso vem de config e não de variável de build: o mesmo bundle serve todos os
+ambientes. O Atlas usa `env.json` em tempo de build, que permite tree-shaking
+mas obriga um bundle por ambiente — se você quiser essa forma aqui, o ponto
+de troca é só `createAtlasEnv`.
+
 ## Testar uma mudança
 
 Os testes da política estão em
