@@ -49,7 +49,8 @@ g, group:default/desenvolvimento, role:default/atlas
 # O usuário guest do provider de desenvolvimento.
 g, user:development/guest, role:default/guest
 
-# Para exercitar templates no lab antes de configurar o OAuth do GitHub,
-# descomente a linha abaixo. Ela dá ao guest a role de desenvolvedor.
-# Deixe comentada em qualquer ambiente compartilhado.
-# g, user:development/guest, role:default/atlas
+# O guest do lab tem a role de desenvolvedor: sem ela, o botão "Choose" dos
+# templates nem aparece, porque é gated por scaffolder.task.create.
+# Comente esta linha ao configurar o OAuth do GitHub, ou em qualquer
+# ambiente compartilhado.
+g, user:development/guest, role:default/atlas
