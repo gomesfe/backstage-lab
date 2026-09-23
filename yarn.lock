@@ -4081,7 +4081,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-search-react@npm:^1.11.8":
+"@backstage/plugin-search-react@npm:^1.11.8, @backstage/plugin-search-react@npm:^1.9.0":
   version: 1.11.8
   resolution: "@backstage/plugin-search-react@npm:1.11.8"
   dependencies:
@@ -13833,6 +13833,7 @@ __metadata:
     "@backstage/plugin-org": "npm:^0.7.9"
     "@backstage/plugin-scaffolder": "npm:^1.39.0"
     "@backstage/plugin-search": "npm:^1.7.8"
+    "@backstage/plugin-search-react": "npm:^1.9.0"
     "@backstage/plugin-signals": "npm:^0.0.35"
     "@backstage/plugin-techdocs": "npm:^1.18.1"
     "@backstage/plugin-techdocs-module-addons-contrib": "npm:^1.1.40"

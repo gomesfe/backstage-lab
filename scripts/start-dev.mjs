@@ -16,7 +16,6 @@
  * disputa da janela em que ela importa.
  */
 import { spawn } from 'node:child_process';
-import { connect } from 'node:net';
 
 const BACKEND_PORT = Number(process.env.BACKEND_PORT ?? 7007);
 const READY_TIMEOUT_MS = 5 * 60 * 1000;
@@ -65,23 +64,30 @@ function shutdown(code = 0) {
 process.on('SIGINT', () => shutdown(0));
 process.on('SIGTERM', () => shutdown(0));
 
-function portIsOpen(port) {
-  return new Promise(resolve => {
-    const socket = connect({ port, host: '127.0.0.1' });
-    const done = result => {
-      socket.destroy();
-      resolve(result);
-    };
-    socket.once('connect', () => done(true));
-    socket.once('error', () => done(false));
-    socket.setTimeout(1000, () => done(false));
-  });
+/**
+ * Prontidão, não porta aberta.
+ *
+ * O Backstage começa a escutar antes de inicializar os plugins. Esperar só o
+ * socket abrir devolve o controle cedo demais: o front começa a compilar no
+ * meio da inicialização do backend e recria exatamente a disputa que esta
+ * ordem existe para evitar.
+ */
+async function backendIsReady() {
+  try {
+    const response = await fetch(
+      `http://127.0.0.1:${BACKEND_PORT}/.backstage/health/v1/readiness`,
+      { signal: AbortSignal.timeout(2000) },
+    );
+    return response.ok;
+  } catch {
+    return false;
+  }
 }
 
 async function waitForBackend() {
   const deadline = Date.now() + READY_TIMEOUT_MS;
   while (Date.now() < deadline) {
-    if (await portIsOpen(BACKEND_PORT)) return true;
+    if (await backendIsReady()) return true;
     await new Promise(r => setTimeout(r, POLL_MS));
   }
   return false;
@@ -92,10 +98,10 @@ run('back', ['start:backend']);
 
 if (!(await waitForBackend())) {
   console.error(
-    `[dev] backend não atendeu em :${BACKEND_PORT} dentro do limite. Veja o log acima.`,
+    `[dev] backend não ficou pronto em :${BACKEND_PORT} dentro do limite. Veja o log acima.`,
   );
   shutdown(1);
 }
 
-console.log(`[dev] backend atendendo em :${BACKEND_PORT}; subindo o front…`);
+console.log(`[dev] backend pronto em :${BACKEND_PORT}; subindo o front…`);
 run('front', ['start:app']);

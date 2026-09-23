@@ -6,7 +6,7 @@ import { homeModule } from './modules/home';
 import { signInModule } from './modules/auth';
 import { envModule } from './modules/env';
 import { themeModule } from './modules/theme';
-import { atlasPagesPlugin } from './modules/pages';
+import { atlasPagesPlugin, pageOverrides } from './modules/pages';
 import { staticPagesPlugin } from './modules/static-pages';
 
 export default createApp({
@@ -20,5 +20,7 @@ export default createApp({
     homeModule,
     signInModule,
     staticPagesPlugin,
+    // Substituem as páginas de índice dos plugins oficiais.
+    ...pageOverrides,
   ],
 });
