@@ -21,9 +21,13 @@ import { atlasTokens } from '../theme';
 const PILL_ORDER = [
   'page:home',
   'page:catalog',
+  'page:atlas-pages/catalog-v2',
+  'page:atlas-pages/my-groups',
   'page:api-docs',
   'page:techdocs',
+  'page:atlas-pages/learning-paths',
   'page:scaffolder',
+  'page:atlas-pages/break-glass',
   'page:admin',
 ];
 
@@ -154,8 +158,13 @@ function NavPill({ href, title }: { href: string; title: string }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
-  // A home fica montada em "/", então prefixo casaria com tudo.
-  const active = href === '/' ? pathname === '/' : pathname.startsWith(href);
+  // Casamento por segmento, não por prefixo de string: `/catalog-v2` começa
+  // com `/catalog` e deixaria as duas pílulas acesas ao mesmo tempo.
+  // A home fica em "/", onde prefixo casaria com tudo.
+  const active =
+    href === '/'
+      ? pathname === '/'
+      : pathname === href || pathname.startsWith(`${href}/`);
 
   return (
     <button
