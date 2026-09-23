@@ -7,9 +7,14 @@ import { useApi } from '@backstage/core-plugin-api';
 import { catalogApiRef } from '@backstage/plugin-catalog-react';
 import { Progress, ResponseErrorPanel } from '@backstage/core-components';
 import ArrowIcon from '@material-ui/icons/CallMade';
-import { atlasTokens } from '../theme';
-import { AtlasPage, Badge, CardGrid, FeatureCard } from '../ui';
-import type { BadgeVariant } from '../ui';
+import { atlasTokens } from '@internal/plugin-components';
+import {
+  AtlasPage,
+  Badge,
+  CardGrid,
+  FeatureCard,
+} from '@internal/plugin-components';
+import type { BadgeVariant } from '@internal/plugin-components';
 
 const KINDS = ['Todos', 'Component', 'Resource', 'API', 'System'];
 

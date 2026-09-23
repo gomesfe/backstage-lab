@@ -5640,6 +5640,7 @@ __metadata:
     "@backstage/errors": "npm:^1.2.7"
     "@backstage/frontend-plugin-api": "npm:^0.18.1"
     "@backstage/frontend-test-utils": "npm:^0.6.4"
+    "@internal/plugin-components": "npm:^0.1.0"
     "@material-ui/core": "npm:^4.12.2"
     "@material-ui/icons": "npm:^4.9.1"
     "@testing-library/jest-dom": "npm:^6.0.0"

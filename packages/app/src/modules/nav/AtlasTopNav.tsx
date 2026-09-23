@@ -9,7 +9,7 @@ import DarkModeIcon from '@material-ui/icons/Brightness2';
 import { useApi, appThemeApiRef } from '@backstage/core-plugin-api';
 import type { NavContentComponentProps } from '@backstage/plugin-app-react';
 import useObservable from 'react-use/lib/useObservable';
-import { atlasTokens } from '../theme';
+import { atlasTokens } from '@internal/plugin-components';
 
 /**
  * Ordem das pílulas, copiada de `NAV_LINKS` em data.ts do redesign.
@@ -28,6 +28,7 @@ const PILL_ORDER = [
   'page:atlas-pages/learning-paths',
   'page:scaffolder',
   'page:atlas-pages/break-glass',
+  'page:admin/api-keys',
   'page:admin',
 ];
 
@@ -85,6 +86,11 @@ const useStyles = makeStyles(theme => {
       border: `1px solid ${border}`,
       // Muitas pílulas viram rolagem horizontal, não quebra de linha: a barra
       // precisa manter a altura previsível quando um plugin novo entra.
+      //
+      // `minWidth: 0` é o que permite encolher: sem ele o flex não reduz o
+      // container abaixo do tamanho do conteúdo, e as pílulas empurram as
+      // ações da direita para fora da tela em vez de rolarem.
+      minWidth: 0,
       overflowX: 'auto',
       whiteSpace: 'nowrap',
       scrollbarWidth: 'none',

@@ -1,5 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
-import { atlasTokens } from '../theme';
+import { atlasTokens } from '@internal/plugin-components';
 
 const { brand, radius, maxWidth } = atlasTokens;
 

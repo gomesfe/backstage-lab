@@ -5,7 +5,10 @@ import {
   shapes,
   type UnifiedTheme,
 } from '@backstage/theme';
-import { atlasTokens, type AtlasPalette } from './tokens';
+import {
+  atlasTokens,
+  type AtlasPalette,
+} from '@internal/plugin-components';
 
 /**
  * Tema do Atlas em MUI.

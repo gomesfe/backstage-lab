@@ -7,9 +7,11 @@ import {
   fetchApiRef,
 } from '@backstage/frontend-plugin-api';
 import SettingsIcon from '@material-ui/icons/SettingsApplications';
+import KeyIcon from '@material-ui/icons/VpnKey';
 import { ApiKeysClient, apiKeysApiRef } from './api/ApiKeysClient';
 
 export const adminRouteRef = createRouteRef();
+export const apiKeysRouteRef = createRouteRef();
 
 const apiKeysApi = ApiBlueprint.make({
   name: 'api-keys',
@@ -21,13 +23,18 @@ const apiKeysApi = ApiBlueprint.make({
     }),
 });
 
-const adminPage = PageBlueprint.make({
+/**
+ * Duas telas, como no redesign: as chaves são tarefa de quem desenvolve, o
+ * painel é de quem administra. Juntá-las numa só esconderia a diferença de
+ * permissão entre ver as próprias chaves e ver as de todo mundo.
+ */
+const apiKeysPage = PageBlueprint.make({
   name: 'api-keys',
   params: {
-    path: '/admin',
-    routeRef: adminRouteRef,
-    title: 'Administração',
-    icon: <SettingsIcon />,
+    path: '/api-keys',
+    routeRef: apiKeysRouteRef,
+    title: 'API Keys',
+    icon: <KeyIcon />,
     noHeader: true,
     loader: async () => {
       const { ApiKeysPage } = await import('./components/ApiKeysPage');
@@ -36,10 +43,24 @@ const adminPage = PageBlueprint.make({
   },
 });
 
+const adminPage = PageBlueprint.make({
+  params: {
+    path: '/admin',
+    routeRef: adminRouteRef,
+    title: 'Administração',
+    icon: <SettingsIcon />,
+    noHeader: true,
+    loader: async () => {
+      const { AdminPage } = await import('./components/AdminPage');
+      return <AdminPage />;
+    },
+  },
+});
+
 export const adminPlugin = createFrontendPlugin({
   pluginId: 'admin',
-  routes: { root: adminRouteRef },
-  extensions: [apiKeysApi, adminPage],
+  routes: { root: adminRouteRef, apiKeys: apiKeysRouteRef },
+  extensions: [apiKeysApi, apiKeysPage, adminPage],
 });
 
 export default adminPlugin;

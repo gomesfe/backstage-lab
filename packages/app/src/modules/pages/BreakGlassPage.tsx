@@ -8,8 +8,8 @@ import TimerIcon from '@material-ui/icons/Timer';
 import ClockIcon from '@material-ui/icons/AccessTime';
 import AuditIcon from '@material-ui/icons/FindInPage';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
-import { atlasTokens } from '../theme';
-import { AtlasPage } from '../ui';
+import { atlasTokens } from '@internal/plugin-components';
+import { AtlasPage } from '@internal/plugin-components';
 
 const { brand, status, radius } = atlasTokens;
 

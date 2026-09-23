@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Content, Page, Progress } from '@backstage/core-components';
 import InboxIcon from '@material-ui/icons/Inbox';
 import WarningIcon from '@material-ui/icons/ReportProblemOutlined';
-import { atlasTokens } from '../theme';
+import { atlasTokens } from '../tokens';
 
 /**
  * Primitivas visuais compartilhadas, portadas de `primitives.tsx` do redesign.

@@ -1,21 +1,19 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import useAsyncRetry from 'react-use/lib/useAsyncRetry';
+import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import Chip from '@material-ui/core/Chip';
-import Tooltip from '@material-ui/core/Tooltip';
 import AddIcon from '@material-ui/icons/Add';
-import {
-  Content,
-  ContentHeader,
-  EmptyState,
-  Header,
-  Page,
-  Progress,
-  ResponseErrorPanel,
-  Table,
-  type TableColumn,
-} from '@backstage/core-components';
+import EyeIcon from '@material-ui/icons/Visibility';
+import EyeOffIcon from '@material-ui/icons/VisibilityOff';
+import { Progress, ResponseErrorPanel } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
+import {
+  AtlasPage,
+  Badge,
+  DataTable,
+  atlasTokens,
+  type Column,
+} from '@internal/plugin-components';
 import { apiKeysApiRef, type ApiKey } from '../api/ApiKeysClient';
 import { CreateKeyDialog } from './CreateKeyDialog';
 
@@ -25,14 +23,41 @@ const STATUS_LABEL: Record<ApiKey['status'], string> = {
   expired: 'expirada',
 };
 
+const STATUS_VARIANT: Record<ApiKey['status'], 'lime' | 'danger' | 'warning'> = {
+  active: 'lime',
+  revoked: 'danger',
+  expired: 'warning',
+};
+
+const useStyles = makeStyles(theme => ({
+  mono: {
+    fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace',
+    fontSize: '0.8rem',
+    color: theme.palette.text.secondary,
+  },
+  revoke: {
+    background: 'transparent',
+    border: 0,
+    cursor: 'pointer',
+    fontWeight: 700,
+    fontSize: '0.8rem',
+    color: atlasTokens.status.danger,
+    '&:disabled': {
+      color: theme.palette.text.disabled,
+      cursor: 'not-allowed',
+    },
+  },
+}));
+
 function formatDate(value: string | null): string {
-  if (!value) return '—';
-  return new Date(value).toLocaleString('pt-BR');
+  return value ? new Date(value).toLocaleString('pt-BR') : '—';
 }
 
 export function ApiKeysPage() {
+  const classes = useStyles();
   const api = useApi(apiKeysApiRef);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [showRevoked, setShowRevoked] = useState(false);
 
   const { value, loading, error, retry } = useAsyncRetry(
     () => api.list(),
@@ -47,93 +72,77 @@ export function ApiKeysPage() {
     [api, retry],
   );
 
-  const columns: TableColumn<ApiKey>[] = [
+  const rows = useMemo(
+    () =>
+      (value ?? []).filter(key => showRevoked || key.status === 'active'),
+    [value, showRevoked],
+  );
+
+  const columns: Column<ApiKey>[] = [
+    { key: 'description', header: 'Nome', render: key => key.description },
     {
-      title: 'Prefixo',
-      field: 'prefix',
-      render: key => <code>{key.prefix}…</code>,
+      key: 'prefix',
+      header: 'Chave',
+      render: key => <span className={classes.mono}>{key.prefix}…</span>,
     },
-    { title: 'Descrição', field: 'description' },
-    { title: 'Dono', field: 'owner' },
     {
-      title: 'Status',
-      field: 'status',
+      key: 'status',
+      header: 'Status',
       render: key => (
-        <Chip
-          size="small"
-          label={STATUS_LABEL[key.status]}
-          color={key.status === 'active' ? 'primary' : 'default'}
-        />
+        <Badge variant={STATUS_VARIANT[key.status]}>
+          {STATUS_LABEL[key.status]}
+        </Badge>
       ),
     },
-    { title: 'Criada em', render: key => formatDate(key.createdAt) },
+    { key: 'owner', header: 'Dono', render: key => key.owner },
     {
-      title: 'Expira em',
+      key: 'createdAt',
+      header: 'Criada em',
+      render: key => formatDate(key.createdAt),
+    },
+    {
+      key: 'expiresAt',
+      header: 'Expira em',
       render: key => (key.expiresAt ? formatDate(key.expiresAt) : 'nunca'),
     },
     {
-      title: 'Último uso',
-      render: key => (
-        <Tooltip
-          title={
-            key.lastUsedAt
-              ? ''
-              : 'Nunca usada — candidata a revogação se for antiga'
-          }
-        >
-          <span>{formatDate(key.lastUsedAt)}</span>
-        </Tooltip>
-      ),
+      key: 'lastUsedAt',
+      header: 'Último uso',
+      render: key => formatDate(key.lastUsedAt),
     },
     {
-      title: '',
-      render: key =>
-        key.status === 'active' ? (
-          <Button size="small" onClick={() => revoke(key)}>
-            Revogar
-          </Button>
-        ) : null,
+      key: 'actions',
+      header: 'Ações',
+      align: 'right',
+      render: key => (
+        <button
+          type="button"
+          className={classes.revoke}
+          disabled={key.status !== 'active'}
+          onClick={() => revoke(key)}
+        >
+          Revogar
+        </button>
+      ),
     },
   ];
 
-  let body: JSX.Element;
-  if (loading) {
-    body = <Progress />;
-  } else if (error) {
-    body = <ResponseErrorPanel error={error} />;
-  } else if (!value || value.length === 0) {
-    body = (
-      <EmptyState
-        missing="data"
-        title="Nenhuma API key"
-        description="API keys dão acesso programático ao portal. Crie uma para usar em pipeline ou script."
-        action={
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() => setDialogOpen(true)}
-          >
-            Criar a primeira
-          </Button>
-        }
-      />
-    );
-  } else {
-    body = (
-      <Table
-        title={`${value.length} chave(s)`}
-        columns={columns}
-        data={value}
-        options={{ paging: value.length > 20, search: value.length > 5 }}
-      />
-    );
-  }
+  if (error) return <ResponseErrorPanel error={error} />;
 
   return (
-    <Page themeId="tool">
-      <Header title="Administração" subtitle="API keys do portal" />
-      <Content>
-        <ContentHeader title="API keys">
+    <AtlasPage
+      eyebrow="Credenciais"
+      title="API Keys"
+      subtitle="Crie e gerencie chaves de API para integrações e automações do seu squad."
+      actions={
+        <>
+          <Button
+            variant="outlined"
+            startIcon={showRevoked ? <EyeOffIcon /> : <EyeIcon />}
+            onClick={() => setShowRevoked(v => !v)}
+          >
+            {showRevoked ? 'Ocultar revogadas' : 'Mostrar revogadas'}
+          </Button>
           <Button
             variant="contained"
             color="primary"
@@ -142,17 +151,31 @@ export function ApiKeysPage() {
           >
             Nova chave
           </Button>
-        </ContentHeader>
-        {body}
-        <CreateKeyDialog
-          open={dialogOpen}
-          onClose={() => {
-            setDialogOpen(false);
-            retry();
-          }}
-          onCreate={api.create.bind(api)}
+        </>
+      }
+    >
+      {loading ? (
+        <Progress />
+      ) : (
+        <DataTable
+          columns={columns}
+          rows={rows}
+          emptyMessage={
+            showRevoked
+              ? 'Nenhuma chave emitida ainda.'
+              : 'Nenhuma chave ativa. Revogadas e expiradas estão ocultas.'
+          }
         />
-      </Content>
-    </Page>
+      )}
+
+      <CreateKeyDialog
+        open={dialogOpen}
+        onClose={() => {
+          setDialogOpen(false);
+          retry();
+        }}
+        onCreate={api.create.bind(api)}
+      />
+    </AtlasPage>
   );
 }

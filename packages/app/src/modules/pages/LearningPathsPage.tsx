@@ -8,9 +8,14 @@ import CheckIcon from '@material-ui/icons/CheckCircle';
 import CircleIcon from '@material-ui/icons/RadioButtonUnchecked';
 import LayersIcon from '@material-ui/icons/Layers';
 import ArrowIcon from '@material-ui/icons/CallMade';
-import { atlasTokens } from '../theme';
-import { AtlasPage, Badge, CardGrid, FeatureCard } from '../ui';
-import type { BadgeVariant } from '../ui';
+import { atlasTokens } from '@internal/plugin-components';
+import {
+  AtlasPage,
+  Badge,
+  CardGrid,
+  FeatureCard,
+} from '@internal/plugin-components';
+import type { BadgeVariant } from '@internal/plugin-components';
 import { LEARNING_PATHS, LEARNING_TAGS } from './learningData';
 
 const { brand, radius } = atlasTokens;

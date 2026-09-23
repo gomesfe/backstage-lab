@@ -17,7 +17,7 @@ import BuildIcon from '@material-ui/icons/Build';
 import SchoolIcon from '@material-ui/icons/School';
 import ArrowIcon from '@material-ui/icons/CallMade';
 import { Progress } from '@backstage/core-components';
-import { atlasTokens } from '../theme';
+import { atlasTokens } from '@internal/plugin-components';
 import { useAtlasStyles } from './useAtlasStyles';
 import {
   GENERAL_UPDATES,

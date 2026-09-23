@@ -7,8 +7,13 @@ import { Progress, ResponseErrorPanel } from '@backstage/core-components';
 import PeopleIcon from '@material-ui/icons/People';
 import CrownIcon from '@material-ui/icons/Stars';
 import ArrowIcon from '@material-ui/icons/CallMade';
-import { atlasTokens } from '../theme';
-import { AtlasPage, Badge, CardGrid, FeatureCard } from '../ui';
+import { atlasTokens } from '@internal/plugin-components';
+import {
+  AtlasPage,
+  Badge,
+  CardGrid,
+  FeatureCard,
+} from '@internal/plugin-components';
 
 /**
  * Grupos aos quais o usuário pertence.
