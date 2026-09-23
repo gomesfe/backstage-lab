@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: ${{ values.squad | replace("group:default/", "") }}-${{ values.nome }}-${{ values.ambiente }}
+  description: DocumentDB provisionado pelo Atlas
+  annotations:
+    atlas.nuclea.com.br/recurso: documentdb
+    atlas.nuclea.com.br/ambiente: ${{ values.ambiente }}
+  tags:
+    - aws
+    - documentdb
+    - ${{ values.ambiente }}
+spec:
+  type: documentdb
+  owner: ${{ values.squad }}
+  system: infraestrutura

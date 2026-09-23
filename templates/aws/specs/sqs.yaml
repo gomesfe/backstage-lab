@@ -1,0 +1,28 @@
+slug: sqs
+title: Fila SQS
+description: Fila de mensagens, com dead-letter queue por padrão.
+category: Mensageria
+module:
+  source: terraform-aws-modules/sqs/aws
+  version: 4.2.1
+parameters:
+  - id: fifo
+    title: FIFO
+    type: boolean
+    default: false
+    help: Garante ordem e entrega única, ao custo de vazão menor.
+  - id: visibilityTimeout
+    title: Visibility timeout (s)
+    type: number
+    default: 30
+    help: Tem que ser maior que o tempo de processamento da mensagem.
+  - id: maxReceiveCount
+    title: Tentativas antes da DLQ
+    type: number
+    default: 5
+inputs:
+  name: local.name
+  fifo_queue: '${{ values.fifo }}'
+  visibility_timeout_seconds: '${{ values.visibilityTimeout }}'
+  create_dlq: 'true'
+  redrive_policy: '{ maxReceiveCount = ${{ values.maxReceiveCount }} }'

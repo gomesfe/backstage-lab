@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: ${{ values.squad | replace("group:default/", "") }}-${{ values.nome }}-${{ values.ambiente }}
+  description: Banco relacional RDS provisionado pelo Atlas
+  annotations:
+    atlas.nuclea.com.br/recurso: rds
+    atlas.nuclea.com.br/ambiente: ${{ values.ambiente }}
+  tags:
+    - aws
+    - rds
+    - ${{ values.ambiente }}
+spec:
+  type: rds
+  owner: ${{ values.squad }}
+  system: infraestrutura

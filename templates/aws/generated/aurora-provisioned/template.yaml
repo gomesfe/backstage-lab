@@ -1,0 +1,113 @@
+# GERADO POR scripts/generate-aws-templates.mjs — NÃO EDITE À MÃO.
+# Fonte: templates/aws/specs/aurora-provisioned.yaml
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: atlas-template-aurora-provisioned
+  title: Aurora com capacidade provisionada
+  description: Cluster Aurora com classe de instância fixa, para carga previsível.
+  tags:
+    - aws
+    - terraform
+    - aurora-provisioned
+  annotations:
+    atlas.nuclea.com.br/categoria: Banco de dados
+spec:
+  owner: group:default/plataforma
+  type: resource
+  parameters:
+    - title: O recurso
+      required:
+        - nome
+        - squad
+        - ambiente
+      properties:
+        nome:
+          title: Nome do recurso
+          type: string
+          description: kebab-case. Entra no nome final junto com squad e ambiente.
+          pattern: ^[a-z0-9]+(-[a-z0-9]+)*$
+          ui:autofocus: true
+        squad:
+          title: Squad dona
+          type: string
+          ui:field: OwnerPicker
+          ui:options:
+            catalogFilter:
+              kind: Group
+        ambiente:
+          title: Ambiente
+          type: string
+          default: dev
+          enum:
+            - dev
+            - hml
+            - prd
+    - title: Aurora com capacidade provisionada
+      properties:
+        engine:
+          title: Engine
+          type: string
+          enum:
+            - aurora-postgresql
+            - aurora-mysql
+          default: aurora-postgresql
+        instanceClass:
+          title: Classe da instância
+          type: string
+          enum:
+            - db.r6g.large
+            - db.r6g.xlarge
+            - db.r6g.2xlarge
+          default: db.r6g.large
+        instances:
+          title: Instâncias no cluster
+          type: number
+          description: A primeira é escrita, as demais são réplicas de leitura.
+          default: 2
+    - title: Onde publicar
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repositório de infraestrutura
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+  steps:
+    - id: fetch
+      name: Gerar o Terraform
+      action: fetch:template
+      input:
+        url: ./skeleton
+        targetPath: ${{ values.squad | replace("group:default/", "") }}/${{ values.nome }}/${{ values.ambiente }}
+        values:
+          nome: ${{ parameters.nome }}
+          squad: ${{ parameters.squad }}
+          ambiente: ${{ parameters.ambiente }}
+          repoUrl: ${{ parameters.repoUrl }}
+          engine: ${{ parameters.engine }}
+          instanceClass: ${{ parameters.instanceClass }}
+          instances: ${{ parameters.instances }}
+    - id: pr
+      name: Abrir PR na infraestrutura
+      action: publish:github:pull-request
+      input:
+        repoUrl: ${{ parameters.repoUrl }}
+        branchName: atlas/${{ parameters.nome }}-${{ parameters.ambiente }}
+        title: "feat(aurora-provisioned): ${{ parameters.nome }} em ${{ parameters.ambiente }}"
+        description: |-
+          Aurora com capacidade provisionada pedido pelo portal.
+
+          - módulo: `terraform-aws-modules/rds-aurora/aws` v9.10.0
+          - squad: `${{ parameters.squad }}`
+          - ambiente: `${{ parameters.ambiente }}`
+
+          O portal **não aplica** nada. Depois do merge, o pipeline deste
+          repositório roda o `terraform apply`.
+  output:
+    links:
+      - title: Ver o Pull Request
+        url: ${{ steps.pr.output.remoteUrl }}

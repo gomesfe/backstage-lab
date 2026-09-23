@@ -1,0 +1,23 @@
+slug: ec2
+title: Instância EC2
+description: Máquina virtual. Prefira ECS ou Lambda se não precisar do host.
+category: Computação
+module:
+  source: terraform-aws-modules/ec2-instance/aws
+  version: 5.7.1
+parameters:
+  - id: instanceType
+    title: Tipo da instância
+    type: string
+    default: t3.small
+    enum: [t3.micro, t3.small, t3.medium, m6i.large]
+  - id: volumeSize
+    title: Disco raiz (GB)
+    type: number
+    default: 30
+inputs:
+  name: local.name
+  instance_type: '"${{ values.instanceType }}"'
+  monitoring: 'true'
+  root_block_device: '[{ volume_size = ${{ values.volumeSize }}, encrypted = true }]'
+  metadata_options: '{ http_tokens = "required" }'

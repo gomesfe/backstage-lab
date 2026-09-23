@@ -1,0 +1,27 @@
+slug: s3
+title: Bucket S3
+description: Bucket de objetos, privado e versionado por padrão.
+category: Armazenamento
+module:
+  source: terraform-aws-modules/s3-bucket/aws
+  version: 4.2.2
+parameters:
+  - id: versioning
+    title: Versionamento
+    type: boolean
+    default: true
+    help: Guarda versões anteriores dos objetos. Protege contra sobrescrita.
+  - id: expirationDays
+    title: Expirar objetos após (dias)
+    type: number
+    default: 0
+    help: Zero mantém para sempre.
+inputs:
+  bucket: local.name
+  force_destroy: 'var.ambiente != "prd"'
+  versioning: '{ enabled = ${{ values.versioning }} }'
+  block_public_acls: 'true'
+  block_public_policy: 'true'
+  ignore_public_acls: 'true'
+  restrict_public_buckets: 'true'
+  server_side_encryption_configuration: '{ rule = { apply_server_side_encryption_by_default = { sse_algorithm = "AES256" } } }'

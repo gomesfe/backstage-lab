@@ -1,0 +1,92 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: atlas-template-cadastrar-squad
+  title: Cadastrar squad
+  description: |
+    Registra uma squad no catálogo. Sem isso, a squad não aparece no
+    OwnerPicker e ninguém consegue pedir recurso em nome dela.
+  tags:
+    - organizacao
+    - catalogo
+  annotations:
+    atlas.nuclea.com.br/categoria: Organização interna
+spec:
+  owner: group:default/plataforma
+  type: organization
+
+  parameters:
+    - title: A squad
+      required: [nome, titulo, tribo, email]
+      properties:
+        nome:
+          title: Identificador
+          type: string
+          description: kebab-case. Vira o nome da entidade no catálogo.
+          pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+          ui:autofocus: true
+        titulo:
+          title: Nome de exibição
+          type: string
+        tribo:
+          title: Tribo
+          type: string
+          description: A tribo à qual esta squad pertence.
+          ui:field: EntityPicker
+          ui:options:
+            catalogFilter:
+              kind: Group
+              spec.type: tribo
+        email:
+          title: E-mail do time
+          type: string
+          format: email
+        membros:
+          title: Membros
+          type: array
+          items:
+            type: string
+          description: Usernames do GitHub. Cada um precisa existir como User no catálogo.
+
+    - title: Onde publicar
+      required: [repoUrl]
+      properties:
+        repoUrl:
+          title: Repositório do catálogo
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+
+  steps:
+    - id: fetch
+      name: Gerar a entidade
+      action: fetch:template
+      input:
+        url: ./skeleton
+        targetPath: org/squads
+        values:
+          nome: ${{ parameters.nome }}
+          titulo: ${{ parameters.titulo }}
+          tribo: ${{ parameters.tribo }}
+          email: ${{ parameters.email }}
+          membros: ${{ parameters.membros }}
+
+    - id: pr
+      name: Abrir PR no catálogo
+      action: publish:github:pull-request
+      input:
+        repoUrl: ${{ parameters.repoUrl }}
+        branchName: atlas/squad-${{ parameters.nome }}
+        title: 'feat(org): squad ${{ parameters.titulo }}'
+        description: |
+          Cadastro da squad `${{ parameters.nome }}`, pedido pelo portal.
+
+          Depois do merge, o catálogo recolhe a entidade e a squad passa a
+          aparecer no OwnerPicker dos outros templates.
+
+  output:
+    links:
+      - title: Ver o Pull Request
+        url: ${{ steps.pr.output.remoteUrl }}

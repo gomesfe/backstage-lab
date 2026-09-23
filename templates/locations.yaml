@@ -1,0 +1,26 @@
+# GERADO POR scripts/generate-aws-templates.mjs — NÃO EDITE À MÃO.
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: atlas-templates
+  description: Todos os software templates do Atlas (17)
+spec:
+  type: file
+  targets:
+    - ./aws/generated/aurora-provisioned/template.yaml
+    - ./aws/generated/aurora/template.yaml
+    - ./aws/generated/documentdb/template.yaml
+    - ./aws/generated/dynamodb/template.yaml
+    - ./aws/generated/ec2/template.yaml
+    - ./aws/generated/efs/template.yaml
+    - ./aws/generated/elasticache-valkey/template.yaml
+    - ./aws/generated/funcao-lambda/template.yaml
+    - ./aws/generated/pubsub/template.yaml
+    - ./aws/generated/rds/template.yaml
+    - ./aws/generated/s3/template.yaml
+    - ./aws/generated/secrets-manager/template.yaml
+    - ./aws/generated/sns/template.yaml
+    - ./aws/generated/sqs/template.yaml
+    - ./cadastrar-squad/template.yaml
+    - ./microservice/template.yaml
+    - ./static-page/template.yaml

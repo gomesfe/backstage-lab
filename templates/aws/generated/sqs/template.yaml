@@ -1,0 +1,107 @@
+# GERADO POR scripts/generate-aws-templates.mjs — NÃO EDITE À MÃO.
+# Fonte: templates/aws/specs/sqs.yaml
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: atlas-template-sqs
+  title: Fila SQS
+  description: Fila de mensagens, com dead-letter queue por padrão.
+  tags:
+    - aws
+    - terraform
+    - sqs
+  annotations:
+    atlas.nuclea.com.br/categoria: Mensageria
+spec:
+  owner: group:default/plataforma
+  type: resource
+  parameters:
+    - title: O recurso
+      required:
+        - nome
+        - squad
+        - ambiente
+      properties:
+        nome:
+          title: Nome do recurso
+          type: string
+          description: kebab-case. Entra no nome final junto com squad e ambiente.
+          pattern: ^[a-z0-9]+(-[a-z0-9]+)*$
+          ui:autofocus: true
+        squad:
+          title: Squad dona
+          type: string
+          ui:field: OwnerPicker
+          ui:options:
+            catalogFilter:
+              kind: Group
+        ambiente:
+          title: Ambiente
+          type: string
+          default: dev
+          enum:
+            - dev
+            - hml
+            - prd
+    - title: Fila SQS
+      properties:
+        fifo:
+          title: FIFO
+          type: boolean
+          description: Garante ordem e entrega única, ao custo de vazão menor.
+          default: false
+        visibilityTimeout:
+          title: Visibility timeout (s)
+          type: number
+          description: Tem que ser maior que o tempo de processamento da mensagem.
+          default: 30
+        maxReceiveCount:
+          title: Tentativas antes da DLQ
+          type: number
+          default: 5
+    - title: Onde publicar
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repositório de infraestrutura
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+  steps:
+    - id: fetch
+      name: Gerar o Terraform
+      action: fetch:template
+      input:
+        url: ./skeleton
+        targetPath: ${{ values.squad | replace("group:default/", "") }}/${{ values.nome }}/${{ values.ambiente }}
+        values:
+          nome: ${{ parameters.nome }}
+          squad: ${{ parameters.squad }}
+          ambiente: ${{ parameters.ambiente }}
+          repoUrl: ${{ parameters.repoUrl }}
+          fifo: ${{ parameters.fifo }}
+          visibilityTimeout: ${{ parameters.visibilityTimeout }}
+          maxReceiveCount: ${{ parameters.maxReceiveCount }}
+    - id: pr
+      name: Abrir PR na infraestrutura
+      action: publish:github:pull-request
+      input:
+        repoUrl: ${{ parameters.repoUrl }}
+        branchName: atlas/${{ parameters.nome }}-${{ parameters.ambiente }}
+        title: "feat(sqs): ${{ parameters.nome }} em ${{ parameters.ambiente }}"
+        description: |-
+          Fila SQS pedido pelo portal.
+
+          - módulo: `terraform-aws-modules/sqs/aws` v4.2.1
+          - squad: `${{ parameters.squad }}`
+          - ambiente: `${{ parameters.ambiente }}`
+
+          O portal **não aplica** nada. Depois do merge, o pipeline deste
+          repositório roda o `terraform apply`.
+  output:
+    links:
+      - title: Ver o Pull Request
+        url: ${{ steps.pr.output.remoteUrl }}

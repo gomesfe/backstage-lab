@@ -1,0 +1,20 @@
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: ${{ values.nome }}
+  title: ${{ values.titulo }}
+  annotations:
+    atlas.nuclea.com.br/origem: template-cadastrar-squad
+spec:
+  type: squad
+  profile:
+    displayName: ${{ values.titulo }}
+    email: ${{ values.email }}
+  parent: ${{ values.tribo | replace("group:default/", "") }}
+  children: []
+{%- if values.membros and values.membros.length %}
+  members:
+{%- for membro in values.membros %}
+    - ${{ membro }}
+{%- endfor %}
+{%- endif %}

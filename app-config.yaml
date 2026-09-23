@@ -203,7 +203,7 @@ catalog:
     entityFilename: catalog-info.yaml
     pullRequestBranchName: backstage-integration
   rules:
-    - allow: [Component, System, API, Resource, Location]
+    - allow: [Component, System, API, Resource, Location, Template]
   locations:
     # Local example data, file locations are relative to the backend process, typically `packages/backend`
     - type: file
@@ -221,11 +221,12 @@ catalog:
       rules:
         - allow: [User, Group]
 
-    # Template "Tela estática": gera uma tela em HTML/CSS e abre PR no repo de front
+    # Todos os software templates, via uma Location única gerada por
+    # `yarn templates:sync`. Adicionar um template novo não mexe neste arquivo.
     - type: file
-      target: ../../templates/static-page/template.yaml
+      target: ../../templates/locations.yaml
       rules:
-        - allow: [Template]
+        - allow: [Location, Template]
 
     ## Uncomment these lines to add more example data
     # - type: url

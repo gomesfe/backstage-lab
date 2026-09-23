@@ -1,0 +1,29 @@
+slug: aurora-provisioned
+title: Aurora com capacidade provisionada
+description: Cluster Aurora com classe de instância fixa, para carga previsível.
+category: Banco de dados
+module:
+  source: terraform-aws-modules/rds-aurora/aws
+  version: 9.10.0
+parameters:
+  - id: engine
+    title: Engine
+    type: string
+    default: aurora-postgresql
+    enum: [aurora-postgresql, aurora-mysql]
+  - id: instanceClass
+    title: Classe da instância
+    type: string
+    default: db.r6g.large
+    enum: [db.r6g.large, db.r6g.xlarge, db.r6g.2xlarge]
+  - id: instances
+    title: Instâncias no cluster
+    type: number
+    default: 2
+    help: A primeira é escrita, as demais são réplicas de leitura.
+inputs:
+  name: local.name
+  engine: '"${{ values.engine }}"'
+  instances: '{ for i in range(${{ values.instances }}) : tostring(i) => { instance_class = "${{ values.instanceClass }}" } }'
+  manage_master_user_password: 'true'
+  skip_final_snapshot: 'var.ambiente != "prd"'

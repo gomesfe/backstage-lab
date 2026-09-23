@@ -16,8 +16,9 @@ scripts/            o pipeline que valida e pluga as telas no front
 templates/          software template "Tela estática" (abre PR com a tela nova)
 ```
 
-Permissões, login e API keys estão em [`docs/rbac.md`](docs/rbac.md) e
-[`plugins/README.md`](plugins/README.md).
+Permissões e login em [`docs/rbac.md`](docs/rbac.md), plugins em
+[`plugins/README.md`](plugins/README.md), software templates em
+[`docs/templates.md`](docs/templates.md).
 
 `packages/app` e `packages/backend` são dois deployables independentes — é
 assim que o Backstage separa front e back. Eles moram no mesmo repo porque

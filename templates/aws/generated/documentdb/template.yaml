@@ -1,0 +1,104 @@
+# GERADO POR scripts/generate-aws-templates.mjs — NÃO EDITE À MÃO.
+# Fonte: templates/aws/specs/documentdb.yaml
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: atlas-template-documentdb
+  title: DocumentDB
+  description: Cluster compatível com MongoDB, gerenciado pela AWS.
+  tags:
+    - aws
+    - terraform
+    - documentdb
+  annotations:
+    atlas.nuclea.com.br/categoria: Banco de dados
+spec:
+  owner: group:default/plataforma
+  type: resource
+  parameters:
+    - title: O recurso
+      required:
+        - nome
+        - squad
+        - ambiente
+      properties:
+        nome:
+          title: Nome do recurso
+          type: string
+          description: kebab-case. Entra no nome final junto com squad e ambiente.
+          pattern: ^[a-z0-9]+(-[a-z0-9]+)*$
+          ui:autofocus: true
+        squad:
+          title: Squad dona
+          type: string
+          ui:field: OwnerPicker
+          ui:options:
+            catalogFilter:
+              kind: Group
+        ambiente:
+          title: Ambiente
+          type: string
+          default: dev
+          enum:
+            - dev
+            - hml
+            - prd
+    - title: DocumentDB
+      properties:
+        instanceClass:
+          title: Classe da instância
+          type: string
+          enum:
+            - db.t4g.medium
+            - db.r6g.large
+            - db.r6g.xlarge
+          default: db.t4g.medium
+        instances:
+          title: Instâncias no cluster
+          type: number
+          default: 1
+    - title: Onde publicar
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repositório de infraestrutura
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+  steps:
+    - id: fetch
+      name: Gerar o Terraform
+      action: fetch:template
+      input:
+        url: ./skeleton
+        targetPath: ${{ values.squad | replace("group:default/", "") }}/${{ values.nome }}/${{ values.ambiente }}
+        values:
+          nome: ${{ parameters.nome }}
+          squad: ${{ parameters.squad }}
+          ambiente: ${{ parameters.ambiente }}
+          repoUrl: ${{ parameters.repoUrl }}
+          instanceClass: ${{ parameters.instanceClass }}
+          instances: ${{ parameters.instances }}
+    - id: pr
+      name: Abrir PR na infraestrutura
+      action: publish:github:pull-request
+      input:
+        repoUrl: ${{ parameters.repoUrl }}
+        branchName: atlas/${{ parameters.nome }}-${{ parameters.ambiente }}
+        title: "feat(documentdb): ${{ parameters.nome }} em ${{ parameters.ambiente }}"
+        description: |-
+          DocumentDB pedido pelo portal.
+
+          - módulo: `terraform-aws-modules/documentdb-cluster/aws` v5.2.0
+          - squad: `${{ parameters.squad }}`
+          - ambiente: `${{ parameters.ambiente }}`
+
+          O portal **não aplica** nada. Depois do merge, o pipeline deste
+          repositório roda o `terraform apply`.
+  output:
+    links:
+      - title: Ver o Pull Request
+        url: ${{ steps.pr.output.remoteUrl }}

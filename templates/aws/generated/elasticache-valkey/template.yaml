@@ -1,0 +1,104 @@
+# GERADO POR scripts/generate-aws-templates.mjs — NÃO EDITE À MÃO.
+# Fonte: templates/aws/specs/elasticache-valkey.yaml
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: atlas-template-elasticache-valkey
+  title: Cache Valkey
+  description: Cache em memória compatível com Redis, via ElastiCache.
+  tags:
+    - aws
+    - terraform
+    - elasticache-valkey
+  annotations:
+    atlas.nuclea.com.br/categoria: Armazenamento
+spec:
+  owner: group:default/plataforma
+  type: resource
+  parameters:
+    - title: O recurso
+      required:
+        - nome
+        - squad
+        - ambiente
+      properties:
+        nome:
+          title: Nome do recurso
+          type: string
+          description: kebab-case. Entra no nome final junto com squad e ambiente.
+          pattern: ^[a-z0-9]+(-[a-z0-9]+)*$
+          ui:autofocus: true
+        squad:
+          title: Squad dona
+          type: string
+          ui:field: OwnerPicker
+          ui:options:
+            catalogFilter:
+              kind: Group
+        ambiente:
+          title: Ambiente
+          type: string
+          default: dev
+          enum:
+            - dev
+            - hml
+            - prd
+    - title: Cache Valkey
+      properties:
+        nodeType:
+          title: Tipo do nó
+          type: string
+          enum:
+            - cache.t4g.micro
+            - cache.t4g.small
+            - cache.r7g.large
+          default: cache.t4g.micro
+        numNodes:
+          title: Número de nós
+          type: number
+          default: 1
+    - title: Onde publicar
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repositório de infraestrutura
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+  steps:
+    - id: fetch
+      name: Gerar o Terraform
+      action: fetch:template
+      input:
+        url: ./skeleton
+        targetPath: ${{ values.squad | replace("group:default/", "") }}/${{ values.nome }}/${{ values.ambiente }}
+        values:
+          nome: ${{ parameters.nome }}
+          squad: ${{ parameters.squad }}
+          ambiente: ${{ parameters.ambiente }}
+          repoUrl: ${{ parameters.repoUrl }}
+          nodeType: ${{ parameters.nodeType }}
+          numNodes: ${{ parameters.numNodes }}
+    - id: pr
+      name: Abrir PR na infraestrutura
+      action: publish:github:pull-request
+      input:
+        repoUrl: ${{ parameters.repoUrl }}
+        branchName: atlas/${{ parameters.nome }}-${{ parameters.ambiente }}
+        title: "feat(elasticache-valkey): ${{ parameters.nome }} em ${{ parameters.ambiente }}"
+        description: |-
+          Cache Valkey pedido pelo portal.
+
+          - módulo: `terraform-aws-modules/elasticache/aws` v1.4.1
+          - squad: `${{ parameters.squad }}`
+          - ambiente: `${{ parameters.ambiente }}`
+
+          O portal **não aplica** nada. Depois do merge, o pipeline deste
+          repositório roda o `terraform apply`.
+  output:
+    links:
+      - title: Ver o Pull Request
+        url: ${{ steps.pr.output.remoteUrl }}

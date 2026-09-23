@@ -1,0 +1,23 @@
+slug: documentdb
+title: DocumentDB
+description: Cluster compatível com MongoDB, gerenciado pela AWS.
+category: Banco de dados
+module:
+  source: terraform-aws-modules/documentdb-cluster/aws
+  version: 5.2.0
+parameters:
+  - id: instanceClass
+    title: Classe da instância
+    type: string
+    default: db.t4g.medium
+    enum: [db.t4g.medium, db.r6g.large, db.r6g.xlarge]
+  - id: instances
+    title: Instâncias no cluster
+    type: number
+    default: 1
+inputs:
+  cluster_identifier: local.name
+  instance_class: '"${{ values.instanceClass }}"'
+  cluster_size: '${{ values.instances }}'
+  storage_encrypted: 'true'
+  skip_final_snapshot: 'var.ambiente != "prd"'

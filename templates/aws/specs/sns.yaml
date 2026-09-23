@@ -1,0 +1,15 @@
+slug: sns
+title: Tópico SNS
+description: Tópico de notificação, para fan-out de eventos.
+category: Mensageria
+module:
+  source: terraform-aws-modules/sns/aws
+  version: 6.1.2
+parameters:
+  - id: fifo
+    title: FIFO
+    type: boolean
+    default: false
+inputs:
+  name: local.name
+  fifo_topic: '${{ values.fifo }}'

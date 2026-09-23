@@ -1,0 +1,23 @@
+slug: efs
+title: Elastic File System
+description: Sistema de arquivos compartilhado entre instâncias e containers.
+category: Armazenamento
+module:
+  source: terraform-aws-modules/efs/aws
+  version: 1.6.5
+parameters:
+  - id: performanceMode
+    title: Modo de performance
+    type: string
+    default: generalPurpose
+    enum: [generalPurpose, maxIO]
+  - id: transitionToIa
+    title: Mover para acesso infrequente após
+    type: string
+    default: AFTER_30_DAYS
+    enum: [AFTER_7_DAYS, AFTER_30_DAYS, AFTER_90_DAYS]
+inputs:
+  name: local.name
+  performance_mode: '"${{ values.performanceMode }}"'
+  encrypted: 'true'
+  lifecycle_policy: '{ transition_to_ia = "${{ values.transitionToIa }}" }'

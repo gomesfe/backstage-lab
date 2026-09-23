@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: ${{ values.squad | replace("group:default/", "") }}-${{ values.nome }}-${{ values.ambiente }}
+  description: Aurora com capacidade provisionada provisionado pelo Atlas
+  annotations:
+    atlas.nuclea.com.br/recurso: aurora-provisioned
+    atlas.nuclea.com.br/ambiente: ${{ values.ambiente }}
+  tags:
+    - aws
+    - aurora-provisioned
+    - ${{ values.ambiente }}
+spec:
+  type: aurora-provisioned
+  owner: ${{ values.squad }}
+  system: infraestrutura

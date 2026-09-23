@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: ${{ values.squad | replace("group:default/", "") }}-${{ values.nome }}-${{ values.ambiente }}
+  description: Pub/Sub (SNS + SQS) provisionado pelo Atlas
+  annotations:
+    atlas.nuclea.com.br/recurso: pubsub
+    atlas.nuclea.com.br/ambiente: ${{ values.ambiente }}
+  tags:
+    - aws
+    - pubsub
+    - ${{ values.ambiente }}
+spec:
+  type: pubsub
+  owner: ${{ values.squad }}
+  system: infraestrutura

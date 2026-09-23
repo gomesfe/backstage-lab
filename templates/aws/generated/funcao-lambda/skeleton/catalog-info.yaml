@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: ${{ values.squad | replace("group:default/", "") }}-${{ values.nome }}-${{ values.ambiente }}
+  description: Função Lambda provisionado pelo Atlas
+  annotations:
+    atlas.nuclea.com.br/recurso: funcao-lambda
+    atlas.nuclea.com.br/ambiente: ${{ values.ambiente }}
+  tags:
+    - aws
+    - funcao-lambda
+    - ${{ values.ambiente }}
+spec:
+  type: funcao-lambda
+  owner: ${{ values.squad }}
+  system: infraestrutura

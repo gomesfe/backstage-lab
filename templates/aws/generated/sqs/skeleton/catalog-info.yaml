@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: ${{ values.squad | replace("group:default/", "") }}-${{ values.nome }}-${{ values.ambiente }}
+  description: Fila SQS provisionado pelo Atlas
+  annotations:
+    atlas.nuclea.com.br/recurso: sqs
+    atlas.nuclea.com.br/ambiente: ${{ values.ambiente }}
+  tags:
+    - aws
+    - sqs
+    - ${{ values.ambiente }}
+spec:
+  type: sqs
+  owner: ${{ values.squad }}
+  system: infraestrutura

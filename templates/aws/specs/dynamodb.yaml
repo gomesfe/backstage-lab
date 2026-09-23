@@ -1,0 +1,32 @@
+slug: dynamodb
+title: Tabela DynamoDB
+description: Tabela NoSQL serverless, cobrada por requisição ou capacidade.
+category: Banco de dados
+module:
+  source: terraform-aws-modules/dynamodb-table/aws
+  version: 4.2.0
+parameters:
+  - id: hashKey
+    title: Chave de partição
+    type: string
+    help: 'Atributo que distribui os dados. ex: pedidoId'
+  - id: rangeKey
+    title: Chave de ordenação
+    type: string
+    default: ''
+    help: Opcional. Deixe vazio se a chave de partição já é única.
+  - id: billingMode
+    title: Cobrança
+    type: string
+    default: PAY_PER_REQUEST
+    enum: [PAY_PER_REQUEST, PROVISIONED]
+  - id: pointInTimeRecovery
+    title: Point-in-time recovery
+    type: boolean
+    default: true
+inputs:
+  name: local.name
+  hash_key: '"${{ values.hashKey }}"'
+  billing_mode: '"${{ values.billingMode }}"'
+  point_in_time_recovery_enabled: '${{ values.pointInTimeRecovery }}'
+  attributes: '[{ name = "${{ values.hashKey }}", type = "S" }]'

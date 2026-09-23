@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: ${{ values.squad | replace("group:default/", "") }}-${{ values.nome }}-${{ values.ambiente }}
+  description: Tabela DynamoDB provisionado pelo Atlas
+  annotations:
+    atlas.nuclea.com.br/recurso: dynamodb
+    atlas.nuclea.com.br/ambiente: ${{ values.ambiente }}
+  tags:
+    - aws
+    - dynamodb
+    - ${{ values.ambiente }}
+spec:
+  type: dynamodb
+  owner: ${{ values.squad }}
+  system: infraestrutura

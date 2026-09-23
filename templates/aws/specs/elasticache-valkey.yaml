@@ -1,0 +1,23 @@
+slug: elasticache-valkey
+title: Cache Valkey
+description: Cache em memória compatível com Redis, via ElastiCache.
+category: Armazenamento
+module:
+  source: terraform-aws-modules/elasticache/aws
+  version: 1.4.1
+parameters:
+  - id: nodeType
+    title: Tipo do nó
+    type: string
+    default: cache.t4g.micro
+    enum: [cache.t4g.micro, cache.t4g.small, cache.r7g.large]
+  - id: numNodes
+    title: Número de nós
+    type: number
+    default: 1
+inputs:
+  cluster_id: local.name
+  engine: '"valkey"'
+  node_type: '"${{ values.nodeType }}"'
+  num_cache_nodes: '${{ values.numNodes }}'
+  transit_encryption_enabled: 'true'

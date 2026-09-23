@@ -1,0 +1,34 @@
+slug: aurora
+title: Aurora Serverless v2
+description: Cluster Aurora com capacidade elástica, cobrado por ACU.
+category: Banco de dados
+module:
+  source: terraform-aws-modules/rds-aurora/aws
+  version: 9.10.0
+parameters:
+  - id: engine
+    title: Engine
+    type: string
+    default: aurora-postgresql
+    enum: [aurora-postgresql, aurora-mysql]
+  - id: minCapacity
+    title: Capacidade mínima (ACU)
+    type: number
+    default: 0.5
+  - id: maxCapacity
+    title: Capacidade máxima (ACU)
+    type: number
+    default: 4
+    help: Teto de gasto. Uma ACU ≈ 2 GiB de memória.
+  - id: instances
+    title: Instâncias no cluster
+    type: number
+    default: 1
+inputs:
+  name: local.name
+  engine: '"${{ values.engine }}"'
+  engine_mode: '"provisioned"'
+  serverlessv2_scaling_configuration: '{ min_capacity = ${{ values.minCapacity }}, max_capacity = ${{ values.maxCapacity }} }'
+  instances: '{ for i in range(${{ values.instances }}) : tostring(i) => { instance_class = "db.serverless" } }'
+  manage_master_user_password: 'true'
+  skip_final_snapshot: 'var.ambiente != "prd"'

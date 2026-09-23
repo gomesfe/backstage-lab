@@ -1,0 +1,102 @@
+# GERADO POR scripts/generate-aws-templates.mjs — NÃO EDITE À MÃO.
+# Fonte: templates/aws/specs/s3.yaml
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: atlas-template-s3
+  title: Bucket S3
+  description: Bucket de objetos, privado e versionado por padrão.
+  tags:
+    - aws
+    - terraform
+    - s3
+  annotations:
+    atlas.nuclea.com.br/categoria: Armazenamento
+spec:
+  owner: group:default/plataforma
+  type: resource
+  parameters:
+    - title: O recurso
+      required:
+        - nome
+        - squad
+        - ambiente
+      properties:
+        nome:
+          title: Nome do recurso
+          type: string
+          description: kebab-case. Entra no nome final junto com squad e ambiente.
+          pattern: ^[a-z0-9]+(-[a-z0-9]+)*$
+          ui:autofocus: true
+        squad:
+          title: Squad dona
+          type: string
+          ui:field: OwnerPicker
+          ui:options:
+            catalogFilter:
+              kind: Group
+        ambiente:
+          title: Ambiente
+          type: string
+          default: dev
+          enum:
+            - dev
+            - hml
+            - prd
+    - title: Bucket S3
+      properties:
+        versioning:
+          title: Versionamento
+          type: boolean
+          description: Guarda versões anteriores dos objetos. Protege contra sobrescrita.
+          default: true
+        expirationDays:
+          title: Expirar objetos após (dias)
+          type: number
+          description: Zero mantém para sempre.
+          default: 0
+    - title: Onde publicar
+      required:
+        - repoUrl
+      properties:
+        repoUrl:
+          title: Repositório de infraestrutura
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+  steps:
+    - id: fetch
+      name: Gerar o Terraform
+      action: fetch:template
+      input:
+        url: ./skeleton
+        targetPath: ${{ values.squad | replace("group:default/", "") }}/${{ values.nome }}/${{ values.ambiente }}
+        values:
+          nome: ${{ parameters.nome }}
+          squad: ${{ parameters.squad }}
+          ambiente: ${{ parameters.ambiente }}
+          repoUrl: ${{ parameters.repoUrl }}
+          versioning: ${{ parameters.versioning }}
+          expirationDays: ${{ parameters.expirationDays }}
+    - id: pr
+      name: Abrir PR na infraestrutura
+      action: publish:github:pull-request
+      input:
+        repoUrl: ${{ parameters.repoUrl }}
+        branchName: atlas/${{ parameters.nome }}-${{ parameters.ambiente }}
+        title: "feat(s3): ${{ parameters.nome }} em ${{ parameters.ambiente }}"
+        description: |-
+          Bucket S3 pedido pelo portal.
+
+          - módulo: `terraform-aws-modules/s3-bucket/aws` v4.2.2
+          - squad: `${{ parameters.squad }}`
+          - ambiente: `${{ parameters.ambiente }}`
+
+          O portal **não aplica** nada. Depois do merge, o pipeline deste
+          repositório roda o `terraform apply`.
+  output:
+    links:
+      - title: Ver o Pull Request
+        url: ${{ steps.pr.output.remoteUrl }}

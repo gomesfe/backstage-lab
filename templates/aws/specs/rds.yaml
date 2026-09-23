@@ -1,0 +1,42 @@
+slug: rds
+title: Banco relacional RDS
+description: Instância RDS gerenciada, para Postgres ou MySQL.
+category: Banco de dados
+module:
+  source: terraform-aws-modules/rds/aws
+  version: 6.10.0
+parameters:
+  - id: engine
+    title: Engine
+    type: string
+    default: postgres
+    enum: [postgres, mysql]
+  - id: engineVersion
+    title: Versão da engine
+    type: string
+    default: '16.3'
+  - id: instanceClass
+    title: Classe da instância
+    type: string
+    default: db.t4g.medium
+    enum: [db.t4g.medium, db.t4g.large, db.m6g.large, db.m6g.xlarge]
+  - id: allocatedStorage
+    title: Armazenamento (GB)
+    type: number
+    default: 50
+  - id: multiAz
+    title: Multi-AZ
+    type: boolean
+    default: false
+    help: Ligue em produção. Dobra o custo e remove o ponto único de falha.
+inputs:
+  identifier: local.name
+  engine: '"${{ values.engine }}"'
+  engine_version: '"${{ values.engineVersion }}"'
+  instance_class: '"${{ values.instanceClass }}"'
+  allocated_storage: '${{ values.allocatedStorage }}'
+  multi_az: '${{ values.multiAz }}'
+  db_name: 'replace(local.name, "-", "_")'
+  manage_master_user_password: 'true'
+  skip_final_snapshot: 'var.ambiente != "prd"'
+  deletion_protection: 'var.ambiente == "prd"'

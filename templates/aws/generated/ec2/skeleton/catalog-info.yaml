@@ -1,0 +1,16 @@
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: ${{ values.squad | replace("group:default/", "") }}-${{ values.nome }}-${{ values.ambiente }}
+  description: Instância EC2 provisionado pelo Atlas
+  annotations:
+    atlas.nuclea.com.br/recurso: ec2
+    atlas.nuclea.com.br/ambiente: ${{ values.ambiente }}
+  tags:
+    - aws
+    - ec2
+    - ${{ values.ambiente }}
+spec:
+  type: ec2
+  owner: ${{ values.squad }}
+  system: infraestrutura

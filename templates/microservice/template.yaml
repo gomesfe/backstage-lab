@@ -1,0 +1,97 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: atlas-template-microservice
+  title: Microserviço
+  description: |
+    Cria um repositório novo com o esqueleto de um microserviço: healthcheck,
+    Dockerfile, pipeline e catalog-info já registrado no portal.
+  tags:
+    - desenvolvimento
+    - microservico
+  annotations:
+    atlas.nuclea.com.br/categoria: Desenvolvimento
+spec:
+  owner: group:default/plataforma
+  type: service
+
+  parameters:
+    - title: O serviço
+      required: [nome, descricao, squad]
+      properties:
+        nome:
+          title: Nome do serviço
+          type: string
+          pattern: '^[a-z0-9]+(-[a-z0-9]+)*$'
+          ui:autofocus: true
+        descricao:
+          title: O que ele faz
+          type: string
+          description: Uma frase. Vira a descrição no catálogo.
+        squad:
+          title: Squad dona
+          type: string
+          ui:field: OwnerPicker
+          ui:options:
+            catalogFilter:
+              kind: Group
+        runtime:
+          title: Runtime
+          type: string
+          default: node
+          enum: [node, java, python]
+        porta:
+          title: Porta HTTP
+          type: number
+          default: 8080
+
+    - title: Onde criar
+      required: [repoUrl]
+      properties:
+        repoUrl:
+          title: Repositório novo
+          type: string
+          ui:field: RepoUrlPicker
+          ui:options:
+            allowedHosts:
+              - github.com
+
+  steps:
+    - id: fetch
+      name: Gerar o esqueleto
+      action: fetch:template
+      input:
+        url: ./skeleton
+        values:
+          nome: ${{ parameters.nome }}
+          descricao: ${{ parameters.descricao }}
+          squad: ${{ parameters.squad }}
+          runtime: ${{ parameters.runtime }}
+          porta: ${{ parameters.porta }}
+          repoUrl: ${{ parameters.repoUrl }}
+
+    - id: publish
+      name: Criar o repositório
+      action: publish:github
+      input:
+        repoUrl: ${{ parameters.repoUrl }}
+        description: ${{ parameters.descricao }}
+        defaultBranch: main
+        repoVisibility: private
+        # Serviço sem dono no GitHub vira serviço órfão na primeira férias.
+        access: ${{ parameters.squad | replace("group:default/", "") }}
+
+    - id: register
+      name: Registrar no catálogo
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: /catalog-info.yaml
+
+  output:
+    links:
+      - title: Repositório
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Ver no catálogo
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}

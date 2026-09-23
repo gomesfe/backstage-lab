@@ -1,0 +1,30 @@
+slug: pubsub
+title: Pub/Sub (SNS + SQS)
+description: Tópico SNS já ligado a uma fila SQS, o padrão de fan-out da casa.
+category: Mensageria
+module:
+  source: terraform-aws-modules/sns/aws
+  version: 6.1.2
+parameters:
+  - id: subscriberQueue
+    title: Nome da fila assinante
+    type: string
+    help: 'A fila que recebe as mensagens. ex: processador-pedidos'
+  - id: rawMessageDelivery
+    title: Entrega sem envelope
+    type: boolean
+    default: true
+    help: Sem isso, a fila recebe a mensagem embrulhada em metadados do SNS.
+inputs:
+  name: local.name
+  subscriptions: '{ fila = { protocol = "sqs", endpoint = module.fila.queue_arn, raw_message_delivery = ${{ values.rawMessageDelivery }} } }'
+extraHcl: |
+  module "fila" {
+    source  = "terraform-aws-modules/sqs/aws"
+    version = "4.2.1"
+
+    name       = "${local.name}-${{ values.subscriberQueue }}"
+    create_dlq = true
+
+    tags = local.tags
+  }
