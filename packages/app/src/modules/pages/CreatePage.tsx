@@ -1,74 +1,30 @@
 import { useMemo, useState } from 'react';
 import useAsync from 'react-use/lib/useAsync';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 import { useApi } from '@backstage/core-plugin-api';
 import { catalogApiRef } from '@backstage/plugin-catalog-react';
 import { ScaffolderPage } from '@backstage/plugin-scaffolder';
-import { Progress, ResponseErrorPanel } from '@backstage/core-components';
+import { ResponseErrorPanel } from '@backstage/core-components';
 import {
   AtlasPage,
   Badge,
   CardGrid,
   FeatureCard,
-  atlasTokens,
+  Pill,
 } from '@internal/plugin-components';
-
-const { radius } = atlasTokens;
 
 const CATEGORY_ANNOTATION = 'atlas.nuclea.com.br/categoria';
 const UNCATEGORIZED = 'Outros';
 
-const useStyles = makeStyles(theme => ({
-  filters: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 8,
-    flexWrap: 'wrap',
-    background: theme.palette.background.paper,
-    border: `1px solid ${theme.palette.divider}`,
-    borderRadius: radius.lg,
-    padding: '10px 14px',
-  },
-  search: { minWidth: 240, flex: 1 },
-  pill: {
-    border: `1px solid ${theme.palette.divider}`,
-    background: 'transparent',
-    color: theme.palette.text.secondary,
-    borderRadius: radius.pill,
-    padding: '6px 12px',
-    fontSize: '0.78rem',
-    fontWeight: 700,
-    cursor: 'pointer',
-    '&:hover': { background: theme.palette.action.hover },
-  },
-  pillActive: {
-    background: atlasTokens.brand.lime,
-    borderColor: atlasTokens.brand.lime,
-    color: atlasTokens.brand.limeText,
-    '&:hover': { background: atlasTokens.brand.lime },
-  },
-  groupTitle: {
-    fontSize: '0.95rem',
-    fontWeight: 800,
-    color: theme.palette.text.primary,
-    margin: '4px 0 0',
-  },
-  group: { display: 'flex', flexDirection: 'column', gap: 12 },
-  tags: { display: 'flex', gap: 6, flexWrap: 'wrap' },
-}));
-
 /**
- * Galeria de templates, agrupada por categoria.
+ * Galeria de templates, portada de `CreatePage.tsx` do redesign, agrupada
+ * por categoria.
  *
  * Os templates de recurso AWS já carregam a anotação de categoria; os demais
  * caem em "Outros". Agrupar importa a partir de uma dúzia de templates — uma
  * lista chapada de 18 cartões não ajuda ninguém a achar o que quer.
  */
 function TemplateGallery() {
-  const classes = useStyles();
   const catalogApi = useApi(catalogApiRef);
   const navigate = useNavigate();
   const [query, setQuery] = useState('');
@@ -128,35 +84,40 @@ function TemplateGallery() {
       title="Create"
       subtitle="Escolha um template para provisionar recursos, criar repositórios ou registrar entidades."
       actions={
-        <Button variant="outlined" onClick={() => navigate('/create/tasks')}>
+        <button
+          type="button"
+          className="atlas-btnPill"
+          onClick={() => navigate('/create/tasks')}
+        >
           Ver tarefas
-        </Button>
+        </button>
       }
     >
-      <div className={classes.filters}>
-        <TextField
-          className={classes.search}
-          size="small"
-          variant="outlined"
-          placeholder="Buscar template"
-          value={query}
-          onChange={event => setQuery(event.target.value)}
-        />
+      <div className="atlas-filtersBar">
+        <div className="atlas-searchFieldWrap" style={{ flex: 1, minWidth: 200 }}>
+          <input
+            className="atlas-filterInput"
+            style={{ width: '100%' }}
+            placeholder="Buscar template"
+            value={query}
+            onChange={event => setQuery(event.target.value)}
+          />
+        </div>
         {['Todas', ...categories].map(c => (
-          <button
-            key={c}
-            type="button"
-            className={`${classes.pill} ${
-              category === c ? classes.pillActive : ''
-            }`}
-            onClick={() => setCategory(c)}
-          >
+          <Pill key={c} active={category === c} onClick={() => setCategory(c)}>
             {c}
-          </button>
+          </Pill>
         ))}
       </div>
 
-      {loading && <Progress />}
+      {loading && (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+          {Array.from({ length: 3 }).map((_, index) => (
+            // eslint-disable-next-line react/no-array-index-key
+            <div key={index} className="atlas-skeletonLine" style={{ width: `${85 - index * 10}%` }} />
+          ))}
+        </div>
+      )}
 
       {!loading && grouped.length === 0 && (
         <FeatureCard
@@ -166,8 +127,10 @@ function TemplateGallery() {
       )}
 
       {grouped.map(([groupName, groupTemplates]) => (
-        <div key={groupName} className={classes.group}>
-          <h2 className={classes.groupTitle}>{groupName}</h2>
+        <div key={groupName} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+          <h2 style={{ fontSize: '0.95rem', fontWeight: 800, color: 'var(--text-primary)', margin: '4px 0 0' }}>
+            {groupName}
+          </h2>
           <CardGrid>
             {groupTemplates.map(template => {
               const name = template.metadata.name;
@@ -182,22 +145,21 @@ function TemplateGallery() {
                   body={template.metadata.description}
                   footer={
                     <>
-                      <span className={classes.tags}>
-                        {(template.metadata.tags ?? []).slice(0, 3).join(' · ')}
+                      <span style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+                        {(template.metadata.tags ?? []).slice(0, 3).map(t => (
+                          <span key={t} className="atlas-tagChip">{t}</span>
+                        ))}
                       </span>
-                      <Button
-                        size="small"
-                        variant="contained"
-                        color="primary"
+                      <button
+                        type="button"
+                        className="atlas-btnPill atlas-btnPillLime"
                         style={{ marginLeft: 'auto' }}
                         onClick={() =>
-                          navigate(
-                            `/create/templates/${namespace}/${name}`,
-                          )
+                          navigate(`/create/templates/${namespace}/${name}`)
                         }
                       >
                         Choose
-                      </Button>
+                      </button>
                     </>
                   }
                 />

@@ -2,22 +2,11 @@ import { useMemo, useState } from 'react';
 import useAsync from 'react-use/lib/useAsync';
 import useDebounce from 'react-use/lib/useDebounce';
 import { useNavigate } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import TextField from '@material-ui/core/TextField';
 import ArrowIcon from '@material-ui/icons/CallMade';
 import { useApi } from '@backstage/core-plugin-api';
 import { searchApiRef } from '@backstage/plugin-search-react';
-import { Progress, ResponseErrorPanel } from '@backstage/core-components';
-import {
-  AtlasPage,
-  Badge,
-  atlasTokens,
-  type BadgeVariant,
-} from '@internal/plugin-components';
-
-const { radius } = atlasTokens;
+import { ResponseErrorPanel } from '@backstage/core-components';
+import { AtlasPage, Badge, Tabs, type BadgeVariant } from '@internal/plugin-components';
 
 const TYPE_VARIANT: Record<string, BadgeVariant> = {
   'software-catalog': 'lime',
@@ -30,58 +19,14 @@ const FILTERS = [
   { id: 'techdocs', label: 'Docs' },
 ];
 
-const useStyles = makeStyles(theme => ({
-  card: {
-    background: theme.palette.background.paper,
-    border: `1px solid ${theme.palette.divider}`,
-    borderRadius: radius.lg,
-    padding: '16px 20px',
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 12,
-  },
-  result: {
-    display: 'flex',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
-    gap: 12,
-    padding: '12px 0',
-    borderBottom: `1px solid ${theme.palette.divider}`,
-    cursor: 'pointer',
-    '&:last-child': { borderBottom: 0 },
-    '&:hover $title': { color: atlasTokens.brand.lime },
-  },
-  title: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 8,
-    fontWeight: 700,
-    fontSize: '0.9rem',
-    color: theme.palette.text.primary,
-  },
-  snippet: {
-    fontSize: '0.8rem',
-    color: theme.palette.text.secondary,
-    lineHeight: 1.5,
-    marginTop: 4,
-  },
-  count: { fontSize: '0.78rem', color: theme.palette.text.disabled },
-  empty: {
-    padding: '24px 0',
-    color: theme.palette.text.secondary,
-    fontSize: '0.86rem',
-  },
-}));
-
 /**
- * Busca global.
+ * Busca global, portada de `SearchPage.tsx` do redesign.
  *
- * Usa o índice de busca do Backstage, que já indexa catálogo e TechDocs.
- * O design mostra resultados mock; trocar por busca real é o que faz a tela
+ * Usa o índice de busca do Backstage, que já indexa catálogo e TechDocs. O
+ * design mostra resultados mock; trocar por busca real é o que faz a tela
  * valer — uma busca que não encontra o que existe é pior que nenhuma.
  */
 export function AtlasSearchPage() {
-  const classes = useStyles();
   const searchApi = useApi(searchApiRef);
   const navigate = useNavigate();
 
@@ -107,75 +52,74 @@ export function AtlasSearchPage() {
       title="Buscar"
       subtitle="Encontre serviços, APIs e documentação em todo o portal."
     >
-      <div className={classes.card}>
-        <TextField
-          fullWidth
-          size="small"
-          variant="outlined"
-          autoFocus
-          placeholder="Buscar no Atlas…"
-          value={term}
-          onChange={event => setTerm(event.target.value)}
-        />
+      <section className="atlas-tableContainerCard">
+        <div className="atlas-searchFieldWrap" style={{ width: '100%' }}>
+          <input
+            className="atlas-filterInput"
+            style={{ width: '100%' }}
+            autoFocus
+            placeholder="Buscar no Atlas…"
+            value={term}
+            onChange={e => setTerm(e.target.value)}
+          />
+        </div>
 
         <Tabs
-          value={FILTERS.findIndex(f => f.id === type)}
-          onChange={(_, index) => setType(FILTERS[index].id)}
-          indicatorColor="primary"
-          textColor="primary"
-        >
-          {FILTERS.map(filter => (
-            <Tab key={filter.id || 'all'} label={filter.label} />
-          ))}
-        </Tabs>
+          tabs={FILTERS.map(f => ({ id: f.id || 'all', label: f.label }))}
+          active={type || 'all'}
+          onChange={id => setType(id === 'all' ? '' : id)}
+        />
 
         {error && <ResponseErrorPanel error={error} />}
 
-        {!error && loading && <Progress />}
+        {!error && loading && (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {Array.from({ length: 3 }).map((_, index) => (
+              // eslint-disable-next-line react/no-array-index-key
+              <div key={index} className="atlas-skeletonLine" style={{ width: `${85 - index * 10}%` }} />
+            ))}
+          </div>
+        )}
 
         {!error && !loading && !debounced.trim() && (
-          <div className={classes.empty}>
+          <div className="atlas-emptyState">
             Digite para buscar no catálogo e na documentação.
           </div>
         )}
 
         {!error && !loading && debounced.trim() && results.length === 0 && (
-          <div className={classes.empty}>
+          <div className="atlas-emptyState">
             Nenhum resultado para “{debounced}”.
           </div>
         )}
 
         {!error && !loading && results.length > 0 && (
-          <>
-            <span className={classes.count}>
-              {results.length} resultado(s)
-            </span>
+          <div className="atlas-usefulLinksList">
+            <span className="atlas-paginationInfo">{results.length} resultado(s)</span>
             {results.map((result, index) => (
-              <div
+              <a
                 key={`${result.document.location}-${index}`}
-                className={classes.result}
-                role="link"
-                tabIndex={0}
+                className="atlas-usefulLinkItem"
+                style={{ alignItems: 'flex-start' }}
                 onClick={() => navigate(result.document.location)}
-                onKeyDown={e =>
-                  e.key === 'Enter' && navigate(result.document.location)
-                }
               >
-                <div>
-                  <div className={classes.title}>
+                <span style={{ display: 'flex', flexDirection: 'column', gap: 4, minWidth: 0 }}>
+                  <span style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     {result.document.title}
                     <Badge variant={TYPE_VARIANT[result.type] ?? 'purple'}>
                       {result.type}
                     </Badge>
-                  </div>
-                  <div className={classes.snippet}>{result.document.text}</div>
-                </div>
-                <ArrowIcon fontSize="small" />
-              </div>
+                  </span>
+                  <span className="atlas-homeUpdateMeta" style={{ fontWeight: 400 }}>
+                    {result.document.text}
+                  </span>
+                </span>
+                <ArrowIcon style={{ fontSize: 16 }} />
+              </a>
             ))}
-          </>
+          </div>
         )}
-      </div>
+      </section>
     </AtlasPage>
   );
 }

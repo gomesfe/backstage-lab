@@ -1,9 +1,6 @@
 import { useMemo, useState } from 'react';
 import useAsync from 'react-use/lib/useAsync';
 import { useNavigate } from 'react-router-dom';
-import { makeStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
 import StarIcon from '@material-ui/icons/Star';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 import OpenIcon from '@material-ui/icons/OpenInNew';
@@ -14,13 +11,10 @@ import {
   AtlasPage,
   Badge,
   DataTable,
-  atlasTokens,
   type BadgeVariant,
   type Column,
 } from '@internal/plugin-components';
 import type { Entity } from '@backstage/catalog-model';
-
-const { radius, status } = atlasTokens;
 
 const LIFECYCLE_VARIANT: Record<string, BadgeVariant> = {
   production: 'lime',
@@ -39,55 +33,11 @@ export type EntityRow = {
   path: string;
 };
 
-const useStyles = makeStyles(theme => ({
-  filters: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: 12,
-    flexWrap: 'wrap',
-    background: theme.palette.background.paper,
-    border: `1px solid ${theme.palette.divider}`,
-    borderRadius: radius.lg,
-    padding: '10px 14px',
-  },
-  search: { minWidth: 240, flex: 1 },
-  select: { minWidth: 150 },
-  count: {
-    marginLeft: 'auto',
-    fontSize: '0.78rem',
-    color: theme.palette.text.disabled,
-    fontWeight: 700,
-  },
-  chips: { display: 'flex', gap: 4, flexWrap: 'wrap' },
-  chip: {
-    background: theme.palette.action.hover,
-    borderRadius: radius.pill,
-    padding: '2px 8px',
-    fontSize: '0.7rem',
-    color: theme.palette.text.secondary,
-  },
-  actions: {
-    display: 'flex',
-    gap: 4,
-    justifyContent: 'flex-end',
-  },
-  iconBtn: {
-    background: 'transparent',
-    border: 0,
-    cursor: 'pointer',
-    color: theme.palette.text.secondary,
-    padding: 4,
-    '&:hover': { color: theme.palette.text.primary },
-  },
-  name: { fontWeight: 700 },
-}));
-
 /**
- * Lista de entidades do catálogo em tabela, com filtros.
- *
- * Catálogo, APIs e Docs são a mesma tela com um filtro de kind diferente —
- * no design também. Uma implementação só evita que os filtros e as colunas
- * divirjam entre elas com o tempo.
+ * Lista de entidades do catálogo em tabela, com filtros — portada de
+ * `CatalogPage.tsx`/`ApisPage.tsx`/`DocsPage.tsx` do redesign, que são a
+ * mesma tela com um filtro de kind diferente. Uma implementação só evita que
+ * os filtros e as colunas divirjam entre elas com o tempo.
  */
 export function EntityTablePage({
   eyebrow,
@@ -104,7 +54,6 @@ export function EntityTablePage({
   emptyMessage: string;
   requireTechdocs?: boolean;
 }) {
-  const classes = useStyles();
   const catalogApi = useApi(catalogApiRef);
   const navigate = useNavigate();
 
@@ -184,9 +133,11 @@ export function EntityTablePage({
     {
       key: 'name',
       header: 'Nome',
-      render: row => <span className={classes.name}>{row.name}</span>,
+      render: row => <span className="atlas-resourceCell">{row.name}</span>,
     },
-    { key: 'description', header: 'Descrição', render: row => row.description },
+    { key: 'description', header: 'Descrição', render: row => (
+      <span className="atlas-cellMuted">{row.description}</span>
+    ) },
     { key: 'owner', header: 'Dono', render: row => row.owner },
     { key: 'type', header: 'Tipo', render: row => row.type },
     {
@@ -205,9 +156,9 @@ export function EntityTablePage({
       key: 'tags',
       header: 'Tags',
       render: row => (
-        <span className={classes.chips}>
+        <span style={{ display: 'flex', gap: 4, flexWrap: 'wrap' }}>
           {row.tags.map(t => (
-            <span key={t} className={classes.chip}>
+            <span key={t} className="atlas-tagChip">
               {t}
             </span>
           ))}
@@ -219,14 +170,14 @@ export function EntityTablePage({
       header: 'Ações',
       align: 'right',
       render: row => (
-        <span className={classes.actions}>
+        <span className="atlas-tableActionGroup" style={{ justifyContent: 'flex-end' }}>
           <button
             type="button"
-            className={classes.iconBtn}
+            className="atlas-actionBtnLink"
             title="Favoritar"
-            style={{
-              color: favorites[row.id] ? status.warning : undefined,
-            }}
+            style={
+              favorites[row.id] ? { color: 'var(--warning)' } : undefined
+            }
             onClick={() =>
               setFavorites(current => ({
                 ...current,
@@ -235,18 +186,18 @@ export function EntityTablePage({
             }
           >
             {favorites[row.id] ? (
-              <StarIcon fontSize="small" />
+              <StarIcon style={{ fontSize: 14 }} />
             ) : (
-              <StarBorderIcon fontSize="small" />
+              <StarBorderIcon style={{ fontSize: 14 }} />
             )}
           </button>
           <button
             type="button"
-            className={classes.iconBtn}
+            className="atlas-actionBtnLink"
             title="Abrir"
             onClick={() => navigate(row.path)}
           >
-            <OpenIcon fontSize="small" />
+            <OpenIcon style={{ fontSize: 14 }} />
           </button>
         </span>
       ),
@@ -257,54 +208,59 @@ export function EntityTablePage({
 
   return (
     <AtlasPage eyebrow={eyebrow} title={title} subtitle={subtitle}>
-      <div className={classes.filters}>
-        <TextField
-          className={classes.search}
-          size="small"
-          variant="outlined"
-          placeholder="Buscar por nome, descrição ou tag"
-          value={query}
-          onChange={event => setQuery(event.target.value)}
-        />
-        <TextField
-          className={classes.select}
-          select
-          size="small"
-          variant="outlined"
-          label="Dono"
-          value={owner}
-          onChange={event => setOwner(event.target.value)}
-        >
-          {['Todos', ...owners].map(o => (
-            <MenuItem key={o} value={o}>
-              {o}
-            </MenuItem>
-          ))}
-        </TextField>
-        <TextField
-          className={classes.select}
-          select
-          size="small"
-          variant="outlined"
-          label="Tag"
-          value={tag}
-          onChange={event => setTag(event.target.value)}
-        >
-          {['Todas', ...tags].map(t => (
-            <MenuItem key={t} value={t}>
-              {t}
-            </MenuItem>
-          ))}
-        </TextField>
-        <span className={classes.count}>{rows.length} item(ns)</span>
-      </div>
+      <section className="atlas-tableContainerCard">
+        <div className="atlas-filtersBar">
+          <div className="atlas-searchFieldWrap">
+            <input
+              className="atlas-filterInput"
+              placeholder="Buscar por nome, descrição ou tag"
+              value={query}
+              onChange={e => setQuery(e.target.value)}
+            />
+          </div>
+          <span className="atlas-paginationInfo" style={{ marginLeft: 'auto' }}>
+            {rows.length} item(ns)
+          </span>
+        </div>
 
-      <DataTable
-        columns={columns}
-        rows={rows}
-        loading={loading}
-        emptyMessage={emptyMessage}
-      />
+        <div className="atlas-filtersBar atlas-filtersBarWrap">
+          <label className="atlas-labeledSelect">
+            <span className="atlas-labeledSelectLabel">Dono</span>
+            <select
+              className="atlas-filterSelect"
+              value={owner}
+              onChange={e => setOwner(e.target.value)}
+            >
+              {['Todos', ...owners].map(o => (
+                <option key={o} value={o}>
+                  {o}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label className="atlas-labeledSelect">
+            <span className="atlas-labeledSelectLabel">Tag</span>
+            <select
+              className="atlas-filterSelect"
+              value={tag}
+              onChange={e => setTag(e.target.value)}
+            >
+              {['Todas', ...tags].map(t => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+
+        <DataTable
+          columns={columns}
+          rows={rows}
+          loading={loading}
+          emptyMessage={emptyMessage}
+        />
+      </section>
     </AtlasPage>
   );
 }

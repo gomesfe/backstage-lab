@@ -1,17 +1,15 @@
 import { useCallback, useMemo, useState } from 'react';
 import useAsyncRetry from 'react-use/lib/useAsyncRetry';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
 import EyeIcon from '@material-ui/icons/Visibility';
 import EyeOffIcon from '@material-ui/icons/VisibilityOff';
-import { Progress, ResponseErrorPanel } from '@backstage/core-components';
+import AddIcon from '@material-ui/icons/Add';
+import { ResponseErrorPanel } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
 import {
   AtlasPage,
   Badge,
   DataTable,
-  atlasTokens,
+  Pill,
   type Column,
 } from '@internal/plugin-components';
 import { apiKeysApiRef, type ApiKey } from '../api/ApiKeysClient';
@@ -29,32 +27,16 @@ const STATUS_VARIANT: Record<ApiKey['status'], 'lime' | 'danger' | 'warning'> = 
   expired: 'warning',
 };
 
-const useStyles = makeStyles(theme => ({
-  mono: {
-    fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace',
-    fontSize: '0.8rem',
-    color: theme.palette.text.secondary,
-  },
-  revoke: {
-    background: 'transparent',
-    border: 0,
-    cursor: 'pointer',
-    fontWeight: 700,
-    fontSize: '0.8rem',
-    color: atlasTokens.status.danger,
-    '&:disabled': {
-      color: theme.palette.text.disabled,
-      cursor: 'not-allowed',
-    },
-  },
-}));
-
 function formatDate(value: string | null): string {
   return value ? new Date(value).toLocaleString('pt-BR') : '—';
 }
 
+/**
+ * Gerência de API keys, portada de `ApiKeysPage.tsx` do redesign — usando as
+ * classes do design system (tabela, badges, pílulas) em vez de estilos
+ * próprios.
+ */
 export function ApiKeysPage() {
-  const classes = useStyles();
   const api = useApi(apiKeysApiRef);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [showRevoked, setShowRevoked] = useState(false);
@@ -79,11 +61,15 @@ export function ApiKeysPage() {
   );
 
   const columns: Column<ApiKey>[] = [
-    { key: 'description', header: 'Nome', render: key => key.description },
+    {
+      key: 'description',
+      header: 'Nome',
+      render: key => <span className="atlas-resourceCell">{key.description}</span>,
+    },
     {
       key: 'prefix',
       header: 'Chave',
-      render: key => <span className={classes.mono}>{key.prefix}…</span>,
+      render: key => <span className="atlas-costMono">{key.prefix}…</span>,
     },
     {
       key: 'status',
@@ -117,11 +103,16 @@ export function ApiKeysPage() {
       render: key => (
         <button
           type="button"
-          className={classes.revoke}
+          className="atlas-actionBtnLink"
+          style={
+            key.status === 'active'
+              ? { color: 'var(--danger)' }
+              : { color: 'var(--text-muted)' }
+          }
           disabled={key.status !== 'active'}
           onClick={() => revoke(key)}
         >
-          Revogar
+          Revoke
         </button>
       ),
     },
@@ -136,37 +127,28 @@ export function ApiKeysPage() {
       subtitle="Crie e gerencie chaves de API para integrações e automações do seu squad."
       actions={
         <>
-          <Button
-            variant="outlined"
-            startIcon={showRevoked ? <EyeOffIcon /> : <EyeIcon />}
-            onClick={() => setShowRevoked(v => !v)}
-          >
+          <Pill onClick={() => setShowRevoked(v => !v)}>
+            {showRevoked ? <EyeOffIcon fontSize="small" /> : <EyeIcon fontSize="small" />}{' '}
             {showRevoked ? 'Ocultar revogadas' : 'Mostrar revogadas'}
-          </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            startIcon={<AddIcon />}
-            onClick={() => setDialogOpen(true)}
-          >
-            Nova chave
-          </Button>
+          </Pill>
+          <Pill lime onClick={() => setDialogOpen(true)}>
+            <AddIcon fontSize="small" /> Nova chave
+          </Pill>
         </>
       }
     >
-      {loading ? (
-        <Progress />
-      ) : (
+      <section className="atlas-tableContainerCard">
         <DataTable
           columns={columns}
           rows={rows}
+          loading={loading}
           emptyMessage={
             showRevoked
               ? 'Nenhuma chave emitida ainda.'
               : 'Nenhuma chave ativa. Revogadas e expiradas estão ocultas.'
           }
         />
-      )}
+      </section>
 
       <CreateKeyDialog
         open={dialogOpen}

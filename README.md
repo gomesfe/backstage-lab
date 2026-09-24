@@ -16,10 +16,18 @@ scripts/            o pipeline que valida e pluga as telas no front
 templates/          software template "Tela estática" (abre PR com a tela nova)
 ```
 
-O visual segue o Atlas Design System — tokens em
-[`packages/app/src/modules/theme/tokens.ts`](packages/app/src/modules/theme/tokens.ts),
-portados de `src/styles/atlas.css` do redesign no Figma Make. O código-fonte
-do redesign fica fora do repo, em `../design-ref/`, como referência.
+O visual segue o Atlas Design System, portado quase verbatim do redesign:
+
+- [`packages/app/src/modules/theme/atlas-ds.css`](packages/app/src/modules/theme/atlas-ds.css)
+  — as ~200 classes do design (`atlas-sectionCard`, `atlas-badgeTag`, `atlas-qaCardBtn`, …).
+  As telas consomem estas classes diretamente, não uma tradução em `makeStyles`.
+- [`plugins/components/src/tokens.ts`](plugins/components/src/tokens.ts) — os
+  mesmos tokens em TypeScript, para o tema do MUI e para o mapeamento do
+  `@backstage/ui` (`bui-tokens.css`).
+
+O código-fonte do redesign fica fora do repo, em `../design-ref/`, como
+referência — é para lá que se volta ao portar uma tela nova ou verificar se
+uma classe já existe antes de inventar uma.
 
 Permissões e login em [`docs/rbac.md`](docs/rbac.md), plugins em
 [`plugins/README.md`](plugins/README.md), software templates em

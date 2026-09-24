@@ -7,7 +7,6 @@ import { Progress, ResponseErrorPanel } from '@backstage/core-components';
 import PeopleIcon from '@material-ui/icons/People';
 import CrownIcon from '@material-ui/icons/Stars';
 import ArrowIcon from '@material-ui/icons/CallMade';
-import { atlasTokens } from '@internal/plugin-components';
 import {
   AtlasPage,
   Badge,
@@ -88,7 +87,7 @@ export function MyGroupsPage() {
                 title={
                   <>
                     <CrownIcon
-                      style={{ fontSize: 16, color: atlasTokens.status.warning }}
+                      style={{ fontSize: 16, color: 'var(--warning)' }}
                     />
                     {group!.metadata.title ?? group!.metadata.name}
                   </>
@@ -105,7 +104,7 @@ export function MyGroupsPage() {
                     <span
                       style={{
                         marginLeft: 'auto',
-                        color: atlasTokens.brand.lime,
+                        color: 'var(--lime)',
                         cursor: 'pointer',
                         fontWeight: 700,
                       }}
