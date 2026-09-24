@@ -23,18 +23,21 @@ export const atlasTokens = {
     textSecondary: '#9ea3b0',
     textMuted: '#626775',
   },
+  // Tema claro refinado (ver atlas-refinements.css): cartão branco sobre
+  // fundo cinza. O original tinha cartão cinza e superfície interna branca,
+  // o que tirava a separação entre níveis. Mantenha os dois arquivos juntos.
   light: {
-    bgApp: '#f2f4f7',
-    bgSurface: '#ffffff',
-    bgCard: '#f8fafc',
-    bgCardHover: '#f1f5f9',
-    bgPill: '#e2e8f0',
-    bgPillHover: '#cbd5e1',
-    border: 'rgba(0, 0, 0, 0.08)',
-    borderLight: 'rgba(0, 0, 0, 0.15)',
+    bgApp: '#f3f5f8',
+    bgSurface: '#f7f9fb',
+    bgCard: '#ffffff',
+    bgCardHover: '#f1f4f8',
+    bgPill: '#eef1f5',
+    bgPillHover: '#e3e8ef',
+    border: 'rgba(15, 23, 42, 0.08)',
+    borderLight: 'rgba(15, 23, 42, 0.14)',
     textPrimary: '#0f172a',
-    textSecondary: '#475569',
-    textMuted: '#94a3b8',
+    textSecondary: '#4b5567',
+    textMuted: '#8a94a6',
   },
 
   /** Cores de marca e de status, iguais nos dois temas. */
@@ -63,7 +66,7 @@ export const atlasTokens = {
   },
 
   /** O redesign usa a pilha de sistema, não uma fonte carregada. */
-  fontFamily: 'Arial, Helvetica, sans-serif',
+  fontFamily: "Inter, 'Segoe UI', Arial, Helvetica, sans-serif",
 
   /** Largura máxima do conteúdo no shell do Atlas. */
   maxWidth: 1440,

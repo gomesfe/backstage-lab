@@ -41,6 +41,15 @@
       href="<%= publicPath %>/safari-pinned-tab.svg"
       color="#5bbad5"
     />
+    <!-- Inter: a mesma família geométrica de UI que o Atlas usa nos protótipos.
+         Sem rede, cai em Arial (fallback em tokens.ts) sem quebrar layout. -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap"
+    />
+    <meta name="theme-color" content="#0b0c0e" />
     <title><%= config.getOptionalString('app.title') ?? 'Backstage' %></title>
   </head>
   <body>

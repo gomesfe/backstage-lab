@@ -128,8 +128,9 @@ function TemplateGallery() {
 
       {grouped.map(([groupName, groupTemplates]) => (
         <div key={groupName} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-          <h2 style={{ fontSize: '0.95rem', fontWeight: 800, color: 'var(--text-primary)', margin: '4px 0 0' }}>
+          <h2 className="atlas-groupHeading">
             {groupName}
+            <span className="atlas-groupHeadingCount">{groupTemplates.length}</span>
           </h2>
           <CardGrid>
             {groupTemplates.map(template => {

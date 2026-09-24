@@ -241,6 +241,6 @@ export const atlasLightTheme: UnifiedTheme = createUnifiedTheme({
   palette: paletteFor(atlasTokens.light, 'light'),
   typography,
   defaultPageTheme: 'home',
-  pageTheme: pageThemes(atlasTokens.light.bgSurface, atlasTokens.light.textPrimary),
+  pageTheme: pageThemes(atlasTokens.light.bgCard, atlasTokens.light.textPrimary),
   components: componentOverrides(atlasTokens.light),
 });

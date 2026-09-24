@@ -1,0 +1,368 @@
+/* =========================================================================
+   Atlas — refinamentos visuais
+   Carregado DEPOIS de atlas-ds.css (ver src/index.tsx).
+
+   Mesma estética do DS (superfícies escuras, lime, pílulas), com mais
+   acabamento: profundidade sutil, hierarquia tipográfica, estados de foco e um
+   tema claro com contraste de verdade. Tudo aqui é aditivo — remover o import
+   devolve o DS exatamente como veio do redesign, e é por isso que o port
+   continua intocado num arquivo separado.
+   ========================================================================= */
+
+.atlas-root {
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 8px 24px -12px rgba(0, 0, 0, 0.6);
+  --shadow-lg: 0 20px 48px -16px rgba(0, 0, 0, 0.7);
+  --card-highlight: linear-gradient(180deg, rgba(255, 255, 255, 0.025) 0%, rgba(255, 255, 255, 0) 120px);
+  --focus-ring: 0 0 0 2px var(--bg-app), 0 0 0 4px var(--lime);
+  --nav-glass: rgba(20, 21, 24, 0.78);
+  letter-spacing: -0.005em;
+}
+
+/* Tema claro: cartão branco sobre fundo cinza, superfícies internas em cinza
+   muito claro. O original invertia (cartão cinza, item interno branco), o que
+   deixava tudo chapado e sem separação entre níveis. */
+.atlas-root[data-theme="light"] {
+  --bg-app: #f3f5f8;
+  --bg-card: #ffffff;
+  --bg-surface: #f7f9fb;
+  --bg-card-hover: #f1f4f8;
+  --bg-pill: #eef1f5;
+  --bg-pill-hover: #e3e8ef;
+  --border-color: rgba(15, 23, 42, 0.08);
+  --border-light: rgba(15, 23, 42, 0.14);
+  --text-secondary: #4b5567;
+  --text-muted: #8a94a6;
+  --lime: #3a9a3a;
+  --lime-hover: #2f852f;
+  --lime-bg: rgba(58, 154, 58, 0.1);
+  --lime-border: rgba(58, 154, 58, 0.32);
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.05);
+  --shadow-md: 0 1px 2px rgba(15, 23, 42, 0.04), 0 4px 16px -6px rgba(15, 23, 42, 0.08);
+  --shadow-lg: 0 16px 40px -18px rgba(15, 23, 42, 0.25);
+  --card-highlight: none;
+  --nav-glass: rgba(255, 255, 255, 0.82);
+}
+
+.atlas-root ::selection { background: var(--lime-bg); color: var(--text-primary); }
+
+/* Rolagem discreta em todo o portal, não só nas listas da Home. */
+.atlas-root ::-webkit-scrollbar { width: 10px; height: 10px; }
+.atlas-root ::-webkit-scrollbar-track { background: transparent; }
+.atlas-root ::-webkit-scrollbar-thumb {
+  background: var(--bg-pill-hover); border-radius: 999px;
+  border: 3px solid transparent; background-clip: padding-box;
+}
+.atlas-root ::-webkit-scrollbar-thumb:hover { background-color: var(--border-light); }
+
+/* Foco visível só pelo teclado — clique não ganha anel. */
+.atlas-root button:focus-visible,
+.atlas-root a:focus-visible,
+.atlas-root [tabindex]:focus-visible {
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+/* ------------------------------------------------------------------ nav --- */
+/* Flutuante e fixa no topo, com vidro.
+   `fixed`, não `sticky`: quem rola é o <main> do Page do Backstage (100vh),
+   não o body. Com a nav no fluxo, nav + 100vh passavam da janela e surgia uma
+   segunda rolagem de ~70px. Fixa, ela sai do fluxo e o conteúdo passa por
+   baixo do vidro. */
+.atlas-topNav {
+  position: fixed;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1100;
+  width: calc(100% - 32px);
+  max-width: 1440px;
+  margin: 0;
+  padding: 10px 12px 10px 14px;
+  background: var(--nav-glass);
+  backdrop-filter: saturate(160%) blur(14px);
+  -webkit-backdrop-filter: saturate(160%) blur(14px);
+  border-color: var(--border-light);
+  box-shadow: var(--shadow-lg);
+  flex-wrap: nowrap;
+}
+/* O que vem depois da nav (o <main> do Page) reserva o espaço dela. */
+.atlas-topNav ~ * { padding-top: 78px; }
+.atlas-brandLogo { padding-right: 6px; }
+.atlas-brandMark {
+  background: linear-gradient(145deg, #5cc45c 0%, var(--lime) 55%, #2f852f 100%);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12) inset, 0 6px 16px -4px rgba(68, 168, 68, 0.55);
+}
+.atlas-brandName { letter-spacing: -0.02em; }
+
+/* As pílulas esmaecem na borda em vez de serem cortadas a seco — é o sinal
+   de que a faixa rola. */
+.atlas-navPills {
+  background: var(--bg-surface);
+  -webkit-mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 32px), transparent);
+  mask-image: linear-gradient(90deg, #000 0, #000 calc(100% - 32px), transparent);
+  padding-right: 28px;
+}
+.atlas-navPill {
+  padding: 7px 14px; font-size: 0.83rem;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.atlas-navPillActive,
+.atlas-navPillActive:hover {
+  background: var(--lime);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.18) inset, 0 4px 12px -4px rgba(68, 168, 68, 0.6);
+}
+.atlas-navActionBtn { width: 38px; height: 38px; background: var(--bg-surface); }
+.atlas-navActionBtn:hover { transform: none; border-color: var(--border-light); }
+
+/* ------------------------------------------------------------- conteúdo --- */
+.atlas-appContainer { padding-top: 8px; padding-bottom: 40px; }
+
+/* ---- cabeçalho de página ---- */
+.atlas-pageHeader { padding: 12px 4px 4px; align-items: flex-end; }
+.atlas-pageTitleGroup { gap: 6px; }
+.atlas-pageEyebrow {
+  font-size: 0.7rem; letter-spacing: 0.1em;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.atlas-pageEyebrow::before {
+  content: ""; width: 14px; height: 2px; border-radius: 2px; background: currentColor;
+}
+.atlas-pageTitle { font-size: 1.95rem; letter-spacing: -0.03em; line-height: 1.1; }
+.atlas-pageSubtitle { font-size: 0.92rem; margin: 0; max-width: 720px; }
+
+/* ---- cartões: profundidade sutil e topo levemente iluminado ---- */
+.atlas-sectionCard,
+.atlas-tableContainerCard,
+.atlas-heroOverviewLayout,
+.atlas-groupViewShell {
+  background-image: var(--card-highlight);
+  box-shadow: var(--shadow-md);
+}
+.atlas-sectionCard,
+.atlas-tableContainerCard { padding: 20px 22px; }
+.atlas-sectionCardTitle { font-size: 1rem; letter-spacing: -0.01em; }
+.atlas-sectionCardTitle svg {
+  box-sizing: content-box; padding: 6px; border-radius: 10px;
+  background: var(--lime-bg); font-size: 18px;
+}
+
+/* ---- seletor de escopo ---- */
+.atlas-groupViewShell { padding: 10px 12px 10px 16px; }
+.atlas-groupViewLabel { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.atlas-groupViewBtn { padding: 6px 14px; }
+.atlas-groupViewBtn:hover { transform: none; }
+.atlas-groupViewDescription { margin: 0; }
+
+/* ------------------------------------------------------------------ hero --- */
+.atlas-heroOverviewLayout { padding: 16px; gap: 14px; }
+.atlas-welcomeCard {
+  position: relative;
+  padding: 24px;
+  background:
+    radial-gradient(120% 90% at 0% 0%, rgba(68, 168, 68, 0.22) 0%, rgba(68, 168, 68, 0) 55%),
+    linear-gradient(160deg, var(--bg-surface) 0%, var(--bg-card) 100%);
+}
+.atlas-welcomeCard > * { position: relative; z-index: 1; }
+.atlas-welcomeCard::after {
+  /* malha de pontos discreta, como textura */
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 16px 16px;
+  -webkit-mask-image: linear-gradient(135deg, transparent 35%, #000 100%);
+  mask-image: linear-gradient(135deg, transparent 35%, #000 100%);
+}
+.atlas-root[data-theme="light"] .atlas-welcomeCard::after {
+  background-image: radial-gradient(rgba(15, 23, 42, 0.08) 1px, transparent 1px);
+}
+.atlas-welcomeEyebrow { letter-spacing: 0.1em; }
+.atlas-welcomeTitle { font-size: 1.75rem; letter-spacing: -0.03em; margin: 8px 0 6px; }
+.atlas-welcomeSub { font-size: 0.9rem; max-width: 360px; margin: 0; }
+
+.atlas-expandMetricCard {
+  background: var(--bg-surface);
+  padding: 16px 18px; min-height: 108px;
+  transition: border-color 0.2s ease, background 0.2s ease, transform 0.2s ease;
+}
+.atlas-expandMetricCard:hover { transform: translateY(-1px); }
+.atlas-metricCardTitle { font-size: 0.78rem; }
+.atlas-metricCardIcon {
+  width: 30px; height: 30px; border-radius: 9px; opacity: 1;
+  background: var(--bg-pill); color: var(--text-secondary);
+}
+.atlas-metricCardIcon svg { font-size: 17px; }
+.atlas-metricBigValue {
+  font-size: 2rem; letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums; margin-top: 10px;
+}
+.atlas-expandMetricCardHighlighted,
+.atlas-expandMetricCardHighlighted:hover {
+  background: linear-gradient(150deg, #56bd56 0%, var(--lime) 50%, #348c34 100%);
+  border-color: var(--lime);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2) inset, 0 12px 28px -12px rgba(68, 168, 68, 0.7);
+}
+.atlas-expandMetricCardHighlighted .atlas-metricCardIcon {
+  background: rgba(255, 255, 255, 0.18); color: #fff;
+}
+
+/* --------------------------------------------------------- ações rápidas --- */
+/* Uma linha de colunas iguais: com larguras fixas os rótulos eram cortados
+   no meio da palavra ("Provisionar R"). Rola só quando a tela não comporta. */
+.atlas-quickActionsViewport { padding: 2px 2px 6px; }
+.atlas-quickActionsFlex {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(150px, 1fr);
+  gap: 10px;
+}
+.atlas-qaCardBtn { min-width: 0; min-height: 60px; white-space: normal; }
+.atlas-qaCardBtn:hover:not(:disabled) { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+.atlas-qaCardBtn:disabled:hover {
+  transform: none; background: var(--bg-surface);
+  border-color: var(--border-color); box-shadow: none;
+}
+.atlas-qaIconCircle { width: 36px; height: 36px; border-radius: 11px; transition: transform 0.2s ease; }
+.atlas-qaCardBtn:hover:not(:disabled) .atlas-qaIconCircle { transform: scale(1.06); }
+.atlas-qaLabelText { font-size: 0.82rem; font-weight: 600; line-height: 1.3; overflow: visible; }
+
+/* ---------------------------------------------------------------- listas --- */
+.atlas-homeUpdateItem,
+.atlas-usefulLinkItem,
+.atlas-toolkitItem,
+.atlas-onboardingStep {
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.atlas-usefulLinkItem { font-weight: 600; font-size: 0.85rem; }
+.atlas-usefulLinkItem:hover { transform: none; }
+.atlas-usefulLinkItem svg { transition: transform 0.15s ease; opacity: 0.6; }
+.atlas-usefulLinkItem:hover svg { transform: translate(2px, -2px); opacity: 1; }
+.atlas-homeUpdateText { font-weight: 500; }
+.atlas-onboardingStepNum { border-radius: 10px; }
+.atlas-toolkitItem { background: var(--bg-surface); }
+
+/* ---------------------------------------------------------------- botões --- */
+.atlas-btnPill { padding: 7px 14px; font-size: 0.8rem; }
+.atlas-btnPill:hover { transform: none; border-color: var(--border-light); }
+.atlas-btnPillLime {
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.18) inset, 0 4px 12px -4px rgba(68, 168, 68, 0.55);
+}
+.atlas-btnPillLime:hover { transform: translateY(-1px); border-color: var(--lime-hover); }
+.atlas-actionBtnLink:hover { transform: none; }
+
+/* --------------------------------------------------------------- tabelas --- */
+.atlas-recentTableWrap { border: 1px solid var(--border-color); border-radius: var(--atlas-radius-md); }
+.atlas-recentTable th {
+  font-size: 0.68rem; letter-spacing: 0.08em;
+  border-bottom: 1px solid var(--border-color);
+  padding-top: 11px; padding-bottom: 11px;
+}
+.atlas-recentTable td { font-size: 0.86rem; color: var(--text-secondary); }
+.atlas-recentTable td:first-child { color: var(--text-primary); }
+.atlas-recentTable tbody tr:last-child td { border-bottom: 0; }
+.atlas-recentTable tbody tr:hover { box-shadow: none; background: var(--bg-card-hover); }
+/* Estados vazio/erro/carregando dentro da moldura da tabela: sem borda dupla. */
+.atlas-recentTableWrap > .atlas-emptyState,
+.atlas-recentTableWrap > .atlas-errorState { border: 0; border-radius: inherit; }
+.atlas-recentTableWrap > div:not([class]) { padding: 16px; }
+
+/* ---------------------------------------------------------- estado vazio --- */
+.atlas-emptyState { padding: 28px 20px; font-size: 0.84rem; color: var(--text-secondary); }
+.atlas-emptyState svg { color: var(--text-muted); }
+
+/* ------------------------------------------------------ badges e chips --- */
+.atlas-badgeTag {
+  font-weight: 600; letter-spacing: 0.01em;
+  box-shadow: 0 0 0 1px color-mix(in srgb, currentColor 24%, transparent) inset;
+}
+.atlas-tagChip { font-weight: 600; }
+
+/* ---------------------------------------------------------------- filtros --- */
+.atlas-filterInput, .atlas-filterSelect, .atlas-input, .atlas-textarea, .atlas-select {
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.atlas-filterInput:hover, .atlas-filterSelect:hover,
+.atlas-input:hover, .atlas-textarea:hover, .atlas-select:hover { border-color: var(--border-light); }
+.atlas-filterInput { padding: 9px 16px; }
+.atlas-searchFieldWrap { min-width: min(300px, 100%); }
+.atlas-searchFieldWrap .atlas-filterInput { padding-left: 38px; width: 100%; min-width: 0; }
+.atlas-searchFieldWrap .atlas-searchIcon { left: 14px; width: 18px; height: 18px; }
+
+/* ------------------------------------------------------------------ abas --- */
+.atlas-tabBtn { font-weight: 600; padding: 7px 16px; }
+.atlas-tabBtnActive {
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.18) inset, 0 4px 12px -4px rgba(68, 168, 68, 0.55);
+}
+
+/* ----------------------------------------- cartões de template / trilha --- */
+/* Mesma altura na linha, descrição limitada a 3 linhas, rodapé colado embaixo
+   — sem isso os botões "Choose" ficavam desalinhados de um cartão ao outro. */
+.atlas-cardGrid { grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 14px; }
+.atlas-featureCard { background: var(--bg-card); box-shadow: var(--shadow-sm); padding: 18px 18px 16px; gap: 10px; }
+.atlas-featureCard:hover { box-shadow: var(--shadow-md); }
+.atlas-featureCardTitle { font-size: 0.98rem; font-weight: 700; letter-spacing: -0.01em; line-height: 1.3; }
+.atlas-featureCardDesc {
+  font-size: 0.83rem;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
+.atlas-featureCardFooter {
+  margin-top: auto; padding-top: 12px; border-top: 1px solid var(--border-color);
+}
+
+/* Título de grupo numa lista de cartões (categorias do Create). */
+.atlas-groupHeading {
+  display: flex; align-items: center; gap: 10px; margin: 8px 2px 0;
+  font-size: 0.74rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em;
+  color: var(--text-secondary);
+}
+.atlas-groupHeading::after { content: ""; flex: 1; height: 1px; background: var(--border-color); }
+.atlas-groupHeadingCount {
+  font-size: 0.7rem; font-weight: 700; color: var(--text-muted); letter-spacing: 0;
+  background: var(--bg-pill); border-radius: 999px; padding: 2px 8px;
+}
+
+/* ---------------------------------------------------------------- alertas --- */
+.atlas-alert > div { color: var(--text-secondary); }
+.atlas-alertTitle { color: var(--text-primary); }
+
+/* ------------------------------------------ opções (tema em Configurações) --- */
+.atlas-modalActionOption {
+  transition: border-color 0.15s ease, background 0.15s ease;
+  text-align: left; font: inherit; color: inherit;
+}
+.atlas-modalActionOption:hover { border-color: var(--border-light); }
+.atlas-modalActionOptionChecked:hover { border-color: var(--lime-border); }
+
+/* ------------------------------------------------------------- responsivo --- */
+@media (max-width: 900px) {
+  .atlas-topNav { top: 8px; width: calc(100% - 16px); }
+  .atlas-topNav ~ * { padding-top: 70px; }
+  .atlas-brandName { display: none; }
+  .atlas-pageTitle { font-size: 1.6rem; }
+}
+
+/* ------------------------------------------------------------- tipografia --- */
+/* Inter (carregada em public/index.html) no lugar de Arial; sem rede, cai em
+   Segoe UI/Arial sem quebrar layout. */
+.atlas-root {
+  font-family: Inter, "Segoe UI", Arial, Helvetica, sans-serif;
+  font-feature-settings: "cv11", "ss01";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ------------------------------------------------------------- onboarding --- */
+.atlas-onboardingStepTitle { margin: 3px 0 0; line-height: 1.3; }
+.atlas-onboardingStepDesc { margin: 4px 0 0; }
+
+/* ---------------------------------------------------- lupa nos campos --- */
+/* Os campos de busca das telas usam `atlas-searchFieldWrap` sem o ícone; a
+   lupa entra aqui, uma vez, com a cor do tema via máscara. */
+.atlas-searchFieldWrap:not(:has(.atlas-searchIcon))::before {
+  content: "";
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  width: 16px; height: 16px; pointer-events: none; z-index: 1;
+  background: var(--text-muted);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E") center / contain no-repeat;
+}
+.atlas-searchFieldWrap:focus-within::before { background: var(--lime); }

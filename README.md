@@ -21,6 +21,9 @@ O visual segue o Atlas Design System, portado quase verbatim do redesign:
 - [`packages/app/src/modules/theme/atlas-ds.css`](packages/app/src/modules/theme/atlas-ds.css)
   — as ~200 classes do design (`atlas-sectionCard`, `atlas-badgeTag`, `atlas-qaCardBtn`, …).
   As telas consomem estas classes diretamente, não uma tradução em `makeStyles`.
+- [`atlas-refinements.css`](packages/app/src/modules/theme/atlas-refinements.css)
+  — acabamento por cima do port (nav flutuante, profundidade, tipografia Inter,
+  foco por teclado, tema claro com contraste). Aditivo: o port fica intocado.
 - [`plugins/components/src/tokens.ts`](plugins/components/src/tokens.ts) — os
   mesmos tokens em TypeScript, para o tema do MUI e para o mapeamento do
   `@backstage/ui` (`bui-tokens.css`).

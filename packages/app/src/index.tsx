@@ -6,5 +6,6 @@ import '@backstage/ui/css/styles.css';
 import './modules/theme/bui-tokens.css';
 // Design system do Atlas. Depois dos anteriores, para vencer o reset deles.
 import './modules/theme/atlas-ds.css';
+import './modules/theme/atlas-refinements.css';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(App.createRoot());

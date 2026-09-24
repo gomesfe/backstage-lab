@@ -353,8 +353,10 @@ export function OnboardingSection() {
         {ONBOARDING_STEPS.map(step => (
           <div key={step.id} className="atlas-onboardingStep">
             <span className="atlas-onboardingStepNum">{step.id}</span>
-            <h4 className="atlas-onboardingStepTitle">{step.title}</h4>
-            <p className="atlas-onboardingStepDesc">{step.desc}</p>
+            <div>
+              <h4 className="atlas-onboardingStepTitle">{step.title}</h4>
+              <p className="atlas-onboardingStepDesc">{step.desc}</p>
+            </div>
           </div>
         ))}
       </div>
