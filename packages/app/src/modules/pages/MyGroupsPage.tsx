@@ -5,7 +5,7 @@ import { catalogApiRef } from '@backstage/plugin-catalog-react';
 import { identityApiRef } from '@backstage/core-plugin-api';
 import { Progress, ResponseErrorPanel } from '@backstage/core-components';
 import PeopleIcon from '@material-ui/icons/People';
-import CrownIcon from '@material-ui/icons/Stars';
+import GroupIcon from '@material-ui/icons/Group';
 import ArrowIcon from '@material-ui/icons/CallMade';
 import {
   AtlasPage,
@@ -86,8 +86,8 @@ export function MyGroupsPage() {
                 key={group!.metadata.name}
                 title={
                   <>
-                    <CrownIcon
-                      style={{ fontSize: 16, color: 'var(--warning)' }}
+                    <GroupIcon
+                      style={{ fontSize: 16, color: 'var(--lime)' }}
                     />
                     {group!.metadata.title ?? group!.metadata.name}
                   </>

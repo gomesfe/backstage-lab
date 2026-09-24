@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import WarningIcon from '@material-ui/icons/ReportProblemOutlined';
-import TimerIcon from '@material-ui/icons/Timer';
-import ClockIcon from '@material-ui/icons/AccessTime';
-import AuditIcon from '@material-ui/icons/FindInPage';
+import TimerIcon from '@material-ui/icons/HourglassEmpty';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
+import RoleIcon from '@material-ui/icons/VerifiedUser';
+import ClockIcon from '@material-ui/icons/TimerOff';
+import AuditIcon from '@material-ui/icons/History';
 import InfoIcon from '@material-ui/icons/InfoOutlined';
 import { AtlasPage, Alert, Field } from '@internal/plugin-components';
 
@@ -30,7 +32,7 @@ const INFO_ITEMS = [
     desc: 'Toda solicitação é registrada e auditada, notificando os responsáveis do squad.',
   },
   {
-    icon: <InfoIcon fontSize="small" />,
+    icon: <RoleIcon fontSize="small" />,
     title: 'Como funciona',
     desc: 'Concede uma role temporária na conta AWS informada, seguindo o princípio do menor privilégio.',
   },
@@ -72,7 +74,7 @@ export function BreakGlassPage() {
         <section className="atlas-tableContainerCard">
           <div className="atlas-sectionCardHeader">
             <h3 className="atlas-sectionCardTitle">
-              <WarningIcon fontSize="small" /> Nova solicitação
+              <LockOpenIcon fontSize="small" /> Nova solicitação
             </h3>
           </div>
 

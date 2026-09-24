@@ -366,3 +366,25 @@
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='m20 20-3.5-3.5'/%3E%3C/svg%3E") center / contain no-repeat;
 }
 .atlas-searchFieldWrap:focus-within::before { background: var(--lime); }
+
+/* ------------------------------------------------------ nav no celular --- */
+/* Em tela estreita as pílulas iam a largura zero, espremidas entre a marca e
+   os botões. Aqui elas descem para uma segunda linha inteira. */
+@media (max-width: 760px) {
+  .atlas-topNav { flex-wrap: wrap; row-gap: 10px; padding: 10px; }
+  .atlas-navLeft { display: contents; }
+  .atlas-brandLogo { flex: 1; }
+  .atlas-navPillsWrapper { order: 3; flex: 1 0 100%; }
+  .atlas-navPills { width: 100%; }
+  .atlas-navActionBtn { width: 36px; height: 36px; }
+  .atlas-topNav ~ * { padding-top: 124px; }
+  .atlas-brandName { display: inline; }
+}
+@media (max-width: 440px) {
+  .atlas-brandName { display: none; }
+}
+@media (max-width: 600px) {
+  .atlas-quickActionsViewport { overflow: visible; }
+  .atlas-quickActionsFlex { grid-auto-flow: row; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .atlas-qaCardBtn { flex-direction: column; align-items: flex-start; gap: 8px; }
+}

@@ -3,10 +3,10 @@ import {
   createRouteRef,
   PageBlueprint,
 } from '@backstage/frontend-plugin-api';
-import GroupsIcon from '@material-ui/icons/People';
-import CatalogIcon from '@material-ui/icons/Widgets';
+import GroupsIcon from '@material-ui/icons/Group';
+import CatalogIcon from '@material-ui/icons/Apps';
 import SchoolIcon from '@material-ui/icons/School';
-import ShieldIcon from '@material-ui/icons/ReportProblemOutlined';
+import ShieldIcon from '@material-ui/icons/LockOpen';
 
 /**
  * Telas do Atlas que não existem no Backstage padrão.

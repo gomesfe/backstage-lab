@@ -1,18 +1,23 @@
 import type { ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
-import RocketIcon from '@material-ui/icons/FlightTakeoff';
+import FlashIcon from '@material-ui/icons/FlashOn';
+import CloudIcon from '@material-ui/icons/CloudQueue';
 import SearchIcon from '@material-ui/icons/Search';
-import BoxesIcon from '@material-ui/icons/Widgets';
+import FolderIcon from '@material-ui/icons/FolderOpen';
 import KeyIcon from '@material-ui/icons/VpnKey';
-import ShieldAlertIcon from '@material-ui/icons/ReportProblemOutlined';
-import ShieldCheckIcon from '@material-ui/icons/VerifiedUser';
-import TemplateIcon from '@material-ui/icons/Dashboard';
+import LockOpenIcon from '@material-ui/icons/LockOpen';
+import PolicyIcon from '@material-ui/icons/Policy';
+import TemplateIcon from '@material-ui/icons/ViewQuilt';
 import BellIcon from '@material-ui/icons/NotificationsNone';
-import ServerIcon from '@material-ui/icons/Storage';
-import SparklesIcon from '@material-ui/icons/TrendingUp';
+import CatalogIcon from '@material-ui/icons/ViewModule';
+import BusinessIcon from '@material-ui/icons/Business';
+import GroupIcon from '@material-ui/icons/Group';
+import AppsIcon from '@material-ui/icons/Apps';
+import ApiIcon from '@material-ui/icons/Extension';
+import SystemIcon from '@material-ui/icons/AccountTree';
 import LinkIcon from '@material-ui/icons/Link';
 import BuildIcon from '@material-ui/icons/Build';
-import SchoolIcon from '@material-ui/icons/School';
+import FlagIcon from '@material-ui/icons/Flag';
 import ArrowIcon from '@material-ui/icons/CallMade';
 import {
   GENERAL_UPDATES,
@@ -44,14 +49,27 @@ const QA_ICON_CLASS: Record<QuickActionColor, string> = {
   templates: 'atlas-qa-templates',
 };
 
+// Cada ícone diz o que a ação faz, não só "é uma ação": provisionar é subir
+// recurso na nuvem, break glass é destravar acesso de emergência, e assim
+// por diante. Mantenha em sincronia com o ícone da página de destino.
 const QA_ICON: Record<QuickActionColor, ReactNode> = {
-  provision: <RocketIcon fontSize="small" />,
+  provision: <CloudIcon fontSize="small" />,
   search: <SearchIcon fontSize="small" />,
-  resources: <BoxesIcon fontSize="small" />,
+  resources: <FolderIcon fontSize="small" />,
   request: <KeyIcon fontSize="small" />,
-  breakglass: <ShieldAlertIcon fontSize="small" />,
-  governance: <ShieldCheckIcon fontSize="small" />,
+  breakglass: <LockOpenIcon fontSize="small" />,
+  governance: <PolicyIcon fontSize="small" />,
   templates: <TemplateIcon fontSize="small" />,
+};
+
+/** Ícone de cada métrica do hero, pelo que ela conta. */
+const METRIC_ICON: Record<string, ReactNode> = {
+  'Serviço Núclea': <BusinessIcon fontSize="small" />,
+  'Squads no escopo': <GroupIcon fontSize="small" />,
+  Aplicações: <AppsIcon fontSize="small" />,
+  'Recursos provisionados': <CloudIcon fontSize="small" />,
+  APIs: <ApiIcon fontSize="small" />,
+  Sistemas: <SystemIcon fontSize="small" />,
 };
 
 /* ----------------------------------------------------- seletor de escopo --- */
@@ -122,11 +140,7 @@ export function HeroSection({
                 <div className="atlas-metricCardHead">
                   <span className="atlas-metricCardTitle">{metric.title}</span>
                   <span className="atlas-metricCardIcon">
-                    {metric.highlighted ? (
-                      <SparklesIcon fontSize="small" />
-                    ) : (
-                      <ServerIcon fontSize="small" />
-                    )}
+                    {METRIC_ICON[metric.title] ?? <CatalogIcon fontSize="small" />}
                   </span>
                 </div>
                 <div className="atlas-metricBigValue">{metric.value}</div>
@@ -169,7 +183,7 @@ export function QuickActionsSection() {
     <section className="atlas-sectionCard">
       <div className="atlas-sectionCardHeader">
         <h3 className="atlas-sectionCardTitle">
-          <RocketIcon fontSize="small" /> Ações rápidas
+          <FlashIcon fontSize="small" /> Ações rápidas
         </h3>
       </div>
       <div className="atlas-quickActionsCarousel">
@@ -247,7 +261,7 @@ export function ServicesSection({
     <section className="atlas-sectionCard">
       <div className="atlas-sectionCardHeader">
         <h3 className="atlas-sectionCardTitle">
-          <ServerIcon fontSize="small" /> Serviços no catálogo
+          <CatalogIcon fontSize="small" /> Serviços no catálogo
         </h3>
       </div>
       {loading ? (
@@ -346,7 +360,7 @@ export function OnboardingSection() {
     <section className="atlas-sectionCard">
       <div className="atlas-sectionCardHeader">
         <h3 className="atlas-sectionCardTitle">
-          <SchoolIcon fontSize="small" /> Comece por aqui
+          <FlagIcon fontSize="small" /> Comece por aqui
         </h3>
       </div>
       <div className="atlas-onboardingGrid">

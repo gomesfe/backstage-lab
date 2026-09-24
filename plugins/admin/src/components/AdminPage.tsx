@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import useAsync from 'react-use/lib/useAsync';
-import ShieldIcon from '@material-ui/icons/VerifiedUser';
+import ShieldIcon from '@material-ui/icons/SupervisorAccount';
 import { ResponseErrorPanel } from '@backstage/core-components';
 import { useApi } from '@backstage/core-plugin-api';
 import {

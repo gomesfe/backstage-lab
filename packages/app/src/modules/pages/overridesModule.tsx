@@ -2,9 +2,9 @@ import {
   createFrontendModule,
   PageBlueprint,
 } from '@backstage/frontend-plugin-api';
-import CatalogIcon from '@material-ui/icons/MenuBook';
+import CatalogIcon from '@material-ui/icons/ViewModule';
 import ApiIcon from '@material-ui/icons/Extension';
-import DocsIcon from '@material-ui/icons/Description';
+import DocsIcon from '@material-ui/icons/MenuBook';
 import SearchIcon from '@material-ui/icons/Search';
 import SettingsIcon from '@material-ui/icons/Settings';
 import CreateIcon from '@material-ui/icons/AddCircleOutline';

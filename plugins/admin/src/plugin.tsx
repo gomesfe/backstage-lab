@@ -6,7 +6,7 @@ import {
   discoveryApiRef,
   fetchApiRef,
 } from '@backstage/frontend-plugin-api';
-import SettingsIcon from '@material-ui/icons/SettingsApplications';
+import SettingsIcon from '@material-ui/icons/SupervisorAccount';
 import KeyIcon from '@material-ui/icons/VpnKey';
 import { ApiKeysClient, apiKeysApiRef } from './api/ApiKeysClient';
 
