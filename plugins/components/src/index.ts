@@ -9,6 +9,7 @@ export {
   DataTable,
   Field,
   FeatureCard,
+  Modal,
   Pagination,
   Pill,
   SectionCard,

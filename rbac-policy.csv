@@ -37,6 +37,13 @@ p, role:default/atlas, api-keys.key.revoke-any, delete, deny
 p, role:default/guest, catalog-entity, read, allow
 p, role:default/guest, scaffolder-template, read, allow
 
+# aprovador: vê "Minhas aprovações" e aprova/rejeita solicitações de
+# provisionamento. Quem não tem a role vê só "Minhas solicitações".
+p, role:default/aprovador, atlas.approvals.review, update, allow
+
+# O "Refresh admin" do mapa de provisionamento (atlas.provisioning.refresh)
+# não tem linha própria: fica só com admin, pelo curinga da role admin.
+
 # ------------------------------------------------------------- vínculos ----
 
 # Ajuste para o seu usuário do GitHub.
@@ -54,3 +61,8 @@ g, user:development/guest, role:default/guest
 # Comente esta linha ao configurar o OAuth do GitHub, ou em qualquer
 # ambiente compartilhado.
 g, user:development/guest, role:default/atlas
+
+# O guest do lab também é aprovador, para dar para ver as duas visões da tela
+# de Aprovações sem OAuth. Mesma regra da linha acima: comente em ambiente
+# compartilhado.
+g, user:development/guest, role:default/aprovador

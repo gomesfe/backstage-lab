@@ -1171,3 +1171,53 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 .atlas-modalBody { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
 .atlas-modalCloseBtn { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--border-color); background: var(--bg-surface); color: var(--text-secondary); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; font-size: 1rem; }
 .atlas-modalCloseBtn:hover { color: var(--text-primary); border-color: var(--border-light); }
+
+/* ===== Padrões de tela (v1.2) ===== */
+/* Modal largo, com corpo rolável — para texto longo (trilhas, detalhes). */
+.atlas-modalContentBoxWide { max-width: 720px; }
+.atlas-modalContentBoxWide .atlas-modalBody { max-height: 70vh; overflow-y: auto; }
+/* Texto corrido com títulos, parágrafos e listas. */
+.atlas-prose { font-size: 0.88rem; line-height: 1.65; color: var(--text-secondary); }
+.atlas-prose h4 { margin: 18px 0 6px; font-size: 0.95rem; font-weight: 700; color: var(--text-primary); letter-spacing: -0.01em; }
+.atlas-prose h4:first-child { margin-top: 0; }
+.atlas-prose p { margin: 0 0 8px; }
+.atlas-prose ul, .atlas-prose ol { margin: 0 0 8px; padding-left: 20px; }
+.atlas-prose li { margin: 3px 0; }
+.atlas-prose code { font-family: "JetBrains Mono", monospace; font-size: 0.82em; background: var(--bg-pill); border-radius: 5px; padding: 1px 5px; color: var(--text-primary); }
+/* Botão discreto: ação pouco usada ou restrita, presente mas sem chamar atenção. */
+.atlas-btnGhost { background: transparent; border-color: transparent; color: var(--text-muted); box-shadow: none; }
+.atlas-btnGhost:hover { background: var(--bg-pill); border-color: var(--border-color); color: var(--text-secondary); }
+/* Ação destrutiva dentro de tabela. */
+.atlas-actionBtnDanger { color: var(--danger); }
+.atlas-actionBtnDanger:hover { color: var(--danger); background: rgba(255, 82, 82, 0.1); }
+/* Filtro por coluna: botão-funil no cabeçalho e o popover dele. O popover é
+   position: fixed — a moldura da tabela rola, e um absolute seria cortado. */
+.atlas-thFilter { display: inline-flex; align-items: center; gap: 6px; }
+.atlas-colFilterBtn {
+  width: 22px; height: 22px; border-radius: 6px; border: 1px solid transparent; background: transparent;
+  color: var(--text-muted); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; padding: 0;
+}
+.atlas-colFilterBtn:hover { background: var(--bg-pill); color: var(--text-primary); }
+.atlas-colFilterBtnActive, .atlas-colFilterBtnActive:hover { background: var(--lime-bg); border-color: var(--lime-border); color: var(--lime); }
+.atlas-popover {
+  position: fixed; z-index: 1300; min-width: 240px; padding: 12px; display: flex; flex-direction: column; gap: 10px;
+  background: var(--bg-card); border: 1px solid var(--border-light); border-radius: var(--atlas-radius-md);
+  box-shadow: var(--shadow-lg); text-transform: none; letter-spacing: normal; font-weight: 400;
+}
+.atlas-popoverActions { display: flex; justify-content: flex-end; gap: 6px; }
+/* Célula de ambiente (mapa de provisionamento): data + ação. */
+.atlas-envCell { display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 88px; }
+.atlas-envDate { font-size: 0.74rem; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+.atlas-envEmpty { color: var(--text-muted); font-size: 0.8rem; }
+.atlas-recentTable .atlas-envTd { text-align: center; }
+/* Layout com menu lateral (ex.: Rascunhos / Cards abertos). */
+.atlas-sideLayout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 16px; align-items: start; }
+.atlas-sideMenu { display: flex; flex-direction: column; gap: 4px; }
+@media (max-width: 900px) {
+  .atlas-sideLayout { grid-template-columns: 1fr; }
+  .atlas-sideMenu { flex-direction: row; flex-wrap: wrap; }
+  .atlas-sideMenu .atlas-sidebarItem { width: auto; }
+}
+/* Setas da faixa de navegação (o port já tinha .atlas-navArrow). */
+.atlas-navArrow:hover { color: var(--text-primary); border-color: var(--border-light); }
+.atlas-navArrow svg { font-size: 18px; }

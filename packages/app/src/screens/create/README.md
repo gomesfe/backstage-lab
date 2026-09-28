@@ -9,8 +9,12 @@ scaffolder.
 
 ## Deve conter
 
-1. **Cabeçalho:** "Provisionamento" · Create · ação **Minhas tarefas**
-   (`/create/tasks`).
+1. **Cabeçalho:** "Provisionamento" · Create · ações **Minhas tarefas**
+   (`/create/tasks`) e, discreto, **Registrar componente existente**
+   (`/catalog-import`, a tela oficial de importar `catalog-info.yaml`).
+   Esse botão só aparece para quem tem `catalog.entity.create` no RBAC e
+   fora de produção (local, dev, lab) — pouca gente usa, e ele é para
+   catalogar, não para provisionar.
 2. **Busca** e **pílulas de categoria com contagem** — "Todas (18)",
    "Banco de dados (5)"…
 3. **Grupos por categoria**, cada um com título e contador, e a grade de

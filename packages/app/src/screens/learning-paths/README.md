@@ -20,10 +20,25 @@ de cada pessoa.
 1. **Cabeçalho** com dificuldade, título, descrição; ações **Recomeçar** (só
    se houver progresso) e **Todas as trilhas**.
 2. **Barra de progresso.**
-3. **Etapas marcáveis**, numeradas. A próxima a fazer fica destacada; as
-   feitas ficam riscadas. Clicar marca/desmarca.
-4. Ao concluir tudo, aviso de trilha concluída com atalho para outras.
-5. Trilha inexistente → "Trilha não encontrada" com link para a lista.
+3. **Etapas numeradas**, cada uma com título, resumo e "Ler". A próxima a
+   fazer fica destacada; as feitas ficam riscadas.
+4. **Clicar numa etapa abre um pop-up** com o texto completo (seções com
+   título, parágrafos e listas — ex.: "Onboard no Atlas", "Cadastro e
+   acesso", "Pré-requisitos", "Configurações de DevTeam"). No rodapé:
+   **Marcar como concluída / Desmarcar** e **Concluir e seguir** (ou
+   **Concluir trilha** na última).
+5. Ao concluir tudo, aviso de trilha concluída com atalho para outras.
+6. Trilha inexistente → "Trilha não encontrada" com link para a lista.
+
+## Trilhas atuais
+
+- **Primeiros passos** — Cadastro e acesso ao Atlas · Canais de comunicação
+  do Teams · Solicitação de VDI Linux. **Texto provisório**: genérico de
+  propósito, sem nomes de canal, links ou contatos. Troque pelo oficial em
+  `learningData.ts` (`FIRST_STEPS`, campo `content`).
+- Onboarding de desenvolvedor · Provisionamento com o scaffolder ·
+  Permissões, chaves e break glass (só com resumo; sem `content`, o pop-up
+  mostra o resumo).
 
 ## Fontes de dados
 

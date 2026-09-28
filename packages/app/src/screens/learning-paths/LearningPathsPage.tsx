@@ -7,9 +7,10 @@ import {
   Badge,
   CardGrid,
   FeatureCard,
+  Modal,
   type BadgeVariant,
 } from '@internal/plugin-components';
-import { LEARNING_PATHS, LEARNING_TAGS } from './learningData';
+import { LEARNING_PATHS, LEARNING_TAGS, type LearningStep } from './learningData';
 import { useProgress } from './useProgress';
 
 const DIFFICULTY_VARIANT: Record<string, BadgeVariant> = {
@@ -143,11 +144,39 @@ export function LearningPathsPage() {
   );
 }
 
-/** Detalhe de uma trilha: as etapas, em ordem, marcáveis. */
+/** O texto completo de uma etapa, no pop-up. */
+function StepContent({ step }: { step: LearningStep }) {
+  return (
+    <div className="atlas-prose">
+      <p>{step.desc}</p>
+      {step.content?.map(block => (
+        <section key={block.heading}>
+          <h4>{block.heading}</h4>
+          {block.paragraphs?.map(p => (
+            <p key={p}>{p}</p>
+          ))}
+          {block.items && (
+            <ul>
+              {block.items.map(item => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          )}
+        </section>
+      ))}
+    </div>
+  );
+}
+
+/**
+ * Detalhe de uma trilha: as etapas, em ordem. Clicar numa etapa abre o texto
+ * dela; é lá que se marca como concluída e se passa para a próxima.
+ */
 export function LearningPathDetailPage() {
   const { pathId } = useParams();
   const { doneIn, toggle, reset } = useProgress();
   const path = LEARNING_PATHS.find(p => p.id === pathId);
+  const [openStep, setOpenStep] = useState<string | null>(null);
 
   if (!path) {
     return (
@@ -203,15 +232,18 @@ export function LearningPathDetailPage() {
                   isDone ? 'atlas-stepItemDone' : '',
                   step.id === nextId ? 'atlas-stepItemNext' : '',
                 ].join(' ')}
-                onClick={() => toggle(path.id, step.id)}
+                onClick={() => setOpenStep(step.id)}
               >
                 <span className="atlas-stepCheck">{isDone ? '✓' : ''}</span>
-                <span>
+                <span style={{ flex: 1 }}>
                   <span className="atlas-infoItemTitle">
                     {index + 1}. {step.title}
                   </span>
                   <br />
                   <span className="atlas-infoItemDesc">{step.desc}</span>
+                </span>
+                <span className="atlas-templateLink" style={{ fontSize: '0.78rem', alignSelf: 'center' }}>
+                  Ler <ArrowIcon style={{ fontSize: 12 }} />
                 </span>
               </button>
             );
@@ -228,9 +260,58 @@ export function LearningPathDetailPage() {
             </div>
           </div>
         ) : (
-          <p className="atlas-text">Clique numa etapa para marcá-la como feita.</p>
+          <p className="atlas-text">Clique numa etapa para ler e marcá-la como concluída.</p>
         )}
       </section>
+
+      {(() => {
+        const index = path.steps.findIndex(s => s.id === openStep);
+        const step = path.steps[index];
+        const next = path.steps[index + 1];
+        const stepDone = step ? done.has(step.id) : false;
+        return (
+          <Modal
+            open={Boolean(step)}
+            onClose={() => setOpenStep(null)}
+            wide
+            title={step ? `${index + 1}. ${step.title}` : ''}
+            footer={
+              step && (
+                <>
+                  <button type="button" className="atlas-btnPill" onClick={() => toggle(path.id, step.id)}>
+                    {stepDone ? 'Desmarcar' : 'Marcar como concluída'}
+                  </button>
+                  {next ? (
+                    <button
+                      type="button"
+                      className="atlas-btnPill atlas-btnPillLime"
+                      onClick={() => {
+                        if (!stepDone) toggle(path.id, step.id);
+                        setOpenStep(next.id);
+                      }}
+                    >
+                      {stepDone ? 'Próxima etapa' : 'Concluir e seguir'}
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      className="atlas-btnPill atlas-btnPillLime"
+                      onClick={() => {
+                        if (!stepDone) toggle(path.id, step.id);
+                        setOpenStep(null);
+                      }}
+                    >
+                      {stepDone ? 'Fechar' : 'Concluir trilha'}
+                    </button>
+                  )}
+                </>
+              )
+            }
+          >
+            {step && <StepContent step={step} />}
+          </Modal>
+        );
+      })()}
     </AtlasPage>
   );
 }

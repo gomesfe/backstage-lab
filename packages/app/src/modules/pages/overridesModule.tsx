@@ -33,7 +33,7 @@ const catalogPage = PageBlueprint.make({
   params: {
     path: '/catalog',
     routeRef: catalogPlugin.routes.catalogIndex,
-    title: 'Catalog',
+    title: 'Catálogo',
     icon: <CatalogIcon />,
     noHeader: true,
     loader: async () => {

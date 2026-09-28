@@ -1,4 +1,6 @@
-import type { ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
+import MuiModal from '@material-ui/core/Modal';
+import { useTheme } from '@material-ui/core/styles';
 import { Content, Page } from '@backstage/core-components';
 import InboxIcon from '@material-ui/icons/Inbox';
 import WarningIcon from '@material-ui/icons/ReportProblemOutlined';
@@ -114,7 +116,110 @@ export type Column<T> = {
   header: string;
   render: (row: T) => ReactNode;
   align?: 'left' | 'right' | 'center';
+  /** Classe extra na célula e no cabeçalho (ex.: `atlas-envTd`). */
+  className?: string;
+  /** Filtro por coluna: aparece um funil no cabeçalho. Quem filtra é a tela. */
+  filter?: {
+    value: string;
+    onChange: (value: string) => void;
+    placeholder?: string;
+  };
 };
+
+const FunnelIcon = () => (
+  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" aria-hidden>
+    <path d="M3 5h18l-7 8.5V19l-4 2v-7.5z" />
+  </svg>
+);
+
+/**
+ * Funil do cabeçalho + popover com busca, "Limpar" e "Fechar".
+ *
+ * O popover é `position: fixed`, posicionado pelo botão: a moldura da tabela
+ * rola na horizontal, e um popover absoluto dentro dela seria cortado.
+ */
+function ColumnFilterButton({
+  label,
+  filter,
+}: {
+  label: string;
+  filter: NonNullable<Column<unknown>['filter']>;
+}) {
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const [pos, setPos] = useState<{ top: number; left: number } | null>(null);
+  const [draft, setDraft] = useState(filter.value);
+
+  useEffect(() => {
+    if (!pos) return undefined;
+    const close = (e: MouseEvent | KeyboardEvent) => {
+      if (e instanceof KeyboardEvent && e.key !== 'Escape') return;
+      if (e instanceof MouseEvent && (e.target as HTMLElement).closest('.atlas-popover, .atlas-colFilterBtn')) return;
+      setPos(null);
+    };
+    const onScroll = () => setPos(null);
+    document.addEventListener('mousedown', close);
+    document.addEventListener('keydown', close);
+    window.addEventListener('scroll', onScroll, true);
+    return () => {
+      document.removeEventListener('mousedown', close);
+      document.removeEventListener('keydown', close);
+      window.removeEventListener('scroll', onScroll, true);
+    };
+  }, [pos]);
+
+  const open = () => {
+    const rect = buttonRef.current!.getBoundingClientRect();
+    setDraft(filter.value);
+    setPos({ top: rect.bottom + 6, left: Math.min(rect.left, window.innerWidth - 260) });
+  };
+
+  return (
+    <>
+      <button
+        ref={buttonRef}
+        type="button"
+        className={`atlas-colFilterBtn ${filter.value ? 'atlas-colFilterBtnActive' : ''}`}
+        aria-label={`Filtrar por ${label}`}
+        aria-expanded={Boolean(pos)}
+        title={filter.value ? `Filtrando por “${filter.value}”` : `Filtrar por ${label}`}
+        onClick={() => (pos ? setPos(null) : open())}
+      >
+        <FunnelIcon />
+      </button>
+      {pos && (
+        <div className="atlas-popover" style={{ top: pos.top, left: pos.left }} role="dialog" aria-label={`Filtrar ${label}`}>
+          <input
+            className="atlas-input"
+            // eslint-disable-next-line jsx-a11y/no-autofocus
+            autoFocus
+            placeholder={filter.placeholder ?? `Pesquisar ${label.toLowerCase()}`}
+            value={draft}
+            onChange={e => {
+              setDraft(e.target.value);
+              filter.onChange(e.target.value);
+            }}
+            onKeyDown={e => e.key === 'Enter' && setPos(null)}
+          />
+          <div className="atlas-popoverActions">
+            <button
+              type="button"
+              className="atlas-btnPill"
+              onClick={() => {
+                setDraft('');
+                filter.onChange('');
+              }}
+            >
+              Limpar
+            </button>
+            <button type="button" className="atlas-btnPill" onClick={() => setPos(null)}>
+              Fechar
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
 
 export function DataTable<T extends { id: string }>({
   columns,
@@ -182,9 +287,17 @@ export function DataTable<T extends { id: string }>({
             {columns.map(column => (
               <th
                 key={column.key}
+                className={column.className}
                 style={{ textAlign: column.align ?? 'left' }}
               >
-                {column.header}
+                {column.filter ? (
+                  <span className="atlas-thFilter">
+                    {column.header}
+                    <ColumnFilterButton label={column.header} filter={column.filter} />
+                  </span>
+                ) : (
+                  column.header
+                )}
               </th>
             ))}
           </tr>
@@ -195,6 +308,7 @@ export function DataTable<T extends { id: string }>({
               {columns.map(column => (
                 <td
                   key={column.key}
+                  className={column.className}
                   style={{ textAlign: column.align ?? 'left' }}
                 >
                   {column.render(row)}
@@ -437,5 +551,62 @@ export function Pagination({
         </button>
       </div>
     </div>
+  );
+}
+
+/* ------------------------------------------------------------------ modal --- */
+
+/**
+ * Modal do design system (`atlas-modal*`) sobre o `Modal` do MUI.
+ *
+ * O MUI fica só com o que é difícil de acertar à mão — foco preso dentro do
+ * modal, Esc fecha, foco volta a quem abriu. O visual é todo do DS.
+ *
+ * O modal é renderizado num portal, fora do `.atlas-root` da página, então
+ * abre o próprio `.atlas-root` com o tema ativo; sem isso as variáveis de
+ * cor não existem ali dentro.
+ */
+export function Modal({
+  open,
+  onClose,
+  title,
+  children,
+  footer,
+  wide = false,
+}: {
+  open: boolean;
+  onClose: () => void;
+  title: ReactNode;
+  children: ReactNode;
+  footer?: ReactNode;
+  /** Mais largo e com corpo rolável, para texto longo. */
+  wide?: boolean;
+}) {
+  const theme = useTheme();
+  return (
+    <MuiModal open={open} onClose={onClose} hideBackdrop aria-labelledby="atlas-modal-title">
+      <div
+        className="atlas-root atlas-modalBackdrop"
+        data-theme={theme.palette.type === 'light' ? 'light' : 'dark'}
+        style={{ background: 'rgba(0, 0, 0, 0.6)' }}
+        onMouseDown={e => e.target === e.currentTarget && onClose()}
+        tabIndex={-1}
+      >
+        <div
+          className={`atlas-modalContentBox ${wide ? 'atlas-modalContentBoxWide' : ''}`}
+          role="dialog"
+          aria-modal="true"
+        >
+          <div className="atlas-modalHeader">
+            <h3 id="atlas-modal-title">{title}</h3>
+            <button type="button" className="atlas-modalCloseBtn" aria-label="Fechar" onClick={onClose}>
+              ×
+            </button>
+          </div>
+          <div className="atlas-modalBody">{children}</div>
+          {footer && <div className="atlas-modalFooter">{footer}</div>}
+        </div>
+      </div>
+    </MuiModal>
   );
 }

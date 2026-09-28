@@ -1,7 +1,5 @@
-import { useState, type ReactNode } from 'react';
-import Modal from '@material-ui/core/Modal';
-import { useTheme } from '@material-ui/core/styles';
-import { Alert, Field } from '@internal/plugin-components';
+import { useState } from 'react';
+import { Alert, Field, Modal } from '@internal/plugin-components';
 import type { CreatedApiKey } from '../../api/ApiKeysClient';
 
 const TTL_OPTIONS: { label: string; value: number | null }[] = [
@@ -17,54 +15,6 @@ type Props = {
   onClose: () => void;
   onCreate: (input: { description: string; ttlSeconds: number | null }) => Promise<CreatedApiKey>;
 };
-
-/**
- * Modal do design system (`atlas-modal*`) sobre o `Modal` do MUI.
- *
- * O MUI fica só com o que é difícil de acertar à mão — foco preso dentro do
- * modal, Esc fecha, foco volta ao botão que abriu. O visual é todo do DS.
- *
- * O modal é renderizado num portal, fora do `.atlas-root` da página, então
- * ele abre o próprio `.atlas-root` com o tema ativo; sem isso as variáveis
- * de cor não existem ali dentro.
- */
-function AtlasModal({
-  open,
-  onClose,
-  title,
-  children,
-  footer,
-}: {
-  open: boolean;
-  onClose: () => void;
-  title: string;
-  children: ReactNode;
-  footer: ReactNode;
-}) {
-  const theme = useTheme();
-  return (
-    <Modal open={open} onClose={onClose} hideBackdrop aria-labelledby="atlas-modal-title">
-      <div
-        className="atlas-root atlas-modalBackdrop"
-        data-theme={theme.palette.type === 'light' ? 'light' : 'dark'}
-        style={{ background: 'rgba(0, 0, 0, 0.6)' }}
-        onMouseDown={e => e.target === e.currentTarget && onClose()}
-        tabIndex={-1}
-      >
-        <div className="atlas-modalContentBox" role="dialog" aria-modal="true">
-          <div className="atlas-modalHeader">
-            <h3 id="atlas-modal-title">{title}</h3>
-            <button type="button" className="atlas-modalCloseBtn" aria-label="Fechar" onClick={onClose}>
-              ×
-            </button>
-          </div>
-          <div className="atlas-modalBody">{children}</div>
-          <div className="atlas-modalFooter">{footer}</div>
-        </div>
-      </div>
-    </Modal>
-  );
-}
 
 export function CreateKeyDialog({ open, onClose, onCreate }: Props) {
   const [description, setDescription] = useState('');
@@ -109,7 +59,7 @@ export function CreateKeyDialog({ open, onClose, onCreate }: Props) {
   // Depois de criada, a tela vira o único lugar onde o segredo existe.
   if (created) {
     return (
-      <AtlasModal
+      <Modal
         open={open}
         onClose={close}
         title="Chave criada"
@@ -129,14 +79,14 @@ export function CreateKeyDialog({ open, onClose, onCreate }: Props) {
             {copied ? 'Copiado' : 'Copiar'}
           </button>
         </div>
-      </AtlasModal>
+      </Modal>
     );
   }
 
   const canSubmit = !busy && description.trim() !== '';
 
   return (
-    <AtlasModal
+    <Modal
       open={open}
       onClose={close}
       title="Nova API key"
@@ -171,6 +121,6 @@ export function CreateKeyDialog({ open, onClose, onCreate }: Props) {
         </select>
       </Field>
       {error && <Alert variant="danger" title="Não foi possível criar">{error}</Alert>}
-    </AtlasModal>
+    </Modal>
   );
 }

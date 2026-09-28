@@ -4,7 +4,9 @@ import {
   PageBlueprint,
 } from '@backstage/frontend-plugin-api';
 import GroupsIcon from '@material-ui/icons/Group';
-import CatalogIcon from '@material-ui/icons/Apps';
+import ApprovalIcon from '@material-ui/icons/AssignmentTurnedIn';
+import MapIcon from '@material-ui/icons/Map';
+import JiraIcon from '@material-ui/icons/CallSplit';
 import SchoolIcon from '@material-ui/icons/School';
 import ShieldIcon from '@material-ui/icons/LockOpen';
 
@@ -20,7 +22,9 @@ import ShieldIcon from '@material-ui/icons/LockOpen';
  */
 
 export const myGroupsRouteRef = createRouteRef();
-export const catalogV2RouteRef = createRouteRef();
+export const approvalsRouteRef = createRouteRef();
+export const provisioningMapRouteRef = createRouteRef();
+export const atlasJiraRouteRef = createRouteRef();
 export const learningPathsRouteRef = createRouteRef();
 export const breakGlassRouteRef = createRouteRef();
 
@@ -39,17 +43,47 @@ const myGroupsPage = PageBlueprint.make({
   },
 });
 
-const catalogV2Page = PageBlueprint.make({
-  name: 'catalog-v2',
+const approvalsPage = PageBlueprint.make({
+  name: 'approvals',
   params: {
-    path: '/catalog-v2',
-    routeRef: catalogV2RouteRef,
-    title: 'Catálogo V2',
-    icon: <CatalogIcon />,
+    path: '/approvals',
+    routeRef: approvalsRouteRef,
+    title: 'Aprovações',
+    icon: <ApprovalIcon />,
     noHeader: true,
     loader: async () => {
-      const { CatalogV2Page } = await import('../../screens/catalog-v2/CatalogV2Page');
-      return <CatalogV2Page />;
+      const { ApprovalsPage } = await import('../../screens/approvals/ApprovalsPage');
+      return <ApprovalsPage />;
+    },
+  },
+});
+
+const provisioningMapPage = PageBlueprint.make({
+  name: 'provisioning-map',
+  params: {
+    path: '/provisioning-map',
+    routeRef: provisioningMapRouteRef,
+    title: 'Mapa de provisionamento',
+    icon: <MapIcon />,
+    noHeader: true,
+    loader: async () => {
+      const { ProvisioningMapPage } = await import('../../screens/provisioning-map/ProvisioningMapPage');
+      return <ProvisioningMapPage />;
+    },
+  },
+});
+
+const atlasJiraPage = PageBlueprint.make({
+  name: 'atlas-jira',
+  params: {
+    path: '/atlas-jira',
+    routeRef: atlasJiraRouteRef,
+    title: 'Atlas × Jira',
+    icon: <JiraIcon />,
+    noHeader: true,
+    loader: async () => {
+      const { AtlasJiraPage } = await import('../../screens/atlas-jira/AtlasJiraPage');
+      return <AtlasJiraPage />;
     },
   },
 });
@@ -100,13 +134,17 @@ export const atlasPagesPlugin = createFrontendPlugin({
   pluginId: 'atlas-pages',
   routes: {
     myGroups: myGroupsRouteRef,
-    catalogV2: catalogV2RouteRef,
+    approvals: approvalsRouteRef,
+    provisioningMap: provisioningMapRouteRef,
+    atlasJira: atlasJiraRouteRef,
     learningPaths: learningPathsRouteRef,
     breakGlass: breakGlassRouteRef,
   },
   extensions: [
     myGroupsPage,
-    catalogV2Page,
+    approvalsPage,
+    provisioningMapPage,
+    atlasJiraPage,
     learningPathsPage,
     learningPathDetailPage,
     breakGlassPage,

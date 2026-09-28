@@ -1,67 +1,71 @@
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
 import SettingsIcon from '@material-ui/icons/Settings';
 import NotificationsIcon from '@material-ui/icons/NotificationsNone';
 import LightModeIcon from '@material-ui/icons/WbSunny';
 import DarkModeIcon from '@material-ui/icons/Brightness2';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { useApi, appThemeApiRef } from '@backstage/core-plugin-api';
 import type { NavContentComponentProps } from '@backstage/plugin-app-react';
 import useObservable from 'react-use/lib/useObservable';
 import { EnvBadge } from '@internal/plugin-components';
 
 /**
- * Barra de navegação do Atlas, portada de `HomeTopNav.tsx`.
- *
- * Usa as classes do design system (`atlas.css`: `atlas-topNav`, `atlas-navPill`, …) em vez
- * de reimplementar as formas: o DS já define espaçamento, raio, rolagem e
- * estados de hover exatamente como no design.
+ * Barra de navegação do Atlas. Usa as classes do design system (`atlas.css`:
+ * `atlas-topNav`, `atlas-navPill`, `atlas-navArrow`…).
  */
 
-/** Ordem das pílulas, de `NAV_LINKS` do redesign. */
+/**
+ * As telas da navegação, nesta ordem — e só elas.
+ *
+ * Página registrada que não está aqui continua acessível pela URL (busca,
+ * configurações, páginas estáticas), mas não ganha pílula: a barra mostra o
+ * produto, não tudo o que está instalado.
+ */
 const PILL_ORDER = [
   'page:home',
   'page:catalog',
-  'page:atlas-pages/catalog-v2',
   'page:atlas-pages/my-groups',
+  'page:atlas-pages/approvals',
   'page:api-docs',
   'page:techdocs',
   'page:atlas-pages/learning-paths',
   'page:scaffolder',
+  'page:atlas-pages/provisioning-map',
   'page:atlas-pages/break-glass',
+  'page:atlas-pages/atlas-jira',
   'page:admin/api-keys',
   'page:admin',
 ];
 
 function useThemeToggle() {
   const appThemeApi = useApi(appThemeApiRef);
-  const activeId = useObservable(
-    appThemeApi.activeThemeId$(),
-    appThemeApi.getActiveThemeId(),
-  );
+  const activeId = useObservable(appThemeApi.activeThemeId$(), appThemeApi.getActiveThemeId());
 
   const isDark = activeId !== 'light';
-  const toggle = () =>
-    appThemeApi.setActiveThemeId(isDark ? 'light' : 'dark');
+  const toggle = () => appThemeApi.setActiveThemeId(isDark ? 'light' : 'dark');
 
   return { isDark, toggle };
+}
+
+function isActive(href: string, pathname: string) {
+  // Casamento por segmento, não por prefixo: `/api-keys` não pode acender
+  // uma pílula `/api`. A home fica em "/", onde prefixo casaria com tudo.
+  return href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
 }
 
 function NavPill({ href, title }: { href: string; title: string }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-
-  // Casamento por segmento, não por prefixo: `/catalog-v2` começa com
-  // `/catalog` e acenderia as duas pílulas. A home fica em "/", onde prefixo
-  // casaria com tudo.
-  const active =
-    href === '/'
-      ? pathname === '/'
-      : pathname === href || pathname.startsWith(`${href}/`);
+  const active = isActive(href, pathname);
 
   return (
     <button
       type="button"
       className={`atlas-navPill ${active ? 'atlas-navPillActive' : ''}`}
+      aria-current={active ? 'page' : undefined}
       onClick={() => navigate(href)}
     >
       {title}
@@ -69,17 +73,57 @@ function NavPill({ href, title }: { href: string; title: string }) {
   );
 }
 
-export function AtlasTopNav({
-  navItems,
-}: {
-  navItems: NavContentComponentProps['navItems'];
-}) {
-  const navigate = useNavigate();
-  const { isDark, toggle } = useThemeToggle();
+/**
+ * Setas para rolar a faixa de pílulas quando ela não cabe na tela. Cada seta
+ * só aparece quando há o que ver daquele lado.
+ */
+function useScrollArrows() {
+  const ref = useRef<HTMLElement>(null);
+  const [edges, setEdges] = useState({ left: false, right: false });
 
-  const pills = navItems.withComponent(item => (
-    <NavPill href={item.href} title={item.title} />
-  ));
+  const update = useCallback(() => {
+    const el = ref.current;
+    if (!el) return;
+    setEdges({
+      left: el.scrollLeft > 4,
+      right: el.scrollLeft + el.clientWidth < el.scrollWidth - 4,
+    });
+  }, []);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+    update();
+    el.addEventListener('scroll', update, { passive: true });
+    const observer = new ResizeObserver(update);
+    observer.observe(el);
+    return () => {
+      el.removeEventListener('scroll', update);
+      observer.disconnect();
+    };
+  }, [update]);
+
+  const scrollBy = (direction: 1 | -1) =>
+    ref.current?.scrollBy({ left: direction * Math.max(160, ref.current.clientWidth * 0.6), behavior: 'smooth' });
+
+  return { ref, edges, scrollBy };
+}
+
+export function AtlasTopNav({ navItems }: { navItems: NavContentComponentProps['navItems'] }) {
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const { isDark, toggle } = useThemeToggle();
+  const { ref, edges, scrollBy } = useScrollArrows();
+
+  const pills = navItems.withComponent(item => <NavPill href={item.href} title={item.title} />);
+
+  // Ao trocar de tela, centraliza a pílula ativa — na borda ela ficaria sob
+  // o esmaecimento e parecia cortada.
+  useEffect(() => {
+    ref.current
+      ?.querySelector<HTMLElement>('.atlas-navPillActive')
+      ?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
+  }, [pathname, ref]);
 
   return (
     <header className="atlas-topNav atlas-topNav--fixed">
@@ -91,26 +135,40 @@ export function AtlasTopNav({
         </div>
 
         <div className="atlas-navPillsWrapper">
-          <nav className="atlas-navPills" aria-label="Navegação principal">
+          <button
+            type="button"
+            className={`atlas-navArrow ${edges.left ? 'atlas-navArrowVisible' : ''}`}
+            aria-label="Rolar navegação para a esquerda"
+            tabIndex={edges.left ? 0 : -1}
+            onClick={() => scrollBy(-1)}
+          >
+            <ChevronLeftIcon />
+          </button>
+          <nav
+            ref={ref}
+            className="atlas-navPills"
+            aria-label="Navegação principal"
+            // A máscara de esmaecer só faz sentido do lado em que há mais itens.
+            style={edges.right ? undefined : { maskImage: 'none', WebkitMaskImage: 'none' }}
+          >
             {PILL_ORDER.map(id => pills.take(id))}
-            {/* O que não está na ordem aparece depois: plugin novo não some
-                da navegação por não ter sido previsto. */}
-            {pills.rest({ sortBy: 'title' })}
           </nav>
+          <button
+            type="button"
+            className={`atlas-navArrow ${edges.right ? 'atlas-navArrowVisible' : ''}`}
+            aria-label="Rolar navegação para a direita"
+            tabIndex={edges.right ? 0 : -1}
+            onClick={() => scrollBy(1)}
+          >
+            <ChevronRightIcon />
+          </button>
         </div>
       </div>
 
       <div className="atlas-navRight">
-        <button
-          type="button"
-          className="atlas-navActionBtn"
-          aria-label="Buscar"
-          title="Buscar"
-          onClick={() => navigate('/search')}
-        >
+        <button type="button" className="atlas-navActionBtn" aria-label="Buscar" title="Buscar" onClick={() => navigate('/search')}>
           <SearchIcon fontSize="small" />
         </button>
-
         <button
           type="button"
           className="atlas-navActionBtn"
@@ -120,7 +178,6 @@ export function AtlasTopNav({
         >
           <NotificationsIcon fontSize="small" />
         </button>
-
         <button
           type="button"
           className="atlas-navActionBtn"
@@ -128,13 +185,8 @@ export function AtlasTopNav({
           title={isDark ? 'Tema claro' : 'Tema escuro'}
           onClick={toggle}
         >
-          {isDark ? (
-            <LightModeIcon fontSize="small" />
-          ) : (
-            <DarkModeIcon fontSize="small" />
-          )}
+          {isDark ? <LightModeIcon fontSize="small" /> : <DarkModeIcon fontSize="small" />}
         </button>
-
         <button
           type="button"
           className="atlas-navActionBtn"

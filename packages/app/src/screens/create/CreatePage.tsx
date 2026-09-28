@@ -5,8 +5,11 @@ import { useApi } from '@backstage/core-plugin-api';
 import { catalogApiRef } from '@backstage/plugin-catalog-react';
 import { ScaffolderPage } from '@backstage/plugin-scaffolder';
 import { ResponseErrorPanel } from '@backstage/core-components';
+import { usePermission } from '@backstage/plugin-permission-react';
+import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
 import {
   AtlasPage,
+  atlasEnvApiRef,
   Badge,
   CardGrid,
   FeatureCard,
@@ -26,6 +29,12 @@ const UNCATEGORIZED = 'Outros';
  */
 function TemplateGallery() {
   const catalogApi = useApi(catalogApiRef);
+  const env = useApi(atlasEnvApiRef);
+  // Registrar componente existente: pouca gente usa e só funciona fora de
+  // produção. Aparece para quem pode criar entidades no catálogo (RBAC), e só
+  // em local/dev/lab — e mesmo assim como botão discreto.
+  const { allowed: canRegister } = usePermission({ permission: catalogEntityCreatePermission });
+  const showRegister = canRegister && env.envName !== 'prod';
   const [query, setQuery] = useState('');
   const [category, setCategory] = useState('Todas');
 
@@ -81,9 +90,20 @@ function TemplateGallery() {
       title="Create"
       subtitle="Escolha um template para provisionar recursos, criar repositórios ou registrar entidades."
       actions={
-        <RouterLink className="atlas-btnPill" to="/create/tasks">
-          Minhas tarefas
-        </RouterLink>
+        <>
+          {showRegister && (
+            <RouterLink
+              className="atlas-btnPill atlas-btnGhost"
+              to="/catalog-import"
+              title={`Cadastra no catálogo um componente que já tem catalog-info.yaml. Só em ambientes não produtivos (${env.envName}).`}
+            >
+              Registrar componente existente
+            </RouterLink>
+          )}
+          <RouterLink className="atlas-btnPill" to="/create/tasks">
+            Minhas tarefas
+          </RouterLink>
+        </>
       }
     >
       <div className="atlas-filtersBar">
