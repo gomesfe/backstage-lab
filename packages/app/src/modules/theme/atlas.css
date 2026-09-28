@@ -1221,3 +1221,18 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 /* Setas da faixa de navegação (o port já tinha .atlas-navArrow). */
 .atlas-navArrow:hover { color: var(--text-primary); border-color: var(--border-light); }
 .atlas-navArrow svg { font-size: 18px; }
+
+/* ===== Navegação entre telas (v1.3) ===== */
+/* Voltar / Avançar na barra do topo, antes da marca. */
+.atlas-navHistory { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+.atlas-navActionBtnSm { width: 32px; height: 32px; }
+.atlas-navActionBtnSm svg { font-size: 18px; }
+.atlas-navActionBtn:disabled, .atlas-navActionBtn:disabled:hover {
+  opacity: 0.35; cursor: not-allowed; background: var(--bg-surface); color: var(--text-secondary); border-color: var(--border-color);
+}
+/* Trilha de localização acima do título: "Home › Trilhas › Primeiros passos". */
+.atlas-breadcrumb { flex-wrap: wrap; font-weight: 600; margin-bottom: 2px; }
+.atlas-breadcrumb a { display: inline-flex; align-items: center; gap: 4px; border-radius: 6px; }
+.atlas-breadcrumb a:focus-visible { outline: none; box-shadow: var(--focus-ring); }
+.atlas-breadcrumbSep { opacity: 0.6; }
+.atlas-breadcrumbCurrent { color: var(--text-secondary); }

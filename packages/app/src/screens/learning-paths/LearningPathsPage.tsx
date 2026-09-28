@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react';
 import { Link as RouterLink, useParams } from 'react-router-dom';
 import LayersIcon from '@material-ui/icons/Layers';
 import ArrowIcon from '@material-ui/icons/CallMade';
+import BackIcon from '@material-ui/icons/ArrowBack';
 import {
   AtlasPage,
   Badge,
@@ -67,6 +68,7 @@ export function LearningPathsPage() {
     <AtlasPage
       eyebrow="Aprendizado"
       title="Trilhas de aprendizado"
+      crumb="Trilhas"
       subtitle="Trilhas guiadas para dominar o Atlas e as práticas de engenharia da casa. Seu progresso fica salvo."
     >
       <section className="atlas-tableContainerCard">
@@ -184,9 +186,10 @@ export function LearningPathDetailPage() {
         eyebrow="Aprendizado"
         title="Trilha não encontrada"
         subtitle="O endereço não corresponde a nenhuma trilha."
+        parents={[{ label: 'Trilhas', to: '/learning-paths' }]}
         actions={
           <RouterLink className="atlas-btnPill" to="/learning-paths">
-            Ver todas as trilhas
+            <BackIcon style={{ fontSize: 15 }} /> Voltar para trilhas
           </RouterLink>
         }
       >
@@ -198,22 +201,28 @@ export function LearningPathDetailPage() {
   const done = doneIn(path.id);
   const doneCount = path.steps.filter(s => done.has(s.id)).length;
   const nextId = path.steps.find(s => !done.has(s.id))?.id;
+  // Próxima trilha sugerida ao terminar: a seguinte na lista que não esteja concluída.
+  const pathIndex = LEARNING_PATHS.findIndex(p => p.id === path.id);
+  const nextPath = [...LEARNING_PATHS.slice(pathIndex + 1), ...LEARNING_PATHS.slice(0, pathIndex)].find(
+    p => p.steps.some(step => !doneIn(p.id).has(step.id)),
+  );
 
   return (
     <AtlasPage
       eyebrow={`Trilha · ${path.difficulty}`}
       title={path.title}
       subtitle={path.description}
+      parents={[{ label: 'Trilhas', to: '/learning-paths' }]}
       actions={
         <>
+          <RouterLink className="atlas-btnPill" to="/learning-paths">
+            <BackIcon style={{ fontSize: 15 }} /> Voltar para trilhas
+          </RouterLink>
           {doneCount > 0 && (
-            <button type="button" className="atlas-btnPill" onClick={() => reset(path.id)}>
+            <button type="button" className="atlas-btnPill atlas-btnGhost" onClick={() => reset(path.id)}>
               Recomeçar
             </button>
           )}
-          <RouterLink className="atlas-btnPill" to="/learning-paths">
-            Todas as trilhas
-          </RouterLink>
         </>
       }
     >
@@ -250,14 +259,21 @@ export function LearningPathDetailPage() {
           })}
         </div>
         {doneCount === path.steps.length ? (
-          <div className="atlas-alert atlas-alertSuccess">
-            <div>
+          <div className="atlas-alert atlas-alertSuccess" style={{ alignItems: 'center', flexWrap: 'wrap' }}>
+            <div style={{ flex: 1, minWidth: 200 }}>
               <div className="atlas-alertTitle">Trilha concluída</div>
-              Veja outras trilhas para continuar.{' '}
-              <RouterLink className="atlas-templateLink" to="/learning-paths">
-                Ver trilhas <ArrowIcon style={{ fontSize: 12 }} />
-              </RouterLink>
+              {nextPath ? `Próxima sugestão: ${nextPath.title}.` : 'Você concluiu todas as trilhas.'}
             </div>
+            <span style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+              <RouterLink className="atlas-btnPill" to="/learning-paths">
+                <BackIcon style={{ fontSize: 15 }} /> Voltar para trilhas
+              </RouterLink>
+              {nextPath && (
+                <RouterLink className="atlas-btnPill atlas-btnPillLime" to={`/learning-paths/${nextPath.id}`}>
+                  Próxima trilha <ArrowIcon style={{ fontSize: 13 }} />
+                </RouterLink>
+              )}
+            </span>
           </div>
         ) : (
           <p className="atlas-text">Clique numa etapa para ler e marcá-la como concluída.</p>
@@ -267,6 +283,7 @@ export function LearningPathDetailPage() {
       {(() => {
         const index = path.steps.findIndex(s => s.id === openStep);
         const step = path.steps[index];
+        const previous = path.steps[index - 1];
         const next = path.steps[index + 1];
         const stepDone = step ? done.has(step.id) : false;
         return (
@@ -278,6 +295,15 @@ export function LearningPathDetailPage() {
             footer={
               step && (
                 <>
+                  <button
+                    type="button"
+                    className="atlas-btnPill"
+                    style={{ marginRight: 'auto' }}
+                    disabled={!previous}
+                    onClick={() => previous && setOpenStep(previous.id)}
+                  >
+                    <BackIcon style={{ fontSize: 15 }} /> Etapa anterior
+                  </button>
                   <button type="button" className="atlas-btnPill" onClick={() => toggle(path.id, step.id)}>
                     {stepDone ? 'Desmarcar' : 'Marcar como concluída'}
                   </button>

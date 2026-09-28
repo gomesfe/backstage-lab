@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from 'react';
 import MuiModal from '@material-ui/core/Modal';
 import { useTheme } from '@material-ui/core/styles';
+import { Link as RouterLink } from 'react-router-dom';
 import { Content, Page } from '@backstage/core-components';
 import InboxIcon from '@material-ui/icons/Inbox';
 import WarningIcon from '@material-ui/icons/ReportProblemOutlined';
@@ -43,6 +44,30 @@ export function Badge({
 
 /* --------------------------------------------------------------- AtlasPage --- */
 
+export type Crumb = { label: string; to: string };
+
+/**
+ * Trilha de localização: "Home › Trilhas › Primeiros passos".
+ *
+ * Home sempre abre a trilha; `parents` são os níveis intermediários; o último
+ * item é a tela atual, sem link. Dá para subir de nível com um clique, sem
+ * depender do histórico do navegador.
+ */
+function Breadcrumbs({ parents = [], current }: { parents?: Crumb[]; current: string }) {
+  const crumbs: Crumb[] = [{ label: 'Home', to: '/' }, ...parents];
+  return (
+    <nav className="atlas-breadcrumb" aria-label="Você está em">
+      {crumbs.map(crumb => (
+        <span key={crumb.to} style={{ display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+          <RouterLink to={crumb.to}>{crumb.label}</RouterLink>
+          <span className="atlas-breadcrumbSep" aria-hidden>›</span>
+        </span>
+      ))}
+      <span className="atlas-breadcrumbCurrent" aria-current="page">{current}</span>
+    </nav>
+  );
+}
+
 export function AtlasPage({
   eyebrow,
   title,
@@ -50,6 +75,8 @@ export function AtlasPage({
   actions,
   children,
   themeId = 'tool',
+  parents,
+  crumb,
 }: {
   eyebrow?: string;
   title: string;
@@ -57,6 +84,10 @@ export function AtlasPage({
   actions?: ReactNode;
   children: ReactNode;
   themeId?: string;
+  /** Níveis entre a Home e esta tela, na trilha de localização. */
+  parents?: Crumb[];
+  /** Nome desta tela na trilha, se diferente do título. */
+  crumb?: string;
 }) {
   return (
     <Page themeId={themeId}>
@@ -64,6 +95,7 @@ export function AtlasPage({
         <div className="atlas-appContainer">
           <div className="atlas-pageHeader">
             <div className="atlas-pageTitleGroup">
+              <Breadcrumbs parents={parents} current={crumb ?? title} />
               {eyebrow && <span className="atlas-pageEyebrow">{eyebrow}</span>}
               <h1 className="atlas-pageTitle">{title}</h1>
               {subtitle && <p className="atlas-pageSubtitle">{subtitle}</p>}

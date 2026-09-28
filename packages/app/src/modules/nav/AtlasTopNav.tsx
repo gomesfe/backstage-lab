@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, useNavigationType } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
 import SettingsIcon from '@material-ui/icons/Settings';
 import NotificationsIcon from '@material-ui/icons/NotificationsNone';
@@ -7,6 +7,8 @@ import LightModeIcon from '@material-ui/icons/WbSunny';
 import DarkModeIcon from '@material-ui/icons/Brightness2';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 import { useApi, appThemeApiRef } from '@backstage/core-plugin-api';
 import type { NavContentComponentProps } from '@backstage/plugin-app-react';
 import useObservable from 'react-use/lib/useObservable';
@@ -109,11 +111,70 @@ function useScrollArrows() {
   return { ref, edges, scrollBy };
 }
 
+const MAX_INDEX_KEY = 'atlas-nav-max-index';
+
+/**
+ * A tela "mãe" de uma rota, para o Voltar quando não há histórico (a pessoa
+ * abriu um link direto): `/learning-paths/x` → `/learning-paths`,
+ * `/catalog/default/component/y` → `/catalog`, `/create/tasks` → `/create`.
+ */
+function parentOf(pathname: string): string {
+  const segments = pathname.split('/').filter(Boolean);
+  return segments.length > 1 ? `/${segments[0]}` : '/';
+}
+
+/**
+ * Voltar e Avançar do portal, com estado de habilitado de verdade.
+ *
+ * O react-router guarda a posição no histórico em `history.state.idx`. A
+ * maior posição alcançada diz se existe "frente": navegar para uma tela nova
+ * (PUSH) descarta a frente, como no navegador. Fica em sessionStorage para
+ * sobreviver a um F5.
+ */
+function useHistoryButtons() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const navigationType = useNavigationType();
+  const index: number = window.history.state?.idx ?? 0;
+
+  const [maxIndex, setMaxIndex] = useState(() => {
+    try {
+      return Math.max(Number(sessionStorage.getItem(MAX_INDEX_KEY) ?? 0), index);
+    } catch {
+      return index;
+    }
+  });
+
+  useEffect(() => {
+    setMaxIndex(previous => {
+      const next =
+        navigationType === 'PUSH' ? index : Math.max(previous, index);
+      try {
+        sessionStorage.setItem(MAX_INDEX_KEY, String(next));
+      } catch {
+        // Sem sessionStorage (janela privada): só perde o "Avançar" após F5.
+      }
+      return next;
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [location.key]);
+
+  const hasHistory = index > 0;
+  return {
+    canBack: hasHistory || location.pathname !== '/',
+    canForward: index < maxIndex,
+    backLabel: hasHistory ? 'Voltar' : `Voltar para ${parentOf(location.pathname) === '/' ? 'Home' : 'a tela anterior'}`,
+    back: () => (hasHistory ? navigate(-1) : navigate(parentOf(location.pathname))),
+    forward: () => navigate(1),
+  };
+}
+
 export function AtlasTopNav({ navItems }: { navItems: NavContentComponentProps['navItems'] }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { isDark, toggle } = useThemeToggle();
   const { ref, edges, scrollBy } = useScrollArrows();
+  const history = useHistoryButtons();
 
   const pills = navItems.withComponent(item => <NavPill href={item.href} title={item.title} />);
 
@@ -128,6 +189,28 @@ export function AtlasTopNav({ navItems }: { navItems: NavContentComponentProps['
   return (
     <header className="atlas-topNav atlas-topNav--fixed">
       <div className="atlas-navLeft">
+        <div className="atlas-navHistory">
+          <button
+            type="button"
+            className="atlas-navActionBtn atlas-navActionBtnSm"
+            aria-label={history.backLabel}
+            title={`${history.backLabel} (Alt + ←)`}
+            disabled={!history.canBack}
+            onClick={history.back}
+          >
+            <ArrowBackIcon />
+          </button>
+          <button
+            type="button"
+            className="atlas-navActionBtn atlas-navActionBtnSm"
+            aria-label="Avançar"
+            title="Avançar (Alt + →)"
+            disabled={!history.canForward}
+            onClick={history.forward}
+          >
+            <ArrowForwardIcon />
+          </button>
+        </div>
         <div className="atlas-brandLogo">
           <span className="atlas-brandMark">A</span>
           <span className="atlas-brandName">Atlas</span>

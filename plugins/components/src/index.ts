@@ -18,6 +18,6 @@ export {
   TableCard,
   Tabs,
 } from './components/primitives';
-export type { BadgeVariant, Column } from './components/primitives';
+export type { BadgeVariant, Column, Crumb } from './components/primitives';
 export { atlasTokens } from './tokens';
 export type { AtlasPalette } from './tokens';
