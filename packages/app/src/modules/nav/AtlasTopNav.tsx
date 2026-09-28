@@ -37,6 +37,7 @@ const PILL_ORDER = [
   'page:atlas-pages/provisioning-map',
   'page:atlas-pages/break-glass',
   'page:atlas-pages/atlas-jira',
+  'page:atlas-pages/agent',
   'page:admin/api-keys',
   'page:admin',
 ];

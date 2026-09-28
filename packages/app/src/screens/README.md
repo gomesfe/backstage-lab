@@ -19,6 +19,7 @@ Na barra de navegação, nesta ordem:
 | Mapa de provisionamento | `/provisioning-map` | [provisioning-map](provisioning-map/README.md) |
 | Break Glass | `/break-glass` | [break-glass](break-glass/README.md) |
 | Atlas × Jira | `/atlas-jira` | [atlas-jira](atlas-jira/README.md) |
+| Agente | `/agent` | [agent](agent/README.md) |
 | API Keys | `/api-keys` | [plugins/admin/…/api-keys](../../../../plugins/admin/src/screens/api-keys/README.md) |
 | Administração | `/admin` | [plugins/admin/…/admin](../../../../plugins/admin/src/screens/admin/README.md) |
 

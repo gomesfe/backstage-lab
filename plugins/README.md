@@ -5,6 +5,7 @@
 | `rbac-backend` | módulo do `permission` | política de permissões lida do `rbac-policy.csv` |
 | `api-keys-backend` | plugin de backend | emissão, TTL e revogação de API keys |
 | `admin` | plugin de frontend | painel em `/admin` que consome o `api-keys-backend` |
+| `atlas-agent-backend` | plugin de backend | agente do Atlas (`/agent`): conversas com histórico, Claude + consulta ao catálogo com as permissões do usuário |
 
 ## Usando `api-keys-backend` como molde
 

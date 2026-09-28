@@ -7,6 +7,7 @@ import GroupsIcon from '@material-ui/icons/Group';
 import ApprovalIcon from '@material-ui/icons/AssignmentTurnedIn';
 import MapIcon from '@material-ui/icons/Map';
 import JiraIcon from '@material-ui/icons/CallSplit';
+import AgentIcon from '@material-ui/icons/Forum';
 import SchoolIcon from '@material-ui/icons/School';
 import ShieldIcon from '@material-ui/icons/LockOpen';
 
@@ -25,6 +26,7 @@ export const myGroupsRouteRef = createRouteRef();
 export const approvalsRouteRef = createRouteRef();
 export const provisioningMapRouteRef = createRouteRef();
 export const atlasJiraRouteRef = createRouteRef();
+export const agentRouteRef = createRouteRef();
 export const learningPathsRouteRef = createRouteRef();
 export const breakGlassRouteRef = createRouteRef();
 
@@ -88,6 +90,21 @@ const atlasJiraPage = PageBlueprint.make({
   },
 });
 
+const agentPage = PageBlueprint.make({
+  name: 'agent',
+  params: {
+    path: '/agent',
+    routeRef: agentRouteRef,
+    title: 'Agente',
+    icon: <AgentIcon />,
+    noHeader: true,
+    loader: async () => {
+      const { AgentPage } = await import('../../screens/agent/AgentPage');
+      return <AgentPage />;
+    },
+  },
+});
+
 const learningPathsPage = PageBlueprint.make({
   name: 'learning-paths',
   params: {
@@ -137,6 +154,7 @@ export const atlasPagesPlugin = createFrontendPlugin({
     approvals: approvalsRouteRef,
     provisioningMap: provisioningMapRouteRef,
     atlasJira: atlasJiraRouteRef,
+    agent: agentRouteRef,
     learningPaths: learningPathsRouteRef,
     breakGlass: breakGlassRouteRef,
   },
@@ -145,6 +163,7 @@ export const atlasPagesPlugin = createFrontendPlugin({
     approvalsPage,
     provisioningMapPage,
     atlasJiraPage,
+    agentPage,
     learningPathsPage,
     learningPathDetailPage,
     breakGlassPage,

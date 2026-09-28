@@ -46,6 +46,7 @@
     "@backstage/plugin-techdocs-backend": "^2.3.0",
     "@backstage/plugin-user-settings-backend": "^0.4.7",
     "@internal/plugin-api-keys-backend": "^0.1.0",
+    "@internal/plugin-atlas-agent-backend": "^0.1.0",
     "@internal/plugin-rbac-backend": "^0.1.0",
     "@internal/plugin-scaffolder-backend-module-atlas": "^0.1.0",
     "app": "link:../app",

@@ -49,6 +49,8 @@ backend.add(import('@internal/plugin-rbac-backend'));
 
 // API keys: emissão, revogação e TTL para acesso programático
 backend.add(import('@internal/plugin-api-keys-backend'));
+// Agente do Atlas: chat com histórico (Claude + consulta ao catálogo).
+backend.add(import('@internal/plugin-atlas-agent-backend'));
 
 // search plugin
 backend.add(import('@backstage/plugin-search-backend'));
