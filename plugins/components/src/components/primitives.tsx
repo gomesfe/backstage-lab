@@ -49,9 +49,8 @@ export type Crumb = { label: string; to: string };
 /**
  * Trilha de localização: "Home › Trilhas › Primeiros passos".
  *
- * Home sempre abre a trilha; `parents` são os níveis intermediários; o último
- * item é a tela atual, sem link. Dá para subir de nível com um clique, sem
- * depender do histórico do navegador.
+ * Só aparece em tela de detalhe — quando a página passa `parents`. Nas telas
+ * principais ela só repetiria o que a barra de navegação já mostra.
  */
 function Breadcrumbs({ parents = [], current }: { parents?: Crumb[]; current: string }) {
   const crumbs: Crumb[] = [{ label: 'Home', to: '/' }, ...parents];
@@ -84,7 +83,7 @@ export function AtlasPage({
   actions?: ReactNode;
   children: ReactNode;
   themeId?: string;
-  /** Níveis entre a Home e esta tela, na trilha de localização. */
+  /** Níveis entre a Home e esta tela. Com eles, aparece a trilha de localização. */
   parents?: Crumb[];
   /** Nome desta tela na trilha, se diferente do título. */
   crumb?: string;
@@ -95,7 +94,7 @@ export function AtlasPage({
         <div className="atlas-appContainer">
           <div className="atlas-pageHeader">
             <div className="atlas-pageTitleGroup">
-              <Breadcrumbs parents={parents} current={crumb ?? title} />
+              {parents?.length ? <Breadcrumbs parents={parents} current={crumb ?? title} /> : null}
               {eyebrow && <span className="atlas-pageEyebrow">{eyebrow}</span>}
               <h1 className="atlas-pageTitle">{title}</h1>
               {subtitle && <p className="atlas-pageSubtitle">{subtitle}</p>}

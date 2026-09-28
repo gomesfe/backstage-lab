@@ -65,8 +65,7 @@ URL, mas não ganha pílula.
    confirmação.
 7. **Controle restrito some para quem não pode** — pela permissão no RBAC
    (`usePermission`), nunca por lista de nomes no código.
-8. **Sempre dá para voltar.** A barra do topo tem **Voltar / Avançar** em
-   todas as telas (inclusive as internas do Backstage); sem histórico — link
-   aberto direto — o Voltar sobe para a tela-mãe. Toda tela com `AtlasPage`
-   mostra a trilha "Home › … › tela"; tela de detalhe passa os níveis
-   intermediários em `parents` e tem um "Voltar para …" explícito.
+8. **Voltar só onde faz sentido.** Não há voltar/avançar global. Tela de
+   detalhe (ex.: uma trilha) passa `parents` ao `AtlasPage` — isso mostra a
+   trilha "Home › Trilhas › …" — e tem um "Voltar para …" explícito. Telas
+   principais não têm nenhum dos dois: já estão na barra de navegação.
