@@ -8,7 +8,7 @@ export function CatalogPage() {
       title="Catálogo"
       subtitle="Aplicações, sistemas, recursos e squads registrados no portal."
       kinds={['Component', 'System', 'Resource', 'Group']}
-      emptyMessage="Nenhuma entidade registrada. Use um template em Create."
+      emptyMessage="Nenhuma entidade registrada. Use uma oferta em Ofertas."
     />
   );
 }

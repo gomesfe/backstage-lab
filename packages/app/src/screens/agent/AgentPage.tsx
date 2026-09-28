@@ -10,11 +10,11 @@ import SearchIcon from '@material-ui/icons/Search';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import ChatIcon from '@material-ui/icons/ChatBubbleOutline';
 import useAsync from 'react-use/lib/useAsync';
-import { Alert, AtlasPage, Modal } from '@internal/plugin-components';
+import { Alert, AtlasLogo, AtlasPage, Modal } from '@internal/plugin-components';
 import { AgentClient, type Activity, type ChatMessage, type Conversation } from './agentClient';
 
 const SUGGESTIONS = [
-  'Quais templates existem para criar um banco de dados?',
+  'Quais ofertas existem para criar um banco de dados?',
   'Quais APIs estão registradas no catálogo e quem é dono de cada uma?',
   'Como peço acesso emergencial a uma conta AWS?',
   'Por onde começo se acabei de entrar no time?',
@@ -249,7 +249,7 @@ export function AgentPage() {
     <AtlasPage
       eyebrow="Assistente"
       title="Agente do Atlas"
-      subtitle="Pergunte sobre serviços, APIs, templates e telas do portal. As conversas ficam salvas no seu histórico."
+      subtitle="Pergunte sobre serviços, APIs, ofertas e telas do portal. As conversas ficam salvas no seu histórico."
     >
       {!statusLoading && status && !status.configured && (
         <Alert variant="warning" title="Agente ainda não configurado">
@@ -327,7 +327,9 @@ export function AgentPage() {
               </>
             ) : messages.length === 0 && !pending ? (
               <div className="atlas-chatEmpty">
-                <span className="atlas-chatAvatar atlas-chatAvatarAgent" style={{ width: 44, height: 44, fontSize: '1rem' }}>A</span>
+                <span className="atlas-chatAvatar atlas-chatAvatarAgent" style={{ width: 48, height: 48, borderRadius: 14 }}>
+                  <AtlasLogo variant="symbol" title="" />
+                </span>
                 <div>
                   <div className="atlas-sectionCardTitle" style={{ justifyContent: 'center' }}>Como posso ajudar?</div>
                   <p className="atlas-text" style={{ marginTop: 4 }}>
@@ -354,7 +356,7 @@ export function AgentPage() {
                     </div>
                   ) : (
                     <div key={m.id} className="atlas-chatRow">
-                      <span className="atlas-chatAvatar atlas-chatAvatarAgent">A</span>
+                      <span className="atlas-chatAvatar atlas-chatAvatarAgent"><AtlasLogo variant="symbol" title="" /></span>
                       <div className="atlas-chatStack">
                         <Tools activity={m.activity} />
                         <div className={`atlas-chatBubble atlas-chatBubbleAgent ${m.error ? 'atlas-chatBubbleError' : ''}`}>
@@ -367,7 +369,7 @@ export function AgentPage() {
                 )}
                 {pending && (
                   <div className="atlas-chatRow">
-                    <span className="atlas-chatAvatar atlas-chatAvatarAgent">A</span>
+                    <span className="atlas-chatAvatar atlas-chatAvatarAgent"><AtlasLogo variant="symbol" title="" /></span>
                     <div className="atlas-chatStack">
                       <Tools activity={pending.activity} />
                       <div className="atlas-chatBubble atlas-chatBubbleAgent">

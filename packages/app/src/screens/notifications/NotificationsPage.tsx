@@ -160,7 +160,7 @@ export function NotificationsPage() {
     <AtlasPage
       eyebrow="Caixa de entrada"
       title="Notificações"
-      subtitle="Avisos do portal: tarefas do Create que terminaram, aprovações e comunicados."
+      subtitle="Avisos do portal: ofertas que terminaram de executar, aprovações e comunicados."
       actions={
         unread > 0 ? (
           <button type="button" className="atlas-btnPill" onClick={markAllRead} disabled={busy === 'all'}>
@@ -242,7 +242,7 @@ export function NotificationsPage() {
             ) : view === 'saved' ? (
               'Nenhuma notificação salva. Use o marcador numa notificação para guardá-la aqui.'
             ) : (
-              'Nenhuma notificação ainda. Elas chegam, por exemplo, quando uma tarefa do Create termina.'
+              'Nenhuma notificação ainda. Elas chegam, por exemplo, quando uma oferta termina de executar.'
             )}
           </div>
         ) : (

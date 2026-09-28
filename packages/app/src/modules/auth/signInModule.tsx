@@ -16,24 +16,39 @@ const signInPage = SignInPageBlueprint.make({
   params: {
     loader: async () => {
       const { SignInPage } = await import('@backstage/core-components');
+      const { AtlasLogo } = await import('@internal/plugin-components');
+      const { useTheme } = await import('@material-ui/core/styles');
       // SignInPage aceita um provider só ou vários; a sobrecarga de vários é a
       // que queremos, e o TS não a infere sozinho a partir de SignInPageProps.
-      return (props: SignInPageProps) => (
-        <SignInPage
-          {...props}
-          title="Entrar no Atlas"
-          align="center"
-          providers={[
-            'guest',
-            {
-              id: 'github-auth-provider',
-              title: 'GitHub',
-              message: 'Entrar com sua conta do GitHub',
-              apiRef: githubAuthApiRef,
-            },
-          ]}
-        />
-      );
+      return function AtlasSignInPage(props: SignInPageProps) {
+        // O login pode renderizar fora do .atlas-root do app: abre um próprio,
+        // para o logo (currentColor) e as cores do DS existirem aqui.
+        const theme = useTheme();
+        return (
+          <div
+            className="atlas-root atlas-signIn"
+            data-theme={theme.palette.type === 'light' ? 'light' : 'dark'}
+          >
+            <div className="atlas-signInBrand">
+              <AtlasLogo variant="vertical" />
+            </div>
+            <SignInPage
+              {...props}
+              title="Entrar"
+              align="center"
+              providers={[
+                'guest',
+                {
+                  id: 'github-auth-provider',
+                  title: 'GitHub',
+                  message: 'Entrar com sua conta do GitHub',
+                  apiRef: githubAuthApiRef,
+                },
+              ]}
+            />
+          </div>
+        );
+      };
     },
   },
 });

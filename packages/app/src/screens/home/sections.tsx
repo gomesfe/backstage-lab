@@ -305,7 +305,7 @@ export function ServicesSection({
         <SkeletonLines />
       ) : services.length === 0 ? (
         <div className="atlas-emptyState">
-          Nenhum serviço neste escopo. Crie um com um template em Create.
+          Nenhum serviço neste escopo. Crie um com uma oferta em Ofertas.
         </div>
       ) : (
         <div className="atlas-homeScrollableList" style={{ gap: 2 }}>

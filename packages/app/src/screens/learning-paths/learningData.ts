@@ -59,7 +59,7 @@ const FIRST_STEPS: LearningStep[] = [
       {
         heading: 'Onboard no Atlas',
         paragraphs: [
-          'O Atlas é o portal do desenvolvedor: é por ele que você encontra os serviços do seu time, provisiona recursos na nuvem por templates e acompanha as suas solicitações.',
+          'O Atlas é o portal do desenvolvedor: é por ele que você encontra os serviços do seu time, provisiona recursos na nuvem por ofertas e acompanha as suas solicitações.',
           'O acesso é feito com a sua conta corporativa. Não existe usuário e senha próprios do Atlas.',
         ],
       },
@@ -77,7 +77,7 @@ const FIRST_STEPS: LearningStep[] = [
         items: [
           'Conta corporativa ativa.',
           'Estar cadastrado no grupo do squad no catálogo.',
-          'Conta no GitHub da organização, vinculada ao seu usuário — os templates abrem pull requests em seu nome.',
+          'Conta no GitHub da organização, vinculada ao seu usuário — as ofertas abrem pull requests em seu nome.',
         ],
       },
       {
@@ -87,7 +87,7 @@ const FIRST_STEPS: LearningStep[] = [
         ],
         items: [
           'Confirme o nome do DevTeam com o líder do squad antes de criar o primeiro recurso.',
-          'Ao usar um template, escolha o DevTeam correto como dono: é ele que aparece no catálogo e no mapa de provisionamento.',
+          'Ao usar uma oferta, escolha o DevTeam correto como dono: é ele que aparece no catálogo e no mapa de provisionamento.',
         ],
       },
     ],
@@ -106,7 +106,7 @@ const FIRST_STEPS: LearningStep[] = [
       {
         heading: 'Onde pedir ajuda',
         items: [
-          'Dúvidas de uso do portal e dos templates: canal de suporte do Atlas.',
+          'Dúvidas de uso do portal e das ofertas: canal de suporte do Atlas.',
           'Problema com um recurso já provisionado: abra o pedido no canal de suporte informando o nome do recurso e o ambiente.',
           'Incidente em produção: siga o processo de incidente do seu squad; o Break Glass é para acesso emergencial.',
         ],
@@ -114,14 +114,14 @@ const FIRST_STEPS: LearningStep[] = [
       {
         heading: 'Avisos e manutenções',
         paragraphs: [
-          'Janelas de manutenção e versões novas de templates são anunciadas no canal de avisos. Ative as notificações dele.',
+          'Janelas de manutenção e versões novas de ofertas são anunciadas no canal de avisos. Ative as notificações dele.',
         ],
       },
       {
         heading: 'Boas práticas',
         items: [
           'Antes de perguntar, busque no canal e na documentação (Docs).',
-          'Inclua o link da tarefa do Create ou da solicitação em Aprovações.',
+          'Inclua o link da tarefa da oferta ou da solicitação em Aprovações.',
           'Mantenha uma pergunta por thread.',
         ],
       },
@@ -176,7 +176,7 @@ const ONBOARDING_STEPS: LearningStep[] = [
   {
     id: '3',
     title: 'Provisione um serviço',
-    desc: 'Use um template do scaffolder para criar seu primeiro componente.',
+    desc: 'Use uma oferta para criar seu primeiro componente.',
   },
   {
     id: '4',
@@ -188,12 +188,12 @@ const ONBOARDING_STEPS: LearningStep[] = [
 const PROVISIONING_STEPS: LearningStep[] = [
   {
     id: '1',
-    title: 'Entenda as formas de template',
+    title: 'Entenda os tipos de oferta',
     desc: 'Recurso AWS, entidade de catálogo, repositório novo e tela do portal — cada uma tem um molde.',
   },
   {
     id: '2',
-    title: 'Rode um template em modo local',
+    title: 'Rode uma oferta em modo local',
     desc: 'Com atlas.provisioning.mode=local, o fluxo inteiro roda sem token e sem repositório alvo.',
   },
   {
@@ -248,7 +248,7 @@ export const LEARNING_PATHS: LearningPath[] = [
     id: 'provisioning',
     title: 'Provisionamento com o scaffolder',
     description:
-      'Crie serviços e recursos usando templates e as convenções de IaC da casa.',
+      'Crie serviços e recursos usando ofertas e as convenções de IaC da casa.',
     difficulty: 'Intermediário',
     tags: ['Provisionamento', 'AWS'],
     steps: PROVISIONING_STEPS,

@@ -20,7 +20,7 @@ const CATEGORY_ANNOTATION = 'atlas.nuclea.com.br/categoria';
 const UNCATEGORIZED = 'Outros';
 
 /**
- * Galeria de templates, agrupada por categoria. O que a tela deve conter
+ * Galeria de ofertas (os templates do scaffolder), agrupada por categoria. O que a tela deve conter
  * está em `README.md`.
  *
  * Os templates de recurso AWS já carregam a anotação de categoria; os demais
@@ -87,8 +87,8 @@ function TemplateGallery() {
   return (
     <AtlasPage
       eyebrow="Provisionamento"
-      title="Create"
-      subtitle="Escolha um template para provisionar recursos, criar repositórios ou registrar entidades."
+      title="Ofertas"
+      subtitle="Escolha uma oferta para provisionar recursos, criar repositórios ou registrar entidades."
       actions={
         <>
           {showRegister && (
@@ -111,8 +111,8 @@ function TemplateGallery() {
           <input
             className="atlas-filterInput"
             style={{ width: '100%' }}
-            placeholder="Buscar template"
-            aria-label="Buscar template"
+            placeholder="Buscar oferta"
+            aria-label="Buscar oferta"
             value={query}
             onChange={event => setQuery(event.target.value)}
           />
@@ -139,8 +139,8 @@ function TemplateGallery() {
       {!loading && grouped.length === 0 && (
         <div className="atlas-emptyState">
           {templates.length === 0
-            ? 'Nenhum template registrado. Rode `yarn templates:sync` se acabou de adicionar um spec.'
-            : 'Nenhum template com esse filtro.'}
+            ? 'Nenhuma oferta registrada. Rode `yarn templates:sync` se acabou de adicionar um spec.'
+            : 'Nenhuma oferta com esse filtro.'}
         </div>
       )}
 
@@ -160,7 +160,7 @@ function TemplateGallery() {
                 <FeatureCard
                   key={name}
                   title={template.metadata.title ?? name}
-                  badge={<Badge variant="info">{spec?.type ?? 'template'}</Badge>}
+                  badge={<Badge variant="info">{spec?.type ?? 'oferta'}</Badge>}
                   body={template.metadata.description}
                   footer={
                     <>

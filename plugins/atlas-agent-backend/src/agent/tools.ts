@@ -17,8 +17,8 @@ export const TOOLS: Anthropic.Beta.BetaTool[] = [
     name: 'buscar_catalogo',
     description:
       'Busca entidades no catálogo do Atlas: aplicações (Component), APIs, sistemas, recursos de nuvem (Resource), ' +
-      'squads (Group) e templates de provisionamento (Template). Use para responder o que existe, de quem é, ' +
-      'e qual template usar para provisionar algo. Devolve até 15 resultados com o link de cada um no portal.',
+      'squads (Group) e ofertas de provisionamento (tipo Template). Use para responder o que existe, de quem é, ' +
+      'e qual oferta usar para provisionar algo. Devolve até 15 resultados com o link de cada um no portal.',
     eager_input_streaming: true,
     input_schema: {
       type: 'object',
@@ -76,7 +76,7 @@ function validateDetail(input: unknown): DetailInput | string {
   return { ref: ref.trim() };
 }
 
-/** Link da entidade no portal: templates abrem o formulário do Create. */
+/** Link da entidade no portal: ofertas (templates) abrem o formulário da oferta. */
 function portalLink(entity: Entity): string {
   const namespace = entity.metadata.namespace ?? 'default';
   if (entity.kind === 'Template') return `/create/templates/${namespace}/${entity.metadata.name}`;

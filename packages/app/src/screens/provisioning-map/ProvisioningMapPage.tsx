@@ -280,8 +280,8 @@ export function ProvisioningMapPage() {
     },
     {
       key: 'template',
-      header: 'Template',
-      filter: { value: resTemplate, onChange: setResTemplate, placeholder: 'Pesquisar template' },
+      header: 'Oferta',
+      filter: { value: resTemplate, onChange: setResTemplate, placeholder: 'Pesquisar oferta' },
       render: r => r.template,
     },
     ...ENVIRONMENTS.map(env => ({
@@ -317,8 +317,8 @@ export function ProvisioningMapPage() {
     },
     {
       key: 'template',
-      header: 'Template',
-      filter: { value: repoTemplate, onChange: setRepoTemplate, placeholder: 'Pesquisar template' },
+      header: 'Oferta',
+      filter: { value: repoTemplate, onChange: setRepoTemplate, placeholder: 'Pesquisar oferta' },
       render: r => r.template,
     },
     { key: 'resources', header: 'Recursos', align: 'right', render: r => r.resources },
@@ -350,7 +350,7 @@ export function ProvisioningMapPage() {
     <AtlasPage
       eyebrow="Provisionamento"
       title="Mapa de provisionamento"
-      subtitle="Onde cada recurso está provisionado, por qual template, e o que dá para promover ou excluir."
+      subtitle="Onde cada recurso está provisionado, por qual oferta, e o que dá para promover ou excluir."
       actions={
         canRefresh ? (
           <button
@@ -383,7 +383,7 @@ export function ProvisioningMapPage() {
           <div className="atlas-metricCardSub">com recurso provisionado</div>
         </div>
         <div className="atlas-expandMetricCard">
-          <div className="atlas-metricCardHead"><span className="atlas-metricCardTitle">Templates</span></div>
+          <div className="atlas-metricCardHead"><span className="atlas-metricCardTitle">Ofertas</span></div>
           <div className="atlas-metricBigValue">{loading ? '—' : stats.templates}</div>
           <div className="atlas-metricCardSub">em uso nos recursos</div>
         </div>
@@ -407,7 +407,7 @@ export function ProvisioningMapPage() {
           <div className="atlas-searchFieldWrap">
             <input className="atlas-filterInput" placeholder="Nome do recurso" aria-label="Nome do recurso" value={resName} onChange={e => setResName(e.target.value)} />
           </div>
-          <Select label="Template" value={resTemplateSel} options={templates} onChange={setResTemplateSel} />
+          <Select label="Oferta" value={resTemplateSel} options={templates} onChange={setResTemplateSel} />
           <Select label="Ambiente" value={resEnvSel} options={[...ENVIRONMENTS]} onChange={setResEnvSel} />
           <Select label="Serviço" value={resServiceSel} options={services} onChange={setResServiceSel} />
           {resActive > 0 && (
@@ -442,7 +442,7 @@ export function ProvisioningMapPage() {
           <div className="atlas-searchFieldWrap">
             <input className="atlas-filterInput" placeholder="Nome do repositório" aria-label="Nome do repositório" value={repoName} onChange={e => setRepoName(e.target.value)} />
           </div>
-          <Select label="Template" value={repoTemplateSel} options={repoTemplates} onChange={setRepoTemplateSel} />
+          <Select label="Oferta" value={repoTemplateSel} options={repoTemplates} onChange={setRepoTemplateSel} />
           <Select label="Serviço" value={repoServiceSel} options={services} onChange={setRepoServiceSel} />
           {repoActive > 0 && (
             <button
@@ -514,7 +514,7 @@ export function ProvisioningMapPage() {
         {dialog?.mode === 'promote' && (
           <>
             <p className="atlas-text">
-              Provisionar <strong>{dialog.resource.name}</strong> em <strong>{dialog.env}</strong>, com o mesmo template
+              Provisionar <strong>{dialog.resource.name}</strong> em <strong>{dialog.env}</strong>, com a mesma oferta
               ({dialog.resource.template}).
             </p>
             {CLOUD_APPROVAL_ENVS.includes(dialog.env) && (
@@ -529,7 +529,7 @@ export function ProvisioningMapPage() {
             <div className="atlas-readonlyGrid">
               {[
                 ['Serviço Núclea', `${dialog.resource.service} — ${SERVICES[dialog.resource.service] ?? ''}`],
-                ['Template', dialog.resource.template],
+                ['Oferta', dialog.resource.template],
                 ['Gerenciado por', dialog.resource.iac ? 'IaC (Terraform)' : 'fora do IaC'],
                 ['Repositório', dialog.resource.repository],
               ].map(([label, v]) => (
@@ -569,7 +569,7 @@ export function ProvisioningMapPage() {
           <div className="atlas-readonlyGrid">
             {[
               ['Serviço Núclea', `${dialog.repository.service} — ${SERVICES[dialog.repository.service] ?? ''}`],
-              ['Template', dialog.repository.template],
+              ['Oferta', dialog.repository.template],
               ['Recursos vinculados', String(dialog.repository.resources)],
               ['Visibilidade', dialog.repository.visibility],
               ['Criado em', formatDateTime(dialog.repository.createdAt)],

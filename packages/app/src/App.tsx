@@ -8,6 +8,7 @@ import { envModule } from './modules/env';
 import { themeModule } from './modules/theme';
 import { atlasPagesPlugin, pageOverrides } from './modules/pages';
 import { staticPagesPlugin } from './modules/static-pages';
+import { translationsModule } from './modules/translations';
 
 export default createApp({
   features: [
@@ -20,6 +21,7 @@ export default createApp({
     homeModule,
     signInModule,
     staticPagesPlugin,
+    translationsModule,
     // Substituem as páginas de índice dos plugins oficiais.
     ...pageOverrides,
   ],

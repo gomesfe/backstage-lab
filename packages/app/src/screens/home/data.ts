@@ -31,7 +31,7 @@ export const QUICK_ACTIONS: QuickAction[] = [
   // Sem tela de solicitação de acesso no lab; fica visível e desabilitado.
   { id: 'request', label: 'Solicitar acesso', color: 'request', to: null },
   { id: 'breakglass', label: 'Break Glass', color: 'breakglass', to: '/break-glass' },
-  { id: 'templates', label: 'Templates', color: 'templates', to: '/create' },
+  { id: 'templates', label: 'Ofertas', color: 'templates', to: '/create' },
   { id: 'governance', label: 'Governança', color: 'governance', to: '/admin' },
 ];
 
@@ -47,26 +47,26 @@ export type GeneralUpdate = {
 export const GENERAL_UPDATES: GeneralUpdate[] = [
   {
     id: '1',
-    text: 'Template Redis v1.0.0 disponível.',
+    text: 'Oferta Redis v1.0.0 disponível.',
     linkLabel: 'Como usar',
     linkUrl: '/create',
   },
   {
     id: '2',
-    text: 'Template SQS v2.3.0 atualizado com suporte a DLQ.',
+    text: 'Oferta SQS v2.3.0 atualizada com suporte a DLQ.',
     linkLabel: 'Referência',
     linkUrl: '/create',
   },
   {
     id: '3',
     text: 'Novo padrão de tags obrigatórias em recursos AWS.',
-    linkLabel: 'Ver template',
+    linkLabel: 'Ver oferta',
     linkUrl: '/create',
   },
   { id: '4', text: 'Manutenção programada do Atlas no domingo, 10/08.' },
   {
     id: '5',
-    text: 'Template S3 v1.4.0 disponível.',
+    text: 'Oferta S3 v1.4.0 disponível.',
     linkLabel: 'Como usar',
     linkUrl: '/create',
   },
@@ -76,7 +76,7 @@ export const USEFUL_LINKS = [
   { id: '1', label: 'Guia de Onboarding', href: '/docs' },
   { id: '2', label: 'Padrões de Arquitetura', href: '/docs' },
   { id: '3', label: 'Runbooks de Incidente', href: '/docs' },
-  { id: '4', label: 'Catálogo de Templates', href: '/create' },
+  { id: '4', label: 'Catálogo de ofertas', href: '/create' },
   { id: '5', label: 'Política de Break Glass', href: '/docs' },
 ];
 
@@ -91,7 +91,7 @@ export const ONBOARDING_STEPS = [
   {
     id: '1',
     title: 'Crie seu serviço',
-    desc: 'Use um template do scaffolder para provisionar um novo serviço com CI/CD e observabilidade prontos.',
+    desc: 'Use uma oferta para provisionar um novo serviço com CI/CD e observabilidade prontos.',
   },
   {
     id: '2',

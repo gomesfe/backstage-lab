@@ -10,7 +10,7 @@ import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { useApi, appThemeApiRef } from '@backstage/core-plugin-api';
 import type { NavContentComponentProps } from '@backstage/plugin-app-react';
 import useObservable from 'react-use/lib/useObservable';
-import { EnvBadge } from '@internal/plugin-components';
+import { AtlasLogo, EnvBadge } from '@internal/plugin-components';
 import { useUnreadCount } from '../../screens/notifications/useUnreadCount';
 
 /**
@@ -122,11 +122,18 @@ export function AtlasTopNav({ navItems }: { navItems: NavContentComponentProps['
   return (
     <header className="atlas-topNav atlas-topNav--fixed">
       <div className="atlas-navLeft">
-        <div className="atlas-brandLogo">
-          <span className="atlas-brandMark">A</span>
-          <span className="atlas-brandName">Atlas</span>
+        <button
+          type="button"
+          className="atlas-brandLogo"
+          style={{ background: 'none', border: 0, padding: 0, cursor: 'pointer' }}
+          aria-label="Atlas — ir para a Home"
+          onClick={() => navigate('/')}
+        >
+          {/* Horizontal na barra; em tela bem estreita, só o símbolo. */}
+          <AtlasLogo variant="horizontal" className="atlas-logoWide" title="" />
+          <AtlasLogo variant="symbol" className="atlas-logoCompact" title="" />
           <EnvBadge />
-        </div>
+        </button>
 
         <div className="atlas-navPillsWrapper">
           <button

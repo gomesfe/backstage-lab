@@ -319,7 +319,7 @@ export function ApprovalsPage() {
             <div className="atlas-readonlyGrid">
               {[
                 ['Recurso', d.resource],
-                ['Template', d.template],
+                ['Oferta', d.template],
                 ['Ambiente', d.environment],
                 ['Grupo', d.group],
                 ['Dono', d.owner],

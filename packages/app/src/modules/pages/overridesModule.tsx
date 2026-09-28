@@ -111,7 +111,7 @@ const createPage = PageBlueprint.make({
   params: {
     path: '/create',
     routeRef: scaffolderPlugin.routes.root,
-    title: 'Create',
+    title: 'Ofertas',
     icon: <CreateIcon />,
     noHeader: true,
     loader: async () => {

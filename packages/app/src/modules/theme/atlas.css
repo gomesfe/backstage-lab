@@ -1367,6 +1367,28 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 .atlas-convMeta { font-size: 0.7rem; color: var(--text-muted); }
 .atlas-convDelete { opacity: 0; }
 .atlas-convItem:hover .atlas-convDelete, .atlas-convItemActive .atlas-convDelete, .atlas-convDelete:focus-visible { opacity: 1; }
+
+/* ===== Marca (v1.6) ===== */
+/* O logo usa currentColor: branco no tema escuro, quase preto no claro. */
+.atlas-logo { display: block; flex-shrink: 0; color: var(--text-primary); }
+.atlas-brandLogo .atlas-logoWide { height: 26px; width: auto; }
+.atlas-brandLogo .atlas-logoCompact { display: none; height: 28px; width: auto; }
+@media (max-width: 440px) {
+  .atlas-brandLogo .atlas-logoWide { display: none; }
+  .atlas-brandLogo .atlas-logoCompact { display: block; }
+}
+/* Logo vertical acima do login. */
+.atlas-signInBrand { display: flex; justify-content: center; padding: 48px 16px 4px; }
+.atlas-signInBrand .atlas-logo { height: 96px; width: auto; }
+/* Com o logo acima, o cabeçalho com o nome do app só repetiria a marca. */
+.atlas-signIn header { display: none; }
+/* Símbolo dentro do avatar do agente: sempre branco sobre o verde. */
+.atlas-chatAvatarAgent .atlas-logo { color: #fff; width: 62%; height: auto; }
+/* Vitrine da marca (documentação). */
+.atlas-brandShowcase { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.atlas-brandTile { display: flex; flex-direction: column; gap: 10px; }
+.atlas-brandTileArt { display: flex; align-items: center; justify-content: center; height: 150px; border-radius: var(--atlas-radius-md); border: 1px solid var(--border-color); background: var(--bg-app); padding: 20px; }
+.atlas-brandTileArt .atlas-logo { max-height: 100%; max-width: 100%; height: auto; width: auto; }
 @media (max-width: 900px) {
   .atlas-chatLayout { grid-template-columns: minmax(0, 1fr); }
   .atlas-chat { height: auto; min-height: 520px; }

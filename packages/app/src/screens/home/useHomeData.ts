@@ -130,8 +130,8 @@ export function useHomeData(scope: string) {
       title: 'Recursos provisionados',
       value: resources.length,
       sub: resources.length
-        ? 'bancos, filas e buckets criados pelos templates'
-        : 'nenhum ainda — provisione o primeiro em Create',
+        ? 'bancos, filas e buckets criados pelas ofertas'
+        : 'nenhum ainda — provisione o primeiro em Ofertas',
       to: '/catalog?kind=Resource',
       highlighted: true,
     },

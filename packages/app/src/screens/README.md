@@ -15,7 +15,7 @@ Na barra de navegação, nesta ordem:
 | APIs | `/api-docs` | [apis](apis/README.md) |
 | Docs | `/docs` | [docs](docs/README.md) |
 | Trilhas | `/learning-paths`, `/learning-paths/:id` | [learning-paths](learning-paths/README.md) |
-| Create | `/create` | [create](create/README.md) |
+| Ofertas | `/create` | [create](create/README.md) |
 | Mapa de provisionamento | `/provisioning-map` | [provisioning-map](provisioning-map/README.md) |
 | Break Glass | `/break-glass` | [break-glass](break-glass/README.md) |
 | Atlas × Jira | `/atlas-jira` | [atlas-jira](atlas-jira/README.md) |
