@@ -1236,3 +1236,55 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 .atlas-breadcrumb a:focus-visible { outline: none; box-shadow: var(--focus-ring); }
 .atlas-breadcrumbSep { opacity: 0.6; }
 .atlas-breadcrumbCurrent { color: var(--text-secondary); }
+
+/* ===== Notificações (v1.4) ===== */
+/* Contador sobre um botão de ação da barra (ex.: sino). */
+.atlas-navActionBtn { position: relative; }
+.atlas-navCount {
+  position: absolute; top: -4px; right: -4px; min-width: 18px; height: 18px; padding: 0 5px;
+  border-radius: 999px; background: var(--lime); color: var(--lime-text);
+  font-size: 0.66rem; font-weight: 800; line-height: 18px; text-align: center;
+  box-shadow: 0 0 0 2px var(--bg-card);
+}
+/* Lista de notificações, agrupada por dia. */
+.atlas-notifGroupLabel {
+  font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--text-muted); margin: 6px 2px 2px;
+}
+.atlas-notifList { display: flex; flex-direction: column; gap: 8px; }
+.atlas-notifItem {
+  position: relative; display: flex; align-items: flex-start; gap: 12px;
+  padding: 14px 16px 14px 18px; border-radius: var(--atlas-radius-md);
+  background: var(--bg-surface); border: 1px solid var(--border-color);
+  transition: border-color 0.15s ease, background 0.15s ease;
+}
+.atlas-notifItem:hover { border-color: var(--border-light); }
+/* Faixa de severidade na borda esquerda. */
+.atlas-notifItem::before {
+  content: ""; position: absolute; left: 0; top: 10px; bottom: 10px; width: 3px; border-radius: 3px;
+  background: var(--border-light);
+}
+.atlas-notifSev-critical::before { background: var(--danger); }
+.atlas-notifSev-high::before { background: var(--warning); }
+.atlas-notifSev-normal::before { background: var(--info); }
+.atlas-notifSev-low::before { background: var(--text-muted); }
+.atlas-notifItemUnread { background: var(--bg-card); border-color: var(--lime-border); }
+.atlas-notifIcon {
+  width: 34px; height: 34px; border-radius: 10px; flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--bg-pill); color: var(--text-secondary);
+}
+.atlas-notifSev-critical .atlas-notifIcon { background: rgba(255, 82, 82, 0.14); color: var(--danger); }
+.atlas-notifSev-high .atlas-notifIcon { background: rgba(251, 191, 36, 0.14); color: var(--warning); }
+.atlas-notifSev-normal .atlas-notifIcon { background: rgba(96, 165, 250, 0.14); color: var(--info); }
+.atlas-notifBody { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.atlas-notifTitle { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); display: flex; align-items: center; gap: 8px; }
+.atlas-notifItemUnread .atlas-notifTitle { font-weight: 800; }
+.atlas-notifUnreadDot { width: 8px; height: 8px; border-radius: 50%; background: var(--lime); flex-shrink: 0; }
+.atlas-notifDesc { font-size: 0.83rem; color: var(--text-secondary); line-height: 1.5; }
+.atlas-notifMeta { font-size: 0.74rem; color: var(--text-muted); display: flex; flex-wrap: wrap; gap: 4px 10px; margin-top: 2px; }
+.atlas-notifActions { display: flex; align-items: center; gap: 4px; flex-shrink: 0; }
+@media (max-width: 600px) {
+  .atlas-notifItem { flex-wrap: wrap; }
+  .atlas-notifActions { width: 100%; justify-content: flex-end; }
+}

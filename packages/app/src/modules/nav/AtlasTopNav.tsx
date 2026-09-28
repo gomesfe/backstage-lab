@@ -11,6 +11,7 @@ import { useApi, appThemeApiRef } from '@backstage/core-plugin-api';
 import type { NavContentComponentProps } from '@backstage/plugin-app-react';
 import useObservable from 'react-use/lib/useObservable';
 import { EnvBadge } from '@internal/plugin-components';
+import { useUnreadCount } from '../../screens/notifications/useUnreadCount';
 
 /**
  * Barra de navegação do Atlas. Usa as classes do design system (`atlas.css`:
@@ -111,19 +112,11 @@ function useScrollArrows() {
 
 export function AtlasTopNav({ navItems }: { navItems: NavContentComponentProps['navItems'] }) {
   const navigate = useNavigate();
-  const { pathname } = useLocation();
   const { isDark, toggle } = useThemeToggle();
   const { ref, edges, scrollBy } = useScrollArrows();
+  const unread = useUnreadCount();
 
   const pills = navItems.withComponent(item => <NavPill href={item.href} title={item.title} />);
-
-  // Ao trocar de tela, centraliza a pílula ativa — na borda ela ficaria sob
-  // o esmaecimento e parecia cortada.
-  useEffect(() => {
-    ref.current
-      ?.querySelector<HTMLElement>('.atlas-navPillActive')
-      ?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' });
-  }, [pathname, ref]);
 
   return (
     <header className="atlas-topNav atlas-topNav--fixed">
@@ -172,11 +165,12 @@ export function AtlasTopNav({ navItems }: { navItems: NavContentComponentProps['
         <button
           type="button"
           className="atlas-navActionBtn"
-          aria-label="Notificações"
-          title="Notificações"
+          aria-label={unread ? `Notificações: ${unread} não lidas` : 'Notificações'}
+          title={unread ? `${unread} não lidas` : 'Notificações'}
           onClick={() => navigate('/notifications')}
         >
           <NotificationsIcon fontSize="small" />
+          {unread > 0 && <span className="atlas-navCount" aria-hidden>{unread > 99 ? '99+' : unread}</span>}
         </button>
         <button
           type="button"

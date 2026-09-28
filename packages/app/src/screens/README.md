@@ -27,6 +27,7 @@ Fora da barra, pelos botões do canto direito:
 | Tela | Rota | Pasta |
 |---|---|---|
 | Buscar | `/search` | [search](search/README.md) |
+| Notificações | `/notifications` | [notifications](notifications/README.md) |
 | Configurações | `/settings` | [settings](settings/README.md) |
 
 A ordem e a lista da barra ficam em `modules/nav/AtlasTopNav.tsx`

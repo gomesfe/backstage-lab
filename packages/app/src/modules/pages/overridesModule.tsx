@@ -13,6 +13,8 @@ import apiDocsPlugin from '@backstage/plugin-api-docs/alpha';
 import techdocsPlugin from '@backstage/plugin-techdocs/alpha';
 import searchPlugin from '@backstage/plugin-search/alpha';
 import scaffolderPlugin from '@backstage/plugin-scaffolder/alpha';
+import notificationsPlugin from '@backstage/plugin-notifications/alpha';
+import NotificationsIcon from '@material-ui/icons/NotificationsNone';
 
 /**
  * Substitui as páginas de **índice** dos plugins oficiais pelas do redesign.
@@ -142,6 +144,25 @@ const settingsModule = createFrontendModule({
   extensions: [settingsPage],
 });
 
+const notificationsPage = PageBlueprint.make({
+  params: {
+    path: '/notifications',
+    routeRef: notificationsPlugin.routes.root,
+    title: 'Notificações',
+    icon: <NotificationsIcon />,
+    noHeader: true,
+    loader: async () => {
+      const { NotificationsPage } = await import('../../screens/notifications/NotificationsPage');
+      return <NotificationsPage />;
+    },
+  },
+});
+
+const notificationsModule = createFrontendModule({
+  pluginId: 'notifications',
+  extensions: [notificationsPage],
+});
+
 export const pageOverrides = [
   catalogModule,
   apiDocsModule,
@@ -149,4 +170,5 @@ export const pageOverrides = [
   searchModule,
   scaffolderModule,
   settingsModule,
+  notificationsModule,
 ];
