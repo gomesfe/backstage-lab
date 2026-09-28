@@ -33,7 +33,7 @@ const myGroupsPage = PageBlueprint.make({
     icon: <GroupsIcon />,
     noHeader: true,
     loader: async () => {
-      const { MyGroupsPage } = await import('./MyGroupsPage');
+      const { MyGroupsPage } = await import('../../screens/my-groups/MyGroupsPage');
       return <MyGroupsPage />;
     },
   },
@@ -48,7 +48,7 @@ const catalogV2Page = PageBlueprint.make({
     icon: <CatalogIcon />,
     noHeader: true,
     loader: async () => {
-      const { CatalogV2Page } = await import('./CatalogV2Page');
+      const { CatalogV2Page } = await import('../../screens/catalog-v2/CatalogV2Page');
       return <CatalogV2Page />;
     },
   },
@@ -63,7 +63,7 @@ const learningPathsPage = PageBlueprint.make({
     icon: <SchoolIcon />,
     noHeader: true,
     loader: async () => {
-      const { LearningPathsPage } = await import('./LearningPathsPage');
+      const { LearningPathsPage } = await import('../../screens/learning-paths/LearningPathsPage');
       return <LearningPathsPage />;
     },
   },
@@ -75,7 +75,7 @@ const learningPathDetailPage = PageBlueprint.make({
     path: '/learning-paths/:pathId',
     noHeader: true,
     loader: async () => {
-      const { LearningPathDetailPage } = await import('./LearningPathsPage');
+      const { LearningPathDetailPage } = await import('../../screens/learning-paths/LearningPathsPage');
       return <LearningPathDetailPage />;
     },
   },
@@ -90,7 +90,7 @@ const breakGlassPage = PageBlueprint.make({
     icon: <ShieldIcon />,
     noHeader: true,
     loader: async () => {
-      const { BreakGlassPage } = await import('./BreakGlassPage');
+      const { BreakGlassPage } = await import('../../screens/break-glass/BreakGlassPage');
       return <BreakGlassPage />;
     },
   },

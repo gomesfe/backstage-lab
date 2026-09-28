@@ -37,16 +37,8 @@ const catalogPage = PageBlueprint.make({
     icon: <CatalogIcon />,
     noHeader: true,
     loader: async () => {
-      const { EntityTablePage } = await import('./EntityTablePage');
-      return (
-        <EntityTablePage
-          eyebrow="Descoberta"
-          title="Catálogo"
-          subtitle="Componentes, sistemas e recursos registrados no portal."
-          kinds={['Component', 'System', 'Resource']}
-          emptyMessage="Nenhuma entidade registrada. Use um template em Create."
-        />
-      );
+      const { CatalogPage } = await import('../../screens/catalog/CatalogPage');
+      return <CatalogPage />;
     },
   },
 });
@@ -64,16 +56,8 @@ const apisPage = PageBlueprint.make({
     icon: <ApiIcon />,
     noHeader: true,
     loader: async () => {
-      const { EntityTablePage } = await import('./EntityTablePage');
-      return (
-        <EntityTablePage
-          eyebrow="Explorer"
-          title="APIs"
-          subtitle="Explore, versione e consuma as APIs publicadas no portal."
-          kinds={['API']}
-          emptyMessage="Nenhuma API registrada."
-        />
-      );
+      const { ApisPage } = await import('../../screens/apis/ApisPage');
+      return <ApisPage />;
     },
   },
 });
@@ -91,17 +75,8 @@ const docsPage = PageBlueprint.make({
     icon: <DocsIcon />,
     noHeader: true,
     loader: async () => {
-      const { EntityTablePage } = await import('./EntityTablePage');
-      return (
-        <EntityTablePage
-          eyebrow="TechDocs"
-          title="Docs"
-          subtitle="Documentação técnica versionada junto ao código dos componentes."
-          kinds={['Component', 'System', 'API']}
-          requireTechdocs
-          emptyMessage="Nenhum componente publica TechDocs. Falta a anotação backstage.io/techdocs-ref."
-        />
-      );
+      const { DocsPage } = await import('../../screens/docs/DocsPage');
+      return <DocsPage />;
     },
   },
 });
@@ -119,7 +94,7 @@ const searchPage = PageBlueprint.make({
     icon: <SearchIcon />,
     noHeader: true,
     loader: async () => {
-      const { AtlasSearchPage } = await import('./SearchPage');
+      const { AtlasSearchPage } = await import('../../screens/search/SearchPage');
       return <AtlasSearchPage />;
     },
   },
@@ -138,7 +113,7 @@ const createPage = PageBlueprint.make({
     icon: <CreateIcon />,
     noHeader: true,
     loader: async () => {
-      const { AtlasCreatePage } = await import('./CreatePage');
+      const { AtlasCreatePage } = await import('../../screens/create/CreatePage');
       return <AtlasCreatePage />;
     },
   },
@@ -156,7 +131,7 @@ const settingsPage = PageBlueprint.make({
     icon: <SettingsIcon />,
     noHeader: true,
     loader: async () => {
-      const { AtlasSettingsPage } = await import('./SettingsPage');
+      const { AtlasSettingsPage } = await import('../../screens/settings/SettingsPage');
       return <AtlasSettingsPage />;
     },
   },

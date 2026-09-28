@@ -9,6 +9,7 @@ portal.
 ```
 packages/app        front-end (React) — o "repo de front"
 packages/backend    back-end (Node) — catalog, scaffolder, auth, techdocs
+packages/app/src/screens/   uma pasta por tela, com o que ela deve conter
 plugins/            plugins próprios: rbac-backend, api-keys-backend, admin
 rbac-policy.csv     quem pode o quê  →  docs/rbac.md
 static-pages/       as telas em HTML/CSS puro  ←  trabalho do dia a dia
@@ -16,21 +17,18 @@ scripts/            o pipeline que valida e pluga as telas no front
 templates/          software template "Tela estática" (abre PR com a tela nova)
 ```
 
-O visual segue o Atlas Design System, portado quase verbatim do redesign:
+O visual vem do **Atlas Design System**, que mora no próprio repositório:
+[gomesfe/atlas-design-system](https://github.com/gomesfe/atlas-design-system)
+(documentação viva + construtor de telas, num `index.html`).
 
-- [`packages/app/src/modules/theme/atlas-ds.css`](packages/app/src/modules/theme/atlas-ds.css)
-  — as ~200 classes do design (`atlas-sectionCard`, `atlas-badgeTag`, `atlas-qaCardBtn`, …).
-  As telas consomem estas classes diretamente, não uma tradução em `makeStyles`.
-- [`atlas-refinements.css`](packages/app/src/modules/theme/atlas-refinements.css)
-  — acabamento por cima do port (nav flutuante, profundidade, tipografia Inter,
-  foco por teclado, tema claro com contraste). Aditivo: o port fica intocado.
+- [`packages/app/src/modules/theme/atlas.css`](packages/app/src/modules/theme/atlas.css)
+  é **gerado** a partir dele — não edite à mão. Mudou o visual lá?
+  `yarn ds:sync` traz para cá; `yarn ds:check` falha se estiver desatualizado.
 - [`plugins/components/src/tokens.ts`](plugins/components/src/tokens.ts) — os
-  mesmos tokens em TypeScript, para o tema do MUI e para o mapeamento do
-  `@backstage/ui` (`bui-tokens.css`).
+  mesmos tokens em TypeScript, para o tema do MUI e o `@backstage/ui`.
 
-O código-fonte do redesign fica fora do repo, em `../design-ref/`, como
-referência — é para lá que se volta ao portar uma tela nova ou verificar se
-uma classe já existe antes de inventar uma.
+**Cada tela mora numa pasta própria**, com um `README.md` dizendo o que ela
+deve conter: [`packages/app/src/screens/`](packages/app/src/screens/README.md).
 
 Permissões e login em [`docs/rbac.md`](docs/rbac.md), plugins em
 [`plugins/README.md`](plugins/README.md), software templates em

@@ -23,21 +23,21 @@ export const atlasTokens = {
     textSecondary: '#9ea3b0',
     textMuted: '#626775',
   },
-  // Tema claro refinado (ver atlas-refinements.css): cartão branco sobre
-  // fundo cinza. O original tinha cartão cinza e superfície interna branca,
-  // o que tirava a separação entre níveis. Mantenha os dois arquivos juntos.
+  // Tema claro do design system (atlas-design-system, bloco atlas-css):
+  // cinza médio, não branco. Estes valores têm de bater com o CSS — é deles
+  // que o MUI tira as cores dos componentes oficiais (wizard, diálogos).
   light: {
-    bgApp: '#f3f5f8',
-    bgSurface: '#f7f9fb',
-    bgCard: '#ffffff',
-    bgCardHover: '#f1f4f8',
-    bgPill: '#eef1f5',
-    bgPillHover: '#e3e8ef',
-    border: 'rgba(15, 23, 42, 0.08)',
-    borderLight: 'rgba(15, 23, 42, 0.14)',
+    bgApp: '#d9dee6',
+    bgSurface: '#e1e6ed',
+    bgCard: '#e9edf2',
+    bgCardHover: '#dde2e9',
+    bgPill: '#d3d9e2',
+    bgPillHover: '#c6ced9',
+    border: 'rgba(15, 23, 42, 0.11)',
+    borderLight: 'rgba(15, 23, 42, 0.18)',
     textPrimary: '#0f172a',
-    textSecondary: '#4b5567',
-    textMuted: '#8a94a6',
+    textSecondary: '#3d4859',
+    textMuted: '#636d7f',
   },
 
   /** Cores de marca e de status, iguais nos dois temas. */

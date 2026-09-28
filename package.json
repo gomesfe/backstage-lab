@@ -17,6 +17,8 @@
     "db:down": "docker compose down",
     "pages:new": "node scripts/new-static-page.mjs",
     "pages:sync": "node scripts/sync-static-pages.mjs",
+    "ds:sync": "node scripts/sync-design-system.mjs",
+    "ds:check": "node scripts/sync-design-system.mjs --check",
     "pages:preview": "node scripts/preview-static-page.mjs",
     "templates:sync": "node scripts/generate-aws-templates.mjs",
     "templates:check": "node scripts/generate-aws-templates.mjs --check",

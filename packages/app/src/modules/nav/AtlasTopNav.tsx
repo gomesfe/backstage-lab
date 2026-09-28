@@ -12,7 +12,7 @@ import { EnvBadge } from '@internal/plugin-components';
 /**
  * Barra de navegação do Atlas, portada de `HomeTopNav.tsx`.
  *
- * Usa as classes de `atlas-ds.css` (`atlas-topNav`, `atlas-navPill`, …) em vez
+ * Usa as classes do design system (`atlas.css`: `atlas-topNav`, `atlas-navPill`, …) em vez
  * de reimplementar as formas: o DS já define espaçamento, raio, rolagem e
  * estados de hover exatamente como no design.
  */
@@ -82,7 +82,7 @@ export function AtlasTopNav({
   ));
 
   return (
-    <header className="atlas-topNav">
+    <header className="atlas-topNav atlas-topNav--fixed">
       <div className="atlas-navLeft">
         <div className="atlas-brandLogo">
           <span className="atlas-brandMark">A</span>

@@ -20,8 +20,8 @@ const homePage = PageBlueprint.make({
     routeRef: homePlugin.routes.root,
     noHeader: true,
     loader: async () => {
-      const { AtlasHomePage } = await import('./AtlasHomePage');
-      return <AtlasHomePage />;
+      const { HomePage } = await import('../../screens/home/HomePage');
+      return <HomePage />;
     },
   },
 });

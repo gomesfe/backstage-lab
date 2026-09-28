@@ -37,7 +37,7 @@ const apiKeysPage = PageBlueprint.make({
     icon: <KeyIcon />,
     noHeader: true,
     loader: async () => {
-      const { ApiKeysPage } = await import('./components/ApiKeysPage');
+      const { ApiKeysPage } = await import('./screens/api-keys/ApiKeysPage');
       return <ApiKeysPage />;
     },
   },
@@ -51,7 +51,7 @@ const adminPage = PageBlueprint.make({
     icon: <SettingsIcon />,
     noHeader: true,
     loader: async () => {
-      const { AdminPage } = await import('./components/AdminPage');
+      const { AdminPage } = await import('./screens/admin/AdminPage');
       return <AdminPage />;
     },
   },

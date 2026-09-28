@@ -7,7 +7,7 @@ import WarningIcon from '@material-ui/icons/ReportProblemOutlined';
  * Primitivas do Atlas Design System.
  *
  * Estes componentes **não definem estilo**: eles montam a marcação com as
- * classes de `atlas-ds.css`, que é o design system portado do redesign.
+ * classes de `atlas.css`, gerado do repositório atlas-design-system.
  *
  * A primeira versão recriava as formas em `makeStyles` a partir dos tokens.
  * Funcionava, mas divergia do design em espaçamento, raio e estados de hover
@@ -220,12 +220,15 @@ export function FeatureCard({
   body,
   footer,
   icon,
+  children,
 }: {
   title: ReactNode;
   badge?: ReactNode;
   body?: ReactNode;
   footer?: ReactNode;
   icon?: ReactNode;
+  /** Conteúdo extra entre a descrição e o rodapé (ex.: barra de progresso). */
+  children?: ReactNode;
 }) {
   return (
     <article className="atlas-featureCard">
@@ -235,6 +238,7 @@ export function FeatureCard({
       </div>
       <div className="atlas-featureCardTitle">{title}</div>
       {body && <div className="atlas-featureCardDesc">{body}</div>}
+      {children}
       {footer && <div className="atlas-featureCardFooter">{footer}</div>}
     </article>
   );
