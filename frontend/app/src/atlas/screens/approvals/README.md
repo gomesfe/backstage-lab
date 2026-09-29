@@ -32,7 +32,19 @@ o que muda é de que lado do pedido você está.
      (principal) e **Rejeitar** (exige motivo).
    - Em solicitações, pendente: **Cancelar** (motivo opcional).
    - Sempre: **Detalhes**.
-   Todas abrem um modal com o resumo antes de confirmar. Em prod/prdnv o
+   Todas abrem um modal com o resumo antes de confirmar.
+7. **Detalhes** — pop-up largo, montado para responder "em que pé está?"
+   antes de "quais são os campos?":
+   - **Cabeçalho:** nome do recurso em destaque, com a oferta e o ambiente.
+   - **Situação em destaque**, colorida pelo estado, com a barra de aprovações.
+   - **Andamento** em linha do tempo: Solicitada → Aprovações → Execução →
+     Concluída. Rejeitada e cancelada terminam ali, com o motivo; falha de
+     execução mostra o erro.
+   - **Recurso** (oferta, ambiente, grupo, dono) e **Pedido** (solicitante,
+     data, aprovações, quem aprovou), e a **justificativa** citada.
+   - **Rodapé:** link para o mapa de provisionamento e as ações que valem
+     para aquela situação (Aprovar/Rejeitar, ou Cancelar), que abrem o passo
+     seguinte já fechando o detalhe. Em prod/prdnv o
    modal de aprovação avisa que o provisionamento começa depois da última
    aprovação.
 

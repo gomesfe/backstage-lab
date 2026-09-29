@@ -1394,3 +1394,61 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
   .atlas-chat { height: auto; min-height: 520px; }
   .atlas-convList { max-height: 220px; }
 }
+
+/* ===== Detalhe de solicitação (v1.7) ===== */
+/* Cabeçalho do pop-up: nome do recurso em destaque, com contexto embaixo. */
+.atlas-detailsHead { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.atlas-detailsEyebrow { font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
+.atlas-modalHeader .atlas-detailsHead h3 { font-size: 1.15rem; letter-spacing: -0.02em; overflow-wrap: anywhere; }
+.atlas-detailsSub { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 0.8rem; color: var(--text-secondary); }
+/* Situação em destaque: cor pelo tom (warning, info, success, danger, purple). */
+.atlas-statusHero {
+  display: flex; flex-direction: column; gap: 12px; padding: 14px 16px;
+  border-radius: var(--atlas-radius-md); border: 1px solid var(--border-color); background: var(--bg-surface);
+}
+.atlas-statusHero[data-tone="warning"] { border-color: rgba(251, 191, 36, 0.35); background: rgba(251, 191, 36, 0.06); }
+.atlas-statusHero[data-tone="info"] { border-color: rgba(96, 165, 250, 0.35); background: rgba(96, 165, 250, 0.06); }
+.atlas-statusHero[data-tone="success"] { border-color: var(--lime-border); background: var(--lime-soft, var(--lime-bg)); }
+.atlas-statusHero[data-tone="danger"] { border-color: rgba(255, 82, 82, 0.35); background: rgba(255, 82, 82, 0.06); }
+.atlas-statusHero[data-tone="purple"] { border-color: rgba(157, 123, 255, 0.35); background: var(--purple-bg); }
+.atlas-statusHeroTop { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.atlas-statusHeroText { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.atlas-statusHeroTitle { font-size: 0.98rem; font-weight: 800; letter-spacing: -0.01em; color: var(--text-primary); }
+.atlas-statusHeroSub { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.45; }
+/* Linha do tempo: cada passo tem estado — feito, agora, problema, cancelado ou por vir. */
+.atlas-timeline { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.atlas-timelineItem { position: relative; display: flex; gap: 12px; padding-bottom: 16px; }
+.atlas-timelineItem:last-child { padding-bottom: 0; }
+.atlas-timelineItem::before { content: ""; position: absolute; left: 11px; top: 26px; bottom: 2px; width: 2px; background: var(--border-color); }
+.atlas-timelineItem:last-child::before { display: none; }
+.atlas-timelineDot {
+  position: relative; z-index: 1; width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: var(--bg-card); border: 2px solid var(--border-light); color: var(--text-muted);
+  font-size: 0.7rem; font-weight: 800;
+}
+.atlas-timelineBody { flex: 1; min-width: 0; padding-top: 2px; }
+.atlas-timelineTitle { font-size: 0.86rem; font-weight: 600; color: var(--text-muted); }
+.atlas-timelineMeta { margin-top: 2px; font-size: 0.78rem; line-height: 1.45; color: var(--text-secondary); }
+.atlas-timelineDone .atlas-timelineDot { background: var(--lime); border-color: var(--lime); color: var(--lime-text); }
+.atlas-timelineDone::before { background: var(--lime-border); }
+.atlas-timelineDone .atlas-timelineTitle, .atlas-timelineNow .atlas-timelineTitle,
+.atlas-timelineBad .atlas-timelineTitle, .atlas-timelineCancel .atlas-timelineTitle { color: var(--text-primary); font-weight: 700; }
+.atlas-timelineNow .atlas-timelineDot { border-color: var(--warning); color: var(--warning); box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.16); }
+.atlas-timelineBad .atlas-timelineDot { background: var(--danger); border-color: var(--danger); color: #fff; }
+.atlas-timelineCancel .atlas-timelineDot { background: var(--purple-accent); border-color: var(--purple-accent); color: #fff; }
+/* Blocos de dados lado a lado, com pares nome/valor. */
+.atlas-detailsGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 600px) { .atlas-detailsGrid { grid-template-columns: minmax(0, 1fr); } }
+.atlas-detailsBlock { display: flex; flex-direction: column; gap: 10px; min-width: 0; padding: 14px 16px; border: 1px solid var(--border-color); border-radius: var(--atlas-radius-md); background: var(--bg-surface); }
+.atlas-detailsBlockTitle { margin: 0; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+.atlas-dl { margin: 0; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 14px; font-size: 0.84rem; }
+.atlas-dl dt { color: var(--text-muted); }
+.atlas-dl dd { margin: 0; justify-self: end; text-align: right; font-weight: 600; color: var(--text-primary); overflow-wrap: anywhere; }
+/* Texto citado (justificativa, motivo). */
+.atlas-quote { margin: 0; padding: 12px 14px; border-left: 3px solid var(--lime-border); border-radius: 0 var(--atlas-radius-sm) var(--atlas-radius-sm) 0; background: var(--bg-surface); font-size: 0.86rem; line-height: 1.6; color: var(--text-secondary); }
+.atlas-quote strong { display: block; margin-bottom: 4px; font-size: 0.68rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+.atlas-quoteDanger { border-left-color: var(--danger); }
+/* Rodapé de pop-up com ação secundária à esquerda e as principais à direita. */
+.atlas-modalFooterSplit { justify-content: space-between; flex-wrap: wrap; }
+.atlas-modalFooterSplit .atlas-footerGroup { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
