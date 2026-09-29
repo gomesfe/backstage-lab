@@ -12,6 +12,7 @@ import './assets/bui-tokens.css';
 import './assets/atlas.css';
 import './assets/atlas-html.css';
 
+import type { FrontendFeature } from '@backstage/frontend-plugin-api';
 import catalogPlugin from '@backstage/plugin-catalog/alpha';
 import { adminPlugin, atlasPagesPlugin, pageOverrides } from './screens';
 import { navModule } from './shell/nav';
@@ -20,7 +21,9 @@ import { envModule } from './shell/env';
 import { themeModule } from './shell/theme';
 import { translationsModule } from './shell/translations';
 
-export const atlasFeatures = [
+// Tipo explícito: sem ele o TypeScript tenta nomear o tipo inferido por um
+// caminho dentro de node_modules aninhado (TS2742) e a checagem falha.
+export const atlasFeatures: FrontendFeature[] = [
   catalogPlugin,
   adminPlugin,
   atlasPagesPlugin,
