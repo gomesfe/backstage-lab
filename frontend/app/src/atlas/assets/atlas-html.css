@@ -17,3 +17,19 @@ dialog.atlas-dialog {
   max-width: calc(100vw - 32px); overflow: visible;
 }
 dialog.atlas-dialog::backdrop { background: rgba(0, 0, 0, 0.6); }
+
+/* Botões liga/desliga (estrela, lido, salvar, copiar): o conteúdo muda com aria-pressed. */
+[aria-pressed='true'] .atlas-whenOff,
+[aria-pressed='false'] .atlas-whenOn { display: none; }
+
+/* Notificação marcada como lida perde o ponto de "não lida". */
+.atlas-notifItem:not(.atlas-notifItemUnread) .atlas-notifUnreadDot { display: none; }
+
+/* Etapa de trilha concluída pelo clique na bolinha. */
+.atlas-stepItemDone .atlas-stepCheck::before { content: '✓'; }
+
+/* A bolinha da etapa é um botão (marca como concluída): sem o fundo padrão do navegador. */
+button.atlas-stepCheck { background: transparent; padding: 0; color: var(--lime-text); font: inherit; }
+
+/* Âncora (#…) não fica escondida atrás da barra fixa. */
+[data-atlas-screen] [id] { scroll-margin-top: 96px; }

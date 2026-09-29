@@ -1,8 +1,9 @@
 import { useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Content, Page } from '@backstage/core-components';
+import { appThemeApiRef, identityApiRef, useApi } from '@backstage/core-plugin-api';
 import { ATLAS_HTML } from '../../screens/html.generated';
-import { enhance } from './enhance';
+import { enhance, openHash } from './enhance';
 
 /**
  * Mostra no portal uma tela feita em HTML estático.
@@ -12,21 +13,41 @@ import { enhance } from './enhance';
  * o `atlas.css` global e o tema do portal, exatamente como na versão avulsa.
  *
  * Aqui só se faz o que o HTML não pode fazer sozinho:
- * - liga busca, filtro, abas e diálogos (`enhance`, mesmos atributos do
- *   `assets/atlas.js`);
+ * - liga busca, filtros, abas, diálogos e estrelas (`assets/atlas-behaviors.js`,
+ *   o mesmo arquivo da versão avulsa), com o tema e o "Sair" do portal;
  * - troca o clique em link interno por navegação do React Router, para não
- *   recarregar o portal a cada tela.
+ *   recarregar o portal a cada tela;
+ * - reaplica `?filtros` e `#aba` quando o endereço muda sem trocar de tela.
  */
 export function AtlasHtmlScreen({ slug }: { slug: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const { search, hash } = useLocation();
+  const appThemeApi = useApi(appThemeApiRef);
+  const identityApi = useApi(identityApiRef);
   const screen = ATLAS_HTML[slug];
 
+  // Liga os comportamentos (de novo quando os filtros do endereço mudam).
   useEffect(() => {
     const root = ref.current;
     if (!root) return undefined;
-    const cleanup = enhance(root);
+    return enhance(root, {
+      setTheme: theme => appThemeApi.setActiveThemeId(theme),
+      currentTheme: () =>
+        root.closest('.atlas-root')?.getAttribute('data-theme') === 'light' ? 'light' : 'dark',
+      signOut: () => identityApi.signOut(),
+    });
+  }, [slug, search, appThemeApi, identityApi]);
 
+  // #aba dentro da mesma tela: o React Router não dispara `hashchange`.
+  useEffect(() => {
+    if (ref.current && hash) openHash(ref.current, hash);
+  }, [hash]);
+
+  // Link interno → navegação do portal.
+  useEffect(() => {
+    const root = ref.current;
+    if (!root) return undefined;
     const onClick = (event: MouseEvent) => {
       if (event.defaultPrevented || event.button !== 0) return;
       if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
@@ -37,16 +58,8 @@ export function AtlasHtmlScreen({ slug }: { slug: string }) {
       navigate(href);
     };
     root.addEventListener('click', onClick);
-
-    // Link com âncora (/learning-paths#provisioning): rola até ela.
-    const hash = window.location.hash.slice(1);
-    if (hash) root.querySelector(`#${CSS.escape(hash)}`)?.scrollIntoView();
-
-    return () => {
-      cleanup();
-      root.removeEventListener('click', onClick);
-    };
-  }, [navigate, slug]);
+    return () => root.removeEventListener('click', onClick);
+  }, [navigate]);
 
   if (!screen) {
     return (

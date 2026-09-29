@@ -31,6 +31,12 @@ Fora da barra, pelos botões do canto direito:
 | Notificações | `/notifications` | [notifications](notifications/README.md) |
 | Configurações | `/settings` | [settings](settings/README.md) |
 
+Sem pílula, aberta pelos nomes de serviços, APIs, sistemas, recursos e squads:
+
+| Tela | Rota | Pasta |
+|---|---|---|
+| Entidade | `/entidade#<tipo>-<nome>` | [entity](entity/README.md) |
+
 A ordem e a lista da barra ficam em `shell/nav/AtlasTopNav.tsx`
 (`PILL_ORDER`). Página registrada que não está lá continua acessível pela
 URL, mas não ganha pílula.
@@ -59,17 +65,28 @@ O mesmo `index.html` vale para os dois lugares:
   barra do portal em volta. Nada de `<script>` dentro do `<main>`: o
   sync reprova (mesmo contrato de `frontend/static-pages`).
 
-Interação sem JavaScript na tela, por atributo (documentados em
-`../assets/atlas.js`):
+Interação sem JavaScript na tela, por atributo. A lógica é uma só,
+`../assets/atlas-behaviors.js`, usada pela versão avulsa e pelo portal; a
+documentação completa está no topo desse arquivo. Nada grava dado: a tela
+reage ao clique para mostrar o visual.
 
 | Atributo | Faz |
 |---|---|
-| `data-atlas-search="tabela"` | campo de busca: filtra por texto as linhas `data-atlas-row` de `#tabela` |
-| `data-atlas-filter="tabela"` + `data-atlas-filter-key="type"` | select: mostra só as linhas com `data-type` igual ao valor (`all` = todas) |
-| `data-atlas-empty-for="tabela"` | aparece quando o filtro não deixa nenhuma linha |
-| `data-atlas-tabs="grupo"` + `data-atlas-tab` / `data-atlas-panel` | abas |
+| `data-atlas-search="lista"` | busca por texto nas linhas `data-atlas-row` de `#lista` |
+| `data-atlas-filter="lista"` + `data-atlas-filter-key="type"` | num `<select>` ou num grupo de botões `data-atlas-value` (abas, pílulas): mostra só as linhas com `data-type` igual |
+| `data-atlas-empty-for="lista"` | aparece quando nada sobra |
+| `data-atlas-reset="lista"` | "Limpar filtros" |
+| `data-atlas-tabs` + `data-atlas-tab` / `data-atlas-panel` | abas; `#id` no endereço abre a aba `id` |
 | `data-atlas-open="id"` / `data-atlas-close` | abre / fecha um `<dialog class="atlas-dialog" id="id">` |
+| `data-atlas-toggle` | liga/desliga (estrela, lida, salvar, copiar, "Filtros"); `.atlas-whenOn` / `.atlas-whenOff` trocam o conteúdo |
+| `data-atlas-set-theme` / `data-atlas-signout` | tema e sair (no portal, usam o Backstage) |
 | `data-portal-href="/rota"` | num `<a>`: link que só existe no portal (ex.: formulário de uma oferta) |
+
+**As telas conversam entre si.** Todo link interno é `../<tela>/index.html`,
+com `?filtro=valor` e `#aba` quando faz sentido — o destino chega filtrado
+ou na aba certa, avulso ou no portal. Exemplos: um grupo leva ao Catálogo com
+`?owner=pagamentos`; um nome de serviço leva a `../entity/index.html#component-payments-api`;
+um recurso do Mapa leva a Aprovações com `?q=<recurso>&status=all#approver`.
 
 - **`screens/index.ts`** — junta os `page.tsx` de todas as telas.
   **Tela nova:** copie uma pasta, edite o `index.html`, ajuste rota e nome

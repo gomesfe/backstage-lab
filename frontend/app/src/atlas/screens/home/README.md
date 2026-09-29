@@ -10,8 +10,8 @@ e por onde eu começo?" em uma olhada.
 ## Deve conter, nesta ordem
 
 1. **Seletor de escopo** — Todos / Pagamentos / Onboarding / Antifraude.
-   Filtra métricas e serviços pelo dono. *Fora da versão HTML*: com números
-   fixos, não há o que filtrar; volta quando houver dado real.
+   Filtra os serviços e as aplicações pelo squad dono (`data-squad` de cada
+   linha). As métricas são fixas na versão HTML.
 2. **Hero**
    - **Boas-vindas:** "Olá, {primeiro nome}" (do perfil de login; o guest vê
      "Bem-vindo ao Atlas"), uma frase e duas ações: **Provisionar recurso**
@@ -32,8 +32,8 @@ e por onde eu começo?" em uma olhada.
 3. **Ações rápidas** — sete atalhos com ícone por significado. A que ainda
    não tem tela no lab (Solicitar acesso) aparece desabilitada, com dica.
 4. **Três cartões lado a lado**
-   - **Serviços no catálogo:** até 8 aplicações do escopo, cada uma um link
-     para a entidade, com ponto e badge de ciclo de vida. "Ver todos (N)"
+   - **Serviços no catálogo:** aplicações do escopo, cada uma um link para a
+     tela de Entidade, com ponto e badge de ciclo de vida. "Ver todos (N)"
      quando houver mais.
    - **Últimas atualizações:** comunicados (no `index.html`).
    - **Ferramentas:** links externos, abrem em nova aba. A lista é a mesma do

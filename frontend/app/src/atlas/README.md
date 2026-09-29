@@ -14,9 +14,10 @@ atlas/
 ├── assets/
 │   ├── atlas.css        design system (gerado do atlas-design-system)
 │   ├── atlas-html.css   complementos das telas HTML
-│   ├── atlas.js         barra, Toolkit, tema e interação — só na versão avulsa
+│   ├── atlas-behaviors.js  busca, filtros, abas, diálogos, estrelas… (avulsa e portal)
+│   ├── atlas.js         barra, Toolkit e tema — só na versão avulsa
 │   └── brand/           logos oficiais (claro e escuro)
-├── screens/             uma pasta por tela
+├── screens/             uma pasta por tela (18, com Entidade)
 │   ├── home/            README.md · index.html · page.tsx
 │   ├── catalog/  approvals/  …
 │   ├── index.ts         junta os page.tsx (para o Backstage)
@@ -35,7 +36,9 @@ referenciam `../../assets/`. Os `page.tsx`, `index.ts` e
 
 Cada `index.html` é um documento completo. O conteúdo da tela fica dentro
 de `<main data-atlas-screen>`; a barra é desenhada pelo `atlas.js` no
-`<header data-atlas-nav>`. Links entre telas: `../<tela>/index.html`.
+`<header data-atlas-nav>`. Links entre telas: `../<tela>/index.html`, com
+`?filtro=valor` e `#aba` quando o destino deve chegar filtrado ou numa aba —
+as telas são navegáveis entre si do mesmo jeito avulsas ou no portal.
 
 ## Dentro de um app Backstage
 

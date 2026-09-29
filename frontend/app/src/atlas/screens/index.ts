@@ -11,6 +11,7 @@ import * as provisioningMap from './provisioning-map/page';
 import * as breakGlass from './break-glass/page';
 import * as atlasJira from './atlas-jira/page';
 import * as agent from './agent/page';
+import * as entity from './entity/page';
 import * as apiKeys from './api-keys/page';
 import * as admin from './admin/page';
 import * as search from './search/page';
@@ -54,6 +55,7 @@ export const atlasPagesPlugin = createFrontendPlugin({
     agent: agent.agentRouteRef,
     learningPaths: learningPaths.learningPathsRouteRef,
     breakGlass: breakGlass.breakGlassRouteRef,
+    entity: entity.entityRouteRef,
   },
   extensions: [
     myGroups.page,
@@ -64,6 +66,7 @@ export const atlasPagesPlugin = createFrontendPlugin({
     learningPaths.page,
     learningPaths.detailPage,
     breakGlass.page,
+    entity.page,
   ],
 });
 

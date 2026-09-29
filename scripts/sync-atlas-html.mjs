@@ -71,8 +71,8 @@ for (const slug of slugs) {
     if (m) fail(slug, `index.html:${lineOf(source, start) + lineOf(html, m.index) - 1} ${msg}`);
   }
 
-  // ../<tela>/index.html[#x] → rota do portal
-  html = html.replace(/href="\.\.\/([a-z0-9-]+)\/index\.html(#[^"]*)?"/g, (all, target, hash = '') => {
+  // ../<tela>/index.html[?filtros][#aba] → rota do portal, com o mesmo resto
+  html = html.replace(/href="\.\.\/([a-z0-9-]+)\/index\.html([?#][^"]*)?"/g, (all, target, hash = '') => {
     if (!(target in routes)) {
       fail(slug, `link para tela inexistente: ${target}`);
       return all;

@@ -2,24 +2,12 @@
  * Atlas — script das telas HTML estáticas.
  *
  * Só roda quando a tela é aberta sozinha (arquivo .html no navegador ou num
- * servidor qualquer). Dentro do Backstage este arquivo NÃO é carregado: a
- * barra é a do portal e os comportamentos (busca, filtro, abas, diálogos) são
- * ligados pelo `shell/html/AtlasHtmlScreen.tsx`, que lê os mesmos atributos.
+ * servidor qualquer): desenha a barra de navegação com o menu Toolkit e
+ * cuida do tema claro/escuro. A interação da tela (busca, filtros, abas,
+ * diálogos, estrelas…) é do assets/atlas-behaviors.js, carregado antes deste.
  *
- * Comportamentos, todos declarados por atributo no HTML:
- *
- *   <input data-atlas-search="tabela">           filtra por texto as linhas
- *   <select data-atlas-filter="tabela"            filtra pelo atributo
- *           data-atlas-filter-key="type">          data-type das linhas
- *   <tr data-atlas-row data-type="...">          uma linha filtrável
- *   <div data-atlas-empty-for="tabela" hidden>   aparece quando nada sobra
- *
- *   <button data-atlas-tab="a" data-atlas-tabs="grupo">   abas
- *   <div data-atlas-panel="a" data-atlas-tabs="grupo">
- *   (a aba ativa ganha `atlas-tabBtnActive`, ou a classe em data-atlas-active-class)
- *
- *   <button data-atlas-open="dialogo">   abre <dialog id="dialogo">
- *   <button data-atlas-close>            fecha o diálogo em volta
+ * Dentro do Backstage este arquivo NÃO é carregado: a barra é a do portal
+ * (shell/nav), que tem a mesma lista de telas e o mesmo Toolkit.
  */
 (function () {
   'use strict';
@@ -150,95 +138,41 @@
   /* -------------------------------------------------------------- tema --- */
 
   function initTheme() {
-    var saved = null;
-    try { saved = localStorage.getItem('atlas-theme'); } catch (e) { /* sem storage */ }
-    if (saved === 'light' || saved === 'dark') document.body.setAttribute('data-theme', saved);
-
     var button = document.querySelector('[data-atlas-theme-toggle]');
+    function current() {
+      return document.body.getAttribute('data-theme') === 'light' ? 'light' : 'dark';
+    }
     function paint() {
-      var dark = document.body.getAttribute('data-theme') !== 'light';
       if (!button) return;
+      var dark = current() === 'dark';
       button.innerHTML = svg(dark ? 'sun' : 'moon');
       button.title = dark ? 'Tema claro' : 'Tema escuro';
     }
+    function set(theme) {
+      document.body.setAttribute('data-theme', theme);
+      try { localStorage.setItem('atlas-theme', theme); } catch (e) { /* sem storage */ }
+      paint();
+    }
+
+    var saved = null;
+    try { saved = localStorage.getItem('atlas-theme'); } catch (e) { /* sem storage */ }
+    if (saved === 'light' || saved === 'dark') document.body.setAttribute('data-theme', saved);
     paint();
     if (button) {
-      button.addEventListener('click', function () {
-        var next = document.body.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
-        document.body.setAttribute('data-theme', next);
-        try { localStorage.setItem('atlas-theme', next); } catch (e) { /* sem storage */ }
-        paint();
-      });
+      button.addEventListener('click', function () { set(current() === 'light' ? 'dark' : 'light'); });
     }
+    return { set: set, current: current };
   }
-
-  /* ----------------------------------------------------- comportamentos --- */
-
-  function enhance(root) {
-    function applyFilters(targetId) {
-      var target = root.querySelector('#' + targetId);
-      if (!target) return;
-      var search = root.querySelector('[data-atlas-search="' + targetId + '"]');
-      var needle = search ? search.value.trim().toLowerCase() : '';
-      var filters = Array.prototype.slice.call(root.querySelectorAll('[data-atlas-filter="' + targetId + '"]'));
-      var rows = target.querySelectorAll('[data-atlas-row]');
-      var visible = 0;
-      Array.prototype.forEach.call(rows, function (row) {
-        var ok = !needle || row.textContent.toLowerCase().indexOf(needle) !== -1;
-        filters.forEach(function (control) {
-          var key = control.getAttribute('data-atlas-filter-key');
-          var value = control.value;
-          if (value && value !== 'all' && row.getAttribute('data-' + key) !== value) ok = false;
-        });
-        row.hidden = !ok;
-        if (ok) visible++;
-      });
-      var empty = root.querySelector('[data-atlas-empty-for="' + targetId + '"]');
-      if (empty) empty.hidden = visible !== 0;
-    }
-
-    root.addEventListener('input', function (event) {
-      var id = event.target.getAttribute && (event.target.getAttribute('data-atlas-search') || event.target.getAttribute('data-atlas-filter'));
-      if (id) applyFilters(id);
-    });
-    root.addEventListener('change', function (event) {
-      var id = event.target.getAttribute && event.target.getAttribute('data-atlas-filter');
-      if (id) applyFilters(id);
-    });
-
-    root.addEventListener('click', function (event) {
-      var el = event.target.closest ? event.target.closest('[data-atlas-tab],[data-atlas-open],[data-atlas-close]') : null;
-      if (!el) return;
-
-      if (el.hasAttribute('data-atlas-tab')) {
-        var group = el.getAttribute('data-atlas-tabs');
-        var tab = el.getAttribute('data-atlas-tab');
-        Array.prototype.forEach.call(root.querySelectorAll('[data-atlas-tabs="' + group + '"]'), function (node) {
-          if (node.hasAttribute('data-atlas-tab')) {
-            var on = node.getAttribute('data-atlas-tab') === tab;
-            node.classList.toggle(node.getAttribute('data-atlas-active-class') || 'atlas-tabBtnActive', on);
-            node.setAttribute('aria-selected', String(on));
-          } else if (node.hasAttribute('data-atlas-panel')) {
-            node.hidden = node.getAttribute('data-atlas-panel') !== tab;
-          }
-        });
-      } else if (el.hasAttribute('data-atlas-open')) {
-        // Botão que fecha um diálogo e abre outro (ex.: "Próxima etapa").
-        if (el.hasAttribute('data-atlas-close') && el.closest('dialog')) el.closest('dialog').close();
-        var dialog = root.querySelector('#' + el.getAttribute('data-atlas-open'));
-        if (dialog && dialog.showModal) dialog.showModal();
-      } else {
-        var parent = el.closest('dialog');
-        if (parent) parent.close();
-      }
-    });
-  }
-
-  window.AtlasHtml = { enhance: enhance };
 
   document.addEventListener('DOMContentLoaded', function () {
     renderNav();
-    initTheme();
-    enhance(document);
+    var theme = initTheme();
+    // Busca, filtros, abas, diálogos, estrelas… — assets/atlas-behaviors.js.
+    if (window.AtlasBehaviors) {
+      window.AtlasBehaviors.enhance(document.querySelector('[data-atlas-screen]') || document.body, {
+        setTheme: theme.set,
+        currentTheme: theme.current,
+      });
+    }
   });
 })();

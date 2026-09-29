@@ -20,10 +20,10 @@
         </div>
         <div class="atlas-pageActions"><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-open="new-key">+ Nova chave</button></div>
       </div>
-      <div class="atlas-alert atlas-alertInfo"><div><div class="atlas-alertTitle">Dados de exemplo</div>Esta é a versão estática: as chaves abaixo são exemplos e nada é emitido nem revogado.</div></div>
+      <div class="atlas-alert atlas-alertInfo"><div><div class="atlas-alertTitle">Dados de exemplo</div>As chaves abaixo são exemplos: criar e revogar mostram o fluxo, sem emitir nada.</div></div>
       <div class="atlas-topOverviewCardsGrid"><div class="atlas-expandMetricCard "><div class="atlas-metricCardHead"><span class="atlas-metricCardTitle">Ativas</span></div><div class="atlas-metricBigValue">3</div><div class="atlas-metricCardSub">podem autenticar agora</div></div><div class="atlas-expandMetricCard "><div class="atlas-metricCardHead"><span class="atlas-metricCardTitle">Expiram em 7 dias</span></div><div class="atlas-metricBigValue">1</div><div class="atlas-metricCardSub">emita a substituta antes de a automação parar</div></div><div class="atlas-expandMetricCard "><div class="atlas-metricCardHead"><span class="atlas-metricCardTitle">Revogadas ou expiradas</span></div><div class="atlas-metricBigValue">2</div><div class="atlas-metricCardSub">mantidas no histórico</div></div></div>
       <section class="atlas-tableContainerCard">
-        <div class="atlas-filtersBar"><label class="atlas-labeledSelect"><span class="atlas-labeledSelectLabel">Mostrar</span><select class="atlas-filterSelect" data-atlas-filter="keys-table" data-atlas-filter-key="status"><option value="active">Ativas (3)</option><option value="all">Todas (5)</option></select></label></div>
+        <div class="atlas-sectionCardHeader"><div class="atlas-tabs" data-atlas-filter="keys-table" data-atlas-filter-key="status" data-atlas-active-class="atlas-tabBtnActive"><button type="button" class="atlas-tabBtn atlas-tabBtnActive" data-atlas-value="active" aria-pressed="true">Ativas (3)</button><button type="button" class="atlas-tabBtn" data-atlas-value="all" aria-pressed="false">Todas (5)</button></div></div>
         <div class="atlas-recentTableWrap">
           <table class="atlas-recentTable">
             <thead><tr><th scope="col">Nome</th><th scope="col">Chave</th><th scope="col">Status</th><th scope="col">Dono</th><th scope="col">Criada em</th><th scope="col">Expira em</th><th scope="col">Último uso</th><th scope="col" style="text-align:right">Ações</th></tr></thead>
@@ -70,13 +70,14 @@
 <dialog class="atlas-dialog" id="key-created" aria-labelledby="key-created-title">
   <div class="atlas-modalContentBox">
     <div class="atlas-modalHeader"><h3 id="key-created-title">Chave criada</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
-    <div class="atlas-modalBody"><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Copie agora</div>O segredo não é guardado em lugar nenhum. Fechando esta janela ele desaparece e será preciso emitir outra chave.</div></div><div class="atlas-secretReveal"><span style="flex:1">atk_exemplo_0000000000000000000000000000</span></div><p class="atlas-fieldHint">Exemplo: a versão estática não emite chave de verdade.</p></div>
+    <div class="atlas-modalBody"><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Copie agora</div>O segredo não é guardado em lugar nenhum. Fechando esta janela ele desaparece e será preciso emitir outra chave.</div></div><div class="atlas-secretReveal"><span style="flex:1">atk_7f3a9c2e41b84d0f9e6a5c3b2d1e0f4a</span><button type="button" class="atlas-btnPill" data-atlas-toggle aria-pressed="false"><span class="atlas-whenOn">Copiado</span><span class="atlas-whenOff">Copiar</span></button></div></div>
     <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Já copiei</button></div>
   </div>
 </dialog>
     </div>
   </main>
 
+  <script src="../../assets/atlas-behaviors.js"></script>
   <script src="../../assets/atlas.js"></script>
 </body>
 </html>
