@@ -33,20 +33,19 @@ o que muda é de que lado do pedido você está.
    - Em solicitações, pendente: **Cancelar** (motivo opcional).
    - Sempre: **Detalhes**.
    Todas abrem um modal com o resumo antes de confirmar.
-7. **Detalhes** — pop-up largo, montado para responder "em que pé está?"
-   antes de "quais são os campos?":
-   - **Cabeçalho:** nome do recurso em destaque, com a oferta e o ambiente.
+7. **Detalhes** — pop-up largo, pensado para pedidos de deleção:
+   - **Cabeçalho:** nome do recurso, "Deleção · ambiente X", a oferta e se o
+     recurso foi **excluído** ou não.
    - **Situação em destaque**, colorida pelo estado, com a barra de aprovações.
-   - **Andamento** em linha do tempo: Solicitada → Aprovações → Execução →
-     Concluída. Rejeitada e cancelada terminam ali, com o motivo; falha de
-     execução mostra o erro.
-   - **Recurso** (oferta, ambiente, grupo, dono) e **Pedido** (solicitante,
-     data, aprovações, quem aprovou), e a **justificativa** citada.
-   - **Rodapé:** link para o mapa de provisionamento e as ações que valem
-     para aquela situação (Aprovar/Rejeitar, ou Cancelar), que abrem o passo
-     seguinte já fechando o detalhe. Em prod/prdnv o
-   modal de aprovação avisa que o provisionamento começa depois da última
-   aprovação.
+   - Cards **Recurso** (nome, tipo, grupo dono, dono, ambiente) e
+     **Solicitação** (solicitante, time, data e "aberta há X", calculado por
+     `data-atlas-ago` em `atlas-behaviors.js`).
+   - **Grupos aprovadores** (admin, DevOps…), cada um com aprovou/pendente.
+   - **Andamento** completo: solicitação criada, aprovação necessária,
+     automática, concedida, concluída, deleção iniciada, workflow disparado e
+     concluído, remoção do catálogo iniciada, recurso removido, deleção
+     concluída. Rejeitada, cancelada e falha terminam ali com o motivo.
+   - **Rodapé:** Fechar, mais Aprovar/Rejeitar (pendente) ou Cancelar.
 
 Status: aguardando aprovação · em execução · concluído · rejeitado ·
 cancelado · falhou. "Histórico" é tudo o que já terminou.

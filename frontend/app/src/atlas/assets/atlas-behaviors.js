@@ -43,6 +43,11 @@
  *   (data-atlas-filter-key). ../entity/index.html#payments-api abre a aba
  *   "payments-api" (links para a mesma tela também, sem recarregar).
  *
+ * TEMPO DECORRIDO
+ *   <time datetime="2026-09-29T11:00" data-atlas-ago>29/09/26 11:00</time>
+ *   vira "há 3 h" (e se atualiza ao abrir um diálogo). O HTML fica estático;
+ *   o "há quanto tempo" nunca envelhece.
+ *
  * TEMA E SESSÃO
  *   <button data-atlas-set-theme="light|dark">   troca o tema
  *   <button data-atlas-signout>                   sair (só faz algo no portal)
@@ -52,6 +57,26 @@
 
   function all(root, selector) {
     return Array.prototype.slice.call(root.querySelectorAll(selector));
+  }
+
+  // "há 5 min", "há 3 h", "há 2 dias" — a partir do datetime.
+  function ago(iso) {
+    var then = new Date(iso).getTime();
+    if (isNaN(then)) return null;
+    var minutes = Math.max(0, Math.round((Date.now() - then) / 60000));
+    if (minutes < 1) return 'agora há pouco';
+    if (minutes < 60) return 'há ' + minutes + ' min';
+    var hours = Math.round(minutes / 60);
+    if (hours < 24) return 'há ' + hours + ' h';
+    var days = Math.round(hours / 24);
+    return days === 1 ? 'há 1 dia' : 'há ' + days + ' dias';
+  }
+
+  function updateAgo(root) {
+    all(root, '[data-atlas-ago]').forEach(function (el) {
+      var text = ago(el.getAttribute('datetime'));
+      if (text) el.textContent = text;
+    });
   }
 
   function filterValue(control) {
@@ -237,6 +262,7 @@
       } else if (el.hasAttribute('data-atlas-open')) {
         if (el.hasAttribute('data-atlas-close') && el.closest('dialog')) el.closest('dialog').close();
         var dialog = root.querySelector('#' + el.getAttribute('data-atlas-open'));
+        updateAgo(root);
         if (dialog && dialog.showModal && !dialog.open) dialog.showModal();
       } else if (el.hasAttribute('data-atlas-close')) {
         var parent = el.closest('dialog');
@@ -282,6 +308,7 @@
     });
     Object.keys(ids).forEach(function (id) { applyFilters(root, id); });
     if (hooks.currentTheme) markThemeOptions(root, hooks.currentTheme());
+    updateAgo(root);
     function onHash() { openHash(root, global.location.hash); }
     onHash();
     global.addEventListener('hashchange', onHash);

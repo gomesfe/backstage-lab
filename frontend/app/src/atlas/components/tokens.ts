@@ -69,7 +69,7 @@ export const atlasTokens = {
   fontFamily: "Inter, 'Segoe UI', Arial, Helvetica, sans-serif",
 
   /** Largura máxima do conteúdo no shell do Atlas. */
-  maxWidth: 1440,
+  maxWidth: 2200,
 } as const;
 
 /**
