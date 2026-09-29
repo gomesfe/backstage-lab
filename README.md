@@ -1,18 +1,22 @@
 # portal — lab de Backstage
 
 Backstage rodando local, com um caminho para criar telas novas **sem escrever
-React**: você solta um site estático em `static-pages/` e ele vira uma rota do
+React**: você solta um site estático em `frontend/static-pages/` e ele vira uma rota do
 portal.
 
 ## O que tem aqui
 
 ```
-packages/app        front-end (React) — o "repo de front"
-packages/backend    back-end (Node) — catalog, scaffolder, auth, techdocs
-packages/app/src/screens/   uma pasta por tela, com o que ela deve conter
-plugins/            plugins próprios: rbac-backend, api-keys-backend, admin
-rbac-policy.csv     quem pode o quê  →  docs/rbac.md
-static-pages/       as telas em HTML/CSS puro  ←  trabalho do dia a dia
+frontend/          tudo o que roda no navegador  →  frontend/README.md
+  app/             o portal: telas (uma pasta por tela), navegação, tema
+  components/      componentes e tokens
+  admin/           telas API Keys e Administração
+  static-pages/    telas em HTML/CSS puro  ←  trabalho do dia a dia
+backend/           tudo o que roda no servidor   →  backend/README.md
+  server/          o processo do backend
+  api-keys/  atlas-agent/  rbac/  scaffolder-atlas/    plugins próprios
+  rbac-policy.csv  quem pode o quê  →  docs/rbac.md
+  templates/  examples/    as ofertas e os dados de exemplo do catálogo
 scripts/            o pipeline que valida e pluga as telas no front
 templates/          software template "Tela estática" (abre PR com a tela nova)
 ```
@@ -21,20 +25,20 @@ O visual vem do **Atlas Design System**, que mora no próprio repositório:
 [gomesfe/atlas-design-system](https://github.com/gomesfe/atlas-design-system)
 (documentação viva + construtor de telas, num `index.html`).
 
-- [`packages/app/src/modules/theme/atlas.css`](packages/app/src/modules/theme/atlas.css)
+- [`frontend/app/src/modules/theme/atlas.css`](frontend/app/src/modules/theme/atlas.css)
   é **gerado** a partir dele — não edite à mão. Mudou o visual lá?
   `yarn ds:sync` traz para cá; `yarn ds:check` falha se estiver desatualizado.
-- [`plugins/components/src/tokens.ts`](plugins/components/src/tokens.ts) — os
+- [`frontend/components/src/tokens.ts`](frontend/components/src/tokens.ts) — os
   mesmos tokens em TypeScript, para o tema do MUI e o `@backstage/ui`.
 
 **Cada tela mora numa pasta própria**, com um `README.md` dizendo o que ela
-deve conter: [`packages/app/src/screens/`](packages/app/src/screens/README.md).
+deve conter: [`frontend/app/src/screens/`](frontend/app/src/screens/README.md).
 
 Permissões e login em [`docs/rbac.md`](docs/rbac.md), plugins em
-[`plugins/README.md`](plugins/README.md), software templates em
+[`backend/PLUGINS.md`](backend/PLUGINS.md), software templates em
 [`docs/templates.md`](docs/templates.md).
 
-`packages/app` e `packages/backend` são dois deployables independentes — é
+`frontend/app` e `backend/server` são dois deployables independentes — é
 assim que o Backstage separa front e back. Eles moram no mesmo repo porque
 compartilham `app-config.yaml`, versões e tipos; separar em dois repositórios
 te obriga a versionar o config e os pacotes `@backstage/*` em duplicata, que é
@@ -115,7 +119,7 @@ yarn start                            # a tela dentro do portal
 A tela aparece em `/p/custos-por-time` e na sidebar.
 
 As regras que o `index.html` precisa seguir — e o porquê de cada uma — estão em
-[`static-pages/README.md`](static-pages/README.md). `yarn pages:sync` reprova o
+[`frontend/static-pages/README.md`](frontend/static-pages/README.md). `yarn pages:sync` reprova o
 build apontando arquivo e linha quando alguma é quebrada, e roda sozinho antes
 de `yarn start` e `yarn build:all`.
 
@@ -123,14 +127,14 @@ de `yarn start` e `yarn build:all`.
 
 Com `GITHUB_TOKEN` preenchido, o template **Tela estática** aparece em
 `/create`. Ele pergunta slug, título e ícone e abre um Pull Request neste repo
-adicionando `static-pages/<slug>/`. É o mesmo fluxo do template estático do
+adicionando `frontend/static-pages/<slug>/`. É o mesmo fluxo do template estático do
 portal de dev — a diferença é que aqui a tela nasce já dentro do front.
 
 ## Como funciona por baixo
 
-1. `scripts/sync-static-pages.mjs` lê `static-pages/*/`, valida contra as
-   regras e gera `packages/app/src/modules/static-pages/generated.ts` com o
-   HTML e o CSS embutidos. Assets vão para `packages/app/public/static-pages/`
+1. `scripts/sync-static-pages.mjs` lê `frontend/static-pages/*/`, valida contra as
+   regras e gera `frontend/app/src/modules/static-pages/generated.ts` com o
+   HTML e o CSS embutidos. Assets vão para `frontend/app/public/static-pages/`
    e as referências `assets/...` são reescritas para caminhos absolutos.
 2. `staticPagesPlugin.tsx` cria uma extensão de página do Backstage por tela,
    com rota e item de sidebar.
@@ -139,4 +143,4 @@ portal de dev — a diferença é que aqui a tela nasce já dentro do front.
    liberar seletores amplos no CSS da tela sem quebrar o portal.
 
 Os dois artefatos gerados (`generated.ts` e `public/static-pages/`) são
-derivados e estão no `.gitignore` — a fonte da verdade é `static-pages/`.
+derivados e estão no `.gitignore` — a fonte da verdade é `frontend/static-pages/`.

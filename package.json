@@ -48,8 +48,8 @@
     }
   },
   "workspaces": [
-    "packages/*",
-    "plugins/*"
+    "frontend/*",
+    "backend/*"
   ],
   "devDependencies": {
     "@backstage/cli": "^0.36.6",

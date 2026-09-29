@@ -34,7 +34,7 @@ cada spec diz só o que é específico do recurso.
 
 ### Adicionar um recurso
 
-Crie `templates/aws/specs/<slug>.yaml`:
+Crie `backend/templates/aws/specs/<slug>.yaml`:
 
 ```yaml
 slug: opensearch
@@ -55,7 +55,7 @@ inputs:                # inputs do módulo Terraform, em HCL
   instance_type: '"${{ values.instanceType }}"'
 ```
 
-Depois `yarn templates:sync`. Os arquivos em `templates/aws/generated/` são
+Depois `yarn templates:sync`. Os arquivos em `backend/templates/aws/generated/` são
 versionados de propósito — o catálogo os lê do disco, não os gera.
 
 `yarn templates:check` falha se o gerado divergir do spec. Vale plugar em CI:
@@ -119,6 +119,6 @@ acontece.
 
 ## Registro no catálogo
 
-`templates/locations.yaml` é uma `Location` única com todos os templates, e é
+`backend/templates/locations.yaml` é uma `Location` única com todos os templates, e é
 gerada junto. O `app-config.yaml` aponta só para ela — adicionar um template
 não mexe em configuração.

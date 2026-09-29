@@ -22,7 +22,7 @@ if (!slug) {
   process.exit(1);
 }
 
-const DIR = join(ROOT, 'static-pages', slug);
+const DIR = join(ROOT, 'frontend/static-pages', slug);
 try {
   statSync(DIR).isDirectory();
 } catch {

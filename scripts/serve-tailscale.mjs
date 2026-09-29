@@ -74,7 +74,7 @@ if (!dnsName) {
 
 const publicUrl = `https://${dnsName}`;
 
-const bundle = join(ROOT, 'packages/backend/dist');
+const bundle = join(ROOT, 'backend/server/dist');
 if (!existsSync(bundle)) {
   fail('o backend não foi construído ainda.\n  Rode:  yarn build:hosted');
 }

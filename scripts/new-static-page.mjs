@@ -18,7 +18,7 @@ import { join, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const PAGES_DIR = join(ROOT, 'static-pages');
+const PAGES_DIR = join(ROOT, 'frontend/static-pages');
 const TEMPLATE_DIR = join(PAGES_DIR, '_template');
 
 const [slug, ...titleParts] = process.argv.slice(2);

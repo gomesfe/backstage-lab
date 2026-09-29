@@ -27,8 +27,8 @@ import { fileURLToPath } from 'node:url';
 import { parse as parseYaml, stringify as toYaml } from 'yaml';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const SPECS_DIR = join(ROOT, 'templates/aws/specs');
-const OUT_DIR = join(ROOT, 'templates/aws/generated');
+const SPECS_DIR = join(ROOT, 'backend/templates/aws/specs');
+const OUT_DIR = join(ROOT, 'backend/templates/aws/generated');
 
 const CHECK = process.argv.includes('--check');
 
@@ -397,7 +397,7 @@ function locationsYaml() {
       }
     }
   };
-  walk(join(ROOT, 'templates'), '');
+  walk(join(ROOT, 'backend/templates'), '');
 
   targets.sort();
   return (
@@ -426,7 +426,7 @@ if (CHECK) {
     }
   }
   const locations = locationsYaml();
-  const locationsPath = join(ROOT, 'templates/locations.yaml');
+  const locationsPath = join(ROOT, 'backend/templates/locations.yaml');
   if (!existsSync(locationsPath) || readFileSync(locationsPath, 'utf8') !== locations) {
     diffs.push('locations.yaml');
   }
@@ -448,7 +448,7 @@ if (CHECK) {
     writeFileSync(full, content, 'utf8');
   }
   // A Location é escrita depois dos templates, para enxergar os novos.
-  writeFileSync(join(ROOT, 'templates/locations.yaml'), locationsYaml(), 'utf8');
+  writeFileSync(join(ROOT, 'backend/templates/locations.yaml'), locationsYaml(), 'utf8');
 
   console.log(
     `  ✓ ${specs.length} template(s) AWS gerado(s): ${specs

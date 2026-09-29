@@ -3,7 +3,7 @@
  * Valida as telas em static-pages/ e gera o bundle que o front consome.
  *
  * Entrada:  static-pages/<slug>/{meta.json,index.html,styles.css,assets/*}
- * Saída:    packages/app/src/modules/static-pages/generated.ts
+ * Saída:    frontend/app/src/modules/static-pages/generated.ts
  *
  * As regras estão documentadas em static-pages/README.md. Este arquivo é a
  * implementação delas — se mudar uma, mude os dois.
@@ -21,13 +21,13 @@ import { join, dirname, relative } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
-const PAGES_DIR = join(ROOT, 'static-pages');
+const PAGES_DIR = join(ROOT, 'frontend/static-pages');
 const OUT_FILE = join(
   ROOT,
-  'packages/app/src/modules/static-pages/generated.ts',
+  'frontend/app/src/modules/static-pages/generated.ts',
 );
 // Assets são copiados para cá e servidos pelo dev server / build do app.
-const PUBLIC_DIR = join(ROOT, 'packages/app/public/static-pages');
+const PUBLIC_DIR = join(ROOT, 'frontend/app/public/static-pages');
 
 const ALLOWED_ICONS = ['dashboard', 'docs', 'extension', 'group', 'library'];
 const SLUG_RE = /^[a-z0-9]+(-[a-z0-9]+)*$/;

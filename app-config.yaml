@@ -2,7 +2,7 @@ app:
   title: Atlas
   baseUrl: http://localhost:3000
 
-  # Enable all packages by default, this will discover packages from packages/app/package.json
+  # Enable all packages by default, this will discover packages from frontend/app/package.json
   packages: all
 
   extensions:
@@ -140,26 +140,26 @@ catalog:
   rules:
     - allow: [Component, System, API, Resource, Location, Template]
   locations:
-    # Local example data, file locations are relative to the backend process, typically `packages/backend`
+    # Local example data, file locations are relative to the backend process, typically `backend/server`
     - type: file
-      target: ../../examples/entities.yaml
+      target: ../examples/entities.yaml
 
     # Local example template
     - type: file
-      target: ../../examples/template/template.yaml
+      target: ../examples/template/template.yaml
       rules:
         - allow: [Template]
 
     # Local example organizational data
     - type: file
-      target: ../../examples/org.yaml
+      target: ../examples/org.yaml
       rules:
         - allow: [User, Group]
 
     # Todos os software templates, via uma Location única gerada por
     # `yarn templates:sync`. Adicionar um template novo não mexe neste arquivo.
     - type: file
-      target: ../../templates/locations.yaml
+      target: ../templates/locations.yaml
       rules:
         - allow: [Location, Template]
 
@@ -182,7 +182,7 @@ permission:
   enabled: true
   rbac:
     # Roles e vínculos. Caminho relativo à raiz do repo.
-    policyFile: rbac-policy.csv
+    policyFile: backend/rbac-policy.csv
     # Em dev, salvar o CSV recarrega as regras sem reiniciar o backend.
     watch: true
 

@@ -1,6 +1,6 @@
 # RBAC
 
-As permissões do portal vêm de um único arquivo: [`rbac-policy.csv`](../rbac-policy.csv).
+As permissões do portal vêm de um único arquivo: [`backend/rbac-policy.csv`](../backend/rbac-policy.csv).
 
 ## Formato
 
@@ -56,7 +56,7 @@ O login do GitHub é resolvido por `usernameMatchingUserEntityName`: seu
 username vira `user:default/<username>`. O RBAC procura vínculos para esse ref
 e para os grupos que o catálogo diz que você pertence.
 
-Sem uma entidade `User` em [`examples/org.yaml`](../examples/org.yaml), o
+Sem uma entidade `User` em [`backend/examples/org.yaml`](../backend/examples/org.yaml), o
 catálogo não conhece seus grupos, nenhum vínculo casa, e o default fechado te
 deixa de fora. Ao adicionar alguém ao portal, adicione nos dois lugares.
 
@@ -77,7 +77,7 @@ de troca é só `createAtlasEnv`.
 ## Testar uma mudança
 
 Os testes da política estão em
-[`plugins/rbac-backend/src/AtlasPermissionPolicy.test.ts`](../plugins/rbac-backend/src/AtlasPermissionPolicy.test.ts)
+[`backend/rbac/src/AtlasPermissionPolicy.test.ts`](../backend/rbac/src/AtlasPermissionPolicy.test.ts)
 e rodam contra CSVs escritos inline — é o lugar barato para provar que uma
 regra nova faz o que você acha que faz.
 
