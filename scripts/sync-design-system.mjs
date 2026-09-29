@@ -4,7 +4,7 @@
  *
  * A fonte de verdade do visual é o repositório `atlas-design-system`: o CSS
  * vive embutido no `index.html` dele, no bloco <style id="atlas-css">. Este
- * script extrai esse bloco e grava em `frontend/app/src/modules/theme/atlas.css`.
+ * script extrai esse bloco e grava em `frontend/app/src/atlas/assets/atlas.css`.
  *
  * O arquivo gerado é versionado aqui de propósito: o build do portal não pode
  * depender de o outro repositório estar clonado ao lado.
@@ -22,7 +22,7 @@ const source = resolve(
   root,
   process.env.ATLAS_DS_PATH ?? '../../atlas-design-system/index.html',
 );
-const target = resolve(root, 'frontend/app/src/modules/theme/atlas.css');
+const target = resolve(root, 'frontend/app/src/atlas/assets/atlas.css');
 const check = process.argv.includes('--check');
 
 if (!existsSync(source)) {

@@ -8,9 +8,8 @@ portal.
 
 ```
 frontend/          tudo o que roda no navegador  →  frontend/README.md
-  app/             o portal: telas (uma pasta por tela), navegação, tema
-  components/      componentes e tokens
-  admin/           telas API Keys e Administração
+  app/src/atlas/   TODO o front do Atlas numa pasta (telas, componentes, barra,
+                   tema, CSS) — copie e cole em outro app  →  README.md dela
   static-pages/    telas em HTML/CSS puro  ←  trabalho do dia a dia
 backend/           tudo o que roda no servidor   →  backend/README.md
   server/          o processo do backend
@@ -25,14 +24,17 @@ O visual vem do **Atlas Design System**, que mora no próprio repositório:
 [gomesfe/atlas-design-system](https://github.com/gomesfe/atlas-design-system)
 (documentação viva + construtor de telas, num `index.html`).
 
-- [`frontend/app/src/modules/theme/atlas.css`](frontend/app/src/modules/theme/atlas.css)
+- [`frontend/app/src/atlas/assets/atlas.css`](frontend/app/src/atlas/assets/atlas.css)
   é **gerado** a partir dele — não edite à mão. Mudou o visual lá?
   `yarn ds:sync` traz para cá; `yarn ds:check` falha se estiver desatualizado.
-- [`frontend/components/src/tokens.ts`](frontend/components/src/tokens.ts) — os
+- [`frontend/app/src/atlas/components/tokens.ts`](frontend/app/src/atlas/components/tokens.ts) — os
   mesmos tokens em TypeScript, para o tema do MUI e o `@backstage/ui`.
 
+**Para levar o front para outro app Backstage**, copie
+[`frontend/app/src/atlas/`](frontend/app/src/atlas/README.md) inteira.
+
 **Cada tela mora numa pasta própria**, com um `README.md` dizendo o que ela
-deve conter: [`frontend/app/src/screens/`](frontend/app/src/screens/README.md).
+deve conter: [`frontend/app/src/atlas/screens/`](frontend/app/src/atlas/screens/README.md).
 
 Permissões e login em [`docs/rbac.md`](docs/rbac.md), plugins em
 [`backend/PLUGINS.md`](backend/PLUGINS.md), software templates em

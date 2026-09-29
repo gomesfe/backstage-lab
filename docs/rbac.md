@@ -64,7 +64,7 @@ deixa de fora. Ao adicionar alguém ao portal, adicione nos dois lugares.
 
 O front sabe em que ambiente está por `atlas.env` no `app-config.yaml`
 (`local`, `dev`, `lab` ou `prod`), exposto pela `atlasEnvApiRef` do
-`@internal/plugin-components`. O selo na sidebar mostra qual é.
+`frontend/app/src/atlas/components`. O selo na sidebar mostra qual é.
 
 Um valor desconhecido **derruba o app na inicialização**, de propósito: `prd`
 em vez de `prod` desligaria em silêncio tudo que é condicionado a produção.

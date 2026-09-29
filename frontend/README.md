@@ -6,17 +6,17 @@ Tudo o que o navegador roda: as telas do Atlas, o visual e as telas estáticas.
 ```
 frontend/
 ├── app/             o portal (React + Backstage)
-│   ├── src/screens/     uma pasta por tela, com tudo dela: tela, dados,
-│   │                    registro da rota (page.tsx) e README do que contém
-│   ├── src/modules/     moldura do portal: nav, tema, login, ambiente, traduções
+│   ├── src/atlas/       TUDO do front do Atlas numa pasta só, pronta para
+│   │                    copiar para outro app: telas, componentes, barra,
+│   │                    tema e CSS — veja app/src/atlas/README.md
+│   ├── src/modules/     só o que é deste repositório (telas estáticas)
 │   └── public/brand/    logos oficiais (horizontal, vertical, símbolo; claro e escuro)
-├── components/      biblioteca de componentes e tokens (usada pelas telas)
 └── static-pages/    telas em HTML/CSS puro que viram rotas do portal
 ```
 
-O visual em si (o CSS) **não mora aqui**: vem do repositório
+O visual em si (o CSS) **não é editado aqui**: vem do repositório
 [atlas-design-system](https://github.com/gomesfe/atlas-design-system) e chega
-em `app/src/modules/theme/atlas.css` por `yarn ds:sync`.
+em `app/src/atlas/assets/atlas.css` por `yarn ds:sync`.
 
 ## O que precisa do backend
 
@@ -62,8 +62,10 @@ Três níveis, do mais leve ao mais completo:
    `static-pages/` (veja [static-pages/README.md](static-pages/README.md)).
    `yarn pages:new <slug> "Título"` cria o esqueleto.
 3. **Tela nova dentro do portal, em React** — copie uma pasta de
-   `app/src/screens/` (ela já traz o `page.tsx` com a rota), acrescente em
-   `app/src/screens/index.ts` e descreva no README da pasta o que a tela deve
-   conter.
+   `app/src/atlas/screens/` (ela já traz o `page.tsx` com a rota), acrescente
+   em `app/src/atlas/screens/index.ts` e descreva no README da pasta o que a
+   tela deve conter.
+4. **O front inteiro em outro app Backstage** — copie `app/src/atlas/` e siga
+   [app/src/atlas/README.md](app/src/atlas/README.md).
 
-Regras que valem para as telas: [app/src/screens/README.md](app/src/screens/README.md).
+Regras que valem para as telas: [app/src/atlas/screens/README.md](app/src/atlas/screens/README.md).
