@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import FlashIcon from '@material-ui/icons/FlashOn';
 import CloudIcon from '@material-ui/icons/CloudQueue';
@@ -18,18 +18,31 @@ import LinkIcon from '@material-ui/icons/Link';
 import BuildIcon from '@material-ui/icons/Build';
 import FlagIcon from '@material-ui/icons/Flag';
 import ArrowIcon from '@material-ui/icons/CallMade';
+import LayersIcon from '@material-ui/icons/Layers';
+import SchoolIcon from '@material-ui/icons/School';
+import CodeIcon from '@material-ui/icons/Code';
+import InsightsIcon from '@material-ui/icons/Assessment';
 import { Badge, type BadgeVariant } from '@internal/plugin-components';
+import { LEARNING_PATHS, type LearningPath } from '../learning-paths/learningData';
 import {
+  FEATURED_LEARNING_PATH_IDS,
   GENERAL_UPDATES,
   ONBOARDING_STEPS,
   QUICK_ACTIONS,
   SERVICE_SCOPES,
+  SONAR_BASE_URL,
   TOOLKIT_TOOLS,
   USEFUL_LINKS,
   type QuickAction,
   type QuickActionColor,
 } from './data';
-import type { Metric, MetricId, ServiceRow } from './useHomeData';
+import type {
+  ApplicationRow,
+  Metric,
+  MetricId,
+  ServiceRow,
+  WorkloadType,
+} from './useHomeData';
 
 /**
  * Seções da Home. Só marcação com as classes do design system
@@ -337,6 +350,219 @@ export function ServicesSection({
           ))}
         </div>
       )}
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------- aplicações --- */
+
+const WORKLOAD_LABEL: Record<WorkloadType, string> = {
+  microservice: 'Microsserviço',
+  'static-site': 'Site Estático',
+  serverless: 'Serverless',
+};
+
+const WORKLOAD_VARIANT: Record<WorkloadType, BadgeVariant> = {
+  microservice: 'info',
+  'static-site': 'lime',
+  serverless: 'purple',
+};
+
+type WorkloadFilter = 'all' | WorkloadType;
+
+/** "PREVCAP-2001" → "PR"; "payments-api" → "PA". */
+const initialsOf = (name: string) => {
+  const parts = name.split(/[\s_-]+/).filter(part => /^[a-z]/i.test(part));
+  const letters =
+    parts.length > 1 ? parts[0][0] + parts[1][0] : (parts[0] ?? name).slice(0, 2);
+  return letters.toUpperCase();
+};
+
+const externalLinkStyle = {
+  display: 'inline-flex',
+  alignItems: 'center',
+  gap: 4,
+  textDecoration: 'none',
+};
+
+export function ApplicationsSection({
+  applications,
+  loading,
+}: {
+  applications: ApplicationRow[];
+  loading: boolean;
+}) {
+  const [query, setQuery] = useState('');
+  const [filter, setFilter] = useState<WorkloadFilter>('all');
+
+  const needle = query.trim().toLowerCase();
+  const visible = applications.filter(
+    app =>
+      (filter === 'all' || app.workloadType === filter) &&
+      (!needle || app.name.toLowerCase().includes(needle)),
+  );
+
+  return (
+    <section className="atlas-sectionCard" style={{ minWidth: 0 }}>
+      <div className="atlas-sectionCardHeader">
+        <h3 className="atlas-sectionCardTitle">
+          <LayersIcon fontSize="small" /> Aplicações
+        </h3>
+      </div>
+
+      <div className="atlas-filtersBar">
+        <div className="atlas-searchFieldWrap">
+          <SearchIcon className="atlas-searchIcon" />
+          <input
+            className="atlas-filterInput"
+            placeholder="Buscar workload..."
+            aria-label="Buscar workload"
+            value={query}
+            onChange={e => setQuery(e.target.value)}
+          />
+        </div>
+        <select
+          className="atlas-filterSelect"
+          aria-label="Filtrar por tipo"
+          value={filter}
+          onChange={e => setFilter(e.target.value as WorkloadFilter)}
+        >
+          <option value="all">Todos</option>
+          <option value="microservice">Microsserviço</option>
+          <option value="static-site">Site Estático</option>
+          <option value="serverless">Serverless</option>
+        </select>
+      </div>
+
+      {loading ? (
+        <SkeletonLines count={5} />
+      ) : visible.length === 0 ? (
+        <div className="atlas-emptyState">
+          {applications.length === 0
+            ? 'Nenhuma aplicação neste escopo. Crie uma com uma oferta em Ofertas.'
+            : 'Nenhuma aplicação encontrada com esses filtros.'}
+        </div>
+      ) : (
+        <div className="atlas-recentTableWrap" style={{ maxHeight: 480, overflowY: 'auto' }}>
+          <table className="atlas-recentTable">
+            <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Repositório</th>
+                <th scope="col">Sonar</th>
+              </tr>
+            </thead>
+            <tbody>
+              {visible.map(app => (
+                <tr key={app.id}>
+                  <td className="atlas-resourceCell">
+                    <RouterLink
+                      to={app.path}
+                      style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 10,
+                        color: 'inherit',
+                        textDecoration: 'none',
+                      }}
+                    >
+                      <span
+                        aria-hidden
+                        className="atlas-badgeTag atlas-badgeLime"
+                        style={{ padding: '4px 6px', borderRadius: 6, minWidth: 28, textAlign: 'center' }}
+                      >
+                        {initialsOf(app.name)}
+                      </span>
+                      {app.name}
+                    </RouterLink>
+                  </td>
+                  <td>
+                    {app.workloadType ? (
+                      <Badge variant={WORKLOAD_VARIANT[app.workloadType]}>
+                        {WORKLOAD_LABEL[app.workloadType]}
+                      </Badge>
+                    ) : (
+                      <Badge variant="warning">{app.rawType}</Badge>
+                    )}
+                  </td>
+                  <td>
+                    {app.repoUrl ? (
+                      <a
+                        className="atlas-actionBtnLink"
+                        href={app.repoUrl}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        style={externalLinkStyle}
+                      >
+                        <CodeIcon style={{ fontSize: 14 }} /> Repo
+                      </a>
+                    ) : (
+                      <span style={{ color: 'var(--text-muted)' }}>—</span>
+                    )}
+                  </td>
+                  <td>
+                    {app.sonarKey ? (
+                      <a
+                        className="atlas-actionBtnLink"
+                        href={`${SONAR_BASE_URL}/project/overview?id=${encodeURIComponent(app.sonarKey)}`}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        style={externalLinkStyle}
+                      >
+                        <InsightsIcon style={{ fontSize: 14 }} /> Sonar
+                      </a>
+                    ) : (
+                      <span style={{ color: 'var(--text-muted)' }}>—</span>
+                    )}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </section>
+  );
+}
+
+/* ------------------------------------------------------------ em dúvida? --- */
+
+export function LearningHelpSection() {
+  const paths = FEATURED_LEARNING_PATH_IDS.map(id =>
+    LEARNING_PATHS.find(path => path.id === id),
+  ).filter((path): path is LearningPath => Boolean(path));
+
+  return (
+    <section className="atlas-sectionCard">
+      <div className="atlas-sectionCardHeader">
+        <h3 className="atlas-sectionCardTitle">
+          <SchoolIcon fontSize="small" /> Em dúvida? Aprenda mais com Learning Paths
+        </h3>
+      </div>
+      <p className="atlas-onboardingStepDesc" style={{ margin: 0 }}>
+        Trilhas guiadas para acelerar onboardings, padronizar entregas e evoluir
+        seu conhecimento em plataforma.
+      </p>
+      <div className="atlas-toolkitGrid">
+        {paths.map(path => (
+          <RouterLink
+            key={path.id}
+            className="atlas-toolkitItem"
+            to={`/learning-paths/${path.id}`}
+          >
+            {path.title}
+            <ArrowIcon style={{ fontSize: 13 }} />
+          </RouterLink>
+        ))}
+      </div>
+      <RouterLink
+        className="atlas-btnPill atlas-btnPillLime"
+        to="/learning-paths"
+        style={{ justifyContent: 'center' }}
+      >
+        Ver todas as trilhas
+      </RouterLink>
     </section>
   );
 }

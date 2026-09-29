@@ -4,8 +4,10 @@ import { Content, Page } from '@backstage/core-components';
 import { useApi, identityApiRef } from '@backstage/core-plugin-api';
 import { useHomeData } from './useHomeData';
 import {
+  ApplicationsSection,
   GeneralUpdatesSection,
   HeroSection,
+  LearningHelpSection,
   OnboardingSection,
   QuickActionsSection,
   ServiceScopeSelector,
@@ -22,7 +24,7 @@ import {
  */
 export function HomePage() {
   const [scope, setScope] = useState('Todos');
-  const { metrics, services, totalServices, loading } = useHomeData(scope);
+  const { metrics, services, applications, totalServices, loading } = useHomeData(scope);
 
   const identityApi = useApi(identityApiRef);
   const { value: profile } = useAsync(() => identityApi.getProfileInfo(), [identityApi]);
@@ -46,15 +48,18 @@ export function HomePage() {
           <div className="atlas-homeThreeCardsGrid">
             <ServicesSection services={services} total={totalServices} loading={loading} />
             <GeneralUpdatesSection />
-            <UsefulLinksSection />
+            <ToolkitSection />
           </div>
 
           <div className="atlas-provisioningToolkitRow">
-            <OnboardingSection />
+            <ApplicationsSection applications={applications} loading={loading} />
             <div className="atlas-toolkitColumn">
-              <ToolkitSection />
+              <UsefulLinksSection />
+              <LearningHelpSection />
             </div>
           </div>
+
+          <OnboardingSection />
         </div>
       </Content>
     </Page>

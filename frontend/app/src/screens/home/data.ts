@@ -80,6 +80,12 @@ export const USEFUL_LINKS = [
   { id: '5', label: 'Política de Break Glass', href: '/docs' },
 ];
 
+/** Base do SonarQube; a chave vem de `sonarqube.org/project-key`. */
+export const SONAR_BASE_URL = 'https://sonarcloud.io';
+
+/** Trilhas sugeridas no cartão "Em dúvida?" — ids de `learning-paths/learningData.ts`. */
+export const FEATURED_LEARNING_PATH_IDS = ['provisioning', 'onboarding-dev', 'security'];
+
 export const TOOLKIT_TOOLS = [
   { id: 'github', label: 'GitHub', url: 'https://github.com' },
   { id: 'aws', label: 'AWS', url: 'https://console.aws.amazon.com' },

@@ -35,9 +35,21 @@ editorial). Registro da rota em `modules/home/homeModule.tsx`.
      para a entidade, com ponto e badge de ciclo de vida. "Ver todos (N)"
      quando houver mais.
    - **Últimas atualizações:** comunicados de `data.ts`.
+   - **Ferramentas:** links externos, abrem em nova aba.
+5. **Aplicações** (largura maior) e, ao lado, **Links úteis** e **Em dúvida?**
+   - **Aplicações:** todos os Components do escopo numa tabela com
+     **Nome · Tipo · Repositório · Sonar**. Busca por nome ("Buscar
+     workload…") e filtro por tipo: Todos / Microsserviço / Site Estático /
+     Serverless. O tipo vem de `spec.type` (`service` → Microsserviço,
+     `website` → Site Estático, `serverless`/`lambda`/`function` →
+     Serverless); outro valor aparece cru, em amarelo. Repo vem de
+     `github.com/project-slug` ou `backstage.io/source-location`; Sonar de
+     `sonarqube.org/project-key` (base em `SONAR_BASE_URL`, `data.ts`). Sem
+     anotação, a célula mostra "—".
    - **Links úteis:** de `data.ts`.
-5. **Comece por aqui** (3 passos, com atalho para Trilhas) e **Ferramentas**
-   (links externos, abrem em nova aba).
+   - **Em dúvida? Aprenda mais com Learning Paths:** três trilhas de
+     `FEATURED_LEARNING_PATH_IDS` e o botão "Ver todas as trilhas".
+6. **Comece por aqui** (3 passos, com atalho para Trilhas).
 
 ## Estados
 
