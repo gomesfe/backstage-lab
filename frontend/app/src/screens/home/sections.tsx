@@ -23,6 +23,7 @@ import SchoolIcon from '@material-ui/icons/School';
 import CodeIcon from '@material-ui/icons/Code';
 import InsightsIcon from '@material-ui/icons/Assessment';
 import { Badge, type BadgeVariant } from '@internal/plugin-components';
+import { TOOLKIT_TOOLS } from '../../modules/nav/toolkit';
 import { LEARNING_PATHS, type LearningPath } from '../learning-paths/learningData';
 import {
   FEATURED_LEARNING_PATH_IDS,
@@ -31,7 +32,6 @@ import {
   QUICK_ACTIONS,
   SERVICE_SCOPES,
   SONAR_BASE_URL,
-  TOOLKIT_TOOLS,
   USEFUL_LINKS,
   type QuickAction,
   type QuickActionColor,

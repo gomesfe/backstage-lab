@@ -86,13 +86,6 @@ export const SONAR_BASE_URL = 'https://sonarcloud.io';
 /** Trilhas sugeridas no cartão "Em dúvida?" — ids de `learning-paths/learningData.ts`. */
 export const FEATURED_LEARNING_PATH_IDS = ['provisioning', 'onboarding-dev', 'security'];
 
-export const TOOLKIT_TOOLS = [
-  { id: 'github', label: 'GitHub', url: 'https://github.com' },
-  { id: 'aws', label: 'AWS', url: 'https://console.aws.amazon.com' },
-  { id: 'sonarqube', label: 'SonarQube', url: 'https://sonarcloud.io' },
-  { id: 'backstage', label: 'Docs do Backstage', url: 'https://backstage.io/docs' },
-];
-
 export const ONBOARDING_STEPS = [
   {
     id: '1',

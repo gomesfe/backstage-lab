@@ -12,6 +12,7 @@ import type { NavContentComponentProps } from '@backstage/plugin-app-react';
 import useObservable from 'react-use/lib/useObservable';
 import { AtlasLogo, EnvBadge } from '@internal/plugin-components';
 import { useUnreadCount } from '../../screens/notifications/useUnreadCount';
+import { ToolkitMenu } from './toolkit';
 
 /**
  * Barra de navegação do Atlas. Usa as classes do design system (`atlas.css`:
@@ -170,6 +171,7 @@ export function AtlasTopNav({ navItems }: { navItems: NavContentComponentProps['
         <button type="button" className="atlas-navActionBtn" aria-label="Buscar" title="Buscar" onClick={() => navigate('/search')}>
           <SearchIcon fontSize="small" />
         </button>
+        <ToolkitMenu />
         <button
           type="button"
           className="atlas-navActionBtn"

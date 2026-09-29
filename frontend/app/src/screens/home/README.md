@@ -35,7 +35,8 @@ editorial). Registro da rota em `page.tsx`.
      para a entidade, com ponto e badge de ciclo de vida. "Ver todos (N)"
      quando houver mais.
    - **Últimas atualizações:** comunicados de `data.ts`.
-   - **Ferramentas:** links externos, abrem em nova aba.
+   - **Ferramentas:** links externos, abrem em nova aba. A lista é a mesma do
+     menu **Toolkit** da barra, em `modules/nav/toolkit.tsx`.
 5. **Aplicações** (largura maior) e, ao lado, **Links úteis** e **Em dúvida?**
    - **Aplicações:** todos os Components do escopo numa tabela com
      **Nome · Tipo · Repositório · Sonar**. Busca por nome ("Buscar
