@@ -12,7 +12,7 @@ import type { NavContentComponentProps } from '@backstage/plugin-app-react';
 import useObservable from 'react-use/lib/useObservable';
 import { AtlasLogo, EnvBadge } from '@internal/plugin-components';
 import { useUnreadCount } from '../../screens/notifications/useUnreadCount';
-import { ToolkitMenu } from './toolkit';
+import { ToolkitMenu } from '../../screens/home/toolkit';
 
 /**
  * Barra de navegação do Atlas. Usa as classes do design system (`atlas.css`:

@@ -5,7 +5,8 @@ e por onde eu começo?" em uma olhada.
 
 **Arquivos:** `HomePage.tsx` (layout), `sections.tsx` (cada bloco),
 `useHomeData.ts` (números e serviços do catálogo), `data.ts` (conteúdo
-editorial). Registro da rota em `page.tsx`.
+editorial), `toolkit.tsx` (menu Toolkit e lista de ferramentas).
+Registro da rota em `page.tsx`.
 
 ## Deve conter, nesta ordem
 
@@ -36,7 +37,7 @@ editorial). Registro da rota em `page.tsx`.
      quando houver mais.
    - **Últimas atualizações:** comunicados de `data.ts`.
    - **Ferramentas:** links externos, abrem em nova aba. A lista é a mesma do
-     menu **Toolkit** da barra, em `modules/nav/toolkit.tsx`.
+     menu **Toolkit**, em `toolkit.tsx`.
 5. **Aplicações** (largura maior) e, ao lado, **Links úteis** e **Em dúvida?**
    - **Aplicações:** todos os Components do escopo numa tabela com
      **Nome · Tipo · Repositório · Sonar**. Busca por nome ("Buscar
@@ -51,6 +52,14 @@ editorial). Registro da rota em `page.tsx`.
    - **Em dúvida? Aprenda mais com Learning Paths:** três trilhas de
      `FEATURED_LEARNING_PATH_IDS` e o botão "Ver todas as trilhas".
 6. **Comece por aqui** (3 passos, com atalho para Trilhas).
+
+## Toolkit
+
+Botão na barra do topo, ao lado de Buscar, que abre uma grade 3×2 com as
+ferramentas externas: Release Notes, GitHub, AWS, SonarQube, Veracode e
+Indicadores DevOps. Cada uma abre em nova aba; o menu fecha ao clicar fora,
+com Esc ou ao escolher uma. O componente e a lista moram em `toolkit.tsx`; a
+barra (`modules/nav/AtlasTopNav.tsx`) só o posiciona.
 
 ## Estados
 
