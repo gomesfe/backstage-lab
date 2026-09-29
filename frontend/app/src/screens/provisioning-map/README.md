@@ -4,7 +4,7 @@ Onde cada recurso está provisionado, por qual template e serviço, e o que dá
 para promover ou excluir em cada ambiente.
 
 **Arquivos:** `ProvisioningMapPage.tsx`, `provisioningData.ts` (fonte de
-dados e regras). Registro em `modules/pages/pagesPlugin.tsx`.
+dados e regras). Registro da rota em `page.tsx`.
 
 ## Deve conter
 

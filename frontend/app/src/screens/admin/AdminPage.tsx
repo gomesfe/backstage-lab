@@ -10,7 +10,7 @@ import {
   Tabs,
   type Column,
 } from '@internal/plugin-components';
-import { apiKeysApiRef } from '../../api/ApiKeysClient';
+import { apiKeysApiRef } from '../api-keys/ApiKeysClient';
 
 type UserWithKeys = {
   id: string;

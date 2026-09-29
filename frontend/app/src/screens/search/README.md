@@ -3,7 +3,7 @@
 Busca global em catálogo e documentação, pelo índice de busca do Backstage.
 O botão de lupa da barra de navegação leva para cá.
 
-**Arquivos:** `SearchPage.tsx`. Registro em `modules/pages/overridesModule.tsx`.
+**Arquivos:** `SearchPage.tsx`. Registro da rota em `page.tsx`.
 
 ## Deve conter
 

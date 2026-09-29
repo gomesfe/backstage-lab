@@ -4,8 +4,8 @@ O índice da documentação técnica (TechDocs). Lista só o que publica
 documentação.
 
 **Arquivos:** `DocsPage.tsx` (configuração), tabela em
-`../_shared/EntityTablePage.tsx`. Registro em
-`modules/pages/overridesModule.tsx`.
+`../_shared/EntityTablePage.tsx`. Registro da rota
+em `page.tsx`.
 
 ## Deve conter
 

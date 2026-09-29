@@ -3,7 +3,7 @@
 Solicitação de acesso privilegiado, temporário e auditado a uma conta AWS
 durante um incidente.
 
-**Arquivos:** `BreakGlassPage.tsx`. Registro em `modules/pages/pagesPlugin.tsx`.
+**Arquivos:** `BreakGlassPage.tsx`. Registro da rota em `page.tsx`.
 
 ## Deve conter
 

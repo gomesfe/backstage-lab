@@ -11,7 +11,7 @@ import {
   Tabs,
   type Column,
 } from '@internal/plugin-components';
-import { apiKeysApiRef, type ApiKey } from '../../api/ApiKeysClient';
+import { apiKeysApiRef, type ApiKey } from './ApiKeysClient';
 import { CreateKeyDialog } from './CreateKeyDialog';
 
 const STATUS_LABEL: Record<ApiKey['status'], string> = {

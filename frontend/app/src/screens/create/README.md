@@ -6,7 +6,7 @@ entidades. O endereço continua `/create`, para links antigos não quebrarem. S�
 (formulário do template, execução da tarefa, editor) continua sendo o do
 scaffolder.
 
-**Arquivos:** `CreatePage.tsx`. Registro em `modules/pages/overridesModule.tsx`.
+**Arquivos:** `CreatePage.tsx`. Registro da rota em `page.tsx`.
 
 ## Deve conter
 

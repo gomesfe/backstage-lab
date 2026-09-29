@@ -5,12 +5,12 @@ Tudo o que o navegador roda: as telas do Atlas, o visual e as telas estáticas.
 
 ```
 frontend/
-├── app/             o portal (React + Backstage): telas, navegação, tema
-│   ├── src/screens/     uma pasta por tela, cada uma com README do que deve conter
-│   ├── src/modules/     registro no Backstage: rotas, nav, tema, login, traduções
+├── app/             o portal (React + Backstage)
+│   ├── src/screens/     uma pasta por tela, com tudo dela: tela, dados,
+│   │                    registro da rota (page.tsx) e README do que contém
+│   ├── src/modules/     moldura do portal: nav, tema, login, ambiente, traduções
 │   └── public/brand/    logos oficiais (horizontal, vertical, símbolo; claro e escuro)
 ├── components/      biblioteca de componentes e tokens (usada pelas telas)
-├── admin/           telas API Keys e Administração (plugin de frontend)
 └── static-pages/    telas em HTML/CSS puro que viram rotas do portal
 ```
 
@@ -62,7 +62,8 @@ Três níveis, do mais leve ao mais completo:
    `static-pages/` (veja [static-pages/README.md](static-pages/README.md)).
    `yarn pages:new <slug> "Título"` cria o esqueleto.
 3. **Tela nova dentro do portal, em React** — copie uma pasta de
-   `app/src/screens/`, registre em `app/src/modules/pages/pagesPlugin.tsx` e
-   descreva no README da pasta o que a tela deve conter.
+   `app/src/screens/` (ela já traz o `page.tsx` com a rota), acrescente em
+   `app/src/screens/index.ts` e descreva no README da pasta o que a tela deve
+   conter.
 
 Regras que valem para as telas: [app/src/screens/README.md](app/src/screens/README.md).

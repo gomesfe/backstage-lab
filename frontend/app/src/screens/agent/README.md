@@ -5,7 +5,7 @@ consulta o catálogo **com as permissões de quem está conversando** — enxerg
 exatamente o que a pessoa enxergaria no portal.
 
 **Arquivos:** `AgentPage.tsx` (tela), `agentClient.ts` (API e leitura do
-stream). Registro em `modules/pages/pagesPlugin.tsx`. Backend em
+stream). Registro da rota em `page.tsx`. Backend em
 `backend/atlas-agent`.
 
 ## Deve conter

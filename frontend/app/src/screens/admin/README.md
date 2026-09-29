@@ -4,7 +4,7 @@ Visão de quem administra o portal: credenciais emitidas em todo o portal e
 uso. Separada de API Keys de propósito — ver as próprias chaves e ver as de
 todo mundo são permissões diferentes.
 
-**Arquivos:** `AdminPage.tsx`. Registro em `frontend/admin/src/plugin.tsx`.
+**Arquivos:** `AdminPage.tsx`. Registro da rota em `page.tsx`. Usa o cliente de `../api-keys/ApiKeysClient.ts`.
 
 ## Deve conter
 

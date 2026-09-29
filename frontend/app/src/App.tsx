@@ -1,12 +1,10 @@
 import { createApp } from '@backstage/frontend-defaults';
 import catalogPlugin from '@backstage/plugin-catalog/alpha';
-import adminPlugin from '@internal/plugin-admin';
+import { adminPlugin, atlasPagesPlugin, pageOverrides } from './screens';
 import { navModule } from './modules/nav';
-import { homeModule } from './modules/home';
 import { signInModule } from './modules/auth';
 import { envModule } from './modules/env';
 import { themeModule } from './modules/theme';
-import { atlasPagesPlugin, pageOverrides } from './modules/pages';
 import { staticPagesPlugin } from './modules/static-pages';
 import { translationsModule } from './modules/translations';
 
@@ -18,11 +16,10 @@ export default createApp({
     envModule,
     themeModule,
     navModule,
-    homeModule,
     signInModule,
     staticPagesPlugin,
     translationsModule,
-    // Substituem as páginas de índice dos plugins oficiais.
+    // Telas do Atlas que substituem as páginas de índice dos plugins oficiais.
     ...pageOverrides,
   ],
 });

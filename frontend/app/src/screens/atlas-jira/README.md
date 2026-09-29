@@ -5,7 +5,7 @@ Atlas (em repositórios de templates e do portal) chegam aqui como
 **rascunho**; quem cuida da fila decide o que vira card no Jira.
 
 **Arquivos:** `AtlasJiraPage.tsx`, `jiraData.ts` (fonte de dados).
-Registro em `modules/pages/pagesPlugin.tsx`.
+Registro da rota em `page.tsx`.
 
 ## Deve conter
 

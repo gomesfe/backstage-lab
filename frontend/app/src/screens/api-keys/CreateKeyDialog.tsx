@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Alert, Field, Modal } from '@internal/plugin-components';
-import type { CreatedApiKey } from '../../api/ApiKeysClient';
+import type { CreatedApiKey } from './ApiKeysClient';
 
 const TTL_OPTIONS: { label: string; value: number | null }[] = [
   { label: '7 dias', value: 7 * 24 * 60 * 60 },

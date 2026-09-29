@@ -4,7 +4,7 @@ Minhas aprovações e minhas solicitações **numa tela só**. É a mesma tabela
 o que muda é de que lado do pedido você está.
 
 **Arquivos:** `ApprovalsPage.tsx`, `approvalsData.ts` (fonte de dados).
-Registro em `modules/pages/pagesPlugin.tsx`.
+Registro da rota em `page.tsx`.
 
 ## Quem vê o quê
 

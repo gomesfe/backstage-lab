@@ -5647,28 +5647,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@internal/plugin-admin@npm:^0.1.0, @internal/plugin-admin@workspace:frontend/admin":
-  version: 0.0.0-use.local
-  resolution: "@internal/plugin-admin@workspace:frontend/admin"
-  dependencies:
-    "@backstage/cli": "npm:^0.36.6"
-    "@backstage/core-components": "npm:^0.18.14"
-    "@backstage/core-plugin-api": "npm:^1.12.10"
-    "@backstage/errors": "npm:^1.2.7"
-    "@backstage/frontend-plugin-api": "npm:^0.18.1"
-    "@backstage/frontend-test-utils": "npm:^0.6.4"
-    "@internal/plugin-components": "npm:^0.1.0"
-    "@material-ui/core": "npm:^4.12.2"
-    "@material-ui/icons": "npm:^4.9.1"
-    "@testing-library/jest-dom": "npm:^6.0.0"
-    "@testing-library/react": "npm:^14.0.0"
-    "@testing-library/user-event": "npm:^14.0.0"
-    react-use: "npm:^17.2.4"
-  peerDependencies:
-    react: ^16.13.1 || ^17.0.0 || ^18.0.0
-  languageName: unknown
-  linkType: soft
-
 "@internal/plugin-api-keys-backend@npm:^0.1.0, @internal/plugin-api-keys-backend@workspace:backend/api-keys":
   version: 0.0.0-use.local
   resolution: "@internal/plugin-api-keys-backend@workspace:backend/api-keys"
@@ -13858,6 +13836,7 @@ __metadata:
     "@backstage/cli": "npm:^0.36.6"
     "@backstage/core-components": "npm:^0.18.14"
     "@backstage/core-plugin-api": "npm:^1.12.10"
+    "@backstage/errors": "npm:^1.2.7"
     "@backstage/frontend-defaults": "npm:^0.5.6"
     "@backstage/frontend-plugin-api": "npm:^0.18.1"
     "@backstage/frontend-test-utils": "npm:^0.6.4"
@@ -13889,7 +13868,6 @@ __metadata:
     "@backstage/plugin-user-settings": "npm:^0.9.7"
     "@backstage/theme": "npm:^0.7.0"
     "@backstage/ui": "npm:^0.18.0"
-    "@internal/plugin-admin": "npm:^0.1.0"
     "@internal/plugin-components": "npm:^0.1.0"
     "@material-ui/core": "npm:^4.12.2"
     "@material-ui/icons": "npm:^4.9.1"

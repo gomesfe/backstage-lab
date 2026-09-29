@@ -3,8 +3,9 @@
 Chaves de API para integrações e automações. Tela de quem desenvolve: cada
 um vê e gerencia as próprias chaves.
 
-**Arquivos:** `ApiKeysPage.tsx`, `CreateKeyDialog.tsx`. Registro em
-`frontend/admin/src/plugin.tsx`. Backend em `backend/api-keys`.
+**Arquivos:** `ApiKeysPage.tsx`, `CreateKeyDialog.tsx`, `ApiKeysClient.ts`
+(cliente HTTP, também usado pela Administração). Registro da rota e do
+cliente em `page.tsx`. Backend em `backend/api-keys`.
 
 ## Deve conter
 

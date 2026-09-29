@@ -20,8 +20,8 @@ Na barra de navegação, nesta ordem:
 | Break Glass | `/break-glass` | [break-glass](break-glass/README.md) |
 | Atlas × Jira | `/atlas-jira` | [atlas-jira](atlas-jira/README.md) |
 | Agente | `/agent` | [agent](agent/README.md) |
-| API Keys | `/api-keys` | [frontend/admin/…/api-keys](../../../admin/src/screens/api-keys/README.md) |
-| Administração | `/admin` | [frontend/admin/…/admin](../../../admin/src/screens/admin/README.md) |
+| API Keys | `/api-keys` | [api-keys](api-keys/README.md) |
+| Administração | `/admin` | [admin](admin/README.md) |
 
 Fora da barra, pelos botões do canto direito:
 
@@ -40,9 +40,25 @@ URL, mas não ganha pílula.
 
 ## Onde cada coisa mora
 
-- **`screens/<tela>/`** — a interface: componentes, dados da tela, README.
-- **`modules/`** — o registro no Backstage: rota, `routeRef`, item de
-  navegação. Um módulo só aponta para a tela (`loader`), sem lógica de UI.
+Tudo o que é de uma tela fica na pasta dela:
+
+```
+screens/home/
+├── README.md       o que a tela deve conter
+├── page.tsx        registro no portal: rota, título, ícone
+├── HomePage.tsx    a tela
+├── sections.tsx    blocos da tela (quando ela é grande)
+├── data.ts         conteúdo/dados de exemplo da tela
+└── useHomeData.ts  busca de dados (catálogo, API)
+```
+
+- **`screens/<tela>/page.tsx`** — o registro da tela no Backstage. Só aponta
+  para o componente (`loader`), sem lógica de UI.
+- **`screens/index.ts`** — junta os `page.tsx` de todas as telas e entrega
+  ao `App.tsx`. Tela nova: crie a pasta com `page.tsx` e acrescente aqui.
+- **`screens/_shared/`** — só o que mais de uma tela usa.
+- **`modules/`** — a moldura do portal, que não é de nenhuma tela: barra de
+  navegação, tema, login, selo de ambiente, traduções e telas estáticas.
 - **Visual** — só classes do design system (`atlas-*`), vindas de
   `modules/theme/atlas.css`, que é gerado do repositório
   [atlas-design-system](https://github.com/gomesfe/atlas-design-system) com

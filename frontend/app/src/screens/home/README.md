@@ -5,7 +5,7 @@ e por onde eu começo?" em uma olhada.
 
 **Arquivos:** `HomePage.tsx` (layout), `sections.tsx` (cada bloco),
 `useHomeData.ts` (números e serviços do catálogo), `data.ts` (conteúdo
-editorial). Registro da rota em `modules/home/homeModule.tsx`.
+editorial). Registro da rota em `page.tsx`.
 
 ## Deve conter, nesta ordem
 

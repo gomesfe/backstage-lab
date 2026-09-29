@@ -4,8 +4,8 @@ Trilhas guiadas para aprender o Atlas e as práticas da casa, com o progresso
 de cada pessoa.
 
 **Arquivos:** `LearningPathsPage.tsx` (lista e detalhe), `learningData.ts`
-(conteúdo), `useProgress.ts` (progresso). Registro em
-`modules/pages/pagesPlugin.tsx`.
+(conteúdo), `useProgress.ts` (progresso). Registro da rota
+em `page.tsx`.
 
 ## Lista — deve conter
 

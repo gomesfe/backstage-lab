@@ -3,7 +3,7 @@
 Preferências e identidade do usuário. Substitui a página do plugin
 user-settings.
 
-**Arquivos:** `SettingsPage.tsx`. Registro em `modules/pages/overridesModule.tsx`.
+**Arquivos:** `SettingsPage.tsx`. Registro da rota em `page.tsx`.
 
 ## Deve conter
 

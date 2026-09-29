@@ -3,13 +3,12 @@ import HomeIcon from '@material-ui/icons/Home';
 import homePlugin from '@backstage/plugin-home/alpha';
 
 /**
- * Substitui a Home do plugin `home` pela do Atlas.
- *
- * O módulo é registrado com `pluginId: 'home'` e a extensão sem nome, o que
- * produz o id `page:home` — o mesmo da página original. Ids iguais fazem esta
- * vencer, então a navegação e as rotas continuam apontando para o lugar certo.
+ * Registro da Home. Substitui a do plugin `home`: registrada com
+ * `pluginId: 'home'` e extensão sem nome, produz o id `page:home` — o mesmo
+ * da página original. Ids iguais fazem esta vencer, então a navegação e as
+ * rotas continuam apontando para o lugar certo.
  */
-const homePage = PageBlueprint.make({
+export const page = PageBlueprint.make({
   params: {
     path: '/',
     title: 'Home',
@@ -20,13 +19,13 @@ const homePage = PageBlueprint.make({
     routeRef: homePlugin.routes.root,
     noHeader: true,
     loader: async () => {
-      const { HomePage } = await import('../../screens/home/HomePage');
+      const { HomePage } = await import('./HomePage');
       return <HomePage />;
     },
   },
 });
 
-export const homeModule = createFrontendModule({
+export const pageModule = createFrontendModule({
   pluginId: 'home',
-  extensions: [homePage],
+  extensions: [page],
 });

@@ -3,7 +3,7 @@
 Os grupos e squads de que o usuário faz parte, e o que cada um mantém.
 Responde "a que times eu pertenço e o que é nosso?".
 
-**Arquivos:** `MyGroupsPage.tsx`. Registro em `modules/pages/pagesPlugin.tsx`.
+**Arquivos:** `MyGroupsPage.tsx`. Registro da rota em `page.tsx`.
 
 ## Deve conter
 

@@ -5,7 +5,7 @@ comunicados. Substitui a página do plugin de notificações do Backstage.
 Abre pelo **sino** da barra, que mostra quantas não lidas existem.
 
 **Arquivos:** `NotificationsPage.tsx`, `useUnreadCount.ts` (contador do
-sino). Registro em `modules/pages/overridesModule.tsx`.
+sino). Registro da rota em `page.tsx`.
 
 ## Deve conter
 

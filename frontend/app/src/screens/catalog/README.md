@@ -5,8 +5,8 @@ e squads. É o índice do portal — substitui a página de índice do plugin de
 catálogo; a página de cada entidade continua sendo a oficial.
 
 **Arquivos:** `CatalogPage.tsx` (configuração), tabela em
-`../_shared/EntityTablePage.tsx`. Registro em
-`modules/pages/overridesModule.tsx`.
+`../_shared/EntityTablePage.tsx`. Registro da rota
+em `page.tsx`.
 
 ## Deve conter
 

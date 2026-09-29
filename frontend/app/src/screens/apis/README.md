@@ -5,8 +5,8 @@ página de cada API (com a especificação renderizada) continua sendo a
 oficial.
 
 **Arquivos:** `ApisPage.tsx` (configuração), tabela em
-`../_shared/EntityTablePage.tsx`. Registro em
-`modules/pages/overridesModule.tsx`.
+`../_shared/EntityTablePage.tsx`. Registro da rota
+em `page.tsx`.
 
 ## Deve conter
 
