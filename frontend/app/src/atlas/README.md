@@ -1,22 +1,43 @@
-# Atlas — pasta para copiar e colar
+# Atlas — as telas em HTML estático, numa pasta só
 
-Tudo o que o front do Atlas precisa está aqui: as telas, os componentes, a
-barra de navegação, o tema e o CSS. Nada nesta pasta importa arquivo de fora
-dela — só pacotes do npm.
+Todas as telas do Atlas são **HTML estático**, uma pasta por tela, com o CSS
+e o script que elas precisam. A mesma pasta serve de dois jeitos:
+
+- **Avulsa:** abra `screens/home/index.html` no navegador (duplo clique
+  basta) ou publique a pasta em qualquer servidor. Barra, Toolkit, tema,
+  busca, filtros e diálogos funcionam sem Backstage.
+- **No Backstage:** as mesmas telas viram as rotas do portal (`/`,
+  `/catalog`, `/approvals`…), com a barra do portal em volta.
 
 ```
 atlas/
-├── index.ts        ponto de entrada: `atlasFeatures` + importa o CSS
-├── assets/         atlas.css (design system) e bui-tokens.css
-├── components/     componentes compartilhados (AtlasPage, Badge, Tabs, logo…)
-├── shell/          moldura do portal: barra (nav), tema, login, ambiente, traduções
-└── screens/        uma pasta por tela, cada uma com tudo dela
-    ├── index.ts        junta o page.tsx de todas as telas
-    ├── _shared/        o que mais de uma tela usa
-    └── home/           README.md, page.tsx (rota), HomePage.tsx, dados…
+├── assets/
+│   ├── atlas.css        design system (gerado do atlas-design-system)
+│   ├── atlas-html.css   complementos das telas HTML
+│   ├── atlas.js         barra, Toolkit, tema e interação — só na versão avulsa
+│   └── brand/           logos oficiais (claro e escuro)
+├── screens/             uma pasta por tela
+│   ├── home/            README.md · index.html · page.tsx
+│   ├── catalog/  approvals/  …
+│   ├── index.ts         junta os page.tsx (para o Backstage)
+│   └── html.generated.ts  o <main> de cada index.html, gerado pelo sync
+├── shell/               moldura do portal: barra, tema, login, ambiente,
+│                        traduções e html/ (mostra as telas no portal)
+├── components/          logo, selo de ambiente e tokens usados pelo shell
+└── index.ts             entrada para o Backstage: `atlasFeatures` + CSS
 ```
 
-## Levar para outro app Backstage
+## Só as telas (sem Backstage)
+
+Copie `assets/` e `screens/` mantendo os dois lado a lado — as telas
+referenciam `../../assets/`. Os `page.tsx`, `index.ts` e
+`html.generated.ts` você pode ignorar.
+
+Cada `index.html` é um documento completo. O conteúdo da tela fica dentro
+de `<main data-atlas-screen>`; a barra é desenhada pelo `atlas.js` no
+`<header data-atlas-nav>`. Links entre telas: `../<tela>/index.html`.
+
+## Dentro de um app Backstage
 
 Vale para app no **novo sistema de frontend** (`@backstage/frontend-defaults`).
 
@@ -32,45 +53,38 @@ Vale para app no **novo sistema de frontend** (`@backstage/frontend-defaults`).
    });
    ```
 
-3. Garanta estes pacotes no `package.json` do app (versões em
-   `frontend/app/package.json` deste repositório):
-
-   `@backstage/catalog-model`, `@backstage/config`,
+3. Garanta no `package.json` do app os pacotes que o `shell/` usa (versões
+   em `frontend/app/package.json` deste repositório): `@backstage/config`,
    `@backstage/core-components`, `@backstage/core-plugin-api`,
-   `@backstage/errors`, `@backstage/frontend-plugin-api`,
-   `@backstage/plugin-api-docs`, `@backstage/plugin-app-react`,
-   `@backstage/plugin-catalog`, `@backstage/plugin-catalog-common`,
-   `@backstage/plugin-catalog-react`, `@backstage/plugin-home`,
-   `@backstage/plugin-notifications`, `@backstage/plugin-notifications-common`,
-   `@backstage/plugin-permission-common`, `@backstage/plugin-permission-react`,
-   `@backstage/plugin-scaffolder`, `@backstage/plugin-search`,
-   `@backstage/plugin-search-react`, `@backstage/plugin-techdocs`,
-   `@backstage/theme`, `@backstage/ui`, `@material-ui/core`,
-   `@material-ui/icons`, `react-router-dom`, `react-use`.
+   `@backstage/frontend-plugin-api`, `@backstage/plugin-app-react`,
+   `@backstage/plugin-catalog`, `@backstage/plugin-home`,
+   `@backstage/plugin-notifications`, `@backstage/plugin-scaffolder`,
+   `@backstage/plugin-api-docs`, `@backstage/plugin-techdocs`,
+   `@backstage/plugin-search`, `@backstage/theme`, `@backstage/ui`,
+   `@material-ui/core`, `@material-ui/icons`, `react-router-dom`,
+   `react-use`.
+4. Copie também `scripts/sync-atlas-html.mjs` e rode-o sempre que editar um
+   `index.html` (neste repositório: `yarn screens:sync`; `yarn
+   screens:check` falha se o gerado estiver velho).
 
-4. `yarn install` e `yarn start`.
+O CSS entra sozinho pelo `atlas/index.ts`.
 
-O CSS entra sozinho pelo `atlas/index.ts` — não precisa importar nada no
-`index.tsx`.
+## Editar uma tela
 
-## O que as telas esperam do backend
+1. Abra `screens/<tela>/index.html` no navegador e edite o arquivo.
+2. Use só classes do design system (`atlas-*`). Interação é por atributo
+   `data-atlas-*` (tabela em `screens/README.md`) — **sem `<script>` dentro
+   do `<main>`**, senão o sync reprova.
+3. `yarn screens:sync` para o portal pegar a mudança.
 
-Catálogo, scaffolder, busca, notificações e permissões são os plugins padrão do
-Backstage. Três telas pedem backends próprios deste repositório:
+Os dados são de exemplo, escritos no HTML. Onde a tela precisaria de dado
+real (catálogo, aprovações, chaves), o README dela diz de onde viria.
 
-| Tela | Rota do backend |
-|---|---|
-| API Keys, Administração | `/api/api-keys` (`backend/api-keys`) |
-| Agente | `/api/atlas-agent` (`backend/atlas-agent`) |
+## O que continua sendo do Backstage
 
-Sem eles, essas telas abrem e mostram o erro; as outras funcionam normalmente.
-
-## Onde mexer
-
-- **Uma tela:** `screens/<tela>/` — o README dela diz o que deve conter.
-- **Tela nova:** copie uma pasta de `screens/`, ajuste o `page.tsx` e
-  acrescente em `screens/index.ts`.
-- **Ordem da barra:** `shell/nav/AtlasTopNav.tsx` (`PILL_ORDER`).
-- **Visual:** `assets/atlas.css` é gerado do repositório
-  [atlas-design-system](https://github.com/gomesfe/atlas-design-system) com
-  `yarn ds:sync`. Padrão visual novo entra no design system primeiro.
+- A barra do portal (`shell/nav`) e o menu Toolkit dela
+  (`screens/home/toolkit.tsx`). A versão avulsa tem a mesma barra em
+  `assets/atlas.js` — mudou a lista de telas ou do Toolkit, mude nos dois.
+- As páginas internas dos plugins: página de uma entidade, leitor do
+  TechDocs, formulário e tarefas das ofertas (scaffolder).
+- Login, tema e selo de ambiente.

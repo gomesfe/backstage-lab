@@ -5,6 +5,9 @@ import SchoolIcon from '@material-ui/icons/School';
  * Registro das Trilhas: a lista e o detalhe de uma trilha. Entram no plugin
  * `atlas-pages` em `screens/index.ts`.
  *
+ * As trilhas são uma tela HTML só; cada trilha é uma seção com âncora. O
+ * endereço antigo de detalhe (/learning-paths/<id>) leva à seção dela.
+ *
  * O detalhe não ganha routeRef de propósito — é uma sub-rota, e um item de
  * navegação para "detalhe de trilha" sem trilha escolhida não tem para onde
  * apontar.
@@ -20,8 +23,8 @@ export const page = PageBlueprint.make({
     icon: <SchoolIcon />,
     noHeader: true,
     loader: async () => {
-      const { LearningPathsPage } = await import('./LearningPathsPage');
-      return <LearningPathsPage />;
+      const { AtlasHtmlScreen } = await import('../../shell/html/AtlasHtmlScreen');
+      return <AtlasHtmlScreen slug="learning-paths" />;
     },
   },
 });
@@ -32,8 +35,8 @@ export const detailPage = PageBlueprint.make({
     path: '/learning-paths/:pathId',
     noHeader: true,
     loader: async () => {
-      const { LearningPathDetailPage } = await import('./LearningPathsPage');
-      return <LearningPathDetailPage />;
+      const { LearningPathRedirect } = await import('./LearningPathRedirect');
+      return <LearningPathRedirect />;
     },
   },
 });

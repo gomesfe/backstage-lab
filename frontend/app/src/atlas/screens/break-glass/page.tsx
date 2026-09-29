@@ -16,8 +16,8 @@ export const page = PageBlueprint.make({
     icon: <ShieldIcon />,
     noHeader: true,
     loader: async () => {
-      const { BreakGlassPage } = await import('./BreakGlassPage');
-      return <BreakGlassPage />;
+      const { AtlasHtmlScreen } = await import('../../shell/html/AtlasHtmlScreen');
+      return <AtlasHtmlScreen slug="break-glass" />;
     },
   },
 });

@@ -3,9 +3,9 @@
 O índice da documentação técnica (TechDocs). Lista só o que publica
 documentação.
 
-**Arquivos:** `DocsPage.tsx` (configuração), tabela em
-`../_shared/EntityTablePage.tsx`. Registro da rota
-em `page.tsx`.
+**Arquivos:** `index.html` (a tela, em HTML estático — abre direto no navegador) e `page.tsx` (rota no portal).
+
+> **Versão HTML.** Os dados são de exemplo, escritos no próprio `index.html`, e os botões que gravariam algo só abrem o diálogo. O que este README descreve como vindo do catálogo ou de uma API é o que a tela deve mostrar quando essa fonte existir.
 
 ## Deve conter
 

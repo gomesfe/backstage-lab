@@ -16,8 +16,8 @@ export const page = PageBlueprint.make({
     icon: <GroupsIcon />,
     noHeader: true,
     loader: async () => {
-      const { MyGroupsPage } = await import('./MyGroupsPage');
-      return <MyGroupsPage />;
+      const { AtlasHtmlScreen } = await import('../../shell/html/AtlasHtmlScreen');
+      return <AtlasHtmlScreen slug="my-groups" />;
     },
   },
 });

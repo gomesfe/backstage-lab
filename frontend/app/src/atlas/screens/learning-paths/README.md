@@ -3,9 +3,9 @@
 Trilhas guiadas para aprender o Atlas e as práticas da casa, com o progresso
 de cada pessoa.
 
-**Arquivos:** `LearningPathsPage.tsx` (lista e detalhe), `learningData.ts`
-(conteúdo), `useProgress.ts` (progresso). Registro da rota
-em `page.tsx`.
+**Arquivos:** `index.html` (a tela, em HTML estático — abre direto no navegador) e `page.tsx` (rota no portal). Cada trilha é uma seção com âncora (`#provisioning`…); `LearningPathRedirect.tsx` leva o endereço antigo `/learning-paths/<id>` até ela.
+
+> **Versão HTML.** Os dados são de exemplo, escritos no próprio `index.html`, e os botões que gravariam algo só abrem o diálogo. O que este README descreve como vindo do catálogo ou de uma API é o que a tela deve mostrar quando essa fonte existir.
 
 ## Lista — deve conter
 

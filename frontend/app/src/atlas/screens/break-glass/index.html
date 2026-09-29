@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Break Glass · Atlas</title>
+  <link rel="stylesheet" href="../../assets/atlas.css">
+  <link rel="stylesheet" href="../../assets/atlas-html.css">
+</head>
+<body class="atlas-root atlas-page" data-theme="dark" data-screen="break-glass">
+  <header data-atlas-nav></header>
+
+  <main class="atlas-pageMain" data-atlas-screen>
+    <div class="atlas-appContainer">
+      <div class="atlas-pageHeader">
+        <div class="atlas-pageTitleGroup">
+          <span class="atlas-pageEyebrow">Acesso emergencial</span>
+          <h1 class="atlas-pageTitle">Break Glass</h1>
+          <p class="atlas-pageSubtitle">Solicite acesso privilegiado temporário e auditado a contas AWS em situações de incidente.</p>
+        </div>
+        
+      </div>
+      <div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Uso restrito e auditado</div>Toda solicitação é registrada, notifica os responsáveis do squad e expira automaticamente. Utilize apenas durante incidentes.</div></div>
+      <div class="atlas-breakGlassLayout">
+        <section class="atlas-tableContainerCard">
+          <div class="atlas-sectionCardHeader"><h3 class="atlas-sectionCardTitle">Nova solicitação</h3></div>
+          <div class="atlas-formGrid">
+            <div class="atlas-field"><label class="atlas-fieldLabel" for="bg-profile">Perfil de acesso</label><select id="bg-profile" class="atlas-select"><option value="ReadOnlyAccess">ReadOnlyAccess</option><option value="PowerUserAccess">PowerUserAccess</option><option value="DatabaseAdmin">DatabaseAdmin</option><option value="NetworkAdmin">NetworkAdmin</option></select><span class="atlas-fieldHint">Define o conjunto de permissões concedidas.</span></div>
+            <div class="atlas-field"><label class="atlas-fieldLabel" for="bg-duration">Duração</label><select id="bg-duration" class="atlas-select"><option value="1">1 hora</option><option value="2">2 horas</option><option value="4">4 horas</option><option value="8">8 horas (máximo)</option></select><span class="atlas-fieldHint">O acesso expira sozinho ao fim do prazo.</span></div>
+          </div>
+          <div class="atlas-field"><label class="atlas-fieldLabel" for="bg-account">ID da conta AWS</label><input id="bg-account" class="atlas-input" inputmode="numeric" placeholder="123456789012" pattern="[0-9]{12}" maxlength="12" required><span class="atlas-fieldHint">Os 12 dígitos da conta onde o acesso será concedido.</span></div>
+          <div class="atlas-field"><label class="atlas-fieldLabel" for="bg-reason">Justificativa</label><textarea id="bg-reason" class="atlas-textarea" minlength="20" required placeholder="INC-1234 — restaurar snapshot do RDS de pagamentos após falha no deploy."></textarea><span class="atlas-fieldHint">Número do incidente e o que precisa ser feito. Vai para a auditoria. Mínimo de 20 caracteres.</span></div>
+          <button type="button" class="atlas-btnPill atlas-btnPillLime" style="align-self:flex-start" data-atlas-open="bg-result">Solicitar acesso</button>
+        </section>
+        <section class="atlas-tableContainerCard">
+          <div class="atlas-sectionCardHeader"><h3 class="atlas-sectionCardTitle">Como funciona</h3></div>
+          <div class="atlas-infoList"><div class="atlas-infoItem"><span style="color:var(--lime);margin-top:2px">●</span><div><div class="atlas-infoItemTitle">Tempo de execução</div><div class="atlas-infoItemDesc">O provisionamento do acesso leva em média 2 a 3 minutos após a solicitação.</div></div></div><div class="atlas-infoItem"><span style="color:var(--lime);margin-top:2px">●</span><div><div class="atlas-infoItemTitle">Tempo de liberação</div><div class="atlas-infoItemDesc">O acesso é concedido por tempo limitado e expira automaticamente ao fim do período.</div></div></div><div class="atlas-infoItem"><span style="color:var(--lime);margin-top:2px">●</span><div><div class="atlas-infoItemTitle">Auditoria</div><div class="atlas-infoItemDesc">Toda solicitação é registrada e auditada, notificando os responsáveis do squad.</div></div></div><div class="atlas-infoItem"><span style="color:var(--lime);margin-top:2px">●</span><div><div class="atlas-infoItemTitle">Como funciona</div><div class="atlas-infoItemDesc">Concede uma role temporária na conta AWS informada, seguindo o princípio do menor privilégio.</div></div></div></div>
+        </section>
+      </div>
+      <dialog class="atlas-dialog" id="bg-result" aria-labelledby="bg-result-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="bg-result-title">Solicitação de acesso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-alert atlas-alertInfo"><div><div class="atlas-alertTitle">Nada foi concedido</div>Esta tela ainda não tem backend — não existe serviço que emita a role temporária. O que faltaria: um plugin que registre a solicitação, notifique o squad e chame o STS com prazo de expiração.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+    </div>
+  </main>
+
+  <script src="../../assets/atlas.js"></script>
+</body>
+</html>

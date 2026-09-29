@@ -15,8 +15,8 @@ export const page = PageBlueprint.make({
     icon: <SearchIcon />,
     noHeader: true,
     loader: async () => {
-      const { AtlasSearchPage } = await import('./SearchPage');
-      return <AtlasSearchPage />;
+      const { AtlasHtmlScreen } = await import('../../shell/html/AtlasHtmlScreen');
+      return <AtlasHtmlScreen slug="search" />;
     },
   },
 });

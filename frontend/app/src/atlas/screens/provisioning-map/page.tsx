@@ -16,8 +16,8 @@ export const page = PageBlueprint.make({
     icon: <MapIcon />,
     noHeader: true,
     loader: async () => {
-      const { ProvisioningMapPage } = await import('./ProvisioningMapPage');
-      return <ProvisioningMapPage />;
+      const { AtlasHtmlScreen } = await import('../../shell/html/AtlasHtmlScreen');
+      return <AtlasHtmlScreen slug="provisioning-map" />;
     },
   },
 });

@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Administração · Atlas</title>
+  <link rel="stylesheet" href="../../assets/atlas.css">
+  <link rel="stylesheet" href="../../assets/atlas-html.css">
+</head>
+<body class="atlas-root atlas-page" data-theme="dark" data-screen="admin">
+  <header data-atlas-nav></header>
+
+  <main class="atlas-pageMain" data-atlas-screen>
+    <div class="atlas-appContainer">
+      <div class="atlas-pageHeader">
+        <div class="atlas-pageTitleGroup">
+          <span class="atlas-pageEyebrow">Administração</span>
+          <h1 class="atlas-pageTitle">Administração</h1>
+          <p class="atlas-pageSubtitle">Uso do portal, atividade das chaves de API e usuários com credenciais ativas.</p>
+        </div>
+        <div class="atlas-pageActions"><span class="atlas-badgeTag atlas-badgePurple">acesso admin</span></div>
+      </div>
+      <div class="atlas-alert atlas-alertInfo"><div><div class="atlas-alertTitle">Dados de exemplo</div>Esta é a versão estática: os números abaixo são exemplos.</div></div>
+      <div class="atlas-topOverviewCardsGrid"><div class="atlas-expandMetricCard "><div class="atlas-metricCardHead"><span class="atlas-metricCardTitle">Usuários com chaves</span></div><div class="atlas-metricBigValue">5</div><div class="atlas-metricCardSub">emitiram ao menos uma chave</div></div><div class="atlas-expandMetricCard "><div class="atlas-metricCardHead"><span class="atlas-metricCardTitle">Chaves ativas</span></div><div class="atlas-metricBigValue">9</div><div class="atlas-metricCardSub">em todo o portal</div></div><div class="atlas-expandMetricCard "><div class="atlas-metricCardHead"><span class="atlas-metricCardTitle">Sem uso há 30 dias</span></div><div class="atlas-metricBigValue">1</div><div class="atlas-metricCardSub">ativas e paradas — candidatas a revogação</div></div></div>
+      <section class="atlas-tableContainerCard">
+        <div class="atlas-sectionCardHeader"><h3 class="atlas-sectionCardTitle">Painel administrativo</h3><div class="atlas-tabs" role="tablist"><button type="button" class="atlas-tabBtn atlas-tabBtnActive" data-atlas-tabs="admin" data-atlas-tab="users" aria-selected="true">Usuários com chaves</button><button type="button" class="atlas-tabBtn" data-atlas-tabs="admin" data-atlas-tab="portal" aria-selected="false">Uso do portal</button><button type="button" class="atlas-tabBtn" data-atlas-tabs="admin" data-atlas-tab="api" aria-selected="false">Uso da API</button></div></div>
+        <div data-atlas-tabs="admin" data-atlas-panel="users">        <div class="atlas-recentTableWrap">
+          <table class="atlas-recentTable">
+            <thead><tr><th scope="col">Usuário</th><th scope="col" style="text-align:right">Chaves ativas</th><th scope="col" style="text-align:right">Total emitido</th><th scope="col">Último uso</th></tr></thead>
+            <tbody id="admin-users">
+            <tr data-atlas-row><td><span class="atlas-resourceCell">ana.souza</span></td><td style="text-align:right">3</td><td style="text-align:right">4</td><td>29/09/26 10:00</td></tr>
+            <tr data-atlas-row><td><span class="atlas-resourceCell">bruno.lima</span></td><td style="text-align:right">2</td><td style="text-align:right">2</td><td>29/09/26 07:00</td></tr>
+            <tr data-atlas-row><td><span class="atlas-resourceCell">você</span></td><td style="text-align:right">3</td><td style="text-align:right">5</td><td>29/09/26 11:00</td></tr>
+            <tr data-atlas-row><td><span class="atlas-resourceCell">igor.prado</span></td><td style="text-align:right">1</td><td style="text-align:right">3</td><td>23/08/26 00:00</td></tr>
+            <tr data-atlas-row><td><span class="atlas-resourceCell">julia.campos</span></td><td style="text-align:right">0</td><td style="text-align:right">1</td><td>nunca</td></tr>
+            </tbody>
+          </table>
+          <div class="atlas-emptyState" data-atlas-empty-for="admin-users" hidden>Nada encontrado com esses filtros.</div>
+        </div>
+</div><div data-atlas-tabs="admin" data-atlas-panel="portal" hidden><div class="atlas-emptyState" style="text-align:left"><strong style="color:var(--text-primary)">Sem log de acessos no lab</strong><p style="margin:8px 0 0">Esta aba mostraria quem acessou o portal e quando. O lab não registra acessos: o backend loga requisições no console, mas nada é persistido nem consultável.</p><p style="margin:8px 0 0">O que faltaria: um plugin de auditoria que grave usuário, rota e horário numa tabela própria, com retenção definida — dado de acesso é dado pessoal e não pode ficar guardado para sempre sem critério.</p></div></div><div data-atlas-tabs="admin" data-atlas-panel="api" hidden><div class="atlas-emptyState" style="text-align:left"><strong style="color:var(--text-primary)">Sem log de requisições no lab</strong><p style="margin:8px 0 0">Esta aba mostraria cada chamada autenticada por chave: horário, método, rota e corpo. Hoje o plugin de API keys grava apenas o carimbo do último uso de cada chave — suficiente para achar chave esquecida, não para auditar chamadas.</p><p style="margin:8px 0 0">O que faltaria: registrar cada validação de chave numa tabela de uso. O ponto de captura já existe em <code class="atlas-costMono">ApiKeyStore.validate</code>.</p></div></div>
+      </section>
+    </div>
+  </main>
+
+  <script src="../../assets/atlas.js"></script>
+</body>
+</html>

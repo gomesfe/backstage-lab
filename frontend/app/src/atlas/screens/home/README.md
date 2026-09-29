@@ -3,15 +3,15 @@
 A primeira tela do portal. Responde a "o que está acontecendo no meu escopo
 e por onde eu começo?" em uma olhada.
 
-**Arquivos:** `HomePage.tsx` (layout), `sections.tsx` (cada bloco),
-`useHomeData.ts` (números e serviços do catálogo), `data.ts` (conteúdo
-editorial), `toolkit.tsx` (menu Toolkit e lista de ferramentas).
-Registro da rota em `page.tsx`.
+**Arquivos:** `index.html` (a tela, em HTML estático — abre direto no navegador) e `page.tsx` (rota no portal). `toolkit.tsx` é o menu Toolkit da barra do portal (a versão avulsa tem o seu em `assets/atlas.js`).
+
+> **Versão HTML.** Os dados são de exemplo, escritos no próprio `index.html`, e os botões que gravariam algo só abrem o diálogo. O que este README descreve como vindo do catálogo ou de uma API é o que a tela deve mostrar quando essa fonte existir.
 
 ## Deve conter, nesta ordem
 
 1. **Seletor de escopo** — Todos / Pagamentos / Onboarding / Antifraude.
-   Filtra métricas e serviços pelo dono. Os escopos vêm de `data.ts`.
+   Filtra métricas e serviços pelo dono. *Fora da versão HTML*: com números
+   fixos, não há o que filtrar; volta quando houver dado real.
 2. **Hero**
    - **Boas-vindas:** "Olá, {primeiro nome}" (do perfil de login; o guest vê
      "Bem-vindo ao Atlas"), uma frase e duas ações: **Provisionar recurso**
@@ -35,22 +35,22 @@ Registro da rota em `page.tsx`.
    - **Serviços no catálogo:** até 8 aplicações do escopo, cada uma um link
      para a entidade, com ponto e badge de ciclo de vida. "Ver todos (N)"
      quando houver mais.
-   - **Últimas atualizações:** comunicados de `data.ts`.
+   - **Últimas atualizações:** comunicados (no `index.html`).
    - **Ferramentas:** links externos, abrem em nova aba. A lista é a mesma do
-     menu **Toolkit**, em `toolkit.tsx`.
+     menu **Toolkit** (`toolkit.tsx` no portal, `assets/atlas.js` na versão
+     avulsa — mude nos dois).
 5. **Aplicações** (largura maior) e, ao lado, **Links úteis** e **Em dúvida?**
-   - **Aplicações:** todos os Components do escopo numa tabela com
+   - **Aplicações:** as aplicações numa tabela com
      **Nome · Tipo · Repositório · Sonar**. Busca por nome ("Buscar
      workload…") e filtro por tipo: Todos / Microsserviço / Site Estático /
-     Serverless. O tipo vem de `spec.type` (`service` → Microsserviço,
-     `website` → Site Estático, `serverless`/`lambda`/`function` →
-     Serverless); outro valor aparece cru, em amarelo. Repo vem de
-     `github.com/project-slug` ou `backstage.io/source-location`; Sonar de
-     `sonarqube.org/project-key` (base em `SONAR_BASE_URL`, `data.ts`). Sem
-     anotação, a célula mostra "—".
-   - **Links úteis:** de `data.ts`.
-   - **Em dúvida? Aprenda mais com Learning Paths:** três trilhas de
-     `FEATURED_LEARNING_PATH_IDS` e o botão "Ver todas as trilhas".
+     Serverless. Cada linha é um `<tr data-atlas-row data-type="…">` —
+     `microservice`, `static-site` ou `serverless` — e é esse atributo que o
+     filtro lê. Sem repositório ou sem Sonar, a célula mostra "—". Com dado
+     real, o tipo viria de `spec.type` e os links das anotações
+     `github.com/project-slug` e `sonarqube.org/project-key`.
+   - **Links úteis:** cinco links para Docs e Ofertas.
+   - **Em dúvida? Aprenda mais com Learning Paths:** três trilhas (links
+     para a seção de cada uma em Trilhas) e o botão "Ver todas as trilhas".
 6. **Comece por aqui** (3 passos, com atalho para Trilhas).
 
 ## Toolkit
@@ -58,24 +58,17 @@ Registro da rota em `page.tsx`.
 Botão na barra do topo, ao lado de Buscar, que abre uma grade 3×2 com as
 ferramentas externas: Release Notes, GitHub, AWS, SonarQube, Veracode e
 Indicadores DevOps. Cada uma abre em nova aba; o menu fecha ao clicar fora,
-com Esc ou ao escolher uma. O componente e a lista moram em `toolkit.tsx`; a
-barra (`shell/nav/AtlasTopNav.tsx`) só o posiciona.
-
-## Estados
-
-- **Carregando:** esqueleto nas métricas e nos serviços.
-- **Vazio:** serviços sem nada no escopo explicam como criar um.
-- **Erro do catálogo:** métricas e serviços caem para zero/vazio; o restante
-  da Home (editorial) continua útil.
+com Esc ou ao escolher uma. No portal, o componente e a lista moram em
+`toolkit.tsx` e a barra (`shell/nav/AtlasTopNav.tsx`) só o posiciona; na
+versão avulsa, a barra inteira (Toolkit incluído) vem de `assets/atlas.js`.
 
 ## Fontes de dados
 
-- Catálogo (`catalogApi.getEntities`), uma consulta só, contada no cliente.
-- Perfil do usuário (`identityApi.getProfileInfo`) para o nome.
-- `data.ts` para o editorial — no Atlas real viria de Confluence ou de um
-  backend de avisos; é o único ponto a trocar.
+Na versão HTML, tudo está escrito no `index.html`: números, serviços,
+comunicados e aplicações são exemplo. No Atlas real, números e listas viriam
+do catálogo e o editorial (comunicados, links) de Confluence ou de um backend
+de avisos.
 
 ## Não faz
 
-- Não inventa número. Se o catálogo tem 3 squads, a Home mostra 3.
 - Não mostra custos nem alertas: o lab não tem essas fontes.

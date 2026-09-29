@@ -10,6 +10,7 @@
 import '@backstage/ui/css/styles.css';
 import './assets/bui-tokens.css';
 import './assets/atlas.css';
+import './assets/atlas-html.css';
 
 import catalogPlugin from '@backstage/plugin-catalog/alpha';
 import { adminPlugin, atlasPagesPlugin, pageOverrides } from './screens';

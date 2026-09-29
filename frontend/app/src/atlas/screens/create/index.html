@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ofertas · Atlas</title>
+  <link rel="stylesheet" href="../../assets/atlas.css">
+  <link rel="stylesheet" href="../../assets/atlas-html.css">
+</head>
+<body class="atlas-root atlas-page" data-theme="dark" data-screen="create">
+  <header data-atlas-nav></header>
+
+  <main class="atlas-pageMain" data-atlas-screen>
+    <div class="atlas-appContainer">
+      <div class="atlas-pageHeader">
+        <div class="atlas-pageTitleGroup">
+          <span class="atlas-pageEyebrow">Provisionamento</span>
+          <h1 class="atlas-pageTitle">Ofertas</h1>
+          <p class="atlas-pageSubtitle">Escolha uma oferta para provisionar recursos, criar repositórios ou registrar entidades.</p>
+        </div>
+        <div class="atlas-pageActions"><a class="atlas-btnPill" href="../create/index.html" data-portal-href="/create/tasks">Minhas tarefas</a></div>
+      </div>
+      <div class="atlas-filtersBar"><div class="atlas-searchFieldWrap" style="flex:1"><svg class="atlas-searchIcon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg><input class="atlas-filterInput" type="search" placeholder="Buscar oferta" aria-label="Buscar oferta" data-atlas-search="create-offers"></div><label class="atlas-labeledSelect"><span class="atlas-labeledSelectLabel">Categoria</span><select class="atlas-filterSelect" data-atlas-filter="create-offers" data-atlas-filter-key="category"><option value="all">Todas (17)</option><option value="Armazenamento">Armazenamento (3)</option><option value="Banco de dados">Banco de dados (5)</option><option value="Computação">Computação (2)</option><option value="Desenvolvimento">Desenvolvimento (2)</option><option value="Mensageria">Mensageria (3)</option><option value="Organização interna">Organização interna (1)</option><option value="Outros">Outros (1)</option></select></label></div>
+      <div id="create-offers" style="display:flex;flex-direction:column;gap:20px">
+      <div style="display:flex;flex-direction:column;gap:12px" data-atlas-row data-category="Armazenamento">
+        <h2 class="atlas-groupHeading">Armazenamento<span class="atlas-groupHeadingCount">3</span></h2>
+        <div class="atlas-cardGrid"><article class="atlas-featureCard" data-atlas-row data-category="Armazenamento">
+            <div class="atlas-featureCardHead"><span class="atlas-badgeTag atlas-badgeInfo">resource</span></div>
+            <div class="atlas-featureCardTitle">Elastic File System</div>
+            <div class="atlas-featureCardDesc">Sistema de arquivos compartilhado entre instâncias e containers.</div>
+            <div class="atlas-featureCardFooter"><span style="display:flex;gap:6px;flex-wrap:wrap"><span class="atlas-tagChip">aws</span><span class="atlas-tagChip">terraform</span><span class="atlas-tagChip">efs</span></span><a class="atlas-btnPill atlas-btnPillLime" style="margin-left:auto" href="../create/index.html" data-portal-href="/create/templates/default/atlas-template-efs">Escolher</a></div>
+          </article><article class="atlas-featureCard" data-atlas-row data-category="Armazenamento">
+            <div class="atlas-featureCardHead"><span class="atlas-badgeTag atlas-badgeInfo">resource</span></div>
+            <div class="atlas-featureCardTitle">Cache Valkey</div>
+            <div class="atlas-featureCardDesc">Cache em memória compatível com Redis, via ElastiCache.</div>
+            <div class="atlas-featureCardFooter"><span style="display:flex;gap:6px;flex-wrap:wrap"><span class="atlas-tagChip">aws</span><span class="atlas-tagChip">terraform</span><span class="atlas-tagChip">elasticache-valkey</span></span><a class="atlas-btnPill atlas-btnPillLime" style="margin-left:auto" href="../create/index.html" data-portal-href="/create/templates/default/atlas-template-elasticache-valkey">Escolher</a></div>
+          </article><article class="atlas-featureCard" data-atlas-row data-category="Armazenamento">
+            <div class="atlas-featureCardHead"><span class="atlas-badgeTag atlas-badgeInfo">resource</span></div>
+            <div class="atlas-featureCardTitle">Bucket S3</div>
+            <div class="atlas-featureCardDesc">Bucket de objetos, privado e versionado por padrão.</div>
+            <div class="atlas-featureCardFooter"><span style="display:flex;gap:6px;flex-wrap:wrap"><span class="atlas-tagChip">aws</span><span class="atlas-tagChip">terraform</span><span class="atlas-tagChip">s3</span></span><a class="atlas-btnPill atlas-btnPillLime" style="margin-left:auto" href="../create/index.html" data-portal-href="/create/templates/default/atlas-template-s3">Escolher</a></div>
+          </article></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px" data-atlas-row data-category="Banco de dados">
+        <h2 class="atlas-groupHeading">Banco de dados<span class="atlas-groupHeadingCount">5</span></h2>
+        <div class="atlas-cardGrid"><article class="atlas-featureCard" data-atlas-row data-category="Banco de dados">
+            <div class="atlas-featureCardHead"><span class="atlas-badgeTag atlas-badgeInfo">resource</span></div>
+            <div class="atlas-featureCardTitle">Aurora com capacidade provisionada</div>
+            <div class="atlas-featureCardDesc">Cluster Aurora com classe de instância fixa, para carga previsível.</div>
+            <div class="atlas-featureCardFooter"><span style="display:flex;gap:6px;flex-wrap:wrap"><span class="atlas-tagChip">aws</span><span class="atlas-tagChip">terraform</span><span class="atlas-tagChip">aurora-provisioned</span></span><a class="atlas-btnPill atlas-btnPillLime" style="margin-left:auto" href="../create/index.html" data-portal-href="/create/templates/default/atlas-template-aurora-provisioned">Escolher</a></div>
+          </article><article class="atlas-featureCard" data-atlas-row data-category="Banco de dados">
+            <div class="atlas-featureCardHead"><span class="atlas-badgeTag atlas-badgeInfo">resource</span></div>
+            <div class="atlas-featureCardTitle">Aurora Serverless v2</div>
+            <div class="atlas-featureCardDesc">Cluster Aurora com capacidade elástica, cobrado por ACU.</div>
+            <div class="atlas-featureCardFooter"><span style="display:flex;gap:6px;flex-wrap:wrap"><span class="atlas-tagChip">aws</span><span class="atlas-tagChip">terraform</span><span class="atlas-tagChip">aurora</span></span><a class="atlas-btnPill atlas-btnPillLime" style="margin-left:auto" href="../create/index.html" data-portal-href="/create/templates/default/atlas-template-aurora">Escolher</a></div>
+          </article><article class="atlas-featureCard" data-atlas-row data-category="Banco de dados">
+            <div class="atlas-featureCardHead"><span class="atlas-badgeTag atlas-badgeInfo">resource</span></div>
+            <div class="atlas-featureCardTitle">DocumentDB</div>
+            <div class="atlas-featureCardDesc">Cluster compatível com MongoDB, gerenciado pela AWS.</div>
+            <div class="atlas-featureCardFooter"><span style="display:flex;gap:6px;flex-wrap:wrap"><span class="atlas-tagChip">aws</span><span class="atlas-tagChip">terraform</span><span class="atlas-tagChip">documentdb</span></span><a class="atlas-btnPill atlas-btnPillLime" style="margin-left:auto" href="../create/index.html" data-portal-href="/create/templates/default/atlas-template-documentdb">Escolher</a></div>
+          </article><article class="atlas-featureCard" data-atlas-row data-category="Banco de dados">
+            <div class="atlas-featureCardHead"><span class="atlas-badgeTag atlas-badgeInfo">resource</span></div>
+            <div class="atlas-featureCardTitle">Tabela DynamoDB</div>
+            <div class="atlas-featureCardDesc">Tabela NoSQL serverless, cobrada por requisição ou capacidade.</div>
+            <div class="atlas-featureCardFooter"><span style="display:flex;gap:6px;flex-wrap:wrap"><span class="atlas-tagChip">aws</span><span class="atlas-tagChip">terraform</span><span class="atlas-tagChip">dynamodb</span></span><a class="atlas-btnPill atlas-btnPillLime" style="margin-left:auto" href="../create/index.html" data-portal-href="/create/templates/default/atlas-template-dynamodb">Escolher</a></div>
+          </article><article class="atlas-featureCard" data-atlas-row data-category="Banco de dados">
+            <div class="atlas-featureCardHead"><span class="atlas-badgeTag atlas-badgeInfo">resource</span></div>
+            <div class="atlas-featureCardTitle">Banco relacional RDS</div>
+            <div class="atlas-featureCardDesc">Instância RDS gerenciada, para Postgres ou MySQL.</div>
+            <div class="atlas-featureCardFooter"><span style="display:flex;gap:6px;flex-wrap:wrap"><span class="atlas-tagChip">aws</span><span class="atlas-tagChip">terraform</span><span class="atlas-tagChip">rds</span></span><a class="atlas-btnPill atlas-btnPillLime" style="margin-left:auto" href="../create/index.html" data-portal-href="/create/templates/default/atlas-template-rds">Escolher</a></div>
+          </article></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px" data-atlas-row data-category="Computação">
+        <h2 class="atlas-groupHeading">Computação<span class="atlas-groupHeadingCount">2</span></h2>
+        <div class="atlas-cardGrid"><article class="atlas-featureCard" data-atlas-row data-category="Computação">
+            <div class="atlas-featureCardHead"><span class="atlas-badgeTag atlas-badgeInfo">resource</span></div>
+            <div class="atlas-featureCardTitle">Instância EC2</div>
+            <div class="atlas-featureCardDesc">Máquina virtual. Prefira ECS ou Lambda se não precisar do host.</div>
+            <div class="atlas-featureCardFooter"><span style="display:flex;gap:6px;flex-wrap:wrap"><span class="atlas-tagChip">aws</span><span class="atlas-tagChip">terraform</span><span class="atlas-tagChip">ec2</span></span><a class="atlas-btnPill atlas-btnPillLime" style="margin-left:auto" href="../create/index.html" data-portal-href="/create/templates/default/atlas-template-ec2">Escolher</a></div>
+          </article><article class="atlas-featureCard" data-atlas-row data-category="Computação">
+            <div class="atlas-featureCardHead"><span class="atlas-badgeTag atlas-badgeInfo">resource</span></div>
+            <div class="atlas-featureCardTitle">Função Lambda</div>
+            <div class="atlas-featureCardDesc">Função serverless, cobrada por invocação e tempo de execução.</div>
+            <div class="atlas-featureCardFooter"><span style="display:flex;gap:6px;flex-wrap:wrap"><span class="atlas-tagChip">aws</span><span class="atlas-tagChip">terraform</span><span class="atlas-tagChip">funcao-lambda</span></span><a class="atlas-btnPill atlas-btnPillLime" style="margin-left:auto" href="../create/index.html" data-portal-href="/create/templates/default/atlas-template-funcao-lambda">Escolher</a></div>
+          </article></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px" data-atlas-row data-category="Desenvolvimento">
+        <h2 class="atlas-groupHeading">Desenvolvimento<span class="atlas-groupHeadingCount">2</span></h2>
+        <div class="atlas-cardGrid"><article class="atlas-featureCard" data-atlas-row data-category="Desenvolvimento">
+            <div class="atlas-featureCardHead"><span class="atlas-badgeTag atlas-badgeInfo">resource</span></div>
+            <div class="atlas-featureCardTitle">Secret no Secrets Manager</div>
+            <div class="atlas-featureCardDesc">Segredo versionado e rotacionável, sem valor no Terraform.</div>
+            <div class="atlas-featureCardFooter"><span style="display:flex;gap:6px;flex-wrap:wrap"><span class="atlas-tagChip">aws</span><span class="atlas-tagChip">terraform</span><span class="atlas-tagChip">secrets-manager</span></span><a class="atlas-btnPill atlas-btnPillLime" style="margin-left:auto" href="../create/index.html" data-portal-href="/create/templates/default/atlas-template-secrets-manager">Escolher</a></div>
+          </article><article class="atlas-featureCard" data-atlas-row data-category="Desenvolvimento">
+            <div class="atlas-featureCardHead"><span class="atlas-badgeTag atlas-badgeInfo">service</span></div>
+            <div class="atlas-featureCardTitle">Microserviço</div>
+            <div class="atlas-featureCardDesc">Cria um repositório novo com o esqueleto de um microserviço: healthcheck,
+Dockerfile, pipeline e catalog-info já registrado no portal.
+</div>
+            <div class="atlas-featureCardFooter"><span style="display:flex;gap:6px;flex-wrap:wrap"><span class="atlas-tagChip">desenvolvimento</span><span class="atlas-tagChip">microservico</span></span><a class="atlas-btnPill atlas-btnPillLime" style="margin-left:auto" href="../create/index.html" data-portal-href="/create/templates/default/atlas-template-microservice">Escolher</a></div>
+          </article></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px" data-atlas-row data-category="Mensageria">
+        <h2 class="atlas-groupHeading">Mensageria<span class="atlas-groupHeadingCount">3</span></h2>
+        <div class="atlas-cardGrid"><article class="atlas-featureCard" data-atlas-row data-category="Mensageria">
+            <div class="atlas-featureCardHead"><span class="atlas-badgeTag atlas-badgeInfo">resource</span></div>
+            <div class="atlas-featureCardTitle">Pub/Sub (SNS + SQS)</div>
+            <div class="atlas-featureCardDesc">Tópico SNS já ligado a uma fila SQS, o padrão de fan-out da casa.</div>
+            <div class="atlas-featureCardFooter"><span style="display:flex;gap:6px;flex-wrap:wrap"><span class="atlas-tagChip">aws</span><span class="atlas-tagChip">terraform</span><span class="atlas-tagChip">pubsub</span></span><a class="atlas-btnPill atlas-btnPillLime" style="margin-left:auto" href="../create/index.html" data-portal-href="/create/templates/default/atlas-template-pubsub">Escolher</a></div>
+          </article><article class="atlas-featureCard" data-atlas-row data-category="Mensageria">
+            <div class="atlas-featureCardHead"><span class="atlas-badgeTag atlas-badgeInfo">resource</span></div>
+            <div class="atlas-featureCardTitle">Tópico SNS</div>
+            <div class="atlas-featureCardDesc">Tópico de notificação, para fan-out de eventos.</div>
+            <div class="atlas-featureCardFooter"><span style="display:flex;gap:6px;flex-wrap:wrap"><span class="atlas-tagChip">aws</span><span class="atlas-tagChip">terraform</span><span class="atlas-tagChip">sns</span></span><a class="atlas-btnPill atlas-btnPillLime" style="margin-left:auto" href="../create/index.html" data-portal-href="/create/templates/default/atlas-template-sns">Escolher</a></div>
+          </article><article class="atlas-featureCard" data-atlas-row data-category="Mensageria">
+            <div class="atlas-featureCardHead"><span class="atlas-badgeTag atlas-badgeInfo">resource</span></div>
+            <div class="atlas-featureCardTitle">Fila SQS</div>
+            <div class="atlas-featureCardDesc">Fila de mensagens, com dead-letter queue por padrão.</div>
+            <div class="atlas-featureCardFooter"><span style="display:flex;gap:6px;flex-wrap:wrap"><span class="atlas-tagChip">aws</span><span class="atlas-tagChip">terraform</span><span class="atlas-tagChip">sqs</span></span><a class="atlas-btnPill atlas-btnPillLime" style="margin-left:auto" href="../create/index.html" data-portal-href="/create/templates/default/atlas-template-sqs">Escolher</a></div>
+          </article></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px" data-atlas-row data-category="Organização interna">
+        <h2 class="atlas-groupHeading">Organização interna<span class="atlas-groupHeadingCount">1</span></h2>
+        <div class="atlas-cardGrid"><article class="atlas-featureCard" data-atlas-row data-category="Organização interna">
+            <div class="atlas-featureCardHead"><span class="atlas-badgeTag atlas-badgeInfo">organization</span></div>
+            <div class="atlas-featureCardTitle">Cadastrar squad</div>
+            <div class="atlas-featureCardDesc">Registra uma squad no catálogo. Sem isso, a squad não aparece no
+OwnerPicker e ninguém consegue pedir recurso em nome dela.
+</div>
+            <div class="atlas-featureCardFooter"><span style="display:flex;gap:6px;flex-wrap:wrap"><span class="atlas-tagChip">organizacao</span><span class="atlas-tagChip">catalogo</span></span><a class="atlas-btnPill atlas-btnPillLime" style="margin-left:auto" href="../create/index.html" data-portal-href="/create/templates/default/atlas-template-cadastrar-squad">Escolher</a></div>
+          </article></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:12px" data-atlas-row data-category="Outros">
+        <h2 class="atlas-groupHeading">Outros<span class="atlas-groupHeadingCount">1</span></h2>
+        <div class="atlas-cardGrid"><article class="atlas-featureCard" data-atlas-row data-category="Outros">
+            <div class="atlas-featureCardHead"><span class="atlas-badgeTag atlas-badgeInfo">website</span></div>
+            <div class="atlas-featureCardTitle">Tela estática</div>
+            <div class="atlas-featureCardDesc">Cria uma tela nova no portal a partir de HTML + CSS puro, sem mexer em React.
+O resultado é um Pull Request no repositório de front adicionando
+frontend/static-pages/&lt;slug&gt;/.
+</div>
+            <div class="atlas-featureCardFooter"><span style="display:flex;gap:6px;flex-wrap:wrap"><span class="atlas-tagChip">frontend</span><span class="atlas-tagChip">html</span><span class="atlas-tagChip">sem-codigo</span></span><a class="atlas-btnPill atlas-btnPillLime" style="margin-left:auto" href="../create/index.html" data-portal-href="/create/templates/default/static-page">Escolher</a></div>
+          </article></div>
+      </div>
+      </div>
+      <div class="atlas-emptyState" data-atlas-empty-for="create-offers" hidden>Nenhuma oferta com esse filtro.</div>
+    </div>
+  </main>
+
+  <script src="../../assets/atlas.js"></script>
+</body>
+</html>

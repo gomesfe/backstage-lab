@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Notificações · Atlas</title>
+  <link rel="stylesheet" href="../../assets/atlas.css">
+  <link rel="stylesheet" href="../../assets/atlas-html.css">
+</head>
+<body class="atlas-root atlas-page" data-theme="dark" data-screen="notifications">
+  <header data-atlas-nav></header>
+
+  <main class="atlas-pageMain" data-atlas-screen>
+    <div class="atlas-appContainer">
+      <div class="atlas-pageHeader">
+        <div class="atlas-pageTitleGroup">
+          <span class="atlas-pageEyebrow">Caixa de entrada</span>
+          <h1 class="atlas-pageTitle">Notificações</h1>
+          <p class="atlas-pageSubtitle">Avisos do portal: ofertas que terminaram de executar, aprovações e comunicados.</p>
+        </div>
+        
+      </div>
+      <div class="atlas-alert atlas-alertInfo"><div><div class="atlas-alertTitle">Dados de exemplo</div>Esta é a versão estática: as notificações abaixo são exemplos.</div></div>
+      <section class="atlas-tableContainerCard">
+        <div class="atlas-filtersBar"><div class="atlas-searchFieldWrap" style="flex:1"><svg class="atlas-searchIcon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg><input class="atlas-filterInput" type="search" placeholder="Buscar no título ou na descrição" aria-label="Buscar no título ou na descrição" data-atlas-search="notif-list"></div></div>
+        <div class="atlas-filtersBar atlas-filtersBarWrap"><label class="atlas-labeledSelect"><span class="atlas-labeledSelectLabel">Mostrar</span><select class="atlas-filterSelect" data-atlas-filter="notif-list" data-atlas-filter-key="read"><option value="all">Todas</option><option value="unread">Não lidas (3)</option><option value="read">Lidas</option></select></label><label class="atlas-labeledSelect"><span class="atlas-labeledSelectLabel">Severidade</span><select class="atlas-filterSelect" data-atlas-filter="notif-list" data-atlas-filter-key="severity"><option value="all">Todas</option><option value="critical">Crítica</option><option value="high">Alta</option><option value="normal">Normal</option><option value="low">Baixa</option></select></label><label class="atlas-labeledSelect"><span class="atlas-labeledSelectLabel">Tópico</span><select class="atlas-filterSelect" data-atlas-filter="notif-list" data-atlas-filter-key="topic"><option value="all">Todos</option><option value="api-keys">api-keys</option><option value="aprovações">aprovações</option><option value="comunicados">comunicados</option><option value="scaffolder">scaffolder</option></select></label></div>
+        <div id="notif-list" style="display:flex;flex-direction:column;gap:16px"><div style="display:flex;flex-direction:column;gap:8px"><div class="atlas-notifGroupLabel">Hoje</div><div class="atlas-notifList"><article class="atlas-notifItem atlas-notifSev-critical atlas-notifItemUnread" data-atlas-row data-read="unread" data-severity="critical" data-topic="aprovações">
+            <span class="atlas-notifIcon" title="Severidade crítica">!</span>
+            <div class="atlas-notifBody"><div class="atlas-notifTitle"><span class="atlas-notifUnreadDot" aria-label="Não lida"></span><a class="atlas-templateLink" style="color:inherit" href="../approvals/index.html">Aprovação pendente em prod: pag-conciliacao-db</a></div><div class="atlas-notifDesc atlas-clamp2">Banco da conciliação diária aguarda a sua aprovação (1 de 2).</div><div class="atlas-notifMeta"><span>há 2 h</span><span>· aprovações</span><span>· atlas</span></div></div>
+            <div class="atlas-notifActions"><a class="atlas-actionBtnLink" href="../approvals/index.html" title="Abrir" aria-label="Abrir">↗</a></div>
+          </article><article class="atlas-notifItem atlas-notifSev-normal atlas-notifItemUnread" data-atlas-row data-read="unread" data-severity="normal" data-topic="scaffolder">
+            <span class="atlas-notifIcon" title="Severidade normal">i</span>
+            <div class="atlas-notifBody"><div class="atlas-notifTitle"><span class="atlas-notifUnreadDot" aria-label="Não lida"></span><a class="atlas-templateLink" style="color:inherit" href="../provisioning-map/index.html">Oferta “Bucket S3” concluída</a></div><div class="atlas-notifDesc atlas-clamp2">onb-documentos-bucket foi provisionado em dev. O PR de IaC foi mesclado.</div><div class="atlas-notifMeta"><span>há 3 h</span><span>· scaffolder</span><span>· scaffolder</span></div></div>
+            <div class="atlas-notifActions"><a class="atlas-actionBtnLink" href="../provisioning-map/index.html" title="Abrir" aria-label="Abrir">↗</a></div>
+          </article><article class="atlas-notifItem atlas-notifSev-high atlas-notifItemUnread" data-atlas-row data-read="unread" data-severity="high" data-topic="api-keys">
+            <span class="atlas-notifIcon" title="Severidade alta">▲</span>
+            <div class="atlas-notifBody"><div class="atlas-notifTitle"><span class="atlas-notifUnreadDot" aria-label="Não lida"></span><a class="atlas-templateLink" style="color:inherit" href="../api-keys/index.html">Chave de API expira em 5 dias</a></div><div class="atlas-notifDesc atlas-clamp2">“Sincronização do catálogo (GitHub Actions)” expira em 04/10. Emita a substituta.</div><div class="atlas-notifMeta"><span>há 5 h</span><span>· api-keys</span><span>· api-keys</span></div></div>
+            <div class="atlas-notifActions"><a class="atlas-actionBtnLink" href="../api-keys/index.html" title="Abrir" aria-label="Abrir">↗</a></div>
+          </article></div></div><div style="display:flex;flex-direction:column;gap:8px"><div class="atlas-notifGroupLabel">Ontem</div><div class="atlas-notifList"><article class="atlas-notifItem atlas-notifSev-normal" data-atlas-row data-read="read" data-severity="normal" data-topic="comunicados">
+            <span class="atlas-notifIcon" title="Severidade normal">i</span>
+            <div class="atlas-notifBody"><div class="atlas-notifTitle"><a class="atlas-templateLink" style="color:inherit" href="../create/index.html">Nova oferta: Cache Valkey v1.0.0</a></div><div class="atlas-notifDesc atlas-clamp2">ElastiCache Valkey com réplica e criptografia em trânsito.</div><div class="atlas-notifMeta"><span>ontem às 16:20</span><span>· comunicados</span><span>· atlas</span></div></div>
+            <div class="atlas-notifActions"><a class="atlas-actionBtnLink" href="../create/index.html" title="Abrir" aria-label="Abrir">↗</a></div>
+          </article></div></div><div style="display:flex;flex-direction:column;gap:8px"><div class="atlas-notifGroupLabel">Esta semana</div><div class="atlas-notifList"><article class="atlas-notifItem atlas-notifSev-low" data-atlas-row data-read="read" data-severity="low" data-topic="comunicados">
+            <span class="atlas-notifIcon" title="Severidade baixa">·</span>
+            <div class="atlas-notifBody"><div class="atlas-notifTitle">Manutenção programada do Atlas no domingo</div><div class="atlas-notifDesc atlas-clamp2">Janela das 02:00 às 04:00; o portal fica somente leitura.</div><div class="atlas-notifMeta"><span>26/09 às 10:00</span><span>· comunicados</span><span>· atlas</span></div></div>
+            <div class="atlas-notifActions"></div>
+          </article><article class="atlas-notifItem atlas-notifSev-high" data-atlas-row data-read="read" data-severity="high" data-topic="scaffolder">
+            <span class="atlas-notifIcon" title="Severidade alta">▲</span>
+            <div class="atlas-notifBody"><div class="atlas-notifTitle"><a class="atlas-templateLink" style="color:inherit" href="../provisioning-map/index.html">Oferta “Tópico SNS” falhou</a></div><div class="atlas-notifDesc atlas-clamp2">plt-alertas-topico: limite de tópicos da conta atingido no apply.</div><div class="atlas-notifMeta"><span>25/09 às 14:05</span><span>· scaffolder</span><span>· scaffolder</span></div></div>
+            <div class="atlas-notifActions"><a class="atlas-actionBtnLink" href="../provisioning-map/index.html" title="Abrir" aria-label="Abrir">↗</a></div>
+          </article></div></div></div>
+        <div class="atlas-emptyState" data-atlas-empty-for="notif-list" hidden>Nenhuma notificação com esses filtros.</div>
+        <div class="atlas-pagination"><span class="atlas-paginationInfo">6 de 6</span></div>
+      </section>
+    </div>
+  </main>
+
+  <script src="../../assets/atlas.js"></script>
+</body>
+</html>

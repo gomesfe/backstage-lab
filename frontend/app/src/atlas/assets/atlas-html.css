@@ -1,0 +1,19 @@
+/*
+ * Complementos das telas HTML (avulsas e no portal). Pouca coisa de
+ * propósito: o visual é todo do atlas.css. Padrão novo entra no design system.
+ */
+
+/* `hidden` vence qualquer display das classes do DS (linhas filtradas, abas). */
+[hidden] { display: none !important; }
+
+/* Barra da versão avulsa: logo claro/escuro conforme o tema. */
+.atlas-root:not([data-theme='light']) .atlas-logoLight,
+.atlas-root[data-theme='light'] .atlas-logoDark { display: none; }
+
+/* Diálogos: <dialog class="atlas-dialog"> com o modal do DS dentro
+   (atlas-modalContentBox, -Header, -Body, -Footer). */
+dialog.atlas-dialog {
+  border: 0; padding: 0; background: transparent; color: inherit;
+  max-width: calc(100vw - 32px); overflow: visible;
+}
+dialog.atlas-dialog::backdrop { background: rgba(0, 0, 0, 0.6); }

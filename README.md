@@ -8,8 +8,8 @@ portal.
 
 ```
 frontend/          tudo o que roda no navegador  →  frontend/README.md
-  app/src/atlas/   TODO o front do Atlas numa pasta (telas, componentes, barra,
-                   tema, CSS) — copie e cole em outro app  →  README.md dela
+  app/src/atlas/   TODO o front do Atlas numa pasta: telas em HTML estático
+                   (abrem sozinhas ou no portal), CSS, barra  →  README.md dela
   static-pages/    telas em HTML/CSS puro  ←  trabalho do dia a dia
 backend/           tudo o que roda no servidor   →  backend/README.md
   server/          o processo do backend

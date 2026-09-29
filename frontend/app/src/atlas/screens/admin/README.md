@@ -4,7 +4,9 @@ Visão de quem administra o portal: credenciais emitidas em todo o portal e
 uso. Separada de API Keys de propósito — ver as próprias chaves e ver as de
 todo mundo são permissões diferentes.
 
-**Arquivos:** `AdminPage.tsx`. Registro da rota em `page.tsx`. Usa o cliente de `../api-keys/ApiKeysClient.ts`.
+**Arquivos:** `index.html` (a tela, em HTML estático — abre direto no navegador) e `page.tsx` (rota no portal).
+
+> **Versão HTML.** Os dados são de exemplo, escritos no próprio `index.html`, e os botões que gravariam algo só abrem o diálogo. O que este README descreve como vindo do catálogo ou de uma API é o que a tela deve mostrar quando essa fonte existir.
 
 ## Deve conter
 

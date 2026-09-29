@@ -27,8 +27,7 @@ import * as settings from './settings/page';
  *   `pageModule` com o `pluginId` do plugin original.
  * - **Tela nova do Atlas**: entra no plugin `atlas-pages` (ids
  *   `page:atlas-pages/<nome>`).
- * - **API Keys e Administração**: plugin `admin`, que também registra o
- *   cliente do backend de chaves.
+ * - **API Keys e Administração**: plugin `admin`.
  *
  * Tela nova: crie a pasta com `page.tsx` e acrescente aqui. A ordem da barra
  * de navegação fica em `shell/nav/AtlasTopNav.tsx` (`PILL_ORDER`).
@@ -71,5 +70,5 @@ export const atlasPagesPlugin = createFrontendPlugin({
 export const adminPlugin = createFrontendPlugin({
   pluginId: 'admin',
   routes: { root: admin.adminRouteRef, apiKeys: apiKeys.apiKeysRouteRef },
-  extensions: [apiKeys.apiKeysApi, apiKeys.page, admin.page],
+  extensions: [apiKeys.page, admin.page],
 });

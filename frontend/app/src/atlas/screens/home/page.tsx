@@ -19,8 +19,8 @@ export const page = PageBlueprint.make({
     routeRef: homePlugin.routes.root,
     noHeader: true,
     loader: async () => {
-      const { HomePage } = await import('./HomePage');
-      return <HomePage />;
+      const { AtlasHtmlScreen } = await import('../../shell/html/AtlasHtmlScreen');
+      return <AtlasHtmlScreen slug="home" />;
     },
   },
 });

@@ -6,7 +6,9 @@ entidades. O endereço continua `/create`, para links antigos não quebrarem. S�
 (formulário do template, execução da tarefa, editor) continua sendo o do
 scaffolder.
 
-**Arquivos:** `CreatePage.tsx`. Registro da rota em `page.tsx`.
+**Arquivos:** `index.html` (a tela, em HTML estático — abre direto no navegador) e `page.tsx` (rota no portal). `CreatePage.tsx` mostra o `index.html` em `/create` e deixa as sub-rotas (formulário de cada oferta, tarefas) com o scaffolder do Backstage, que é quem executa a oferta.
+
+> **Versão HTML.** Os dados são de exemplo, escritos no próprio `index.html`, e os botões que gravariam algo só abrem o diálogo. O que este README descreve como vindo do catálogo ou de uma API é o que a tela deve mostrar quando essa fonte existir.
 
 ## Deve conter
 

@@ -3,9 +3,9 @@
 Chaves de API para integrações e automações. Tela de quem desenvolve: cada
 um vê e gerencia as próprias chaves.
 
-**Arquivos:** `ApiKeysPage.tsx`, `CreateKeyDialog.tsx`, `ApiKeysClient.ts`
-(cliente HTTP, também usado pela Administração). Registro da rota e do
-cliente em `page.tsx`. Backend em `backend/api-keys`.
+**Arquivos:** `index.html` (a tela, em HTML estático — abre direto no navegador) e `page.tsx` (rota no portal).
+
+> **Versão HTML.** Os dados são de exemplo, escritos no próprio `index.html`, e os botões que gravariam algo só abrem o diálogo. O que este README descreve como vindo do catálogo ou de uma API é o que a tela deve mostrar quando essa fonte existir.
 
 ## Deve conter
 

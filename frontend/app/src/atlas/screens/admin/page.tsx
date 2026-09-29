@@ -18,8 +18,8 @@ export const page = PageBlueprint.make({
     icon: <SettingsIcon />,
     noHeader: true,
     loader: async () => {
-      const { AdminPage } = await import('./AdminPage');
-      return <AdminPage />;
+      const { AtlasHtmlScreen } = await import('../../shell/html/AtlasHtmlScreen');
+      return <AtlasHtmlScreen slug="admin" />;
     },
   },
 });

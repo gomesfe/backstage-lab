@@ -13,8 +13,8 @@ export const page = PageBlueprint.make({
     icon: <SettingsIcon />,
     noHeader: true,
     loader: async () => {
-      const { AtlasSettingsPage } = await import('./SettingsPage');
-      return <AtlasSettingsPage />;
+      const { AtlasHtmlScreen } = await import('../../shell/html/AtlasHtmlScreen');
+      return <AtlasHtmlScreen slug="settings" />;
     },
   },
 });

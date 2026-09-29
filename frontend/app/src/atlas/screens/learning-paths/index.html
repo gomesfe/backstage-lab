@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Trilhas de aprendizado · Atlas</title>
+  <link rel="stylesheet" href="../../assets/atlas.css">
+  <link rel="stylesheet" href="../../assets/atlas-html.css">
+</head>
+<body class="atlas-root atlas-page" data-theme="dark" data-screen="learning-paths">
+  <header data-atlas-nav></header>
+
+  <main class="atlas-pageMain" data-atlas-screen>
+    <div class="atlas-appContainer">
+      <div class="atlas-pageHeader">
+        <div class="atlas-pageTitleGroup">
+          <span class="atlas-pageEyebrow">Aprendizado</span>
+          <h1 class="atlas-pageTitle">Trilhas de aprendizado</h1>
+          <p class="atlas-pageSubtitle">Trilhas guiadas para dominar o Atlas e as práticas de engenharia da casa.</p>
+        </div>
+        
+      </div>
+      <section class="atlas-tableContainerCard">
+        <div class="atlas-filtersBar"><div class="atlas-searchFieldWrap" style="flex:1"><svg class="atlas-searchIcon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg><input class="atlas-filterInput" type="search" placeholder="Buscar trilha" aria-label="Buscar trilha" data-atlas-search="lp-cards"></div><label class="atlas-labeledSelect"><span class="atlas-labeledSelectLabel">Dificuldade</span><select class="atlas-filterSelect" data-atlas-filter="lp-cards" data-atlas-filter-key="difficulty"><option value="all">Todas</option><option value="Iniciante">Iniciante</option><option value="Intermediário">Intermediário</option><option value="Avançado">Avançado</option></select></label><label class="atlas-labeledSelect"><span class="atlas-labeledSelectLabel">Tema</span><select class="atlas-filterSelect" data-atlas-filter="lp-cards" data-atlas-filter-key="tag"><option value="all">Todas</option><option value="Onboarding">Onboarding</option><option value="Provisionamento">Provisionamento</option><option value="Segurança">Segurança</option></select></label></div>
+        <div class="atlas-cardGrid" id="lp-cards"><article class="atlas-featureCard" data-atlas-row data-difficulty="Iniciante" data-tag="Onboarding">
+          <div class="atlas-featureCardHead"><span class="atlas-badgeTag atlas-badgeLime">Iniciante</span></div>
+          <div class="atlas-featureCardTitle">Primeiros passos</div>
+          <div class="atlas-featureCardDesc">Cadastro e acesso ao Atlas, canais do Teams e a sua VDI Linux — o básico da primeira semana.</div>
+          <div class="atlas-featureCardFooter"><span class="atlas-tagChip">3 etapas</span><span class="atlas-tagChip">Onboarding</span><a class="atlas-btnPill atlas-btnPillLime" style="margin-left:auto" href="#primeiros-passos">Começar</a></div>
+        </article><article class="atlas-featureCard" data-atlas-row data-difficulty="Iniciante" data-tag="Onboarding">
+          <div class="atlas-featureCardHead"><span class="atlas-badgeTag atlas-badgeLime">Iniciante</span></div>
+          <div class="atlas-featureCardTitle">Onboarding de desenvolvedor</div>
+          <div class="atlas-featureCardDesc">Do zero ao primeiro serviço: acesso, catálogo e documentação no portal.</div>
+          <div class="atlas-featureCardFooter"><span class="atlas-tagChip">4 etapas</span><span class="atlas-tagChip">Onboarding</span><a class="atlas-btnPill atlas-btnPillLime" style="margin-left:auto" href="#onboarding-dev">Começar</a></div>
+        </article><article class="atlas-featureCard" data-atlas-row data-difficulty="Intermediário" data-tag="Provisionamento">
+          <div class="atlas-featureCardHead"><span class="atlas-badgeTag atlas-badgeInfo">Intermediário</span></div>
+          <div class="atlas-featureCardTitle">Provisionamento com o scaffolder</div>
+          <div class="atlas-featureCardDesc">Crie serviços e recursos usando ofertas e as convenções de IaC da casa.</div>
+          <div class="atlas-featureCardFooter"><span class="atlas-tagChip">4 etapas</span><span class="atlas-tagChip">Provisionamento</span><span class="atlas-tagChip">AWS</span><a class="atlas-btnPill atlas-btnPillLime" style="margin-left:auto" href="#provisioning">Começar</a></div>
+        </article><article class="atlas-featureCard" data-atlas-row data-difficulty="Avançado" data-tag="Segurança">
+          <div class="atlas-featureCardHead"><span class="atlas-badgeTag atlas-badgePurple">Avançado</span></div>
+          <div class="atlas-featureCardTitle">Permissões, chaves e break glass</div>
+          <div class="atlas-featureCardDesc">Como o RBAC decide, como emitir credenciais e como pedir acesso emergencial.</div>
+          <div class="atlas-featureCardFooter"><span class="atlas-tagChip">3 etapas</span><span class="atlas-tagChip">Segurança</span><a class="atlas-btnPill atlas-btnPillLime" style="margin-left:auto" href="#security">Começar</a></div>
+        </article></div>
+        <div class="atlas-emptyState" data-atlas-empty-for="lp-cards" hidden>Nenhuma trilha com esses filtros.</div>
+      </section>
+      <section class="atlas-sectionCard" id="primeiros-passos">
+        <div class="atlas-sectionCardHeader"><h3 class="atlas-sectionCardTitle">Primeiros passos</h3><span class="atlas-badgeTag atlas-badgeLime">Trilha · Iniciante</span></div>
+        <p class="atlas-text" style="margin:0">Cadastro e acesso ao Atlas, canais do Teams e a sua VDI Linux — o básico da primeira semana.</p>
+        <div class="atlas-stepList"><button type="button" class="atlas-stepItem" data-atlas-open="step-primeiros-passos-cadastro-acesso"><span class="atlas-stepCheck"></span><span style="flex:1"><span class="atlas-infoItemTitle">1. Cadastro e acesso ao Atlas</span><br><span class="atlas-infoItemDesc">Aprenda como se cadastrar e acessar o Atlas para começar a explorar seus recursos.</span></span><span class="atlas-templateLink" style="font-size:0.78rem;align-self:center">Ler ↗</span></button><button type="button" class="atlas-stepItem" data-atlas-open="step-primeiros-passos-canais-teams"><span class="atlas-stepCheck"></span><span style="flex:1"><span class="atlas-infoItemTitle">2. Canais de comunicação do Teams</span><br><span class="atlas-infoItemDesc">Saiba onde pedir ajuda, acompanhar avisos e falar com o time de plataforma.</span></span><span class="atlas-templateLink" style="font-size:0.78rem;align-self:center">Ler ↗</span></button><button type="button" class="atlas-stepItem" data-atlas-open="step-primeiros-passos-vdi-linux"><span class="atlas-stepCheck"></span><span style="flex:1"><span class="atlas-infoItemTitle">3. Solicitação de VDI Linux</span><br><span class="atlas-infoItemDesc">Peça a sua VDI Linux, o ambiente de desenvolvimento padrão para trabalhar com os serviços.</span></span><span class="atlas-templateLink" style="font-size:0.78rem;align-self:center">Ler ↗</span></button></div>
+      </section>
+      <section class="atlas-sectionCard" id="onboarding-dev">
+        <div class="atlas-sectionCardHeader"><h3 class="atlas-sectionCardTitle">Onboarding de desenvolvedor</h3><span class="atlas-badgeTag atlas-badgeLime">Trilha · Iniciante</span></div>
+        <p class="atlas-text" style="margin:0">Do zero ao primeiro serviço: acesso, catálogo e documentação no portal.</p>
+        <div class="atlas-stepList"><button type="button" class="atlas-stepItem" data-atlas-open="step-onboarding-dev-1"><span class="atlas-stepCheck"></span><span style="flex:1"><span class="atlas-infoItemTitle">1. Solicite seu acesso</span><br><span class="atlas-infoItemDesc">Peça acesso ao grupo do seu squad. Sem estar num Group do catálogo, o RBAC não encontra suas permissões.</span></span><span class="atlas-templateLink" style="font-size:0.78rem;align-self:center">Ler ↗</span></button><button type="button" class="atlas-stepItem" data-atlas-open="step-onboarding-dev-2"><span class="atlas-stepCheck"></span><span style="flex:1"><span class="atlas-infoItemTitle">2. Explore o catálogo</span><br><span class="atlas-infoItemDesc">Encontre os serviços do seu time e entenda as dependências entre eles.</span></span><span class="atlas-templateLink" style="font-size:0.78rem;align-self:center">Ler ↗</span></button><button type="button" class="atlas-stepItem" data-atlas-open="step-onboarding-dev-3"><span class="atlas-stepCheck"></span><span style="flex:1"><span class="atlas-infoItemTitle">3. Provisione um serviço</span><br><span class="atlas-infoItemDesc">Use uma oferta para criar seu primeiro componente.</span></span><span class="atlas-templateLink" style="font-size:0.78rem;align-self:center">Ler ↗</span></button><button type="button" class="atlas-stepItem" data-atlas-open="step-onboarding-dev-4"><span class="atlas-stepCheck"></span><span style="flex:1"><span class="atlas-infoItemTitle">4. Publique a documentação</span><br><span class="atlas-infoItemDesc">Adicione TechDocs ao catalog-info.yaml do seu componente.</span></span><span class="atlas-templateLink" style="font-size:0.78rem;align-self:center">Ler ↗</span></button></div>
+      </section>
+      <section class="atlas-sectionCard" id="provisioning">
+        <div class="atlas-sectionCardHeader"><h3 class="atlas-sectionCardTitle">Provisionamento com o scaffolder</h3><span class="atlas-badgeTag atlas-badgeInfo">Trilha · Intermediário</span></div>
+        <p class="atlas-text" style="margin:0">Crie serviços e recursos usando ofertas e as convenções de IaC da casa.</p>
+        <div class="atlas-stepList"><button type="button" class="atlas-stepItem" data-atlas-open="step-provisioning-1"><span class="atlas-stepCheck"></span><span style="flex:1"><span class="atlas-infoItemTitle">1. Entenda os tipos de oferta</span><br><span class="atlas-infoItemDesc">Recurso AWS, entidade de catálogo, repositório novo e tela do portal — cada uma tem um molde.</span></span><span class="atlas-templateLink" style="font-size:0.78rem;align-self:center">Ler ↗</span></button><button type="button" class="atlas-stepItem" data-atlas-open="step-provisioning-2"><span class="atlas-stepCheck"></span><span style="flex:1"><span class="atlas-infoItemTitle">2. Rode uma oferta em modo local</span><br><span class="atlas-infoItemDesc">Com atlas.provisioning.mode=local, o fluxo inteiro roda sem token e sem repositório alvo.</span></span><span class="atlas-templateLink" style="font-size:0.78rem;align-self:center">Ler ↗</span></button><button type="button" class="atlas-stepItem" data-atlas-open="step-provisioning-3"><span class="atlas-stepCheck"></span><span style="flex:1"><span class="atlas-infoItemTitle">3. Leia o Terraform gerado</span><br><span class="atlas-infoItemDesc">Confira backend, convenção de nome e tags antes de abrir o PR de verdade.</span></span><span class="atlas-templateLink" style="font-size:0.78rem;align-self:center">Ler ↗</span></button><button type="button" class="atlas-stepItem" data-atlas-open="step-provisioning-4"><span class="atlas-stepCheck"></span><span style="flex:1"><span class="atlas-infoItemTitle">4. Abra o PR</span><br><span class="atlas-infoItemDesc">O portal não aplica nada: quem roda o apply é o pipeline do repositório de infraestrutura.</span></span><span class="atlas-templateLink" style="font-size:0.78rem;align-self:center">Ler ↗</span></button></div>
+      </section>
+      <section class="atlas-sectionCard" id="security">
+        <div class="atlas-sectionCardHeader"><h3 class="atlas-sectionCardTitle">Permissões, chaves e break glass</h3><span class="atlas-badgeTag atlas-badgePurple">Trilha · Avançado</span></div>
+        <p class="atlas-text" style="margin:0">Como o RBAC decide, como emitir credenciais e como pedir acesso emergencial.</p>
+        <div class="atlas-stepList"><button type="button" class="atlas-stepItem" data-atlas-open="step-security-1"><span class="atlas-stepCheck"></span><span style="flex:1"><span class="atlas-infoItemTitle">1. Entenda o rbac-policy.csv</span><br><span class="atlas-infoItemDesc">Deny ganha de allow e o padrão é fechado — é o que torna o arquivo auditável.</span></span><span class="atlas-templateLink" style="font-size:0.78rem;align-self:center">Ler ↗</span></button><button type="button" class="atlas-stepItem" data-atlas-open="step-security-2"><span class="atlas-stepCheck"></span><span style="flex:1"><span class="atlas-infoItemTitle">2. Emita uma API key</span><br><span class="atlas-infoItemDesc">Chaves têm TTL e só o hash é guardado. O segredo aparece uma única vez.</span></span><span class="atlas-templateLink" style="font-size:0.78rem;align-self:center">Ler ↗</span></button><button type="button" class="atlas-stepItem" data-atlas-open="step-security-3"><span class="atlas-stepCheck"></span><span style="flex:1"><span class="atlas-infoItemTitle">3. Conheça o Break Glass</span><br><span class="atlas-infoItemDesc">Acesso privilegiado temporário, sempre auditado, apenas durante incidentes.</span></span><span class="atlas-templateLink" style="font-size:0.78rem;align-self:center">Ler ↗</span></button></div>
+      </section>
+      <dialog class="atlas-dialog" id="step-primeiros-passos-cadastro-acesso" aria-labelledby="step-primeiros-passos-cadastro-acesso-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="step-primeiros-passos-cadastro-acesso-title">1. Cadastro e acesso ao Atlas</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-prose"><p>Aprenda como se cadastrar e acessar o Atlas para começar a explorar seus recursos.</p><section><h4>Onboard no Atlas</h4><p>O Atlas é o portal do desenvolvedor: é por ele que você encontra os serviços do seu time, provisiona recursos na nuvem por ofertas e acompanha as suas solicitações.</p><p>O acesso é feito com a sua conta corporativa. Não existe usuário e senha próprios do Atlas.</p></section><section><h4>Cadastro e acesso</h4><ul><li>Entre no Atlas com o login corporativo.</li><li>No primeiro acesso, confira em Configurações › Identidade se o seu usuário aparece corretamente.</li><li>Verifique em Meus grupos se você já está no grupo do seu squad. Sem grupo, o portal não encontra as suas permissões.</li><li>Se não estiver em nenhum grupo, peça a inclusão ao líder do squad.</li></ul></section><section><h4>Pré-requisitos</h4><ul><li>Conta corporativa ativa.</li><li>Estar cadastrado no grupo do squad no catálogo.</li><li>Conta no GitHub da organização, vinculada ao seu usuário — as ofertas abrem pull requests em seu nome.</li></ul></section><section><h4>Configurações de DevTeam</h4><p>O DevTeam é o grupo do seu squad. É ele que define de quem são os serviços e recursos que você cria, e quem aprova as suas solicitações.</p><ul><li>Confirme o nome do DevTeam com o líder do squad antes de criar o primeiro recurso.</li><li>Ao usar uma oferta, escolha o DevTeam correto como dono: é ele que aparece no catálogo e no mapa de provisionamento.</li></ul></section></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close data-atlas-open="step-primeiros-passos-canais-teams">Próxima etapa</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="step-primeiros-passos-canais-teams" aria-labelledby="step-primeiros-passos-canais-teams-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="step-primeiros-passos-canais-teams-title">2. Canais de comunicação do Teams</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-prose"><p>Saiba onde pedir ajuda, acompanhar avisos e falar com o time de plataforma.</p><section><h4>Para que servem os canais</h4><p>Dúvidas, avisos de manutenção e novidades do Atlas passam pelo Teams. Estar nos canais certos evita que você descubra uma manutenção no meio de um deploy.</p></section><section><h4>Onde pedir ajuda</h4><ul><li>Dúvidas de uso do portal e das ofertas: canal de suporte do Atlas.</li><li>Problema com um recurso já provisionado: abra o pedido no canal de suporte informando o nome do recurso e o ambiente.</li><li>Incidente em produção: siga o processo de incidente do seu squad; o Break Glass é para acesso emergencial.</li></ul></section><section><h4>Avisos e manutenções</h4><p>Janelas de manutenção e versões novas de ofertas são anunciadas no canal de avisos. Ative as notificações dele.</p></section><section><h4>Boas práticas</h4><ul><li>Antes de perguntar, busque no canal e na documentação (Docs).</li><li>Inclua o link da tarefa da oferta ou da solicitação em Aprovações.</li><li>Mantenha uma pergunta por thread.</li></ul></section></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close data-atlas-open="step-primeiros-passos-vdi-linux">Próxima etapa</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="step-primeiros-passos-vdi-linux" aria-labelledby="step-primeiros-passos-vdi-linux-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="step-primeiros-passos-vdi-linux-title">3. Solicitação de VDI Linux</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-prose"><p>Peça a sua VDI Linux, o ambiente de desenvolvimento padrão para trabalhar com os serviços.</p><section><h4>O que é a VDI</h4><p>A VDI (Virtual Desktop Infrastructure) é uma máquina Linux virtual, já na rede da empresa e com as ferramentas de desenvolvimento aprovadas. É nela que você clona repositórios e roda os serviços.</p></section><section><h4>Como solicitar</h4><ul><li>Abra a solicitação de VDI Linux no portal de serviços de TI.</li><li>Informe o seu squad e o perfil de desenvolvimento.</li><li>Acompanhe o pedido até a liberação — o prazo depende da fila de TI.</li></ul></section><section><h4>Pré-requisitos</h4><ul><li>Cadastro e acesso ao Atlas concluídos.</li><li>Aprovação do líder do squad, quando exigida.</li></ul></section><section><h4>Depois da liberação</h4><ul><li>Configure o Git com o seu usuário da organização.</li><li>Clone o repositório de um serviço do seu time e rode-o localmente.</li><li>Volte ao Atlas e siga a trilha de provisionamento.</li></ul></section></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="step-onboarding-dev-1" aria-labelledby="step-onboarding-dev-1-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="step-onboarding-dev-1-title">1. Solicite seu acesso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-prose"><p>Peça acesso ao grupo do seu squad. Sem estar num Group do catálogo, o RBAC não encontra suas permissões.</p></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close data-atlas-open="step-onboarding-dev-2">Próxima etapa</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="step-onboarding-dev-2" aria-labelledby="step-onboarding-dev-2-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="step-onboarding-dev-2-title">2. Explore o catálogo</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-prose"><p>Encontre os serviços do seu time e entenda as dependências entre eles.</p></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close data-atlas-open="step-onboarding-dev-3">Próxima etapa</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="step-onboarding-dev-3" aria-labelledby="step-onboarding-dev-3-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="step-onboarding-dev-3-title">3. Provisione um serviço</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-prose"><p>Use uma oferta para criar seu primeiro componente.</p></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close data-atlas-open="step-onboarding-dev-4">Próxima etapa</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="step-onboarding-dev-4" aria-labelledby="step-onboarding-dev-4-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="step-onboarding-dev-4-title">4. Publique a documentação</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-prose"><p>Adicione TechDocs ao catalog-info.yaml do seu componente.</p></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="step-provisioning-1" aria-labelledby="step-provisioning-1-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="step-provisioning-1-title">1. Entenda os tipos de oferta</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-prose"><p>Recurso AWS, entidade de catálogo, repositório novo e tela do portal — cada uma tem um molde.</p></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close data-atlas-open="step-provisioning-2">Próxima etapa</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="step-provisioning-2" aria-labelledby="step-provisioning-2-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="step-provisioning-2-title">2. Rode uma oferta em modo local</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-prose"><p>Com atlas.provisioning.mode=local, o fluxo inteiro roda sem token e sem repositório alvo.</p></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close data-atlas-open="step-provisioning-3">Próxima etapa</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="step-provisioning-3" aria-labelledby="step-provisioning-3-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="step-provisioning-3-title">3. Leia o Terraform gerado</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-prose"><p>Confira backend, convenção de nome e tags antes de abrir o PR de verdade.</p></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close data-atlas-open="step-provisioning-4">Próxima etapa</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="step-provisioning-4" aria-labelledby="step-provisioning-4-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="step-provisioning-4-title">4. Abra o PR</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-prose"><p>O portal não aplica nada: quem roda o apply é o pipeline do repositório de infraestrutura.</p></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="step-security-1" aria-labelledby="step-security-1-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="step-security-1-title">1. Entenda o rbac-policy.csv</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-prose"><p>Deny ganha de allow e o padrão é fechado — é o que torna o arquivo auditável.</p></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close data-atlas-open="step-security-2">Próxima etapa</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="step-security-2" aria-labelledby="step-security-2-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="step-security-2-title">2. Emita uma API key</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-prose"><p>Chaves têm TTL e só o hash é guardado. O segredo aparece uma única vez.</p></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close data-atlas-open="step-security-3">Próxima etapa</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="step-security-3" aria-labelledby="step-security-3-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="step-security-3-title">3. Conheça o Break Glass</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-prose"><p>Acesso privilegiado temporário, sempre auditado, apenas durante incidentes.</p></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+    </div>
+  </main>
+
+  <script src="../../assets/atlas.js"></script>
+</body>
+</html>

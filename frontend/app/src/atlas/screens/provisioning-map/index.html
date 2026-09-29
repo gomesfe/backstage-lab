@@ -1,0 +1,781 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mapa de provisionamento · Atlas</title>
+  <link rel="stylesheet" href="../../assets/atlas.css">
+  <link rel="stylesheet" href="../../assets/atlas-html.css">
+</head>
+<body class="atlas-root atlas-page" data-theme="dark" data-screen="provisioning-map">
+  <header data-atlas-nav></header>
+
+  <main class="atlas-pageMain" data-atlas-screen>
+    <div class="atlas-appContainer">
+      <div class="atlas-pageHeader">
+        <div class="atlas-pageTitleGroup">
+          <span class="atlas-pageEyebrow">Provisionamento</span>
+          <h1 class="atlas-pageTitle">Mapa de provisionamento</h1>
+          <p class="atlas-pageSubtitle">Onde cada recurso está provisionado, por qual oferta, e o que dá para promover ou excluir.</p>
+        </div>
+        
+      </div>
+      <div class="atlas-alert atlas-alertInfo"><div><div class="atlas-alertTitle">Dados de exemplo</div>O lab ainda não tem o inventário de provisionamento. Os recursos abaixo são exemplos, e os botões não gravam nada.</div></div>
+      <div class="atlas-topOverviewCardsGrid"><div class="atlas-expandMetricCard "><div class="atlas-metricCardHead"><span class="atlas-metricCardTitle">Recursos IaC</span></div><div class="atlas-metricBigValue">13</div><div class="atlas-metricCardSub">1 fora do IaC</div></div><div class="atlas-expandMetricCard "><div class="atlas-metricCardHead"><span class="atlas-metricCardTitle">Serviços Núclea</span></div><div class="atlas-metricBigValue">5</div><div class="atlas-metricCardSub">com recurso provisionado</div></div><div class="atlas-expandMetricCard "><div class="atlas-metricCardHead"><span class="atlas-metricCardTitle">Ofertas</span></div><div class="atlas-metricBigValue">8</div><div class="atlas-metricCardSub">em uso nos recursos</div></div></div>
+      <div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Regras</div>Deleções solicitadas em até 72 horas não exigem aprovação. Alguns recursos podem exigir aprovação do time de cloud antes da execução — promoções para prod e prdnv passam por ele.</div></div>
+      <section class="atlas-tableContainerCard">
+        <div class="atlas-sectionCardHeader"><h3 class="atlas-sectionCardTitle">Recursos <span class="atlas-groupHeadingCount">14</span></h3></div>
+        <div class="atlas-filtersBar atlas-filtersBarWrap"><div class="atlas-searchFieldWrap" style="flex:1"><svg class="atlas-searchIcon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg><input class="atlas-filterInput" type="search" placeholder="Nome do recurso" aria-label="Nome do recurso" data-atlas-search="map-resources"></div><label class="atlas-labeledSelect"><span class="atlas-labeledSelectLabel">Oferta</span><select class="atlas-filterSelect" data-atlas-filter="map-resources" data-atlas-filter-key="template"><option value="all">Todos</option><option value="AWS Lambda">AWS Lambda</option><option value="Amazon DynamoDB">Amazon DynamoDB</option><option value="Amazon EC2">Amazon EC2</option><option value="Amazon RDS">Amazon RDS</option><option value="Amazon S3">Amazon S3</option><option value="Amazon SNS">Amazon SNS</option><option value="Amazon SQS">Amazon SQS</option><option value="ElastiCache Valkey">ElastiCache Valkey</option></select></label><label class="atlas-labeledSelect"><span class="atlas-labeledSelectLabel">Serviço</span><select class="atlas-filterSelect" data-atlas-filter="map-resources" data-atlas-filter-key="service"><option value="all">Todos</option><option value="ANF">ANF</option><option value="BTG">BTG</option><option value="ONB">ONB</option><option value="PAG">PAG</option><option value="PLT">PLT</option></select></label></div>
+        <div class="atlas-recentTableWrap">
+          <table class="atlas-recentTable">
+            <thead><tr><th scope="col">Nome do recurso</th><th scope="col">Serviço Núclea</th><th scope="col">Oferta</th><th scope="col">dev</th><th scope="col">perf</th><th scope="col">int</th><th scope="col">ext</th><th scope="col">prod</th><th scope="col">prdnv</th><th scope="col" style="text-align:right">Ações</th></tr></thead>
+            <tbody id="map-resources">
+            <tr data-atlas-row data-template="Amazon SQS" data-service="ANF"><td><span style="display:flex;align-items:center;gap:8px"><span class="atlas-resourceCell">anf-eventos-fila</span><span class="atlas-badgeTag atlas-badgeLime">IaC</span></span></td><td><span class="atlas-tagChip" title="Antifraude">ANF</span></td><td>Amazon SQS</td><td><span class="atlas-envCell"><span class="atlas-envDate" title="04/09/26 12:00">04/09/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-anf-eventos-fila-dev" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="08/09/26 16:00">08/09/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-anf-eventos-fila-perf" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="10/09/26 18:00">10/09/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-anf-eventos-fila-int" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="12/09/26 20:00">12/09/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-anf-eventos-fila-ext" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-anf-eventos-fila-prod">Promover</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-anf-eventos-fila-prdnv">Promover</button></span></td><td style="text-align:right"><button type="button" class="atlas-actionBtnLink" data-atlas-open="det-anf-eventos-fila">Detalhes</button></td></tr>
+            <tr data-atlas-row data-template="AWS Lambda" data-service="ANF"><td><span style="display:flex;align-items:center;gap:8px"><span class="atlas-resourceCell">anf-modelo-lambda</span><span class="atlas-badgeTag atlas-badgeLime">IaC</span></span></td><td><span class="atlas-tagChip" title="Antifraude">ANF</span></td><td>AWS Lambda</td><td><span class="atlas-envCell"><span class="atlas-envDate" title="27/09/26 00:00">27/09/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-anf-modelo-lambda-dev" title="Provisionado há menos de 72 h: sai sem aprovação">Excluir</button></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="27/09/26 20:00">27/09/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-anf-modelo-lambda-perf" title="Provisionado há menos de 72 h: sai sem aprovação">Excluir</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-anf-modelo-lambda-int">Promover</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-anf-modelo-lambda-ext">Promover</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-anf-modelo-lambda-prod">Promover</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-anf-modelo-lambda-prdnv">Promover</button></span></td><td style="text-align:right"><button type="button" class="atlas-actionBtnLink" data-atlas-open="det-anf-modelo-lambda">Detalhes</button></td></tr>
+            <tr data-atlas-row data-template="Amazon S3" data-service="BTG"><td><span style="display:flex;align-items:center;gap:8px"><span class="atlas-resourceCell">bitrago-arquivos</span><span class="atlas-badgeTag atlas-badgeLime">IaC</span></span></td><td><span class="atlas-tagChip" title="Bitrago">BTG</span></td><td>Amazon S3</td><td><span class="atlas-envCell"><span class="atlas-envDate" title="23/08/26 00:00">23/08/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-bitrago-arquivos-dev" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="31/08/26 08:00">31/08/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-bitrago-arquivos-perf" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="08/09/26 16:00">08/09/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-bitrago-arquivos-int" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-bitrago-arquivos-ext">Promover</button></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="17/09/26 00:00">17/09/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-bitrago-arquivos-prod" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-bitrago-arquivos-prdnv">Promover</button></span></td><td style="text-align:right"><button type="button" class="atlas-actionBtnLink" data-atlas-open="det-bitrago-arquivos">Detalhes</button></td></tr>
+            <tr data-atlas-row data-template="Amazon S3" data-service="BTG"><td><span style="display:flex;align-items:center;gap:8px"><span class="atlas-resourceCell">bitrago-teste-0004</span><span class="atlas-badgeTag atlas-badgeLime">IaC</span></span></td><td><span class="atlas-tagChip" title="Bitrago">BTG</span></td><td>Amazon S3</td><td><span class="atlas-envCell"><span class="atlas-envDate" title="28/09/26 16:00">28/09/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-bitrago-teste-0004-dev" title="Provisionado há menos de 72 h: sai sem aprovação">Excluir</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-bitrago-teste-0004-perf">Promover</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-bitrago-teste-0004-int">Promover</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-bitrago-teste-0004-ext">Promover</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-bitrago-teste-0004-prod">Promover</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-bitrago-teste-0004-prdnv">Promover</button></span></td><td style="text-align:right"><button type="button" class="atlas-actionBtnLink" data-atlas-open="det-bitrago-teste-0004">Detalhes</button></td></tr>
+            <tr data-atlas-row data-template="Amazon SQS" data-service="BTG"><td><span style="display:flex;align-items:center;gap:8px"><span class="atlas-resourceCell">btg-relatorios-fila</span><span class="atlas-badgeTag atlas-badgeLime">IaC</span></span></td><td><span class="atlas-tagChip" title="Bitrago">BTG</span></td><td>Amazon SQS</td><td><span class="atlas-envCell"><span class="atlas-envDate" title="26/09/26 14:00">26/09/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-btg-relatorios-fila-dev" title="Provisionado há menos de 72 h: sai sem aprovação">Excluir</button></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="26/09/26 18:00">26/09/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-btg-relatorios-fila-perf" title="Provisionado há menos de 72 h: sai sem aprovação">Excluir</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-btg-relatorios-fila-int">Promover</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-btg-relatorios-fila-ext">Promover</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-btg-relatorios-fila-prod">Promover</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-btg-relatorios-fila-prdnv">Promover</button></span></td><td style="text-align:right"><button type="button" class="atlas-actionBtnLink" data-atlas-open="det-btg-relatorios-fila">Detalhes</button></td></tr>
+            <tr data-atlas-row data-template="Amazon S3" data-service="ONB"><td><span style="display:flex;align-items:center;gap:8px"><span class="atlas-resourceCell">onb-documentos-bucket</span><span class="atlas-badgeTag atlas-badgeLime">IaC</span></span></td><td><span class="atlas-tagChip" title="Onboarding">ONB</span></td><td>Amazon S3</td><td><span class="atlas-envCell"><span class="atlas-envDate" title="19/09/26 12:00">19/09/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-onb-documentos-bucket-dev" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-onb-documentos-bucket-perf">Promover</button></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="24/09/26 12:00">24/09/26</span><span class="atlas-badgeTag atlas-badgeWarning">exclusão pendente</span></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-onb-documentos-bucket-ext">Promover</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-onb-documentos-bucket-prod">Promover</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-onb-documentos-bucket-prdnv">Promover</button></span></td><td style="text-align:right"><button type="button" class="atlas-actionBtnLink" data-atlas-open="det-onb-documentos-bucket">Detalhes</button></td></tr>
+            <tr data-atlas-row data-template="Amazon SNS" data-service="ONB"><td><span style="display:flex;align-items:center;gap:8px"><span class="atlas-resourceCell">onb-notificacoes-topico</span><span class="atlas-badgeTag atlas-badgeLime">IaC</span></span></td><td><span class="atlas-tagChip" title="Onboarding">ONB</span></td><td>Amazon SNS</td><td><span class="atlas-envCell"><span class="atlas-envDate" title="29/09/26 02:00">29/09/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-onb-notificacoes-topico-dev" title="Provisionado há menos de 72 h: sai sem aprovação">Excluir</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-onb-notificacoes-topico-perf">Promover</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-onb-notificacoes-topico-int">Promover</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-onb-notificacoes-topico-ext">Promover</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-onb-notificacoes-topico-prod">Promover</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-onb-notificacoes-topico-prdnv">Promover</button></span></td><td style="text-align:right"><button type="button" class="atlas-actionBtnLink" data-atlas-open="det-onb-notificacoes-topico">Detalhes</button></td></tr>
+            <tr data-atlas-row data-template="ElastiCache Valkey" data-service="PAG"><td><span style="display:flex;align-items:center;gap:8px"><span class="atlas-resourceCell">pag-cache-sessoes</span><span class="atlas-badgeTag atlas-badgeLime">IaC</span></span></td><td><span class="atlas-tagChip" title="Pagamentos">PAG</span></td><td>ElastiCache Valkey</td><td><span class="atlas-envCell"><span class="atlas-envDate" title="12/09/26 20:00">12/09/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-pag-cache-sessoes-dev" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="14/09/26 22:00">14/09/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-pag-cache-sessoes-perf" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="17/09/26 00:00">17/09/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-pag-cache-sessoes-int" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="21/09/26 04:00">21/09/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-pag-cache-sessoes-ext" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="23/09/26 06:00">23/09/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-pag-cache-sessoes-prod" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="25/09/26 08:00">25/09/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-pag-cache-sessoes-prdnv" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td style="text-align:right"><button type="button" class="atlas-actionBtnLink" data-atlas-open="det-pag-cache-sessoes">Detalhes</button></td></tr>
+            <tr data-atlas-row data-template="Amazon RDS" data-service="PAG"><td><span style="display:flex;align-items:center;gap:8px"><span class="atlas-resourceCell">pag-conciliacao-db</span><span class="atlas-badgeTag atlas-badgeLime">IaC</span></span></td><td><span class="atlas-tagChip" title="Pagamentos">PAG</span></td><td>Amazon RDS</td><td><span class="atlas-envCell"><span class="atlas-envDate" title="10/08/26 12:00">10/08/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-pag-conciliacao-db-dev" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="14/08/26 16:00">14/08/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-pag-conciliacao-db-perf" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="18/08/26 20:00">18/08/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-pag-conciliacao-db-int" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="27/08/26 04:00">27/08/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-pag-conciliacao-db-ext" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="04/09/26 12:00">04/09/26</span><span class="atlas-badgeTag atlas-badgeWarning">aguardando cloud</span></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-pag-conciliacao-db-prdnv">Promover</button></span></td><td style="text-align:right"><button type="button" class="atlas-actionBtnLink" data-atlas-open="det-pag-conciliacao-db">Detalhes</button></td></tr>
+            <tr data-atlas-row data-template="Amazon DynamoDB" data-service="PAG"><td><span style="display:flex;align-items:center;gap:8px"><span class="atlas-resourceCell">pag-extratos-tabela</span><span class="atlas-badgeTag atlas-badgeLime">IaC</span></span></td><td><span class="atlas-tagChip" title="Pagamentos">PAG</span></td><td>Amazon DynamoDB</td><td><span class="atlas-envCell"><span class="atlas-envDate" title="27/09/26 10:00">27/09/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-pag-extratos-tabela-dev" title="Provisionado há menos de 72 h: sai sem aprovação">Excluir</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-pag-extratos-tabela-perf">Promover</button></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="28/09/26 06:00">28/09/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-pag-extratos-tabela-int" title="Provisionado há menos de 72 h: sai sem aprovação">Excluir</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-pag-extratos-tabela-ext">Promover</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-pag-extratos-tabela-prod">Promover</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-pag-extratos-tabela-prdnv">Promover</button></span></td><td style="text-align:right"><button type="button" class="atlas-actionBtnLink" data-atlas-open="det-pag-extratos-tabela">Detalhes</button></td></tr>
+            <tr data-atlas-row data-template="Amazon EC2" data-service="PLT"><td><span style="display:flex;align-items:center;gap:8px"><span class="atlas-resourceCell">plt-bastion-legado</span><span class="atlas-badgeTag atlas-badgeWarning">fora do IaC</span></span></td><td><span class="atlas-tagChip" title="Plataforma">PLT</span></td><td>Amazon EC2</td><td><span class="atlas-envCell"><span class="atlas-envDate" title="05/03/26 04:00">05/03/26</span></span></td><td><span class="atlas-envCell"><span class="atlas-envEmpty">—</span></span></td><td><span class="atlas-envCell"><span class="atlas-envEmpty">—</span></span></td><td><span class="atlas-envCell"><span class="atlas-envEmpty">—</span></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="13/03/26 12:00">13/03/26</span></span></td><td><span class="atlas-envCell"><span class="atlas-envEmpty">—</span></span></td><td style="text-align:right"><button type="button" class="atlas-actionBtnLink" data-atlas-open="det-plt-bastion-legado">Detalhes</button></td></tr>
+            <tr data-atlas-row data-template="ElastiCache Valkey" data-service="PLT"><td><span style="display:flex;align-items:center;gap:8px"><span class="atlas-resourceCell">plt-cache-portal</span><span class="atlas-badgeTag atlas-badgeLime">IaC</span></span></td><td><span class="atlas-tagChip" title="Plataforma">PLT</span></td><td>ElastiCache Valkey</td><td><span class="atlas-envCell"><span class="atlas-envDate" title="28/09/26 08:00">28/09/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-plt-cache-portal-dev" title="Provisionado há menos de 72 h: sai sem aprovação">Excluir</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-plt-cache-portal-perf">Promover</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-plt-cache-portal-int">Promover</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-plt-cache-portal-ext">Promover</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-plt-cache-portal-prod">Promover</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-plt-cache-portal-prdnv">Promover</button></span></td><td style="text-align:right"><button type="button" class="atlas-actionBtnLink" data-atlas-open="det-plt-cache-portal">Detalhes</button></td></tr>
+            <tr data-atlas-row data-template="Amazon S3" data-service="PLT"><td><span style="display:flex;align-items:center;gap:8px"><span class="atlas-resourceCell">plt-logs-bucket</span><span class="atlas-badgeTag atlas-badgeLime">IaC</span></span></td><td><span class="atlas-tagChip" title="Plataforma">PLT</span></td><td>Amazon S3</td><td><span class="atlas-envCell"><span class="atlas-envDate" title="08/07/26 04:00">08/07/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-plt-logs-bucket-dev" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="12/07/26 08:00">12/07/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-plt-logs-bucket-perf" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="16/07/26 12:00">16/07/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-plt-logs-bucket-int" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="20/07/26 16:00">20/07/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-plt-logs-bucket-ext" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="24/07/26 20:00">24/07/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-plt-logs-bucket-prod" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="29/07/26 00:00">29/07/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-plt-logs-bucket-prdnv" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td style="text-align:right"><button type="button" class="atlas-actionBtnLink" data-atlas-open="det-plt-logs-bucket">Detalhes</button></td></tr>
+            <tr data-atlas-row data-template="Amazon RDS" data-service="PLT"><td><span style="display:flex;align-items:center;gap:8px"><span class="atlas-resourceCell">plt-metricas-db</span><span class="atlas-badgeTag atlas-badgeLime">IaC</span></span></td><td><span class="atlas-tagChip" title="Plataforma">PLT</span></td><td>Amazon RDS</td><td><span class="atlas-envCell"><span class="atlas-envDate" title="17/09/26 00:00">17/09/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-plt-metricas-db-dev" title="Precisa de aprovação">Solicitar exclusão</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-plt-metricas-db-perf">Promover</button></span></td><td><span class="atlas-envCell"><span class="atlas-envDate" title="29/09/26 03:00">29/09/26</span><button type="button" class="atlas-actionBtnLink atlas-actionBtnDanger" data-atlas-open="del-plt-metricas-db-int" title="Provisionado há menos de 72 h: sai sem aprovação">Excluir</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-plt-metricas-db-ext">Promover</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-plt-metricas-db-prod">Promover</button></span></td><td><span class="atlas-envCell"><button type="button" class="atlas-actionBtnLink" data-atlas-open="pro-plt-metricas-db-prdnv">Promover</button></span></td><td style="text-align:right"><button type="button" class="atlas-actionBtnLink" data-atlas-open="det-plt-metricas-db">Detalhes</button></td></tr>
+            </tbody>
+          </table>
+          <div class="atlas-emptyState" data-atlas-empty-for="map-resources" hidden>Nenhum recurso com esses filtros.</div>
+        </div>
+        <div class="atlas-pagination"><span class="atlas-paginationInfo">14 recursos</span></div>
+      </section>
+      <section class="atlas-tableContainerCard">
+        <div class="atlas-sectionCardHeader"><h3 class="atlas-sectionCardTitle">Repositórios <span class="atlas-groupHeadingCount">10</span></h3></div>
+        <div class="atlas-filtersBar atlas-filtersBarWrap"><div class="atlas-searchFieldWrap" style="flex:1"><svg class="atlas-searchIcon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg><input class="atlas-filterInput" type="search" placeholder="Nome do repositório" aria-label="Nome do repositório" data-atlas-search="map-repos"></div><label class="atlas-labeledSelect"><span class="atlas-labeledSelectLabel">Oferta</span><select class="atlas-filterSelect" data-atlas-filter="map-repos" data-atlas-filter-key="template"><option value="all">Todos</option><option value="Frontend React">Frontend React</option><option value="Repositório de IaC">Repositório de IaC</option><option value="Serviço Java">Serviço Java</option><option value="Serviço Node.js">Serviço Node.js</option></select></label><label class="atlas-labeledSelect"><span class="atlas-labeledSelectLabel">Serviço</span><select class="atlas-filterSelect" data-atlas-filter="map-repos" data-atlas-filter-key="service"><option value="all">Todos</option><option value="ANF">ANF</option><option value="BTG">BTG</option><option value="ONB">ONB</option><option value="PAG">PAG</option><option value="PLT">PLT</option></select></label></div>
+        <div class="atlas-recentTableWrap">
+          <table class="atlas-recentTable">
+            <thead><tr><th scope="col">Repositório</th><th scope="col">Serviço Núclea</th><th scope="col">Oferta</th><th scope="col" style="text-align:right">Recursos</th><th scope="col">Visibilidade</th><th scope="col">Criado em</th><th scope="col" style="text-align:right">Ações</th></tr></thead>
+            <tbody id="map-repos">
+            <tr data-atlas-row data-template="Repositório de IaC" data-service="ANF"><td><span class="atlas-resourceCell">anf-motor-infra</span></td><td><span class="atlas-tagChip" title="Antifraude">ANF</span></td><td>Repositório de IaC</td><td style="text-align:right">2</td><td><span class="atlas-badgeTag atlas-badgePurple">privado</span></td><td>18/08/26</td><td style="text-align:right"><button type="button" class="atlas-actionBtnLink" data-atlas-open="repo-anf-motor-infra">Detalhes</button></td></tr>
+            <tr data-atlas-row data-template="Serviço Node.js" data-service="BTG"><td><span class="atlas-resourceCell">btg-bitrago-api</span></td><td><span class="atlas-tagChip" title="Bitrago">BTG</span></td><td>Serviço Node.js</td><td style="text-align:right">0</td><td><span class="atlas-badgeTag atlas-badgeInfo">interno</span></td><td>25/06/26</td><td style="text-align:right"><button type="button" class="atlas-actionBtnLink" data-atlas-open="repo-btg-bitrago-api">Detalhes</button></td></tr>
+            <tr data-atlas-row data-template="Repositório de IaC" data-service="BTG"><td><span class="atlas-resourceCell">btg-bitrago-infra</span></td><td><span class="atlas-tagChip" title="Bitrago">BTG</span></td><td>Repositório de IaC</td><td style="text-align:right">3</td><td><span class="atlas-badgeTag atlas-badgeInfo">interno</span></td><td>21/06/26</td><td style="text-align:right"><button type="button" class="atlas-actionBtnLink" data-atlas-open="repo-btg-bitrago-infra">Detalhes</button></td></tr>
+            <tr data-atlas-row data-template="Repositório de IaC" data-service="ONB"><td><span class="atlas-resourceCell">onb-cadastro-infra</span></td><td><span class="atlas-tagChip" title="Onboarding">ONB</span></td><td>Repositório de IaC</td><td style="text-align:right">2</td><td><span class="atlas-badgeTag atlas-badgeInfo">interno</span></td><td>29/07/26</td><td style="text-align:right"><button type="button" class="atlas-actionBtnLink" data-atlas-open="repo-onb-cadastro-infra">Detalhes</button></td></tr>
+            <tr data-atlas-row data-template="Frontend React" data-service="ONB"><td><span class="atlas-resourceCell">onb-cadastro-web</span></td><td><span class="atlas-tagChip" title="Onboarding">ONB</span></td><td>Frontend React</td><td style="text-align:right">0</td><td><span class="atlas-badgeTag atlas-badgeInfo">interno</span></td><td>02/08/26</td><td style="text-align:right"><button type="button" class="atlas-actionBtnLink" data-atlas-open="repo-onb-cadastro-web">Detalhes</button></td></tr>
+            <tr data-atlas-row data-template="Repositório de IaC" data-service="PAG"><td><span class="atlas-resourceCell">pag-conciliacao-infra</span></td><td><span class="atlas-tagChip" title="Pagamentos">PAG</span></td><td>Repositório de IaC</td><td style="text-align:right">2</td><td><span class="atlas-badgeTag atlas-badgePurple">privado</span></td><td>27/05/26</td><td style="text-align:right"><button type="button" class="atlas-actionBtnLink" data-atlas-open="repo-pag-conciliacao-infra">Detalhes</button></td></tr>
+            <tr data-atlas-row data-template="Serviço Java" data-service="PAG"><td><span class="atlas-resourceCell">pag-conciliacao-worker</span></td><td><span class="atlas-tagChip" title="Pagamentos">PAG</span></td><td>Serviço Java</td><td style="text-align:right">0</td><td><span class="atlas-badgeTag atlas-badgePurple">privado</span></td><td>31/05/26</td><td style="text-align:right"><button type="button" class="atlas-actionBtnLink" data-atlas-open="repo-pag-conciliacao-worker">Detalhes</button></td></tr>
+            <tr data-atlas-row data-template="Repositório de IaC" data-service="PAG"><td><span class="atlas-resourceCell">pag-extratos-infra</span></td><td><span class="atlas-tagChip" title="Pagamentos">PAG</span></td><td>Repositório de IaC</td><td style="text-align:right">1</td><td><span class="atlas-badgeTag atlas-badgePurple">privado</span></td><td>24/09/26</td><td style="text-align:right"><button type="button" class="atlas-actionBtnLink" data-atlas-open="repo-pag-extratos-infra">Detalhes</button></td></tr>
+            <tr data-atlas-row data-template="Repositório de IaC" data-service="PLT"><td><span class="atlas-resourceCell">plt-observabilidade-infra</span></td><td><span class="atlas-tagChip" title="Plataforma">PLT</span></td><td>Repositório de IaC</td><td style="text-align:right">2</td><td><span class="atlas-badgeTag atlas-badgeInfo">interno</span></td><td>15/04/26</td><td style="text-align:right"><button type="button" class="atlas-actionBtnLink" data-atlas-open="repo-plt-observabilidade-infra">Detalhes</button></td></tr>
+            <tr data-atlas-row data-template="Repositório de IaC" data-service="PLT"><td><span class="atlas-resourceCell">plt-portal-infra</span></td><td><span class="atlas-tagChip" title="Plataforma">PLT</span></td><td>Repositório de IaC</td><td style="text-align:right">1</td><td><span class="atlas-badgeTag atlas-badgeInfo">interno</span></td><td>21/09/26</td><td style="text-align:right"><button type="button" class="atlas-actionBtnLink" data-atlas-open="repo-plt-portal-infra">Detalhes</button></td></tr>
+            </tbody>
+          </table>
+          <div class="atlas-emptyState" data-atlas-empty-for="map-repos" hidden>Nenhum repositório com esses filtros.</div>
+        </div>
+        <div class="atlas-pagination"><span class="atlas-paginationInfo">10 repositórios</span></div>
+      </section>
+      <dialog class="atlas-dialog" id="det-bitrago-teste-0004" aria-labelledby="det-bitrago-teste-0004-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="det-bitrago-teste-0004-title">bitrago-teste-0004</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-readonlyGrid"><div class="atlas-field"><span class="atlas-fieldLabel">Serviço Núclea</span><span class="atlas-readonlyValue">BTG — Bitrago</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Oferta</span><span class="atlas-readonlyValue">Amazon S3</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Gerenciado por</span><span class="atlas-readonlyValue">IaC (Terraform)</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Repositório</span><span class="atlas-readonlyValue">btg-bitrago-infra</span></div></div><div class="atlas-recentTableWrap"><table class="atlas-recentTable"><thead><tr><th>Ambiente</th><th>Provisionado em</th><th>Situação</th></tr></thead><tbody><tr><td class="atlas-resourceCell">dev</td><td>28/09/26 16:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">perf</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">int</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">ext</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">prod</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">prdnv</td><td>—</td><td>não provisionado</td></tr></tbody></table></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-bitrago-teste-0004-dev" aria-labelledby="del-bitrago-teste-0004-dev-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-bitrago-teste-0004-dev-title">Excluir recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>bitrago-teste-0004</strong> em <strong>dev</strong>, provisionado em 28/09/26 16:00.</p><div class="atlas-alert atlas-alertDanger"><div><div class="atlas-alertTitle">Sai sem aprovação</div>Provisionado há menos de 72 horas: a exclusão é executada direto. Não dá para desfazer.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Excluir</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-bitrago-teste-0004-perf" aria-labelledby="pro-bitrago-teste-0004-perf-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-bitrago-teste-0004-perf-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>bitrago-teste-0004</strong> em <strong>perf</strong>, com a mesma oferta (Amazon S3).</p></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Promover</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-bitrago-teste-0004-int" aria-labelledby="pro-bitrago-teste-0004-int-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-bitrago-teste-0004-int-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>bitrago-teste-0004</strong> em <strong>int</strong>, com a mesma oferta (Amazon S3).</p></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Promover</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-bitrago-teste-0004-ext" aria-labelledby="pro-bitrago-teste-0004-ext-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-bitrago-teste-0004-ext-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>bitrago-teste-0004</strong> em <strong>ext</strong>, com a mesma oferta (Amazon S3).</p></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Promover</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-bitrago-teste-0004-prod" aria-labelledby="pro-bitrago-teste-0004-prod-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-bitrago-teste-0004-prod-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>bitrago-teste-0004</strong> em <strong>prod</strong>, com a mesma oferta (Amazon S3).</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Aprovação do time de cloud</div>Promoções para prod esperam a aprovação do time de cloud antes de executar.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Pedir promoção</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-bitrago-teste-0004-prdnv" aria-labelledby="pro-bitrago-teste-0004-prdnv-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-bitrago-teste-0004-prdnv-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>bitrago-teste-0004</strong> em <strong>prdnv</strong>, com a mesma oferta (Amazon S3).</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Aprovação do time de cloud</div>Promoções para prdnv esperam a aprovação do time de cloud antes de executar.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Pedir promoção</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="det-bitrago-arquivos" aria-labelledby="det-bitrago-arquivos-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="det-bitrago-arquivos-title">bitrago-arquivos</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-readonlyGrid"><div class="atlas-field"><span class="atlas-fieldLabel">Serviço Núclea</span><span class="atlas-readonlyValue">BTG — Bitrago</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Oferta</span><span class="atlas-readonlyValue">Amazon S3</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Gerenciado por</span><span class="atlas-readonlyValue">IaC (Terraform)</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Repositório</span><span class="atlas-readonlyValue">btg-bitrago-infra</span></div></div><div class="atlas-recentTableWrap"><table class="atlas-recentTable"><thead><tr><th>Ambiente</th><th>Provisionado em</th><th>Situação</th></tr></thead><tbody><tr><td class="atlas-resourceCell">dev</td><td>23/08/26 00:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">perf</td><td>31/08/26 08:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">int</td><td>08/09/26 16:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">ext</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">prod</td><td>17/09/26 00:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">prdnv</td><td>—</td><td>não provisionado</td></tr></tbody></table></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-bitrago-arquivos-dev" aria-labelledby="del-bitrago-arquivos-dev-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-bitrago-arquivos-dev-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>bitrago-arquivos</strong> em <strong>dev</strong>, provisionado em 23/08/26 00:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-bitrago-arquivos-perf" aria-labelledby="del-bitrago-arquivos-perf-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-bitrago-arquivos-perf-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>bitrago-arquivos</strong> em <strong>perf</strong>, provisionado em 31/08/26 08:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-bitrago-arquivos-int" aria-labelledby="del-bitrago-arquivos-int-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-bitrago-arquivos-int-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>bitrago-arquivos</strong> em <strong>int</strong>, provisionado em 08/09/26 16:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-bitrago-arquivos-ext" aria-labelledby="pro-bitrago-arquivos-ext-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-bitrago-arquivos-ext-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>bitrago-arquivos</strong> em <strong>ext</strong>, com a mesma oferta (Amazon S3).</p></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Promover</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-bitrago-arquivos-prod" aria-labelledby="del-bitrago-arquivos-prod-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-bitrago-arquivos-prod-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>bitrago-arquivos</strong> em <strong>prod</strong>, provisionado em 17/09/26 00:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-bitrago-arquivos-prdnv" aria-labelledby="pro-bitrago-arquivos-prdnv-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-bitrago-arquivos-prdnv-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>bitrago-arquivos</strong> em <strong>prdnv</strong>, com a mesma oferta (Amazon S3).</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Aprovação do time de cloud</div>Promoções para prdnv esperam a aprovação do time de cloud antes de executar.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Pedir promoção</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="det-pag-conciliacao-db" aria-labelledby="det-pag-conciliacao-db-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="det-pag-conciliacao-db-title">pag-conciliacao-db</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-readonlyGrid"><div class="atlas-field"><span class="atlas-fieldLabel">Serviço Núclea</span><span class="atlas-readonlyValue">PAG — Pagamentos</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Oferta</span><span class="atlas-readonlyValue">Amazon RDS</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Gerenciado por</span><span class="atlas-readonlyValue">IaC (Terraform)</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Repositório</span><span class="atlas-readonlyValue">pag-conciliacao-infra</span></div></div><div class="atlas-recentTableWrap"><table class="atlas-recentTable"><thead><tr><th>Ambiente</th><th>Provisionado em</th><th>Situação</th></tr></thead><tbody><tr><td class="atlas-resourceCell">dev</td><td>10/08/26 12:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">perf</td><td>14/08/26 16:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">int</td><td>18/08/26 20:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">ext</td><td>27/08/26 04:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">prod</td><td>04/09/26 12:00</td><td>aguardando time de cloud</td></tr><tr><td class="atlas-resourceCell">prdnv</td><td>—</td><td>não provisionado</td></tr></tbody></table></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-pag-conciliacao-db-dev" aria-labelledby="del-pag-conciliacao-db-dev-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-pag-conciliacao-db-dev-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>pag-conciliacao-db</strong> em <strong>dev</strong>, provisionado em 10/08/26 12:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-pag-conciliacao-db-perf" aria-labelledby="del-pag-conciliacao-db-perf-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-pag-conciliacao-db-perf-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>pag-conciliacao-db</strong> em <strong>perf</strong>, provisionado em 14/08/26 16:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-pag-conciliacao-db-int" aria-labelledby="del-pag-conciliacao-db-int-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-pag-conciliacao-db-int-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>pag-conciliacao-db</strong> em <strong>int</strong>, provisionado em 18/08/26 20:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-pag-conciliacao-db-ext" aria-labelledby="del-pag-conciliacao-db-ext-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-pag-conciliacao-db-ext-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>pag-conciliacao-db</strong> em <strong>ext</strong>, provisionado em 27/08/26 04:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-pag-conciliacao-db-prdnv" aria-labelledby="pro-pag-conciliacao-db-prdnv-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-pag-conciliacao-db-prdnv-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>pag-conciliacao-db</strong> em <strong>prdnv</strong>, com a mesma oferta (Amazon RDS).</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Aprovação do time de cloud</div>Promoções para prdnv esperam a aprovação do time de cloud antes de executar.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Pedir promoção</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="det-pag-extratos-tabela" aria-labelledby="det-pag-extratos-tabela-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="det-pag-extratos-tabela-title">pag-extratos-tabela</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-readonlyGrid"><div class="atlas-field"><span class="atlas-fieldLabel">Serviço Núclea</span><span class="atlas-readonlyValue">PAG — Pagamentos</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Oferta</span><span class="atlas-readonlyValue">Amazon DynamoDB</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Gerenciado por</span><span class="atlas-readonlyValue">IaC (Terraform)</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Repositório</span><span class="atlas-readonlyValue">pag-extratos-infra</span></div></div><div class="atlas-recentTableWrap"><table class="atlas-recentTable"><thead><tr><th>Ambiente</th><th>Provisionado em</th><th>Situação</th></tr></thead><tbody><tr><td class="atlas-resourceCell">dev</td><td>27/09/26 10:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">perf</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">int</td><td>28/09/26 06:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">ext</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">prod</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">prdnv</td><td>—</td><td>não provisionado</td></tr></tbody></table></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-pag-extratos-tabela-dev" aria-labelledby="del-pag-extratos-tabela-dev-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-pag-extratos-tabela-dev-title">Excluir recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>pag-extratos-tabela</strong> em <strong>dev</strong>, provisionado em 27/09/26 10:00.</p><div class="atlas-alert atlas-alertDanger"><div><div class="atlas-alertTitle">Sai sem aprovação</div>Provisionado há menos de 72 horas: a exclusão é executada direto. Não dá para desfazer.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Excluir</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-pag-extratos-tabela-perf" aria-labelledby="pro-pag-extratos-tabela-perf-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-pag-extratos-tabela-perf-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>pag-extratos-tabela</strong> em <strong>perf</strong>, com a mesma oferta (Amazon DynamoDB).</p></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Promover</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-pag-extratos-tabela-int" aria-labelledby="del-pag-extratos-tabela-int-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-pag-extratos-tabela-int-title">Excluir recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>pag-extratos-tabela</strong> em <strong>int</strong>, provisionado em 28/09/26 06:00.</p><div class="atlas-alert atlas-alertDanger"><div><div class="atlas-alertTitle">Sai sem aprovação</div>Provisionado há menos de 72 horas: a exclusão é executada direto. Não dá para desfazer.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Excluir</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-pag-extratos-tabela-ext" aria-labelledby="pro-pag-extratos-tabela-ext-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-pag-extratos-tabela-ext-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>pag-extratos-tabela</strong> em <strong>ext</strong>, com a mesma oferta (Amazon DynamoDB).</p></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Promover</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-pag-extratos-tabela-prod" aria-labelledby="pro-pag-extratos-tabela-prod-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-pag-extratos-tabela-prod-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>pag-extratos-tabela</strong> em <strong>prod</strong>, com a mesma oferta (Amazon DynamoDB).</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Aprovação do time de cloud</div>Promoções para prod esperam a aprovação do time de cloud antes de executar.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Pedir promoção</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-pag-extratos-tabela-prdnv" aria-labelledby="pro-pag-extratos-tabela-prdnv-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-pag-extratos-tabela-prdnv-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>pag-extratos-tabela</strong> em <strong>prdnv</strong>, com a mesma oferta (Amazon DynamoDB).</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Aprovação do time de cloud</div>Promoções para prdnv esperam a aprovação do time de cloud antes de executar.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Pedir promoção</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="det-pag-cache-sessoes" aria-labelledby="det-pag-cache-sessoes-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="det-pag-cache-sessoes-title">pag-cache-sessoes</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-readonlyGrid"><div class="atlas-field"><span class="atlas-fieldLabel">Serviço Núclea</span><span class="atlas-readonlyValue">PAG — Pagamentos</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Oferta</span><span class="atlas-readonlyValue">ElastiCache Valkey</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Gerenciado por</span><span class="atlas-readonlyValue">IaC (Terraform)</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Repositório</span><span class="atlas-readonlyValue">pag-conciliacao-infra</span></div></div><div class="atlas-recentTableWrap"><table class="atlas-recentTable"><thead><tr><th>Ambiente</th><th>Provisionado em</th><th>Situação</th></tr></thead><tbody><tr><td class="atlas-resourceCell">dev</td><td>12/09/26 20:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">perf</td><td>14/09/26 22:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">int</td><td>17/09/26 00:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">ext</td><td>21/09/26 04:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">prod</td><td>23/09/26 06:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">prdnv</td><td>25/09/26 08:00</td><td>ativo</td></tr></tbody></table></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-pag-cache-sessoes-dev" aria-labelledby="del-pag-cache-sessoes-dev-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-pag-cache-sessoes-dev-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>pag-cache-sessoes</strong> em <strong>dev</strong>, provisionado em 12/09/26 20:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-pag-cache-sessoes-perf" aria-labelledby="del-pag-cache-sessoes-perf-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-pag-cache-sessoes-perf-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>pag-cache-sessoes</strong> em <strong>perf</strong>, provisionado em 14/09/26 22:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-pag-cache-sessoes-int" aria-labelledby="del-pag-cache-sessoes-int-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-pag-cache-sessoes-int-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>pag-cache-sessoes</strong> em <strong>int</strong>, provisionado em 17/09/26 00:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-pag-cache-sessoes-ext" aria-labelledby="del-pag-cache-sessoes-ext-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-pag-cache-sessoes-ext-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>pag-cache-sessoes</strong> em <strong>ext</strong>, provisionado em 21/09/26 04:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-pag-cache-sessoes-prod" aria-labelledby="del-pag-cache-sessoes-prod-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-pag-cache-sessoes-prod-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>pag-cache-sessoes</strong> em <strong>prod</strong>, provisionado em 23/09/26 06:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-pag-cache-sessoes-prdnv" aria-labelledby="del-pag-cache-sessoes-prdnv-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-pag-cache-sessoes-prdnv-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>pag-cache-sessoes</strong> em <strong>prdnv</strong>, provisionado em 25/09/26 08:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="det-onb-documentos-bucket" aria-labelledby="det-onb-documentos-bucket-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="det-onb-documentos-bucket-title">onb-documentos-bucket</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-readonlyGrid"><div class="atlas-field"><span class="atlas-fieldLabel">Serviço Núclea</span><span class="atlas-readonlyValue">ONB — Onboarding</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Oferta</span><span class="atlas-readonlyValue">Amazon S3</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Gerenciado por</span><span class="atlas-readonlyValue">IaC (Terraform)</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Repositório</span><span class="atlas-readonlyValue">onb-cadastro-infra</span></div></div><div class="atlas-recentTableWrap"><table class="atlas-recentTable"><thead><tr><th>Ambiente</th><th>Provisionado em</th><th>Situação</th></tr></thead><tbody><tr><td class="atlas-resourceCell">dev</td><td>19/09/26 12:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">perf</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">int</td><td>24/09/26 12:00</td><td>exclusão pendente</td></tr><tr><td class="atlas-resourceCell">ext</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">prod</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">prdnv</td><td>—</td><td>não provisionado</td></tr></tbody></table></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-onb-documentos-bucket-dev" aria-labelledby="del-onb-documentos-bucket-dev-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-onb-documentos-bucket-dev-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>onb-documentos-bucket</strong> em <strong>dev</strong>, provisionado em 19/09/26 12:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-onb-documentos-bucket-perf" aria-labelledby="pro-onb-documentos-bucket-perf-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-onb-documentos-bucket-perf-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>onb-documentos-bucket</strong> em <strong>perf</strong>, com a mesma oferta (Amazon S3).</p></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Promover</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-onb-documentos-bucket-ext" aria-labelledby="pro-onb-documentos-bucket-ext-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-onb-documentos-bucket-ext-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>onb-documentos-bucket</strong> em <strong>ext</strong>, com a mesma oferta (Amazon S3).</p></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Promover</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-onb-documentos-bucket-prod" aria-labelledby="pro-onb-documentos-bucket-prod-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-onb-documentos-bucket-prod-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>onb-documentos-bucket</strong> em <strong>prod</strong>, com a mesma oferta (Amazon S3).</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Aprovação do time de cloud</div>Promoções para prod esperam a aprovação do time de cloud antes de executar.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Pedir promoção</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-onb-documentos-bucket-prdnv" aria-labelledby="pro-onb-documentos-bucket-prdnv-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-onb-documentos-bucket-prdnv-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>onb-documentos-bucket</strong> em <strong>prdnv</strong>, com a mesma oferta (Amazon S3).</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Aprovação do time de cloud</div>Promoções para prdnv esperam a aprovação do time de cloud antes de executar.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Pedir promoção</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="det-onb-notificacoes-topico" aria-labelledby="det-onb-notificacoes-topico-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="det-onb-notificacoes-topico-title">onb-notificacoes-topico</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-readonlyGrid"><div class="atlas-field"><span class="atlas-fieldLabel">Serviço Núclea</span><span class="atlas-readonlyValue">ONB — Onboarding</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Oferta</span><span class="atlas-readonlyValue">Amazon SNS</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Gerenciado por</span><span class="atlas-readonlyValue">IaC (Terraform)</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Repositório</span><span class="atlas-readonlyValue">onb-cadastro-infra</span></div></div><div class="atlas-recentTableWrap"><table class="atlas-recentTable"><thead><tr><th>Ambiente</th><th>Provisionado em</th><th>Situação</th></tr></thead><tbody><tr><td class="atlas-resourceCell">dev</td><td>29/09/26 02:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">perf</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">int</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">ext</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">prod</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">prdnv</td><td>—</td><td>não provisionado</td></tr></tbody></table></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-onb-notificacoes-topico-dev" aria-labelledby="del-onb-notificacoes-topico-dev-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-onb-notificacoes-topico-dev-title">Excluir recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>onb-notificacoes-topico</strong> em <strong>dev</strong>, provisionado em 29/09/26 02:00.</p><div class="atlas-alert atlas-alertDanger"><div><div class="atlas-alertTitle">Sai sem aprovação</div>Provisionado há menos de 72 horas: a exclusão é executada direto. Não dá para desfazer.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Excluir</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-onb-notificacoes-topico-perf" aria-labelledby="pro-onb-notificacoes-topico-perf-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-onb-notificacoes-topico-perf-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>onb-notificacoes-topico</strong> em <strong>perf</strong>, com a mesma oferta (Amazon SNS).</p></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Promover</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-onb-notificacoes-topico-int" aria-labelledby="pro-onb-notificacoes-topico-int-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-onb-notificacoes-topico-int-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>onb-notificacoes-topico</strong> em <strong>int</strong>, com a mesma oferta (Amazon SNS).</p></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Promover</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-onb-notificacoes-topico-ext" aria-labelledby="pro-onb-notificacoes-topico-ext-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-onb-notificacoes-topico-ext-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>onb-notificacoes-topico</strong> em <strong>ext</strong>, com a mesma oferta (Amazon SNS).</p></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Promover</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-onb-notificacoes-topico-prod" aria-labelledby="pro-onb-notificacoes-topico-prod-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-onb-notificacoes-topico-prod-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>onb-notificacoes-topico</strong> em <strong>prod</strong>, com a mesma oferta (Amazon SNS).</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Aprovação do time de cloud</div>Promoções para prod esperam a aprovação do time de cloud antes de executar.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Pedir promoção</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-onb-notificacoes-topico-prdnv" aria-labelledby="pro-onb-notificacoes-topico-prdnv-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-onb-notificacoes-topico-prdnv-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>onb-notificacoes-topico</strong> em <strong>prdnv</strong>, com a mesma oferta (Amazon SNS).</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Aprovação do time de cloud</div>Promoções para prdnv esperam a aprovação do time de cloud antes de executar.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Pedir promoção</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="det-anf-eventos-fila" aria-labelledby="det-anf-eventos-fila-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="det-anf-eventos-fila-title">anf-eventos-fila</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-readonlyGrid"><div class="atlas-field"><span class="atlas-fieldLabel">Serviço Núclea</span><span class="atlas-readonlyValue">ANF — Antifraude</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Oferta</span><span class="atlas-readonlyValue">Amazon SQS</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Gerenciado por</span><span class="atlas-readonlyValue">IaC (Terraform)</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Repositório</span><span class="atlas-readonlyValue">anf-motor-infra</span></div></div><div class="atlas-recentTableWrap"><table class="atlas-recentTable"><thead><tr><th>Ambiente</th><th>Provisionado em</th><th>Situação</th></tr></thead><tbody><tr><td class="atlas-resourceCell">dev</td><td>04/09/26 12:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">perf</td><td>08/09/26 16:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">int</td><td>10/09/26 18:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">ext</td><td>12/09/26 20:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">prod</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">prdnv</td><td>—</td><td>não provisionado</td></tr></tbody></table></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-anf-eventos-fila-dev" aria-labelledby="del-anf-eventos-fila-dev-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-anf-eventos-fila-dev-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>anf-eventos-fila</strong> em <strong>dev</strong>, provisionado em 04/09/26 12:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-anf-eventos-fila-perf" aria-labelledby="del-anf-eventos-fila-perf-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-anf-eventos-fila-perf-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>anf-eventos-fila</strong> em <strong>perf</strong>, provisionado em 08/09/26 16:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-anf-eventos-fila-int" aria-labelledby="del-anf-eventos-fila-int-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-anf-eventos-fila-int-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>anf-eventos-fila</strong> em <strong>int</strong>, provisionado em 10/09/26 18:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-anf-eventos-fila-ext" aria-labelledby="del-anf-eventos-fila-ext-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-anf-eventos-fila-ext-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>anf-eventos-fila</strong> em <strong>ext</strong>, provisionado em 12/09/26 20:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-anf-eventos-fila-prod" aria-labelledby="pro-anf-eventos-fila-prod-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-anf-eventos-fila-prod-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>anf-eventos-fila</strong> em <strong>prod</strong>, com a mesma oferta (Amazon SQS).</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Aprovação do time de cloud</div>Promoções para prod esperam a aprovação do time de cloud antes de executar.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Pedir promoção</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-anf-eventos-fila-prdnv" aria-labelledby="pro-anf-eventos-fila-prdnv-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-anf-eventos-fila-prdnv-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>anf-eventos-fila</strong> em <strong>prdnv</strong>, com a mesma oferta (Amazon SQS).</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Aprovação do time de cloud</div>Promoções para prdnv esperam a aprovação do time de cloud antes de executar.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Pedir promoção</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="det-anf-modelo-lambda" aria-labelledby="det-anf-modelo-lambda-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="det-anf-modelo-lambda-title">anf-modelo-lambda</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-readonlyGrid"><div class="atlas-field"><span class="atlas-fieldLabel">Serviço Núclea</span><span class="atlas-readonlyValue">ANF — Antifraude</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Oferta</span><span class="atlas-readonlyValue">AWS Lambda</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Gerenciado por</span><span class="atlas-readonlyValue">IaC (Terraform)</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Repositório</span><span class="atlas-readonlyValue">anf-motor-infra</span></div></div><div class="atlas-recentTableWrap"><table class="atlas-recentTable"><thead><tr><th>Ambiente</th><th>Provisionado em</th><th>Situação</th></tr></thead><tbody><tr><td class="atlas-resourceCell">dev</td><td>27/09/26 00:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">perf</td><td>27/09/26 20:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">int</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">ext</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">prod</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">prdnv</td><td>—</td><td>não provisionado</td></tr></tbody></table></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-anf-modelo-lambda-dev" aria-labelledby="del-anf-modelo-lambda-dev-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-anf-modelo-lambda-dev-title">Excluir recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>anf-modelo-lambda</strong> em <strong>dev</strong>, provisionado em 27/09/26 00:00.</p><div class="atlas-alert atlas-alertDanger"><div><div class="atlas-alertTitle">Sai sem aprovação</div>Provisionado há menos de 72 horas: a exclusão é executada direto. Não dá para desfazer.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Excluir</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-anf-modelo-lambda-perf" aria-labelledby="del-anf-modelo-lambda-perf-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-anf-modelo-lambda-perf-title">Excluir recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>anf-modelo-lambda</strong> em <strong>perf</strong>, provisionado em 27/09/26 20:00.</p><div class="atlas-alert atlas-alertDanger"><div><div class="atlas-alertTitle">Sai sem aprovação</div>Provisionado há menos de 72 horas: a exclusão é executada direto. Não dá para desfazer.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Excluir</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-anf-modelo-lambda-int" aria-labelledby="pro-anf-modelo-lambda-int-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-anf-modelo-lambda-int-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>anf-modelo-lambda</strong> em <strong>int</strong>, com a mesma oferta (AWS Lambda).</p></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Promover</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-anf-modelo-lambda-ext" aria-labelledby="pro-anf-modelo-lambda-ext-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-anf-modelo-lambda-ext-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>anf-modelo-lambda</strong> em <strong>ext</strong>, com a mesma oferta (AWS Lambda).</p></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Promover</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-anf-modelo-lambda-prod" aria-labelledby="pro-anf-modelo-lambda-prod-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-anf-modelo-lambda-prod-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>anf-modelo-lambda</strong> em <strong>prod</strong>, com a mesma oferta (AWS Lambda).</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Aprovação do time de cloud</div>Promoções para prod esperam a aprovação do time de cloud antes de executar.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Pedir promoção</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-anf-modelo-lambda-prdnv" aria-labelledby="pro-anf-modelo-lambda-prdnv-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-anf-modelo-lambda-prdnv-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>anf-modelo-lambda</strong> em <strong>prdnv</strong>, com a mesma oferta (AWS Lambda).</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Aprovação do time de cloud</div>Promoções para prdnv esperam a aprovação do time de cloud antes de executar.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Pedir promoção</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="det-plt-logs-bucket" aria-labelledby="det-plt-logs-bucket-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="det-plt-logs-bucket-title">plt-logs-bucket</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-readonlyGrid"><div class="atlas-field"><span class="atlas-fieldLabel">Serviço Núclea</span><span class="atlas-readonlyValue">PLT — Plataforma</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Oferta</span><span class="atlas-readonlyValue">Amazon S3</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Gerenciado por</span><span class="atlas-readonlyValue">IaC (Terraform)</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Repositório</span><span class="atlas-readonlyValue">plt-observabilidade-infra</span></div></div><div class="atlas-recentTableWrap"><table class="atlas-recentTable"><thead><tr><th>Ambiente</th><th>Provisionado em</th><th>Situação</th></tr></thead><tbody><tr><td class="atlas-resourceCell">dev</td><td>08/07/26 04:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">perf</td><td>12/07/26 08:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">int</td><td>16/07/26 12:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">ext</td><td>20/07/26 16:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">prod</td><td>24/07/26 20:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">prdnv</td><td>29/07/26 00:00</td><td>ativo</td></tr></tbody></table></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-plt-logs-bucket-dev" aria-labelledby="del-plt-logs-bucket-dev-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-plt-logs-bucket-dev-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>plt-logs-bucket</strong> em <strong>dev</strong>, provisionado em 08/07/26 04:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-plt-logs-bucket-perf" aria-labelledby="del-plt-logs-bucket-perf-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-plt-logs-bucket-perf-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>plt-logs-bucket</strong> em <strong>perf</strong>, provisionado em 12/07/26 08:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-plt-logs-bucket-int" aria-labelledby="del-plt-logs-bucket-int-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-plt-logs-bucket-int-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>plt-logs-bucket</strong> em <strong>int</strong>, provisionado em 16/07/26 12:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-plt-logs-bucket-ext" aria-labelledby="del-plt-logs-bucket-ext-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-plt-logs-bucket-ext-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>plt-logs-bucket</strong> em <strong>ext</strong>, provisionado em 20/07/26 16:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-plt-logs-bucket-prod" aria-labelledby="del-plt-logs-bucket-prod-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-plt-logs-bucket-prod-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>plt-logs-bucket</strong> em <strong>prod</strong>, provisionado em 24/07/26 20:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-plt-logs-bucket-prdnv" aria-labelledby="del-plt-logs-bucket-prdnv-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-plt-logs-bucket-prdnv-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>plt-logs-bucket</strong> em <strong>prdnv</strong>, provisionado em 29/07/26 00:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="det-plt-metricas-db" aria-labelledby="det-plt-metricas-db-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="det-plt-metricas-db-title">plt-metricas-db</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-readonlyGrid"><div class="atlas-field"><span class="atlas-fieldLabel">Serviço Núclea</span><span class="atlas-readonlyValue">PLT — Plataforma</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Oferta</span><span class="atlas-readonlyValue">Amazon RDS</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Gerenciado por</span><span class="atlas-readonlyValue">IaC (Terraform)</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Repositório</span><span class="atlas-readonlyValue">plt-observabilidade-infra</span></div></div><div class="atlas-recentTableWrap"><table class="atlas-recentTable"><thead><tr><th>Ambiente</th><th>Provisionado em</th><th>Situação</th></tr></thead><tbody><tr><td class="atlas-resourceCell">dev</td><td>17/09/26 00:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">perf</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">int</td><td>29/09/26 03:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">ext</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">prod</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">prdnv</td><td>—</td><td>não provisionado</td></tr></tbody></table></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-plt-metricas-db-dev" aria-labelledby="del-plt-metricas-db-dev-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-plt-metricas-db-dev-title">Solicitar exclusão</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>plt-metricas-db</strong> em <strong>dev</strong>, provisionado em 17/09/26 00:00.</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Precisa de aprovação</div>Provisionado há mais de 72 horas: a exclusão vira uma solicitação e aparece em Aprovações.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Pedir exclusão</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-plt-metricas-db-perf" aria-labelledby="pro-plt-metricas-db-perf-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-plt-metricas-db-perf-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>plt-metricas-db</strong> em <strong>perf</strong>, com a mesma oferta (Amazon RDS).</p></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Promover</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-plt-metricas-db-int" aria-labelledby="del-plt-metricas-db-int-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-plt-metricas-db-int-title">Excluir recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>plt-metricas-db</strong> em <strong>int</strong>, provisionado em 29/09/26 03:00.</p><div class="atlas-alert atlas-alertDanger"><div><div class="atlas-alertTitle">Sai sem aprovação</div>Provisionado há menos de 72 horas: a exclusão é executada direto. Não dá para desfazer.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Excluir</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-plt-metricas-db-ext" aria-labelledby="pro-plt-metricas-db-ext-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-plt-metricas-db-ext-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>plt-metricas-db</strong> em <strong>ext</strong>, com a mesma oferta (Amazon RDS).</p></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Promover</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-plt-metricas-db-prod" aria-labelledby="pro-plt-metricas-db-prod-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-plt-metricas-db-prod-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>plt-metricas-db</strong> em <strong>prod</strong>, com a mesma oferta (Amazon RDS).</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Aprovação do time de cloud</div>Promoções para prod esperam a aprovação do time de cloud antes de executar.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Pedir promoção</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-plt-metricas-db-prdnv" aria-labelledby="pro-plt-metricas-db-prdnv-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-plt-metricas-db-prdnv-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>plt-metricas-db</strong> em <strong>prdnv</strong>, com a mesma oferta (Amazon RDS).</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Aprovação do time de cloud</div>Promoções para prdnv esperam a aprovação do time de cloud antes de executar.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Pedir promoção</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="det-plt-cache-portal" aria-labelledby="det-plt-cache-portal-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="det-plt-cache-portal-title">plt-cache-portal</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-readonlyGrid"><div class="atlas-field"><span class="atlas-fieldLabel">Serviço Núclea</span><span class="atlas-readonlyValue">PLT — Plataforma</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Oferta</span><span class="atlas-readonlyValue">ElastiCache Valkey</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Gerenciado por</span><span class="atlas-readonlyValue">IaC (Terraform)</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Repositório</span><span class="atlas-readonlyValue">plt-portal-infra</span></div></div><div class="atlas-recentTableWrap"><table class="atlas-recentTable"><thead><tr><th>Ambiente</th><th>Provisionado em</th><th>Situação</th></tr></thead><tbody><tr><td class="atlas-resourceCell">dev</td><td>28/09/26 08:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">perf</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">int</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">ext</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">prod</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">prdnv</td><td>—</td><td>não provisionado</td></tr></tbody></table></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-plt-cache-portal-dev" aria-labelledby="del-plt-cache-portal-dev-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-plt-cache-portal-dev-title">Excluir recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>plt-cache-portal</strong> em <strong>dev</strong>, provisionado em 28/09/26 08:00.</p><div class="atlas-alert atlas-alertDanger"><div><div class="atlas-alertTitle">Sai sem aprovação</div>Provisionado há menos de 72 horas: a exclusão é executada direto. Não dá para desfazer.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Excluir</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-plt-cache-portal-perf" aria-labelledby="pro-plt-cache-portal-perf-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-plt-cache-portal-perf-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>plt-cache-portal</strong> em <strong>perf</strong>, com a mesma oferta (ElastiCache Valkey).</p></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Promover</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-plt-cache-portal-int" aria-labelledby="pro-plt-cache-portal-int-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-plt-cache-portal-int-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>plt-cache-portal</strong> em <strong>int</strong>, com a mesma oferta (ElastiCache Valkey).</p></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Promover</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-plt-cache-portal-ext" aria-labelledby="pro-plt-cache-portal-ext-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-plt-cache-portal-ext-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>plt-cache-portal</strong> em <strong>ext</strong>, com a mesma oferta (ElastiCache Valkey).</p></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Promover</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-plt-cache-portal-prod" aria-labelledby="pro-plt-cache-portal-prod-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-plt-cache-portal-prod-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>plt-cache-portal</strong> em <strong>prod</strong>, com a mesma oferta (ElastiCache Valkey).</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Aprovação do time de cloud</div>Promoções para prod esperam a aprovação do time de cloud antes de executar.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Pedir promoção</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-plt-cache-portal-prdnv" aria-labelledby="pro-plt-cache-portal-prdnv-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-plt-cache-portal-prdnv-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>plt-cache-portal</strong> em <strong>prdnv</strong>, com a mesma oferta (ElastiCache Valkey).</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Aprovação do time de cloud</div>Promoções para prdnv esperam a aprovação do time de cloud antes de executar.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Pedir promoção</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="det-plt-bastion-legado" aria-labelledby="det-plt-bastion-legado-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="det-plt-bastion-legado-title">plt-bastion-legado</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-readonlyGrid"><div class="atlas-field"><span class="atlas-fieldLabel">Serviço Núclea</span><span class="atlas-readonlyValue">PLT — Plataforma</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Oferta</span><span class="atlas-readonlyValue">Amazon EC2</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Gerenciado por</span><span class="atlas-readonlyValue">fora do IaC</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Repositório</span><span class="atlas-readonlyValue">—</span></div></div><div class="atlas-recentTableWrap"><table class="atlas-recentTable"><thead><tr><th>Ambiente</th><th>Provisionado em</th><th>Situação</th></tr></thead><tbody><tr><td class="atlas-resourceCell">dev</td><td>05/03/26 04:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">perf</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">int</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">ext</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">prod</td><td>13/03/26 12:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">prdnv</td><td>—</td><td>não provisionado</td></tr></tbody></table></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="det-btg-relatorios-fila" aria-labelledby="det-btg-relatorios-fila-title">
+  <div class="atlas-modalContentBox atlas-modalContentBoxWide">
+    <div class="atlas-modalHeader"><h3 id="det-btg-relatorios-fila-title">btg-relatorios-fila</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-readonlyGrid"><div class="atlas-field"><span class="atlas-fieldLabel">Serviço Núclea</span><span class="atlas-readonlyValue">BTG — Bitrago</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Oferta</span><span class="atlas-readonlyValue">Amazon SQS</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Gerenciado por</span><span class="atlas-readonlyValue">IaC (Terraform)</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Repositório</span><span class="atlas-readonlyValue">btg-bitrago-infra</span></div></div><div class="atlas-recentTableWrap"><table class="atlas-recentTable"><thead><tr><th>Ambiente</th><th>Provisionado em</th><th>Situação</th></tr></thead><tbody><tr><td class="atlas-resourceCell">dev</td><td>26/09/26 14:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">perf</td><td>26/09/26 18:00</td><td>ativo</td></tr><tr><td class="atlas-resourceCell">int</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">ext</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">prod</td><td>—</td><td>não provisionado</td></tr><tr><td class="atlas-resourceCell">prdnv</td><td>—</td><td>não provisionado</td></tr></tbody></table></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-btg-relatorios-fila-dev" aria-labelledby="del-btg-relatorios-fila-dev-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-btg-relatorios-fila-dev-title">Excluir recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>btg-relatorios-fila</strong> em <strong>dev</strong>, provisionado em 26/09/26 14:00.</p><div class="atlas-alert atlas-alertDanger"><div><div class="atlas-alertTitle">Sai sem aprovação</div>Provisionado há menos de 72 horas: a exclusão é executada direto. Não dá para desfazer.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Excluir</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="del-btg-relatorios-fila-perf" aria-labelledby="del-btg-relatorios-fila-perf-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="del-btg-relatorios-fila-perf-title">Excluir recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text"><strong>btg-relatorios-fila</strong> em <strong>perf</strong>, provisionado em 26/09/26 18:00.</p><div class="atlas-alert atlas-alertDanger"><div><div class="atlas-alertTitle">Sai sem aprovação</div>Provisionado há menos de 72 horas: a exclusão é executada direto. Não dá para desfazer.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill" style="color:var(--danger);border-color:rgba(255,82,82,0.4)" data-atlas-close>Excluir</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-btg-relatorios-fila-int" aria-labelledby="pro-btg-relatorios-fila-int-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-btg-relatorios-fila-int-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>btg-relatorios-fila</strong> em <strong>int</strong>, com a mesma oferta (Amazon SQS).</p></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Promover</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-btg-relatorios-fila-ext" aria-labelledby="pro-btg-relatorios-fila-ext-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-btg-relatorios-fila-ext-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>btg-relatorios-fila</strong> em <strong>ext</strong>, com a mesma oferta (Amazon SQS).</p></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Promover</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-btg-relatorios-fila-prod" aria-labelledby="pro-btg-relatorios-fila-prod-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-btg-relatorios-fila-prod-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>btg-relatorios-fila</strong> em <strong>prod</strong>, com a mesma oferta (Amazon SQS).</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Aprovação do time de cloud</div>Promoções para prod esperam a aprovação do time de cloud antes de executar.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Pedir promoção</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="pro-btg-relatorios-fila-prdnv" aria-labelledby="pro-btg-relatorios-fila-prdnv-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="pro-btg-relatorios-fila-prdnv-title">Promover recurso</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><p class="atlas-text">Provisionar <strong>btg-relatorios-fila</strong> em <strong>prdnv</strong>, com a mesma oferta (Amazon SQS).</p><div class="atlas-alert atlas-alertWarning"><div><div class="atlas-alertTitle">Aprovação do time de cloud</div>Promoções para prdnv esperam a aprovação do time de cloud antes de executar.</div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Voltar</button><button type="button" class="atlas-btnPill atlas-btnPillLime" data-atlas-close>Pedir promoção</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="repo-anf-motor-infra" aria-labelledby="repo-anf-motor-infra-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="repo-anf-motor-infra-title">anf-motor-infra</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-readonlyGrid"><div class="atlas-field"><span class="atlas-fieldLabel">Serviço Núclea</span><span class="atlas-readonlyValue">ANF — Antifraude</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Oferta</span><span class="atlas-readonlyValue">Repositório de IaC</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Recursos</span><span class="atlas-readonlyValue">2</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Visibilidade</span><span class="atlas-readonlyValue">privado</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Criado em</span><span class="atlas-readonlyValue">18/08/26 20:00</span></div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="repo-btg-bitrago-api" aria-labelledby="repo-btg-bitrago-api-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="repo-btg-bitrago-api-title">btg-bitrago-api</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-readonlyGrid"><div class="atlas-field"><span class="atlas-fieldLabel">Serviço Núclea</span><span class="atlas-readonlyValue">BTG — Bitrago</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Oferta</span><span class="atlas-readonlyValue">Serviço Node.js</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Recursos</span><span class="atlas-readonlyValue">0</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Visibilidade</span><span class="atlas-readonlyValue">interno</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Criado em</span><span class="atlas-readonlyValue">25/06/26 16:00</span></div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="repo-btg-bitrago-infra" aria-labelledby="repo-btg-bitrago-infra-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="repo-btg-bitrago-infra-title">btg-bitrago-infra</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-readonlyGrid"><div class="atlas-field"><span class="atlas-fieldLabel">Serviço Núclea</span><span class="atlas-readonlyValue">BTG — Bitrago</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Oferta</span><span class="atlas-readonlyValue">Repositório de IaC</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Recursos</span><span class="atlas-readonlyValue">3</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Visibilidade</span><span class="atlas-readonlyValue">interno</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Criado em</span><span class="atlas-readonlyValue">21/06/26 12:00</span></div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="repo-onb-cadastro-infra" aria-labelledby="repo-onb-cadastro-infra-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="repo-onb-cadastro-infra-title">onb-cadastro-infra</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-readonlyGrid"><div class="atlas-field"><span class="atlas-fieldLabel">Serviço Núclea</span><span class="atlas-readonlyValue">ONB — Onboarding</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Oferta</span><span class="atlas-readonlyValue">Repositório de IaC</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Recursos</span><span class="atlas-readonlyValue">2</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Visibilidade</span><span class="atlas-readonlyValue">interno</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Criado em</span><span class="atlas-readonlyValue">29/07/26 00:00</span></div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="repo-onb-cadastro-web" aria-labelledby="repo-onb-cadastro-web-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="repo-onb-cadastro-web-title">onb-cadastro-web</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-readonlyGrid"><div class="atlas-field"><span class="atlas-fieldLabel">Serviço Núclea</span><span class="atlas-readonlyValue">ONB — Onboarding</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Oferta</span><span class="atlas-readonlyValue">Frontend React</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Recursos</span><span class="atlas-readonlyValue">0</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Visibilidade</span><span class="atlas-readonlyValue">interno</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Criado em</span><span class="atlas-readonlyValue">02/08/26 04:00</span></div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="repo-pag-conciliacao-infra" aria-labelledby="repo-pag-conciliacao-infra-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="repo-pag-conciliacao-infra-title">pag-conciliacao-infra</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-readonlyGrid"><div class="atlas-field"><span class="atlas-fieldLabel">Serviço Núclea</span><span class="atlas-readonlyValue">PAG — Pagamentos</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Oferta</span><span class="atlas-readonlyValue">Repositório de IaC</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Recursos</span><span class="atlas-readonlyValue">2</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Visibilidade</span><span class="atlas-readonlyValue">privado</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Criado em</span><span class="atlas-readonlyValue">27/05/26 12:00</span></div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="repo-pag-conciliacao-worker" aria-labelledby="repo-pag-conciliacao-worker-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="repo-pag-conciliacao-worker-title">pag-conciliacao-worker</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-readonlyGrid"><div class="atlas-field"><span class="atlas-fieldLabel">Serviço Núclea</span><span class="atlas-readonlyValue">PAG — Pagamentos</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Oferta</span><span class="atlas-readonlyValue">Serviço Java</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Recursos</span><span class="atlas-readonlyValue">0</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Visibilidade</span><span class="atlas-readonlyValue">privado</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Criado em</span><span class="atlas-readonlyValue">31/05/26 16:00</span></div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="repo-pag-extratos-infra" aria-labelledby="repo-pag-extratos-infra-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="repo-pag-extratos-infra-title">pag-extratos-infra</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-readonlyGrid"><div class="atlas-field"><span class="atlas-fieldLabel">Serviço Núclea</span><span class="atlas-readonlyValue">PAG — Pagamentos</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Oferta</span><span class="atlas-readonlyValue">Repositório de IaC</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Recursos</span><span class="atlas-readonlyValue">1</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Visibilidade</span><span class="atlas-readonlyValue">privado</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Criado em</span><span class="atlas-readonlyValue">24/09/26 12:00</span></div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="repo-plt-observabilidade-infra" aria-labelledby="repo-plt-observabilidade-infra-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="repo-plt-observabilidade-infra-title">plt-observabilidade-infra</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-readonlyGrid"><div class="atlas-field"><span class="atlas-fieldLabel">Serviço Núclea</span><span class="atlas-readonlyValue">PLT — Plataforma</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Oferta</span><span class="atlas-readonlyValue">Repositório de IaC</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Recursos</span><span class="atlas-readonlyValue">2</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Visibilidade</span><span class="atlas-readonlyValue">interno</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Criado em</span><span class="atlas-readonlyValue">15/04/26 20:00</span></div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+<dialog class="atlas-dialog" id="repo-plt-portal-infra" aria-labelledby="repo-plt-portal-infra-title">
+  <div class="atlas-modalContentBox">
+    <div class="atlas-modalHeader"><h3 id="repo-plt-portal-infra-title">plt-portal-infra</h3><button type="button" class="atlas-modalCloseBtn" aria-label="Fechar" data-atlas-close>×</button></div>
+    <div class="atlas-modalBody"><div class="atlas-readonlyGrid"><div class="atlas-field"><span class="atlas-fieldLabel">Serviço Núclea</span><span class="atlas-readonlyValue">PLT — Plataforma</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Oferta</span><span class="atlas-readonlyValue">Repositório de IaC</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Recursos</span><span class="atlas-readonlyValue">1</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Visibilidade</span><span class="atlas-readonlyValue">interno</span></div><div class="atlas-field"><span class="atlas-fieldLabel">Criado em</span><span class="atlas-readonlyValue">21/09/26 04:00</span></div></div></div>
+    <div class="atlas-modalFooter"><button type="button" class="atlas-btnPill" data-atlas-close>Fechar</button></div>
+  </div>
+</dialog>
+    </div>
+  </main>
+
+  <script src="../../assets/atlas.js"></script>
+</body>
+</html>

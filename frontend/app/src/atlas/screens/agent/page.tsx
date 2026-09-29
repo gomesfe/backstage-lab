@@ -16,8 +16,8 @@ export const page = PageBlueprint.make({
     icon: <AgentIcon />,
     noHeader: true,
     loader: async () => {
-      const { AgentPage } = await import('./AgentPage');
-      return <AgentPage />;
+      const { AtlasHtmlScreen } = await import('../../shell/html/AtlasHtmlScreen');
+      return <AtlasHtmlScreen slug="agent" />;
     },
   },
 });

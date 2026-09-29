@@ -16,8 +16,8 @@ export const page = PageBlueprint.make({
     icon: <JiraIcon />,
     noHeader: true,
     loader: async () => {
-      const { AtlasJiraPage } = await import('./AtlasJiraPage');
-      return <AtlasJiraPage />;
+      const { AtlasHtmlScreen } = await import('../../shell/html/AtlasHtmlScreen');
+      return <AtlasHtmlScreen slug="atlas-jira" />;
     },
   },
 });
