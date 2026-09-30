@@ -1211,8 +1211,18 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 /* Célula de ambiente (mapa de provisionamento): data + ação. */
 .atlas-envCell { display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 88px; }
 /* Ações de uma célula de ambiente: pequenas, lado a lado, com divisória. */
-.atlas-envActions { display: flex; align-items: center; }
-.atlas-envActions > * + * { margin-left: 8px; padding-left: 8px; border-left: 1px solid var(--border-color); }
+.atlas-envActions { display: flex; align-items: center; justify-content: center; gap: 6px; }
+/* Botão de ação em tabela: quadrado com ícone (ou ícone + rótulo), no lugar de link solto. */
+.atlas-iconAction {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 28px; min-width: 28px; padding: 0;
+  border-radius: 8px; border: 1px solid var(--border-color); background: var(--bg-surface); color: var(--text-secondary);
+  font: inherit; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: background .15s, border-color .15s, color .15s;
+}
+.atlas-iconAction:hover { background: var(--bg-pill); border-color: var(--border-light); color: var(--text-primary); }
+.atlas-iconActionLabeled { padding: 0 10px; }
+.atlas-iconActionDanger { color: var(--danger); border-color: rgba(255, 82, 82, 0.35); }
+.atlas-iconActionDanger:hover { color: var(--danger); background: rgba(255, 82, 82, 0.1); border-color: rgba(255, 82, 82, 0.6); }
+.atlas-iconAction:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
 .atlas-envDate { font-size: 0.74rem; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
 .atlas-envEmpty { color: var(--text-muted); font-size: 0.8rem; }
 .atlas-recentTable .atlas-envTd { text-align: center; }
