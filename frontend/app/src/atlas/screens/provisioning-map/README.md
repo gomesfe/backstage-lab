@@ -20,7 +20,7 @@ para promover ou excluir em cada ambiente.
    - Barra: botão **Filtros** (abre Nome, Template, Ambiente, Serviço, e
      mostra quantos filtros estão ativos), **Itens** por página (10, 15, 25,
      50).
-   - Colunas: **Nome do recurso** (com selo IaC ou "fora do IaC"),
+   - Colunas: **Nome do recurso** (a tabela só tem recursos **com IaC**),
      **Serviço Núclea** (sigla), **Template**, uma coluna por ambiente —
      **dev · perf · int · ext · prod · prdnv** — e **Detalhes**.
    - **Funil por coluna** em Nome, Serviço e Template: abre um campo de
@@ -30,7 +30,7 @@ para promover ou excluir em cada ambiente.
        exclusão** (depois de 72 h, vai para aprovação);
      - não provisionado → **Promover**;
      - pedido em andamento → selo "exclusão pendente" ou "aguardando cloud";
-     - recurso fora do IaC → só a data; o Atlas não mexe nele.
+     - recursos sem IaC não entram aqui: quem não é IaC é repositório, na tabela de baixo (**sem IaC**).
    - Cada ambiente provisionado tem também **Detalhes**: pop-up "Detalhes da
      promoção" com recurso, serviço Núclea, ambiente, data da promoção, oferta,
      **versão da oferta** e quem promoveu (nome, e-mail e ID). Se há pedido de
