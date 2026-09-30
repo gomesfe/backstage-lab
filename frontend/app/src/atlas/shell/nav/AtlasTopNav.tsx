@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import SearchIcon from '@material-ui/icons/Search';
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -80,6 +80,10 @@ function NavPill({ href, title }: { href: string; title: string }) {
  * Setas para rolar a faixa de pílulas quando ela não cabe na tela. Cada seta
  * só aparece quando há o que ver daquele lado.
  */
+// A barra é remontada a cada troca de tela; sem guardar a posição, ela voltaria
+// para o início e a pílula clicada sairia de vista. Quem rola é o usuário.
+let savedScrollLeft = 0;
+
 function useScrollArrows() {
   const ref = useRef<HTMLElement>(null);
   const [edges, setEdges] = useState({ left: false, right: false });
@@ -93,15 +97,20 @@ function useScrollArrows() {
     });
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const el = ref.current;
     if (!el) return undefined;
+    el.scrollLeft = savedScrollLeft;
     update();
-    el.addEventListener('scroll', update, { passive: true });
+    const onScroll = () => {
+      savedScrollLeft = el.scrollLeft;
+      update();
+    };
+    el.addEventListener('scroll', onScroll, { passive: true });
     const observer = new ResizeObserver(update);
     observer.observe(el);
     return () => {
-      el.removeEventListener('scroll', update);
+      el.removeEventListener('scroll', onScroll);
       observer.disconnect();
     };
   }, [update]);
