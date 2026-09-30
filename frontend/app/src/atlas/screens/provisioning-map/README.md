@@ -31,9 +31,17 @@ para promover ou excluir em cada ambiente.
      - não provisionado → **Promover**;
      - pedido em andamento → selo "exclusão pendente" ou "aguardando cloud";
      - recurso fora do IaC → só a data; o Atlas não mexe nele.
+   - Cada ambiente provisionado tem também **Detalhes**: pop-up "Detalhes da
+     promoção" com recurso, serviço Núclea, ambiente, data da promoção, oferta,
+     **versão da oferta** e quem promoveu (nome, e-mail e ID). Se há pedido de
+     exclusão, mostra "Pendente · solicitação registrada"; sem pedido, não
+     mostra linha de deleção e sim a regra (direto até 72 h, depois aprovação).
+     O rodapé oferece Excluir ou Solicitar exclusão.
 5. **Tabela de repositórios**, com a mesma barra e os mesmos funis:
-   Repositório, Serviço Núclea, Template, Recursos, Visibilidade, Criado
-   em, Detalhes.
+   Repositório, Serviço Núclea, Oferta e **Excluir / Detalhes**. O pop-up
+   "Detalhe do repositório" traz serviço, oferta, versão, criado por (nome,
+   e-mail, ID), data de criação, visibilidade e recursos, com **Excluir
+   repositório** e **Ver execução** (vai para as tarefas do scaffolder).
 
 ## Regras (em `provisioningData.ts`)
 
