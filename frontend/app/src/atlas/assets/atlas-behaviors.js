@@ -19,6 +19,13 @@
  *   <div data-atlas-empty-for="t" hidden>                    aparece se nada sobra
  *   <button data-atlas-reset="t">                            limpa busca e filtros
  *
+ * FILTRO POR COLUNA (automático)
+ *   Toda tabela cujo <tbody id> tem linhas [data-atlas-row] ganha um funil ao
+ *   lado de cada título; ele abre um campo que filtra a coluna pelo texto
+ *   (soma com a busca e os filtros da lista). Ficam de fora as colunas
+ *   "Ações" e "Detalhes", ou qualquer <th data-atlas-nofilter>. A tabela
+ *   inteira sai com <table data-atlas-nocolfilters>. "Limpar filtros" limpa também.
+ *
  * ABAS
  *   <button data-atlas-tabs="g" data-atlas-tab="a">  <div data-atlas-tabs="g" data-atlas-panel="a">
  *   A aba ativa ganha atlas-tabBtnActive (ou a classe em data-atlas-active-class).
@@ -89,6 +96,86 @@
     return (control.getAttribute(attr) || '').split(/\s+/).filter(Boolean);
   }
 
+  var FUNNEL = '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5h18l-7 8.5V19l-4 2v-7.5z"/></svg>';
+  var NO_FILTER_TITLES = ['', 'ações', 'acoes', 'detalhes'];
+
+  function rowPassesColumns(row) {
+    var table = row.closest('table');
+    var cols = table && table.__atlasCols;
+    if (!cols) return true;
+    return Object.keys(cols).every(function (idx) {
+      var needle = cols[idx];
+      var cell = row.cells[idx];
+      return !needle || (cell && cell.textContent.toLowerCase().indexOf(needle) !== -1);
+    });
+  }
+
+  function closePopovers(root) {
+    all(root, '.atlas-popover[data-atlas-colpopover]').forEach(function (pop) { pop.parentNode.removeChild(pop); });
+  }
+
+  function setupColumnFilters(root) {
+    all(root, 'table').forEach(function (table) {
+      var body = table.querySelector('tbody[id]');
+      if (table.hasAttribute('data-atlas-nocolfilters') || table.hasAttribute('data-atlas-colfilters-ready')) return;
+      if (!body || !body.querySelector('[data-atlas-row]')) return;
+      table.setAttribute('data-atlas-colfilters-ready', '');
+      all(table, 'thead th').forEach(function (th) {
+        var title = th.textContent.trim();
+        if (th.hasAttribute('data-atlas-nofilter') || NO_FILTER_TITLES.indexOf(title.toLowerCase()) !== -1) return;
+        var wrap = document.createElement('span');
+        wrap.className = 'atlas-thFilter';
+        while (th.firstChild) wrap.appendChild(th.firstChild);
+        var btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'atlas-colFilterBtn';
+        btn.setAttribute('data-atlas-colfilter', String(th.cellIndex));
+        btn.setAttribute('aria-label', 'Filtrar por ' + title);
+        btn.setAttribute('title', 'Filtrar por ' + title);
+        btn.innerHTML = FUNNEL;
+        wrap.appendChild(btn);
+        th.appendChild(wrap);
+      });
+    });
+  }
+
+  function openColumnPopover(root, btn) {
+    var same = btn.parentNode.querySelector('.atlas-popover[data-atlas-colpopover]');
+    closePopovers(root);
+    if (same) return;
+    var table = btn.closest('table');
+    var idx = btn.getAttribute('data-atlas-colfilter');
+    var title = btn.getAttribute('aria-label');
+    var pop = document.createElement('div');
+    pop.className = 'atlas-popover';
+    pop.setAttribute('data-atlas-colpopover', '');
+    pop.setAttribute('role', 'dialog');
+    pop.setAttribute('aria-label', title);
+    pop.innerHTML =
+      '<input class="atlas-filterInput" type="search" data-atlas-colinput placeholder="' + title + '" aria-label="' + title + '">' +
+      '<div class="atlas-popoverActions"><button type="button" class="atlas-btnPill" data-atlas-colclear>Limpar</button>' +
+      '<button type="button" class="atlas-btnPill" data-atlas-colclose>Fechar</button></div>';
+    var input = pop.querySelector('input');
+    input.value = (table.__atlasCols && table.__atlasCols[idx]) || '';
+    var rect = btn.getBoundingClientRect();
+    pop.style.top = Math.round(rect.bottom + 6) + 'px';
+    pop.style.left = Math.max(8, Math.min(Math.round(rect.left), global.innerWidth - 268)) + 'px';
+    pop.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' || e.key === 'Enter') { closePopovers(root); btn.focus(); }
+    });
+    btn.parentNode.appendChild(pop);
+    input.focus();
+  }
+
+  function setColumnFilter(root, btn, value) {
+    var table = btn.closest('table');
+    table.__atlasCols = table.__atlasCols || {};
+    table.__atlasCols[btn.getAttribute('data-atlas-colfilter')] = value.trim().toLowerCase();
+    btn.classList.toggle('atlas-colFilterBtnActive', !!value.trim());
+    var body = table.querySelector('tbody[id]');
+    if (body) applyFilters(root, body.id);
+  }
+
   function applyFilters(root, targetId) {
     var target = root.querySelector('#' + targetId);
     if (!target) return;
@@ -101,7 +188,7 @@
     });
     var visible = 0;
     all(target, '[data-atlas-row]').forEach(function (row) {
-      var ok = !needle || row.textContent.toLowerCase().indexOf(needle) !== -1;
+      var ok = (!needle || row.textContent.toLowerCase().indexOf(needle) !== -1) && rowPassesColumns(row);
       filters.forEach(function (control) {
         var key = control.getAttribute('data-atlas-filter-key');
         var value = filterValue(control);
@@ -241,17 +328,32 @@
     function onInput(event) {
       var el = event.target;
       if (!el.getAttribute) return;
-      if (el.hasAttribute('data-atlas-search')) refilter(root, el, 'data-atlas-search');
+      if (el.hasAttribute('data-atlas-colinput')) {
+        var owner = el.parentNode.parentNode.querySelector('[data-atlas-colfilter]');
+        if (owner) setColumnFilter(root, owner, el.value);
+      } else if (el.hasAttribute('data-atlas-search')) refilter(root, el, 'data-atlas-search');
       else if (el.hasAttribute('data-atlas-filter')) refilter(root, el, 'data-atlas-filter');
     }
 
     function onClick(event) {
+      if (!(event.target.closest && event.target.closest('.atlas-thFilter'))) closePopovers(root);
       var el = event.target.closest && event.target.closest(
-        '[data-atlas-value],[data-atlas-tab],[data-atlas-open],[data-atlas-close],[data-atlas-toggle],[data-atlas-reset],[data-atlas-set-theme],[data-atlas-signout]',
+        '[data-atlas-colfilter],[data-atlas-colclear],[data-atlas-colclose],[data-atlas-value],[data-atlas-tab],[data-atlas-open],[data-atlas-close],[data-atlas-toggle],[data-atlas-reset],[data-atlas-set-theme],[data-atlas-signout]',
       );
       if (!el || !root.contains(el)) return;
 
-      if (el.hasAttribute('data-atlas-value')) {
+      if (el.hasAttribute('data-atlas-colfilter')) {
+        openColumnPopover(root, el);
+      } else if (el.hasAttribute('data-atlas-colclear')) {
+        var wrap = el.closest('.atlas-thFilter');
+        var opener = wrap.querySelector('[data-atlas-colfilter]');
+        wrap.querySelector('[data-atlas-colinput]').value = '';
+        setColumnFilter(root, opener, '');
+        opener.focus();
+        closePopovers(root);
+      } else if (el.hasAttribute('data-atlas-colclose')) {
+        closePopovers(root);
+      } else if (el.hasAttribute('data-atlas-value')) {
         var group = el.closest('[data-atlas-filter]');
         if (group) {
           pressGroupButton(group, el);
@@ -272,6 +374,12 @@
       } else if (el.hasAttribute('data-atlas-reset')) {
         targetsOf(el, 'data-atlas-reset').forEach(function (id) {
           all(root, '[data-atlas-search="' + id + '"]').forEach(function (s) { s.value = ''; });
+          var resetBody = root.querySelector('#' + id);
+          var resetTable = resetBody && resetBody.closest('table');
+          if (resetTable) {
+            resetTable.__atlasCols = {};
+            all(resetTable, '.atlas-colFilterBtnActive').forEach(function (b) { b.classList.remove('atlas-colFilterBtnActive'); });
+          }
           all(root, '[data-atlas-filter]').forEach(function (control) {
             if (targetsOf(control, 'data-atlas-filter').indexOf(id) === -1) return;
             if (control.tagName === 'SELECT') control.selectedIndex = 0;
@@ -296,6 +404,7 @@
       }
     }
 
+    setupColumnFilters(root);
     root.addEventListener('input', onInput);
     root.addEventListener('change', onInput);
     root.addEventListener('click', onClick);

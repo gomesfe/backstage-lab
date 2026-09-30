@@ -73,6 +73,7 @@ reage ao clique para mostrar o visual.
 | Atributo | Faz |
 |---|---|
 | `data-atlas-search="lista"` | busca por texto nas linhas `data-atlas-row` de `#lista` |
+| _(automático)_ funil por coluna | toda tabela com `<tbody id>` e linhas `data-atlas-row` ganha um funil em cada título (menos "Ações"/"Detalhes"); exclua com `data-atlas-nofilter` no `th` ou `data-atlas-nocolfilters` na tabela |
 | `data-atlas-filter="lista"` + `data-atlas-filter-key="type"` | num `<select>` ou num grupo de botões `data-atlas-value` (abas, pílulas): mostra só as linhas com `data-type` igual |
 | `data-atlas-empty-for="lista"` | aparece quando nada sobra |
 | `data-atlas-reset="lista"` | "Limpar filtros" |
