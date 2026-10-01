@@ -27,8 +27,8 @@
     ['break-glass', 'Break Glass'],
     ['status', 'Status'],
     ['atlas-jira', 'Atlas × Jira'],
-    ['agent', 'Agente'],
     ['skills', 'Skills'],
+    ['agent', 'Agente'],
     ['api-keys', 'API Keys'],
     ['admin', 'Administração'],
   ];
