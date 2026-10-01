@@ -9,6 +9,8 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { useApi, appThemeApiRef } from '@backstage/core-plugin-api';
 import type { NavContentComponentProps } from '@backstage/plugin-app-react';
+import type { ReactNode } from 'react';
+import { usePref } from '../prefs';
 import useObservable from 'react-use/lib/useObservable';
 import { AtlasLogo, EnvBadge } from '../../components';
 import { useUnreadCount } from '../../screens/notifications/useUnreadCount';
@@ -61,10 +63,16 @@ export function isActive(href: string, pathname: string) {
   return href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
 }
 
-function NavPill({ href, title }: { href: string; title: string }) {
+/** Ícones no menu: preferência `navIcons` (Configurações › Aparência), ligada por padrão. */
+export function useNavIcons() {
+  return usePref('navIcons', '1') === '1';
+}
+
+function NavPill({ href, title, icon }: { href: string; title: string; icon?: ReactNode }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const active = isActive(href, pathname);
+  const showIcon = useNavIcons();
 
   return (
     <button
@@ -72,7 +80,9 @@ function NavPill({ href, title }: { href: string; title: string }) {
       className={`atlas-navPill ${active ? 'atlas-navPillActive' : ''}`}
       aria-current={active ? 'page' : undefined}
       onClick={() => navigate(href)}
+      title={showIcon ? undefined : title}
     >
+      {showIcon && icon && <span className="atlas-navPillIcon" aria-hidden="true">{icon}</span>}
       {title}
     </button>
   );
@@ -85,6 +95,36 @@ function NavPill({ href, title }: { href: string; title: string }) {
 // A barra é remontada a cada troca de tela; sem guardar a posição, ela voltaria
 // para o início e a pílula clicada sairia de vista. Quem rola é o usuário.
 let savedScrollLeft = 0;
+
+/** Quantas pílulas cabem antes da seta; em tela menor, cabem menos (a faixa encolhe). */
+const VISIBLE_PILLS = 7;
+
+/**
+ * Limita a largura da faixa às primeiras {@link VISIBLE_PILLS} pílulas. A
+ * faixa ainda pode encolher (tela estreita); o resto aparece pela seta.
+ */
+function useVisiblePills(ref: { current: HTMLElement | null }, deps: unknown[]) {
+  useLayoutEffect(() => {
+    const el = ref.current;
+    if (!el) return undefined;
+    const fit = () => {
+      const pills = Array.from(el.children) as HTMLElement[];
+      if (pills.length <= VISIBLE_PILLS) {
+        el.style.maxWidth = '';
+        return;
+      }
+      const style = getComputedStyle(el);
+      const padding = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
+      const span = pills[VISIBLE_PILLS - 1].getBoundingClientRect().right - pills[0].getBoundingClientRect().left;
+      el.style.maxWidth = `${Math.ceil(span + padding + 2)}px`;
+    };
+    fit();
+    const observer = new ResizeObserver(fit);
+    Array.from(el.children).forEach(child => observer.observe(child));
+    return () => observer.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
+}
 
 function useScrollArrows() {
   const ref = useRef<HTMLElement>(null);
@@ -171,8 +211,10 @@ export function NavActions() {
 export function AtlasTopNav({ navItems }: { navItems: NavContentComponentProps['navItems'] }) {
   const navigate = useNavigate();
   const { ref, edges, scrollBy } = useScrollArrows();
+  const showIcons = useNavIcons();
+  useVisiblePills(ref, [showIcons, navItems]);
 
-  const pills = navItems.withComponent(item => <NavPill href={item.href} title={item.title} />);
+  const pills = navItems.withComponent(item => <NavPill href={item.href} title={item.title} icon={item.icon} />);
 
   return (
     <header className="atlas-topNav atlas-topNav--fixed">

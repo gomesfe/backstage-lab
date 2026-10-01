@@ -16,6 +16,10 @@ Três abas:
      das cores**, nome e descrição; o ativo marcado. Trocar aplica na hora;
    - **Posição do menu:** no topo (padrão) ou na lateral. Abaixo de 900px o
      menu volta para o topo. Preferência `nav` no navegador;
+   - **Ícones no menu:** interruptor (ligado por padrão) que mostra ou tira o
+     ícone de cada tela nas pílulas do menu e no menu lateral. Preferência
+     `navIcons` (`1`/`0`). O menu mostra no máximo 7 pílulas; o resto fica
+     atrás da seta, e em tela menor cabem menos;
    - **Área interna do Atlas:** interruptor que mostra, numa aba à parte do
      Catálogo e do Mapa, o catálogo e os recursos que o time do Atlas usa.
      Desligado (padrão), a aba não aparece. Preferência `internal`.

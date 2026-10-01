@@ -53,7 +53,8 @@
  * PREFERÊNCIAS (guardadas no navegador, `localStorage` chave atlas.<nome>)
  *   <button data-atlas-pref="nav:side">           cartão de opção: grava nav=side e marca o cartão
  *     data-atlas-pref-default no cartão que vale quando nada foi escolhido.
- *   <button data-atlas-pref-switch="internal">    interruptor: liga/desliga (internal=1)
+ *   <button data-atlas-pref-switch="internal">    interruptor: liga/desliga (internal=1 / 0);
+ *     data-atlas-pref-default="1" faz começar ligado (ex.: navIcons, ícones no menu)
  *   <button data-atlas-if-pref="internal">        só aparece com internal=1 (aba, bloco…).
  *     Se era a aba aberta e some, a primeira aba visível abre no lugar.
  *   Quem grava avisa o portal com o evento "atlas:prefs" na janela (o menu lateral
@@ -148,7 +149,8 @@
       if (href !== null) el.setAttribute('href', href);
     });
     all(root, '[data-atlas-pref-switch]').forEach(function (btn) {
-      var on = getPref(btn.getAttribute('data-atlas-pref-switch')) === '1';
+      var saved = getPref(btn.getAttribute('data-atlas-pref-switch'));
+      var on = (saved === null ? btn.getAttribute('data-atlas-pref-default') : saved) === '1';
       btn.setAttribute('aria-pressed', String(on));
       btn.classList.toggle('atlas-switchOn', on);
     });
@@ -483,7 +485,9 @@
         setPref(kv[0], kv[1]);
       } else if (el.hasAttribute('data-atlas-pref-switch')) {
         var key = el.getAttribute('data-atlas-pref-switch');
-        setPref(key, getPref(key) === '1' ? '' : '1');
+        var saved = getPref(key);
+        var current = saved === null ? el.getAttribute('data-atlas-pref-default') : saved;
+        setPref(key, current === '1' ? '0' : '1');
       } else if (el.hasAttribute('data-atlas-colfilter')) {
         openColumnPopover(root, el);
       } else if (el.hasAttribute('data-atlas-colclear')) {

@@ -1510,6 +1510,16 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 .atlas-groupsMenuEmpty { padding: 10px 8px; font-size: 0.82rem; color: var(--text-secondary); }
 .atlas-groupsMenuAll { display: block; width: calc(100% - 16px); margin: 6px 8px 0; padding: 9px 10px; border: 0; border-top: 1px solid var(--border-color); background: transparent; color: var(--lime-ink); font: inherit; font-size: 0.82rem; font-weight: 700; text-align: left; cursor: pointer; }
 .atlas-groupsMenuAll:hover { text-decoration: underline; }
+/* ===== Barra mais compacta, com ícone nas pílulas (v1.29) ===== */
+.atlas-topNav { min-height: 50px; padding: 8px 12px; }
+.atlas-navPills { flex: 0 1 auto; min-width: 0; }
+.atlas-navPill { padding: 6px 12px; font-size: 0.8rem; gap: 6px; }
+.atlas-navPillIcon { display: inline-flex; align-items: center; }
+.atlas-navPillIcon svg { width: 16px; height: 16px; font-size: 16px; }
+.atlas-navActionBtn { width: 34px; height: 34px; }
+.atlas-navActionBtn svg { font-size: 18px; }
+.atlas-topNav--fixed + * { padding-top: 70px; }
+.atlas-sideNavItem { display: flex; align-items: center; gap: 10px; }
 .atlas-iconActionQuietDanger:hover { color: var(--danger); background: rgba(255, 82, 82, 0.1); border-color: rgba(255, 82, 82, 0.6); }
 .atlas-iconActionAdd, .atlas-iconActionAdd:hover { background: transparent; }
 .atlas-iconActionAdd { color: var(--text-muted); border-style: dashed; border-color: var(--border-light); }
