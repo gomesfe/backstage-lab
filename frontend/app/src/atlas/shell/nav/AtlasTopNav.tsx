@@ -13,6 +13,7 @@ import useObservable from 'react-use/lib/useObservable';
 import { AtlasLogo, EnvBadge } from '../../components';
 import { useUnreadCount } from '../../screens/notifications/useUnreadCount';
 import { ToolkitMenu } from '../../screens/home/toolkit';
+import { GroupsMenu } from './GroupsMenu';
 
 /**
  * Barra de navegação do Atlas. Usa as classes do design system (`atlas.css`:
@@ -29,7 +30,6 @@ import { ToolkitMenu } from '../../screens/home/toolkit';
 export const PILL_ORDER = [
   'page:home',
   'page:catalog',
-  'page:atlas-pages/my-groups',
   'page:atlas-pages/approvals',
   'page:api-docs',
   'page:techdocs',
@@ -135,6 +135,7 @@ export function NavActions() {
           <SearchIcon fontSize="small" />
         </button>
         <ToolkitMenu />
+        <GroupsMenu />
         <button
           type="button"
           className="atlas-navActionBtn"
