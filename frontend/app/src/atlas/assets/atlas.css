@@ -1211,7 +1211,7 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 /* Célula de ambiente (mapa de provisionamento): data + ação. */
 .atlas-envCell { display: flex; flex-direction: column; align-items: center; gap: 3px; min-width: 88px; }
 /* Ações de uma célula de ambiente: pequenas, lado a lado, com divisória. */
-.atlas-envActions { display: flex; align-items: center; justify-content: center; gap: 6px; }
+.atlas-envActions { display: flex; flex-direction: column; align-items: center; gap: 5px; }
 /* Botão de ação em tabela: quadrado com ícone (ou ícone + rótulo), no lugar de link solto. */
 .atlas-iconAction {
   display: inline-flex; align-items: center; justify-content: center; gap: 6px; height: 28px; min-width: 28px; padding: 0;
@@ -1226,7 +1226,7 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 /* Colunas centralizadas e células de ambiente de altura fixa: tudo na mesma linha. */
 .atlas-cellCenter { text-align: center; }
 .atlas-cellCenter .atlas-thFilter { justify-content: center; }
-.atlas-envCell { min-height: 60px; justify-content: center; }
+.atlas-envCell { min-height: 0; justify-content: center; gap: 5px; }
 .atlas-envDateEmpty { opacity: 0.45; }
 .atlas-iconActionAdd { color: var(--lime); border-color: var(--lime-border); background: var(--lime-bg); }
 .atlas-iconActionAdd:hover { color: var(--lime); background: var(--lime-bg); border-color: var(--lime); }
@@ -1239,28 +1239,54 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 .atlas-personMeta { font-size: 0.78rem; color: var(--text-secondary); overflow-wrap: anywhere; }
 .atlas-envDate { font-size: 0.74rem; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
 .atlas-envEmpty { color: var(--text-muted); font-size: 0.8rem; }
-/* ===== Padrão de tabela (v1.9) =====
-   Linhas finas e translúcidas entre linhas e colunas; a tabela se ajusta à tela
-   (sem barra de rolagem em notebook): o texto quebra, o espaçamento encolhe e
-   só abaixo de 900px a moldura volta a rolar. */
-.atlas-root { --atlas-table-line: rgba(148, 163, 184, 0.2); }
-.atlas-recentTable { table-layout: auto; }
-.atlas-recentTable th, .atlas-recentTable td {
-  white-space: normal; overflow-wrap: anywhere; vertical-align: middle;
-  border-bottom: 1px solid var(--atlas-table-line); border-right: 1px solid var(--atlas-table-line);
+/* ===== Padrão de tabela (v1.10) =====
+   Cada linha é uma faixa translúcida com contorno fino e cantos arredondados, separada
+   da seguinte por um respiro; sem divisórias verticais. Cabeçalho só com rótulos em
+   caixa alta. A tabela se ajusta à tela (sem barra de rolagem em notebook): o texto
+   quebra e o espaçamento encolhe; só abaixo de 900px a moldura volta a rolar.
+   Ações dentro da tabela viram cápsulas pequenas (padrão da tela de Aprovações). */
+.atlas-root { --atlas-row-bg: rgba(148, 163, 184, 0.06); --atlas-row-line: rgba(148, 163, 184, 0.22); }
+.atlas-recentTableWrap { border: 0; border-radius: 0; background: transparent; }
+.atlas-recentTable { border-collapse: separate; border-spacing: 0 6px; table-layout: auto; }
+.atlas-recentTable th {
+  white-space: nowrap; overflow-wrap: normal; vertical-align: middle; background: transparent;
+  border: 0; padding: 6px 12px;
 }
-.atlas-recentTable th:last-child, .atlas-recentTable td:last-child { border-right: 0; }
-.atlas-recentTable th { white-space: nowrap; overflow-wrap: normal; border-bottom-color: var(--border-light); }
-.atlas-recentTable tbody tr:last-child td { border-bottom: 0; }
+.atlas-recentTable td {
+  white-space: normal; overflow-wrap: anywhere; vertical-align: middle; background: var(--atlas-row-bg);
+  border: 0; border-top: 1px solid var(--atlas-row-line); border-bottom: 1px solid var(--atlas-row-line);
+  padding: 12px; transition: background-color 0.15s ease, border-color 0.15s ease;
+}
+.atlas-recentTable tbody tr:last-child td { border-bottom: 1px solid var(--atlas-row-line); }
+.atlas-recentTable td:first-child { border-left: 1px solid var(--atlas-row-line); border-radius: 12px 0 0 12px; }
+.atlas-recentTable td:last-child { border-right: 1px solid var(--atlas-row-line); border-radius: 0 12px 12px 0; }
+.atlas-recentTable tbody tr:hover td { background: var(--bg-card-hover); border-color: var(--lime-border); }
 .atlas-recentTable .atlas-badgeTag, .atlas-recentTable .atlas-tagChip, .atlas-recentTable .atlas-envDate,
 .atlas-recentTable time { white-space: nowrap; }
 .atlas-recentTable .atlas-tableActionGroup { flex-wrap: wrap; }
+/* Ação em tabela: cápsula pequena de contorno. */
+.atlas-recentTable .atlas-actionBtnLink, .atlas-pillSm {
+  display: inline-flex; align-items: center; justify-content: center; gap: 5px; height: 26px; padding: 0 12px;
+  border: 1px solid var(--border-light); border-radius: var(--atlas-radius-pill); background: transparent;
+  color: var(--text-secondary); font: inherit; font-size: 0.72rem; font-weight: 700; white-space: nowrap; cursor: pointer;
+  transition: background .15s, border-color .15s, color .15s;
+}
+.atlas-recentTable .atlas-actionBtnLink:hover, .atlas-pillSm:hover { background: var(--bg-pill); color: var(--text-primary); transform: none; }
+.atlas-recentTable .atlas-actionBtnDanger, .atlas-pillSmDanger { color: var(--danger); border-color: rgba(255, 82, 82, 0.45); }
+.atlas-recentTable .atlas-actionBtnDanger:hover, .atlas-pillSmDanger:hover { color: var(--danger); background: rgba(255, 82, 82, 0.1); border-color: var(--danger); }
+.atlas-pillSmWarn, .atlas-pillSmWarn:hover { color: var(--warning); border-color: rgba(251, 191, 36, 0.45); background: rgba(251, 191, 36, 0.1); cursor: default; }
+.atlas-pillSmGhost { border-style: dashed; color: var(--text-muted); }
+.atlas-pillSmGhost:hover { color: var(--lime); border-color: var(--lime); background: transparent; }
+.atlas-pillSm:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
 @media (max-width: 1500px) {
-  .atlas-recentTable th, .atlas-recentTable td { padding: 10px 8px; }
-  .atlas-recentTable td { font-size: 0.82rem; }
-  .atlas-recentTable th { font-size: 0.64rem; letter-spacing: 0.05em; }
+  .atlas-recentTable th { padding: 6px 8px; font-size: 0.64rem; letter-spacing: 0.05em; }
+  .atlas-recentTable td { padding: 10px 8px; font-size: 0.82rem; }
+  .atlas-recentTable .atlas-actionBtnLink, .atlas-pillSm { padding: 0 9px; }
+  .atlas-envCell .atlas-pillSm { padding: 0 8px; font-size: 0.68rem; }
+  .atlas-envCell .atlas-pillSm svg { display: none; }
 }
 @media (max-width: 900px) {
+  .atlas-recentTableWrap { overflow-x: auto; }
   .atlas-recentTable th, .atlas-recentTable td { white-space: nowrap; }
 }
 /* Ações de ambiente, discretas: neutras até o cursor chegar (guia de identidade:
