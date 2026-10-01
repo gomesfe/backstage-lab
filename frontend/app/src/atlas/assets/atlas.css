@@ -1459,6 +1459,24 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 .atlas-metricGroupFoot { margin-top: auto; padding: 14px 0 10px; display: flex; justify-content: flex-end; }
 .atlas-metricGroupHi .atlas-metricGroupFoot .atlas-btnPill { background: rgba(255, 255, 255, 0.16); border-color: rgba(255, 255, 255, 0.35); color: #ffffff; }
 .atlas-metricGroupHi .atlas-metricGroupFoot .atlas-btnPill:hover { background: rgba(255, 255, 255, 0.26); }
+/* ===== Home: carga assíncrona, ambiente, transações (v1.25) ===== */
+/* Blocos cinzas que pulsam enquanto um número chega (nunca uma rodinha girando). */
+.atlas-skeleton { display: inline-block; min-width: 2.2ch; border-radius: 6px; color: transparent !important; background: var(--bg-pill); animation: atlas-skelPulse 1.2s ease-in-out infinite; }
+@keyframes atlas-skelPulse { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .atlas-skeleton { animation: none; } }
+.atlas-heroAskLayout .atlas-welcomeCard { padding: 22px 24px 20px; }
+.atlas-metricRow { padding: 13px 0; }
+.atlas-panelScroll { max-height: 400px; overflow-y: auto; scrollbar-width: thin; }
+.atlas-panelFilters { display: flex; align-items: center; gap: 10px; margin: 2px 0 6px; }
+.atlas-panelFilters .atlas-filterSelect { min-width: 150px; }
+.atlas-txList { display: flex; flex-direction: column; }
+.atlas-txItem { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 11px 0; text-decoration: none; color: inherit; border-bottom: 1px solid var(--border-color); }
+.atlas-txItem:last-child { border-bottom: 0; }
+.atlas-txItem > span:first-child { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.atlas-txName { font-size: 0.86rem; font-weight: 600; color: var(--text-primary); overflow-wrap: anywhere; }
+.atlas-txMeta { font-size: 0.74rem; color: var(--text-secondary); }
+.atlas-txItem:hover .atlas-txName { color: var(--lime-ink); }
+.atlas-txItem .atlas-badgeTag { flex-shrink: 0; }
 .atlas-iconActionQuietDanger:hover { color: var(--danger); background: rgba(255, 82, 82, 0.1); border-color: rgba(255, 82, 82, 0.6); }
 .atlas-iconActionAdd, .atlas-iconActionAdd:hover { background: transparent; }
 .atlas-iconActionAdd { color: var(--text-muted); border-style: dashed; border-color: var(--border-light); }

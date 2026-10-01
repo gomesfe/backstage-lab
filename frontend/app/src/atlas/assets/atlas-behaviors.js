@@ -64,9 +64,14 @@
  *   e/ou o link (data-h-<valor>) conforme a preferência: números e links "do meu time".
  *
  * SAUDAÇÃO E PERGUNTA (home)
- *   <h1 data-atlas-greeting>Bem-vindo ao Atlas</h1>   vira "Bom dia/Boa tarde/Boa noite, bem-vindo
- *   ao Atlas" conforme a hora; <span data-atlas-greeting-user hidden> ganha "Olá, {nome}." quando o
- *   portal preenche data-atlas-user na raiz (nome do perfil de login).
+ *   <h1 data-atlas-greeting>Bem-vindo ao Atlas</h1>   vira "Bom dia, Ana" quando o portal preenche
+ *   data-atlas-user na raiz (nome do login) e "Bom dia, bem-vindo ao Atlas" sem nome; Boa tarde a
+ *   partir de 12h, Boa noite a partir de 18h.
+ *
+ * CONTAGENS EM SEGUNDO PLANO
+ *   <span data-atlas-count="resources">13</span>   mostra um skeleton (atlas-skeleton) e pede o número
+ *   ao portal (hooks.loadCounts(['resources', …]) → Promise<{ resources: 13, … }>), sem travar a tela.
+ *   Sem o hook, ou se ele falhar, fica o número escrito no HTML.
  *   <button data-atlas-ask-fill="texto"> sugestão: preenche a caixa e põe o foco nela.
  *   <input data-atlas-ask-input> + <a data-atlas-ask-go href="../agent/index.html">:
  *   ao clicar (ou Enter), o texto vai na ?q= do link. <textarea data-atlas-prefill="q">
@@ -158,21 +163,49 @@
     });
   }
 
+  function loadCounts(root, hooks) {
+    var els = all(root, '[data-atlas-count]');
+    if (!els.length) return;
+    els.forEach(function (el) {
+      if (!el.hasAttribute('data-atlas-fallback')) el.setAttribute('data-atlas-fallback', el.textContent);
+      el.classList.add('atlas-skeleton');
+      el.setAttribute('aria-busy', 'true');
+    });
+    function fill(values) {
+      els.forEach(function (el) {
+        var key = el.getAttribute('data-atlas-count');
+        var value = values && values[key] !== undefined && values[key] !== null ? values[key] : el.getAttribute('data-atlas-fallback');
+        el.textContent = String(value);
+        el.classList.remove('atlas-skeleton');
+        el.removeAttribute('aria-busy');
+      });
+    }
+    var keys = els.map(function (el) { return el.getAttribute('data-atlas-count'); });
+    var pending;
+    try { pending = hooks.loadCounts ? hooks.loadCounts(keys) : null; } catch (e) { pending = null; }
+    Promise.resolve(pending).then(fill, function () { fill(null); });
+  }
+
   function greet(root) {
     var user = (root.getAttribute('data-atlas-user') || '').trim();
     var hour = new Date().getHours();
     var period = hour < 5 ? 'Boa noite' : hour < 12 ? 'Bom dia' : hour < 18 ? 'Boa tarde' : 'Boa noite';
     all(root, '[data-atlas-greeting]').forEach(function (el) {
+      if (user) {
+        el.textContent = period + ', ';
+        var who = global.document.createElement('span');
+        who.className = 'atlas-greetingName';
+        who.textContent = user;
+        el.appendChild(who);
+        return;
+      }
       el.textContent = period + ', bem-vindo ao ';
       var brand = global.document.createElement('span');
       brand.className = 'atlas-greetingName';
       brand.textContent = 'Atlas';
       el.appendChild(brand);
     });
-    all(root, '[data-atlas-greeting-user]').forEach(function (el) {
-      el.hidden = !user;
-      el.textContent = user ? 'Olá, ' + user + '. ' : '';
-    });
+    all(root, '[data-atlas-greeting-user]').forEach(function (el) { el.hidden = true; });
   }
 
   function filterValue(control) {
@@ -526,6 +559,7 @@
     global.addEventListener('atlas:prefs', onPrefs);
     syncPrefs(root);
     greet(root);
+    loadCounts(root, hooks);
     root.addEventListener('input', onInput);
     root.addEventListener('change', onInput);
     root.addEventListener('click', onClick);
