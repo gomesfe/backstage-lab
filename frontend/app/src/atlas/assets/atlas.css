@@ -1430,8 +1430,9 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 .atlas-panelTools .atlas-searchFieldWrap { flex: 0 1 240px; width: 240px; min-width: 160px; }
 @media (max-width: 900px) { .atlas-panelTools { flex-wrap: wrap; } .atlas-panelTools .atlas-searchFieldWrap { flex-basis: 100%; width: 100%; } }
 /* ===== Números agrupados (v1.23): dois blocos em vez de cinco cartões ===== */
-.atlas-metricGroups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
-@media (max-width: 900px) { .atlas-metricGroups { grid-template-columns: minmax(0, 1fr); } }
+.atlas-metricGroups { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 1250px) { .atlas-metricGroups { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 700px) { .atlas-metricGroups { grid-template-columns: minmax(0, 1fr); } }
 .atlas-metricGroup {
   display: flex; flex-direction: column; padding: 18px 20px 8px; border-radius: var(--atlas-radius-md);
   background: var(--bg-card); border: 1px solid var(--border-color);
@@ -1439,6 +1440,9 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 .atlas-metricGroupTitle { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
 .atlas-metricRow { display: flex; align-items: center; gap: 14px; padding: 13px 0; text-decoration: none; color: inherit; border-top: 1px solid var(--border-color); }
 .atlas-metricGroupTitle + .atlas-metricRow { border-top: 0; }
+.atlas-metricRow:first-child { border-top: 0; }
+.atlas-metricGroup { justify-content: center; padding-top: 8px; }
+.atlas-metricRow { padding: 16px 0; }
 .atlas-metricRowIcon { width: 34px; height: 34px; border-radius: 10px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; background: var(--bg-pill); color: var(--text-secondary); }
 .atlas-metricRowText { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
 .atlas-metricRowLabel { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); }
