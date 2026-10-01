@@ -1538,7 +1538,9 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 @media (max-width: 1150px) { .atlas-topNav .atlas-navSearch { display: none; } .atlas-topNav .atlas-navSearchBtn { display: inline-flex; } }
 /* menu lateral */
 .atlas-root { --atlas-sidebar-w: 256px; }
-.atlas-sideNav--fixed { padding: 22px 14px 14px; gap: 14px; overflow: hidden; }
+.atlas-sideNav--fixed { padding: 22px 14px 14px; gap: 14px; overflow: visible; }
+/* Os menus do rodapé (Toolkit, Meus grupos) passam por cima do conteúdo da página. */
+.atlas-sideNavFoot .atlas-navDropdownMenu { z-index: 1200; }
 .atlas-sideNavHead { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 0 6px 4px; }
 .atlas-sideNavBrand { background: none; border: 0; padding: 0; cursor: pointer; color: var(--text-primary); }
 .atlas-sideNavLogo { height: 40px; width: auto; display: block; }
