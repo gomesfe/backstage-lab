@@ -9,36 +9,34 @@ e por onde eu começo?" em uma olhada.
 
 ## Deve conter, nesta ordem
 
-Segue a reunião com o William (boas-vindas enxuta e dinâmica, área central útil,
-sem repetir o menu) e a tela de antes nos blocos de baixo.
+A estrutura é a de antes, com as ideias da reunião com o William encaixadas:
 
-A tela fica numa **coluna central de até 1240px** (`atlas-homeNarrow`), com
-respiro nas laterais, como a referência arejada citada na reunião.
-
-1. **Hero aberto** (sem moldura):
-   - **Seu time** — lista pequena acima da saudação (Todos, Plataforma,
-     Pagamentos, Onboarding, Antifraude, Bitrago). A escolha fica no navegador
-     (`atlas.team`, padrão `plataforma`) e muda o cartão do time, marca o
-     projeto com "seu time" e filtra "Serviços no catálogo" e "Aplicações".
-   - **Saudação pelo horário:** "Bom dia, Ana." com o nome do login; sem nome,
-     "Bom dia, bem-vindo ao Atlas." (Boa tarde a partir de 12h, Boa noite a
-     partir de 18h).
-   - **Frase de contexto:** aprovações esperando a pessoa e ofertas novas.
-   - **Perguntar** (leva ao Agente com o texto, `?q=`) e quatro sugestões que
-     preenchem a caixa (`data-atlas-ask-fill`).
-   - **Cartão do time** à direita: champion (nome, "Escrever ↗" por e-mail),
-     "Meus grupos" e três ações com ícone e rótulo — Provisionar recurso,
-     Aprovações (N) e Break Glass. Elas substituem a faixa de ações rápidas.
-2. **Faixa de números** (um bloco, cinco colunas): Aplicações, APIs, Sistemas,
-   Repositórios e **Recursos provisionados** (fundo verde suave, número em
-   verde). Cada coluna abre a tela certa; recursos e repositórios abrem o mapa.
-3. **Provisionado no Atlas** (área central, sem moldura): abas **Recursos** e
-   **Repositórios** com contagem, busca "projeto ou oferta" e a lista por
-   **nome de projeto** com as ofertas em uso; cada linha abre o mapa filtrado
-   (`/provisioning-map?service=PAG`).
-4. **Três cartões:** Serviços no catálogo, Últimas atualizações e **Em breve**.
-5. **Aplicações**, **Links úteis** e **Learning Paths**.
-6. **Comece por aqui** (3 passos).
+1. **Seu time** (faixa fina no topo): lista para escolher o time (Todos,
+   Plataforma, Pagamentos, Onboarding, Antifraude, Bitrago), com o champion
+   (nome e e-mail) e o link para Meus grupos. A escolha fica no navegador
+   (`atlas.team`, padrão `plataforma`), marca o projeto com "seu time" e
+   filtra "Serviços no catálogo" e "Aplicações".
+2. **Boas-vindas + números**
+   - **Boas-vindas** (cartão com degradê verde): saudação que muda com o
+     horário — "Bom dia / Boa tarde / Boa noite, bem-vindo ao Atlas" —, "Olá,
+     {nome}." quando o login traz o nome, e a caixa **Perguntar** (leva ao
+     Agente com o texto, `?q=`).
+   - **Cinco números** clicáveis: Aplicações, APIs, Sistemas, Repositórios e
+     **Recursos provisionados** (destaque, largura dupla). Os dois últimos
+     abrem o mapa (`#repositorios` para a aba de repositórios).
+3. **Ações rápidas** — só as que o menu do topo não cobre: Provisionar recurso,
+   Buscar no catálogo, Mapa de provisionamento, Solicitar acesso (desabilitada,
+   ainda sem tela) e Break Glass.
+4. **Provisionado no Atlas** (área central): abas **Recursos** e
+   **Repositórios** com a contagem de cada uma, **busca de projeto** e a lista
+   por **nome de projeto** (Pagamentos, não PAG) com as ofertas em uso; cada
+   linha abre o mapa já filtrado (`/provisioning-map?service=PAG`).
+5. **Três cartões:** Serviços no catálogo, Últimas atualizações e **Em breve**
+   (borda tracejada, poucas linhas, só entregas previstas; no lugar de
+   "Ferramentas", que repetia o Toolkit).
+6. **Aplicações** (busca e tipo; `<tr data-atlas-row data-squad data-type>`),
+   **Links úteis** e **Learning Paths**.
+7. **Comece por aqui** (3 passos).
 
 ## Toolkit
 
