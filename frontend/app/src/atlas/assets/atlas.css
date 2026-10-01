@@ -1337,6 +1337,25 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 .atlas-soonDesc { font-size: 0.78rem; color: var(--text-secondary); }
 .atlas-twoCardsGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; width: 100%; }
 @media (max-width: 900px) { .atlas-twoCardsGrid { grid-template-columns: 1fr; } }
+/* ===== Menu lateral (v1.12): alternativa ao menu do topo ===== */
+.atlas-root { --atlas-sidebar-w: 236px; }
+.atlas-sideNav--fixed {
+  position: fixed; top: 12px; left: 12px; bottom: 12px; width: var(--atlas-sidebar-w); z-index: 1100;
+  display: flex; flex-direction: column; gap: 14px; padding: 16px 12px; overflow-y: auto;
+  background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--atlas-radius-lg);
+}
+.atlas-sideNav--fixed + * { padding-top: 0; padding-left: calc(var(--atlas-sidebar-w) + 24px); }
+.atlas-sideNav .atlas-brandLogo { display: inline-flex; align-items: center; gap: 8px; padding: 2px 4px; }
+.atlas-sideNavActions { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 2px 12px; border-bottom: 1px solid var(--border-color); }
+.atlas-sideNavActions .atlas-navRight { display: flex; flex-wrap: wrap; gap: 6px; }
+.atlas-sideNavItems { display: flex; flex-direction: column; gap: 2px; }
+.atlas-sideNavItem {
+  text-align: left; padding: 9px 14px; border-radius: var(--atlas-radius-pill); border: 0; background: transparent;
+  color: var(--text-secondary); font: inherit; font-size: 0.86rem; font-weight: 600; cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.atlas-sideNavItem:hover { background: var(--bg-pill); color: var(--text-primary); }
+.atlas-sideNavItemActive, .atlas-sideNavItemActive:hover { background: var(--lime); color: var(--lime-text); }
 .atlas-iconActionQuietDanger:hover { color: var(--danger); background: rgba(255, 82, 82, 0.1); border-color: rgba(255, 82, 82, 0.6); }
 .atlas-iconActionAdd, .atlas-iconActionAdd:hover { background: transparent; }
 .atlas-iconActionAdd { color: var(--text-muted); border-style: dashed; border-color: var(--border-light); }

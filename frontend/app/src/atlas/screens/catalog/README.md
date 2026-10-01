@@ -27,3 +27,10 @@ catálogo; a página de cada entidade continua sendo a oficial.
 
 `?kind=Component|System|Resource|Group`, `?owner=<grupo>`, `?tag=`, `?q=`,
 `?fav=1`. Links da Home e de Meus grupos usam isso.
+
+## Aba "Interno do Atlas"
+
+Duas abas no topo: **Catálogo** e **Interno do Atlas**. A segunda só aparece
+quando a pessoa liga "Área interna do Atlas" em Configurações › Aparência e
+guarda as aplicações e os recursos que o próprio time do Atlas usa (portal,
+agente, RBAC, banco, fila, logs), separados do catálogo dos squads.

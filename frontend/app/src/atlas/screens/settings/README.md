@@ -11,9 +11,14 @@ user-settings.
 
 Três abas:
 
-1. **Aparência** — um cartão por tema instalado (Atlas escuro, Atlas claro),
-   cada um com **amostra das cores do próprio tema**, nome e descrição; o
-   ativo marcado. Trocar aplica na hora.
+1. **Aparência**
+   - um cartão por tema instalado (Atlas escuro, Atlas claro), com **amostra
+     das cores**, nome e descrição; o ativo marcado. Trocar aplica na hora;
+   - **Posição do menu:** no topo (padrão) ou na lateral. Abaixo de 900px o
+     menu volta para o topo. Preferência `nav` no navegador;
+   - **Área interna do Atlas:** interruptor que mostra, numa aba à parte do
+     Catálogo e do Mapa, o catálogo e os recursos que o time do Atlas usa.
+     Desligado (padrão), a aba não aparece. Preferência `internal`.
 2. **Identidade**
    - topo com **avatar de iniciais**, nome, e-mail (ou ref) e botão **Sair**;
    - linhas: usuário (a ref que o RBAC usa), nome de exibição, grupos,

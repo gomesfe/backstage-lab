@@ -58,3 +58,9 @@ regras vale para aquele caso.
 **Exemplo** — o lab não tem o inventário (no Atlas ele vem do estado do
 Terraform e dos PRs de IaC). A tela avisa isso no topo, e as ações mudam só
 a sessão. Para ligar no real, troque `loadProvisioning`.
+
+## Aba "Interno do Atlas"
+
+Terceira aba (depois de Recursos e Repositórios), visível só com "Área
+interna do Atlas" ligada em Configurações › Aparência. Lista os recursos e os
+repositórios que o time do Atlas usa, fora das contagens dos squads.

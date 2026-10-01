@@ -26,7 +26,7 @@ import { ToolkitMenu } from '../../screens/home/toolkit';
  * configurações, páginas estáticas), mas não ganha pílula: a barra mostra o
  * produto, não tudo o que está instalado.
  */
-const PILL_ORDER = [
+export const PILL_ORDER = [
   'page:home',
   'page:catalog',
   'page:atlas-pages/my-groups',
@@ -53,7 +53,7 @@ function useThemeToggle() {
   return { isDark, toggle };
 }
 
-function isActive(href: string, pathname: string) {
+export function isActive(href: string, pathname: string) {
   // Casamento por segmento, não por prefixo: `/api-keys` não pode acender
   // uma pílula `/api`. A home fica em "/", onde prefixo casaria com tudo.
   return href === '/' ? pathname === '/' : pathname === href || pathname.startsWith(`${href}/`);
@@ -121,11 +121,53 @@ function useScrollArrows() {
   return { ref, edges, scrollBy };
 }
 
-export function AtlasTopNav({ navItems }: { navItems: NavContentComponentProps['navItems'] }) {
+/** Buscar, Toolkit, notificações, tema e configurações: iguais nos dois menus. */
+export function NavActions() {
   const navigate = useNavigate();
   const { isDark, toggle } = useThemeToggle();
-  const { ref, edges, scrollBy } = useScrollArrows();
   const unread = useUnreadCount();
+
+  return (
+      <div className="atlas-navRight">
+        <button type="button" className="atlas-navActionBtn" aria-label="Buscar" title="Buscar" onClick={() => navigate('/search')}>
+          <SearchIcon fontSize="small" />
+        </button>
+        <ToolkitMenu />
+        <button
+          type="button"
+          className="atlas-navActionBtn"
+          aria-label={unread ? `Notificações: ${unread} não lidas` : 'Notificações'}
+          title={unread ? `${unread} não lidas` : 'Notificações'}
+          onClick={() => navigate('/notifications')}
+        >
+          <NotificationsIcon fontSize="small" />
+          {unread > 0 && <span className="atlas-navCount" aria-hidden>{unread > 99 ? '99+' : unread}</span>}
+        </button>
+        <button
+          type="button"
+          className="atlas-navActionBtn"
+          aria-label="Alternar tema"
+          title={isDark ? 'Tema claro' : 'Tema escuro'}
+          onClick={toggle}
+        >
+          {isDark ? <LightModeIcon fontSize="small" /> : <DarkModeIcon fontSize="small" />}
+        </button>
+        <button
+          type="button"
+          className="atlas-navActionBtn"
+          aria-label="Configurações"
+          title="Configurações"
+          onClick={() => navigate('/settings')}
+        >
+          <SettingsIcon fontSize="small" />
+        </button>
+      </div>
+  );
+}
+
+export function AtlasTopNav({ navItems }: { navItems: NavContentComponentProps['navItems'] }) {
+  const navigate = useNavigate();
+  const { ref, edges, scrollBy } = useScrollArrows();
 
   const pills = navItems.withComponent(item => <NavPill href={item.href} title={item.title} />);
 
@@ -176,40 +218,7 @@ export function AtlasTopNav({ navItems }: { navItems: NavContentComponentProps['
         </div>
       </div>
 
-      <div className="atlas-navRight">
-        <button type="button" className="atlas-navActionBtn" aria-label="Buscar" title="Buscar" onClick={() => navigate('/search')}>
-          <SearchIcon fontSize="small" />
-        </button>
-        <ToolkitMenu />
-        <button
-          type="button"
-          className="atlas-navActionBtn"
-          aria-label={unread ? `Notificações: ${unread} não lidas` : 'Notificações'}
-          title={unread ? `${unread} não lidas` : 'Notificações'}
-          onClick={() => navigate('/notifications')}
-        >
-          <NotificationsIcon fontSize="small" />
-          {unread > 0 && <span className="atlas-navCount" aria-hidden>{unread > 99 ? '99+' : unread}</span>}
-        </button>
-        <button
-          type="button"
-          className="atlas-navActionBtn"
-          aria-label="Alternar tema"
-          title={isDark ? 'Tema claro' : 'Tema escuro'}
-          onClick={toggle}
-        >
-          {isDark ? <LightModeIcon fontSize="small" /> : <DarkModeIcon fontSize="small" />}
-        </button>
-        <button
-          type="button"
-          className="atlas-navActionBtn"
-          aria-label="Configurações"
-          title="Configurações"
-          onClick={() => navigate('/settings')}
-        >
-          <SettingsIcon fontSize="small" />
-        </button>
-      </div>
+      <NavActions />
     </header>
   );
 }

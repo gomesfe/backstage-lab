@@ -1,9 +1,10 @@
 import { createFrontendModule } from '@backstage/frontend-plugin-api';
 import { NavContentBlueprint } from '@backstage/plugin-app-react';
-import { AtlasTopNav } from './AtlasTopNav';
+import { AtlasNav } from './AtlasNav';
 
 /**
- * Navegação do Atlas: pílulas no topo, não sidebar.
+ * Navegação do Atlas: pílulas no topo (padrão) ou menu lateral, conforme a
+ * preferência do usuário. Não é o sidebar do Backstage.
  *
  * O `SidebarPage` do Backstage continua sendo o shell — ele fornece contextos
  * que vários componentes consomem (estado de pin, ref de conteúdo). Só o
@@ -12,7 +13,7 @@ import { AtlasTopNav } from './AtlasTopNav';
  */
 const navContent = NavContentBlueprint.make({
   params: {
-    component: ({ navItems }) => <AtlasTopNav navItems={navItems} />,
+    component: ({ navItems }) => <AtlasNav navItems={navItems} />,
   },
 });
 

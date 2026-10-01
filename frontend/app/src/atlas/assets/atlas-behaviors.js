@@ -50,6 +50,15 @@
  *   (data-atlas-filter-key). ../entity/index.html#payments-api abre a aba
  *   "payments-api" (links para a mesma tela também, sem recarregar).
  *
+ * PREFERÊNCIAS (guardadas no navegador, `localStorage` chave atlas.<nome>)
+ *   <button data-atlas-pref="nav:side">           cartão de opção: grava nav=side e marca o cartão
+ *     data-atlas-pref-default no cartão que vale quando nada foi escolhido.
+ *   <button data-atlas-pref-switch="internal">    interruptor: liga/desliga (internal=1)
+ *   <button data-atlas-if-pref="internal">        só aparece com internal=1 (aba, bloco…).
+ *     Se era a aba aberta e some, a primeira aba visível abre no lugar.
+ *   Quem grava avisa o portal com o evento "atlas:prefs" na janela (o menu lateral
+ *   do portal escuta o mesmo).
+ *
  * SAUDAÇÃO E PERGUNTA (home)
  *   <h1 data-atlas-greeting>Bem-vindo ao Atlas</h1>   vira "Bom dia, Ana" conforme a hora;
  *   o nome vem de data-atlas-user na raiz (o portal preenche com o perfil de login).
@@ -90,6 +99,42 @@
     all(root, '[data-atlas-ago]').forEach(function (el) {
       var text = ago(el.getAttribute('datetime'));
       if (text) el.textContent = text;
+    });
+  }
+
+  function getPref(key) {
+    try { return global.localStorage.getItem('atlas.' + key); } catch (e) { return null; }
+  }
+
+  function setPref(key, value) {
+    try {
+      if (!value) global.localStorage.removeItem('atlas.' + key);
+      else global.localStorage.setItem('atlas.' + key, value);
+    } catch (e) { /* sem armazenamento: vale até recarregar */ }
+    global.dispatchEvent(new Event('atlas:prefs'));
+  }
+
+  function syncPrefs(root) {
+    all(root, '[data-atlas-pref]').forEach(function (btn) {
+      var kv = btn.getAttribute('data-atlas-pref').split(':');
+      var current = getPref(kv[0]);
+      var on = current ? current === kv[1] : btn.hasAttribute('data-atlas-pref-default');
+      btn.setAttribute('aria-pressed', String(on));
+      btn.classList.toggle('atlas-modalActionOptionChecked', on);
+    });
+    all(root, '[data-atlas-pref-switch]').forEach(function (btn) {
+      var on = getPref(btn.getAttribute('data-atlas-pref-switch')) === '1';
+      btn.setAttribute('aria-pressed', String(on));
+      btn.classList.toggle('atlas-switchOn', on);
+    });
+    all(root, '[data-atlas-if-pref]').forEach(function (el) {
+      var show = getPref(el.getAttribute('data-atlas-if-pref')) === '1';
+      el.hidden = !show;
+      if (!show && el.getAttribute('aria-selected') === 'true') {
+        var group = el.getAttribute('data-atlas-tabs');
+        var first = all(root, '[data-atlas-tabs="' + group + '"][data-atlas-tab]').filter(function (b) { return !b.hidden; })[0];
+        if (first) { openTab(root, group, first.getAttribute('data-atlas-tab')); }
+      }
     });
   }
 
@@ -364,11 +409,17 @@
         return;
       }
       var el = event.target.closest && event.target.closest(
-        '[data-atlas-colfilter],[data-atlas-colclear],[data-atlas-colclose],[data-atlas-value],[data-atlas-tab],[data-atlas-open],[data-atlas-close],[data-atlas-toggle],[data-atlas-reset],[data-atlas-set-theme],[data-atlas-signout]',
+        '[data-atlas-pref],[data-atlas-pref-switch],[data-atlas-colfilter],[data-atlas-colclear],[data-atlas-colclose],[data-atlas-value],[data-atlas-tab],[data-atlas-open],[data-atlas-close],[data-atlas-toggle],[data-atlas-reset],[data-atlas-set-theme],[data-atlas-signout]',
       );
       if (!el || !root.contains(el)) return;
 
-      if (el.hasAttribute('data-atlas-colfilter')) {
+      if (el.hasAttribute('data-atlas-pref')) {
+        var kv = el.getAttribute('data-atlas-pref').split(':');
+        setPref(kv[0], kv[1]);
+      } else if (el.hasAttribute('data-atlas-pref-switch')) {
+        var key = el.getAttribute('data-atlas-pref-switch');
+        setPref(key, getPref(key) === '1' ? '' : '1');
+      } else if (el.hasAttribute('data-atlas-colfilter')) {
         openColumnPopover(root, el);
       } else if (el.hasAttribute('data-atlas-colclear')) {
         var wrap = el.closest('.atlas-thFilter');
@@ -439,6 +490,9 @@
     }
     root.addEventListener('keydown', onAskKey);
     root.addEventListener('atlas:user', function () { greet(root); });
+    var onPrefs = function () { syncPrefs(root); };
+    global.addEventListener('atlas:prefs', onPrefs);
+    syncPrefs(root);
     greet(root);
     root.addEventListener('input', onInput);
     root.addEventListener('change', onInput);
@@ -462,6 +516,7 @@
       root.removeEventListener('change', onInput);
       root.removeEventListener('click', onClick);
       root.removeEventListener('keydown', onAskKey);
+      global.removeEventListener('atlas:prefs', onPrefs);
       global.removeEventListener('hashchange', onHash);
     };
   }
