@@ -13,9 +13,12 @@ Segue a reunião com o William: boas-vindas enxuta, área central útil, sem
 repetir o menu do topo (por isso não há "ações rápidas").
 
 1. **Hero com degradê verde** (`atlas-welcomeCard atlas-heroBig`):
-   - **Boas-vindas:** saudação dinâmica ("Bom dia, {nome}"; o guest vê
-     "Bem-vindo ao Atlas") e a caixa **Perguntar**, que leva ao Agente com o
-     texto (`?q=`).
+   - **Boas-vindas:** saudação dinâmica ("Bom dia, **{nome}**", com o nome em
+     verde; o guest vê "Bem-vindo ao Atlas"), a caixa **Perguntar** (leva ao
+     Agente com o texto, `?q=`), três **sugestões** que preenchem a caixa
+     (`data-atlas-ask-fill`) e três **números** (recursos, repositórios, o
+     que espera você) que abrem as telas certas. Ao fundo, luz verde em
+     camadas e a órbita da marca.
    - **Seu time** (cartão à direita): lista para **trocar de time** (Todos,
      Plataforma, Pagamentos, Onboarding, Antifraude, Bitrago), com o champion
      (nome e e-mail) e o link para Meus grupos. A escolha fica no navegador
@@ -25,12 +28,14 @@ repetir o menu do topo (por isso não há "ações rápidas").
    **Repositórios**, cada uma com a contagem, e **busca de projeto**. A lista
    usa nomes de projeto (Pagamentos, não PAG) com as ofertas em uso; o botão de
    cada linha abre o mapa já filtrado (`/provisioning-map?service=PAG`, e
-   `#repositorios` na outra aba). Os nomes e contagens são os do próprio mapa.
+   `#repositorios` na outra aba). Cada projeto tem uma cor e uma **barra de
+   volume**. Os nomes e contagens são os do próprio mapa.
    Com dado real as contagens viriam de um endpoint, com `atlas-skeleton`
    até chegarem, sem travar a abertura da home.
 3. **Duas colunas, na parte de baixo:** **Aplicações** do time (busca e tipo;
    `<tr data-atlas-row data-squad data-type>`) ao lado de **Últimas
-   atualizações**, **Em breve** (poucas linhas, só entregas previstas) e
+   atualizações** (linha do tempo: Oferta, Padrão, Aviso), **Em breve** (borda
+   tracejada, poucas linhas, só entregas previstas) e
    **Links úteis**.
 
 ## Toolkit

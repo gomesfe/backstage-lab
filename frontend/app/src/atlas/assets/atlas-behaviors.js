@@ -66,6 +66,7 @@
  * SAUDAÇÃO E PERGUNTA (home)
  *   <h1 data-atlas-greeting>Bem-vindo ao Atlas</h1>   vira "Bom dia, Ana" conforme a hora;
  *   o nome vem de data-atlas-user na raiz (o portal preenche com o perfil de login).
+ *   <button data-atlas-ask-fill="texto"> sugestão: preenche a caixa e põe o foco nela.
  *   <input data-atlas-ask-input> + <a data-atlas-ask-go href="../agent/index.html">:
  *   ao clicar (ou Enter), o texto vai na ?q= do link. <textarea data-atlas-prefill="q">
  *   na tela de destino recebe esse q.
@@ -161,7 +162,12 @@
     var hour = new Date().getHours();
     var period = hour < 5 ? 'Boa noite' : hour < 12 ? 'Bom dia' : hour < 18 ? 'Boa tarde' : 'Boa noite';
     all(root, '[data-atlas-greeting]').forEach(function (el) {
-      if (user) el.textContent = period + ', ' + user;
+      if (!user) return;
+      el.textContent = period + ', ';
+      var name = global.document.createElement('span');
+      name.className = 'atlas-greetingName';
+      name.textContent = user;
+      el.appendChild(name);
     });
   }
 
@@ -428,11 +434,14 @@
         return;
       }
       var el = event.target.closest && event.target.closest(
-        '[data-atlas-pref],[data-atlas-pref-switch],[data-atlas-colfilter],[data-atlas-colclear],[data-atlas-colclose],[data-atlas-value],[data-atlas-tab],[data-atlas-open],[data-atlas-close],[data-atlas-toggle],[data-atlas-reset],[data-atlas-set-theme],[data-atlas-signout]',
+        '[data-atlas-ask-fill],[data-atlas-pref],[data-atlas-pref-switch],[data-atlas-colfilter],[data-atlas-colclear],[data-atlas-colclose],[data-atlas-value],[data-atlas-tab],[data-atlas-open],[data-atlas-close],[data-atlas-toggle],[data-atlas-reset],[data-atlas-set-theme],[data-atlas-signout]',
       );
       if (!el || !root.contains(el)) return;
 
-      if (el.hasAttribute('data-atlas-pref')) {
+      if (el.hasAttribute('data-atlas-ask-fill')) {
+        var field = root.querySelector('[data-atlas-ask-input]');
+        if (field) { field.value = el.getAttribute('data-atlas-ask-fill'); field.focus(); }
+      } else if (el.hasAttribute('data-atlas-pref')) {
         var kv = el.getAttribute('data-atlas-pref').split(':');
         setPref(kv[0], kv[1]);
       } else if (el.hasAttribute('data-atlas-pref-switch')) {

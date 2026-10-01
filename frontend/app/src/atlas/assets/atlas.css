@@ -1420,6 +1420,69 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 .atlas-projectCell .atlas-avatar { width: 36px; height: 36px; border-radius: 10px; font-size: 0.8rem; }
 .atlas-projectName { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--text-primary); }
 .atlas-projectMeta { font-size: 0.74rem; color: var(--text-muted); letter-spacing: 0.04em; }
+/* ===== Home com acabamento (v1.16) =====
+   Luz verde em camadas, órbita da marca ao fundo, nome em destaque, números no hero,
+   projetos com cor e barra de volume, novidades em linha do tempo. Tudo dentro do guia:
+   verde pouco, outras cores só para diferenciar, cantos suaves, quase nenhum movimento. */
+.atlas-root { --atlas-mint: #34d399; --atlas-amber: #fbbf24; --atlas-violet: #907bff; --atlas-sky: #60a5fa; }
+.atlas-heroBig {
+  position: relative; isolation: isolate; border-color: var(--lime-border);
+  background:
+    radial-gradient(70% 120% at 0% 0%, rgba(68, 168, 68, 0.34) 0%, rgba(68, 168, 68, 0) 62%),
+    radial-gradient(55% 90% at 100% 100%, rgba(144, 123, 255, 0.16) 0%, rgba(144, 123, 255, 0) 70%),
+    linear-gradient(160deg, var(--bg-surface) 0%, var(--bg-card) 100%);
+  box-shadow: 0 30px 80px -40px rgba(68, 168, 68, 0.45), var(--shadow-md);
+}
+.atlas-heroOrbit { position: absolute; right: -90px; top: -110px; width: 520px; height: 520px; z-index: -1; pointer-events: none; color: var(--lime); opacity: 0.2; }
+.atlas-heroBig .atlas-welcomeEyebrow { display: inline-flex; align-items: center; gap: 8px; }
+.atlas-heroBig .atlas-welcomeEyebrow::before { content: ""; width: 18px; height: 2px; border-radius: 2px; background: var(--lime); }
+.atlas-greetingName { background: linear-gradient(90deg, #6fd06f 0%, var(--lime) 50%, #8be28b 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.atlas-heroBig .atlas-askBox { padding: 7px 7px 7px 22px; box-shadow: 0 14px 40px -18px rgba(0, 0, 0, 0.6); }
+.atlas-heroBig .atlas-askBox input { font-size: 1.02rem; padding: 12px 0; }
+.atlas-askSpark { color: var(--lime); flex-shrink: 0; margin-right: -2px; }
+.atlas-askChips { gap: 8px; }
+.atlas-askChip {
+  padding: 6px 14px; border-radius: var(--atlas-radius-pill); border: 1px solid var(--border-light); background: rgba(255, 255, 255, 0.04);
+  color: var(--text-secondary); font: inherit; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: border-color .15s, color .15s, background .15s;
+}
+.atlas-askChip:hover { border-color: var(--lime-border); color: var(--text-primary); background: var(--lime-bg); }
+.atlas-heroStats { display: flex; flex-wrap: wrap; gap: 0; margin-top: 6px; }
+.atlas-heroStat { display: flex; flex-direction: column; gap: 2px; padding: 4px 26px 4px 0; margin-right: 26px; border-right: 1px solid var(--border-light); text-decoration: none; color: inherit; }
+.atlas-heroStat:last-child { border-right: 0; margin-right: 0; padding-right: 0; }
+.atlas-heroStatValue { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1; color: var(--text-primary); font-variant-numeric: tabular-nums; }
+.atlas-heroStatLabel { display: inline-flex; align-items: center; gap: 6px; font-size: 0.76rem; color: var(--text-secondary); }
+.atlas-heroStat:hover .atlas-heroStatLabel { color: var(--lime); }
+.atlas-teamCard .atlas-avatar { width: 46px; height: 46px; border-radius: 50%; box-shadow: 0 0 0 3px var(--lime-bg), 0 0 0 4px var(--lime-border); }
+.atlas-teamCard .atlas-person { gap: 14px; padding: 12px 0 2px; }
+/* projetos: cor por projeto e barra de volume */
+.atlas-avatarTone1 { background: var(--lime-bg); color: var(--lime); }
+.atlas-avatarTone2 { background: rgba(52, 211, 153, 0.14); color: var(--atlas-mint); }
+.atlas-avatarTone3 { background: rgba(251, 191, 36, 0.14); color: var(--atlas-amber); }
+.atlas-avatarTone4 { background: rgba(144, 123, 255, 0.16); color: var(--atlas-violet); }
+.atlas-avatarTone5 { background: rgba(96, 165, 250, 0.14); color: var(--atlas-sky); }
+.atlas-volume { display: flex; align-items: center; gap: 10px; min-width: 120px; }
+.atlas-volumeBar { flex: 1; height: 6px; border-radius: 6px; background: var(--bg-pill); overflow: hidden; }
+.atlas-volumeBar > span { display: block; height: 100%; border-radius: 6px; background: linear-gradient(90deg, var(--lime), #8be28b); }
+.atlas-volumeNum { font-weight: 800; font-variant-numeric: tabular-nums; color: var(--text-primary); min-width: 1.5ch; text-align: right; }
+.atlas-panelHead .atlas-panelTitle::before { content: ""; display: inline-block; width: 4px; height: 1em; margin-right: 10px; border-radius: 3px; background: var(--lime); vertical-align: -0.12em; }
+/* novidades em linha do tempo */
+.atlas-feed { display: flex; flex-direction: column; margin-top: 6px; }
+.atlas-feedItem { display: grid; grid-template-columns: 14px minmax(0, 1fr); gap: 14px; padding-bottom: 18px; position: relative; }
+.atlas-feedItem::before { content: ""; position: absolute; left: 6px; top: 16px; bottom: 0; width: 1px; background: var(--border-color); }
+.atlas-feedItem:last-child { padding-bottom: 0; }
+.atlas-feedItem:last-child::before { display: none; }
+.atlas-feedDot { width: 13px; height: 13px; margin-top: 3px; border-radius: 50%; border: 2px solid var(--lime); background: var(--bg-card); }
+.atlas-feedItem[data-kind="padrao"] .atlas-feedDot { border-color: var(--atlas-violet); }
+.atlas-feedItem[data-kind="aviso"] .atlas-feedDot { border-color: var(--atlas-amber); }
+.atlas-feedTag { font-size: 0.66rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--lime); }
+.atlas-feedItem[data-kind="padrao"] .atlas-feedTag { color: var(--atlas-violet); }
+.atlas-feedItem[data-kind="aviso"] .atlas-feedTag { color: var(--atlas-amber); }
+.atlas-feedText { margin: 2px 0 4px; font-size: 0.86rem; line-height: 1.45; color: var(--text-primary); }
+/* Em breve: tracejado, para parecer promessa e não entrega */
+.atlas-soonCard { border-style: dashed; border-color: var(--border-light); background: transparent; }
+.atlas-soonItem .atlas-badgeTag { flex-shrink: 0; }
+.atlas-sectionCard { transition: border-color 0.15s ease; }
+.atlas-sectionCard:hover { border-color: var(--border-light); }
 .atlas-iconActionQuietDanger:hover { color: var(--danger); background: rgba(255, 82, 82, 0.1); border-color: rgba(255, 82, 82, 0.6); }
 .atlas-iconActionAdd, .atlas-iconActionAdd:hover { background: transparent; }
 .atlas-iconActionAdd { color: var(--text-muted); border-style: dashed; border-color: var(--border-light); }
