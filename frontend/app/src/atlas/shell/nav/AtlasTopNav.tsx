@@ -8,7 +8,7 @@ import DarkModeIcon from '@material-ui/icons/Brightness2';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import { useApi, appThemeApiRef } from '@backstage/core-plugin-api';
-import type { NavContentComponentProps } from '@backstage/plugin-app-react';
+import type { NavContentComponentProps, NavContentNavItem } from '@backstage/plugin-app-react';
 import type { ReactNode } from 'react';
 import { usePref } from '../prefs';
 import useObservable from 'react-use/lib/useObservable';
@@ -96,6 +96,15 @@ function NavPill({ href, title, icon }: { href: string; title: string; icon?: Re
 // para o início e a pílula clicada sairia de vista. Quem rola é o usuário.
 let savedScrollLeft = 0;
 
+/**
+ * Componente fixo para `withComponent`: uma função criada a cada render faria o
+ * React desmontar e remontar todas as pílulas a cada troca de tela — e, com a
+ * faixa vazia por um instante, o navegador zera a rolagem.
+ */
+function NavPillItem(item: NavContentNavItem) {
+  return <NavPill href={item.href} title={item.title} icon={item.icon} />;
+}
+
 /** Quantas pílulas cabem antes da seta; em tela menor, cabem menos (a faixa encolhe). */
 const VISIBLE_PILLS = 7;
 
@@ -116,12 +125,25 @@ function useVisiblePills(ref: { current: HTMLElement | null }, deps: unknown[]) 
       const style = getComputedStyle(el);
       const padding = parseFloat(style.paddingLeft) + parseFloat(style.paddingRight);
       const span = pills[VISIBLE_PILLS - 1].getBoundingClientRect().right - pills[0].getBoundingClientRect().left;
-      el.style.maxWidth = `${Math.ceil(span + padding + 2)}px`;
+      const next = `${Math.ceil(span + padding + 2)}px`;
+      if (el.style.maxWidth !== next) el.style.maxWidth = next;
+      // Só agora a faixa tem o tamanho certo para voltar à posição em que a
+      // pessoa a deixou (a barra é remontada a cada troca de tela).
+      if (el.scrollLeft !== savedScrollLeft) el.scrollLeft = savedScrollLeft;
     };
     fit();
-    const observer = new ResizeObserver(fit);
+    // Recalcula no próximo quadro: mexer na largura dentro do callback do
+    // ResizeObserver gera o aviso "ResizeObserver loop".
+    let frame = 0;
+    const observer = new ResizeObserver(() => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(fit);
+    });
     Array.from(el.children).forEach(child => observer.observe(child));
-    return () => observer.disconnect();
+    return () => {
+      cancelAnimationFrame(frame);
+      observer.disconnect();
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, deps);
 }
@@ -142,7 +164,9 @@ function useScrollArrows() {
   useLayoutEffect(() => {
     const el = ref.current;
     if (!el) return undefined;
-    el.scrollLeft = savedScrollLeft;
+    // A posição salva é aplicada em useVisiblePills, depois do limite de
+    // largura: aplicada aqui, o navegador a cortaria (ainda não há o que
+    // rolar) e o evento de rolagem gravaria o valor cortado.
     update();
     const onScroll = () => {
       savedScrollLeft = el.scrollLeft;
@@ -163,17 +187,46 @@ function useScrollArrows() {
   return { ref, edges, scrollBy };
 }
 
-/** Buscar, Toolkit, notificações, tema e configurações: iguais nos dois menus. */
-export function NavActions() {
+/** Campo de busca da barra: Enter abre a tela de busca com o termo (`/search?q=`). */
+export function NavSearch() {
+  const navigate = useNavigate();
+  const [query, setQuery] = useState('');
+  return (
+    <form
+      className="atlas-navSearch"
+      role="search"
+      onSubmit={event => {
+        event.preventDefault();
+        const term = query.trim();
+        navigate(term ? `/search?q=${encodeURIComponent(term)}` : '/search');
+      }}
+    >
+      <SearchIcon fontSize="small" aria-hidden />
+      <input
+        type="search"
+        value={query}
+        onChange={event => setQuery(event.target.value)}
+        placeholder="Buscar no Atlas"
+        aria-label="Buscar no Atlas"
+      />
+    </form>
+  );
+}
+
+/** Toolkit, grupos, notificações, tema e configurações (e a busca): iguais nos dois menus. */
+export function NavActions({ withSearch = true }: { withSearch?: boolean }) {
   const navigate = useNavigate();
   const { isDark, toggle } = useThemeToggle();
   const unread = useUnreadCount();
 
   return (
       <div className="atlas-navRight">
-        <button type="button" className="atlas-navActionBtn" aria-label="Buscar" title="Buscar" onClick={() => navigate('/search')}>
-          <SearchIcon fontSize="small" />
-        </button>
+        {withSearch && <NavSearch />}
+        {withSearch && (
+          <button type="button" className="atlas-navActionBtn atlas-navSearchBtn" aria-label="Buscar" title="Buscar" onClick={() => navigate('/search')}>
+            <SearchIcon fontSize="small" />
+          </button>
+        )}
         <ToolkitMenu />
         <GroupsMenu />
         <button
@@ -214,7 +267,7 @@ export function AtlasTopNav({ navItems }: { navItems: NavContentComponentProps['
   const showIcons = useNavIcons();
   useVisiblePills(ref, [showIcons, navItems]);
 
-  const pills = navItems.withComponent(item => <NavPill href={item.href} title={item.title} icon={item.icon} />);
+  const pills = navItems.withComponent(NavPillItem);
 
   return (
     <header className="atlas-topNav atlas-topNav--fixed">

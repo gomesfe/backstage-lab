@@ -1,13 +1,13 @@
 import { useNavigate, useLocation } from 'react-router-dom';
-import type { NavContentComponentProps } from '@backstage/plugin-app-react';
+import type { NavContentComponentProps, NavContentNavItem } from '@backstage/plugin-app-react';
 import { AtlasLogo, EnvBadge } from '../../components';
 import type { ReactNode } from 'react';
-import { NavActions, PILL_ORDER, isActive, useNavIcons } from './AtlasTopNav';
+import { NavActions, NavSearch, PILL_ORDER, isActive, useNavIcons } from './AtlasTopNav';
 
 /**
- * Menu lateral: a mesma navegação do topo, em coluna. Logo e ações ficam em
- * cima (o Toolkit abre para baixo) e a lista de telas rola por conta própria.
- * Estilos: `atlas-sideNav*` no design system.
+ * Menu lateral: a mesma navegação do topo, em coluna. Logo grande e busca em
+ * cima, telas no meio (rolam sozinhas) e as ações no rodapé (o Toolkit e os
+ * grupos abrem para cima). Estilos: `atlas-sideNav*` no design system.
  */
 function SideItem({ href, title, icon }: { href: string; title: string; icon?: ReactNode }) {
   const navigate = useNavigate();
@@ -28,28 +28,31 @@ function SideItem({ href, title, icon }: { href: string; title: string; icon?: R
   );
 }
 
+/** Componente fixo para `withComponent` (ver NavPillItem em AtlasTopNav). */
+function SideItemFor(item: NavContentNavItem) {
+  return <SideItem href={item.href} title={item.title} icon={item.icon} />;
+}
+
 export function AtlasSideNav({ navItems }: { navItems: NavContentComponentProps['navItems'] }) {
   const navigate = useNavigate();
-  const items = navItems.withComponent(item => <SideItem href={item.href} title={item.title} icon={item.icon} />);
+  const items = navItems.withComponent(SideItemFor);
 
   return (
     <aside className="atlas-sideNav atlas-sideNav--fixed">
-      <button
-        type="button"
-        className="atlas-brandLogo"
-        style={{ background: 'none', border: 0, padding: 0, cursor: 'pointer', alignSelf: 'flex-start' }}
-        aria-label="Atlas — ir para a Home"
-        onClick={() => navigate('/')}
-      >
-        <AtlasLogo variant="horizontal" title="" />
+      <div className="atlas-sideNavHead">
+        <button type="button" className="atlas-sideNavBrand" aria-label="Atlas — ir para a Home" onClick={() => navigate('/')}>
+          <AtlasLogo variant="horizontal" className="atlas-sideNavLogo" title="" />
+        </button>
         <EnvBadge />
-      </button>
-      <div className="atlas-sideNavActions">
-        <NavActions />
       </div>
+      <NavSearch />
+      <span className="atlas-sideNavLabel">Navegação</span>
       <nav className="atlas-sideNavItems" aria-label="Navegação principal">
         {PILL_ORDER.map(id => items.take(id))}
       </nav>
+      <div className="atlas-sideNavFoot">
+        <NavActions withSearch={false} />
+      </div>
     </aside>
   );
 }

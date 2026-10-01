@@ -25,6 +25,8 @@ const DESCRIPTION: Record<EnvName, string> = {
 
 export function EnvBadge() {
   const env = useApi(atlasEnvApiRef);
+  // Em produção não há selo: ele existe para lembrar que você NÃO está nela.
+  if (env.envName === 'prod') return null;
 
   return (
     <Tooltip title={`${DESCRIPTION[env.envName]} · v${env.version}`}>

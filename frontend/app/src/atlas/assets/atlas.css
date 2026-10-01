@@ -1520,6 +1520,38 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 .atlas-navActionBtn svg { font-size: 18px; }
 .atlas-topNav--fixed + * { padding-top: 70px; }
 .atlas-sideNavItem { display: flex; align-items: center; gap: 10px; }
+/* ===== Barra redistribuída, busca e menu lateral (v1.30) ===== */
+/* topo: [logo][7 pílulas >] ........ [busca][ações] */
+.atlas-topNav .atlas-navLeft { flex: 0 1 auto; }
+.atlas-topNav .atlas-navPillsWrapper { flex: 0 1 auto; }
+.atlas-topNav .atlas-navRight { flex: 1 1 auto; justify-content: flex-end; min-width: 0; }
+.atlas-brandLogo .atlas-logoWide { height: 30px; }
+.atlas-navSearch {
+  display: flex; align-items: center; gap: 8px; flex: 1 1 240px; max-width: 340px; min-width: 150px; height: 36px; padding: 0 14px;
+  border-radius: var(--atlas-radius-pill); border: 1px solid var(--border-color); background: var(--bg-surface); color: var(--text-muted);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.atlas-navSearch:focus-within { border-color: var(--lime); box-shadow: 0 0 0 3px var(--lime-bg); color: var(--text-secondary); }
+.atlas-navSearch input { flex: 1; min-width: 0; border: 0; outline: 0; background: transparent; color: var(--text-primary); font: inherit; font-size: 0.84rem; }
+.atlas-navSearch input::-webkit-search-cancel-button { display: none; }
+.atlas-navSearchBtn { display: none; }
+@media (max-width: 1150px) { .atlas-topNav .atlas-navSearch { display: none; } .atlas-topNav .atlas-navSearchBtn { display: inline-flex; } }
+/* menu lateral */
+.atlas-root { --atlas-sidebar-w: 256px; }
+.atlas-sideNav--fixed { padding: 22px 14px 14px; gap: 14px; overflow: hidden; }
+.atlas-sideNavHead { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; padding: 0 6px 4px; }
+.atlas-sideNavBrand { background: none; border: 0; padding: 0; cursor: pointer; color: var(--text-primary); }
+.atlas-sideNavLogo { height: 40px; width: auto; display: block; }
+.atlas-sideNav .atlas-navSearch { flex: 0 0 auto; max-width: none; width: 100%; }
+.atlas-sideNavLabel { padding: 6px 10px 0; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
+.atlas-sideNav .atlas-sideNavItems { flex: 1 1 auto; min-height: 0; overflow-y: auto; gap: 2px; margin: -6px -4px 0; padding: 0 4px; scrollbar-width: thin; }
+.atlas-sideNav .atlas-sideNavItem { padding: 9px 12px; font-size: 0.87rem; gap: 12px; }
+.atlas-sideNav .atlas-sideNavItem .atlas-navPillIcon svg { width: 18px; height: 18px; font-size: 18px; }
+.atlas-sideNav .atlas-sideNavItem:not(.atlas-sideNavItemActive) .atlas-navPillIcon { color: var(--text-muted); }
+.atlas-sideNav .atlas-sideNavItem:hover .atlas-navPillIcon { color: inherit; }
+.atlas-sideNavFoot { padding-top: 12px; border-top: 1px solid var(--border-color); }
+.atlas-sideNavFoot .atlas-navRight { display: flex; justify-content: space-between; gap: 4px; }
+.atlas-sideNavFoot .atlas-navDropdownMenu { top: auto; bottom: calc(100% + 10px); left: 0; right: auto; }
 .atlas-iconActionQuietDanger:hover { color: var(--danger); background: rgba(255, 82, 82, 0.1); border-color: rgba(255, 82, 82, 0.6); }
 .atlas-iconActionAdd, .atlas-iconActionAdd:hover { background: transparent; }
 .atlas-iconActionAdd { color: var(--text-muted); border-style: dashed; border-color: var(--border-light); }

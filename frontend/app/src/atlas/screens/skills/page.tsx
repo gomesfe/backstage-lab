@@ -1,5 +1,5 @@
 import { createRouteRef, PageBlueprint } from '@backstage/frontend-plugin-api';
-import SkillsIcon from '@material-ui/icons/Extension';
+import SkillsIcon from '@material-ui/icons/EmojiObjectsOutlined';
 
 /**
  * Registro da tela no portal: rota, título e ícone. Entra no plugin
