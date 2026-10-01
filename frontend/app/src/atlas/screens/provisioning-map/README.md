@@ -61,6 +61,5 @@ a sessão. Para ligar no real, troque `loadProvisioning`.
 
 ## Aba "Interno do Atlas"
 
-Terceira aba (depois de Recursos e Repositórios), visível só com "Área
-interna do Atlas" ligada em Configurações › Aparência. Lista os recursos e os
+Terceira aba (depois de Recursos e Repositórios), para quem tem a permissão `atlas.internal.view` (role `atlas-team`, o time do Atlas). Lista os recursos e os
 repositórios que o time do Atlas usa, fora das contagens dos squads.

@@ -55,7 +55,9 @@
  *     data-atlas-pref-default no cartão que vale quando nada foi escolhido.
  *   <button data-atlas-pref-switch="internal">    interruptor: liga/desliga (internal=1 / 0);
  *     data-atlas-pref-default="1" faz começar ligado (ex.: navIcons, ícones no menu)
- *   <button data-atlas-if-pref="internal">        só aparece com internal=1 (aba, bloco…).
+ *   <button data-atlas-if-pref="x">               só aparece com x=1 (aba, bloco…).
+ *   <button data-atlas-if-perm="internal">        só aparece se o portal marcou a raiz com
+ *     data-atlas-perm-internal="1" (permissão atlas.internal.view, o time do Atlas).
  *     Se era a aba aberta e some, a primeira aba visível abre no lugar.
  *   Quem grava avisa o portal com o evento "atlas:prefs" na janela (o menu lateral
  *   do portal escuta o mesmo).
@@ -154,8 +156,9 @@
       btn.setAttribute('aria-pressed', String(on));
       btn.classList.toggle('atlas-switchOn', on);
     });
-    all(root, '[data-atlas-if-pref]').forEach(function (el) {
-      var show = getPref(el.getAttribute('data-atlas-if-pref')) === '1';
+    all(root, '[data-atlas-if-pref], [data-atlas-if-perm]').forEach(function (el) {
+      var perm = el.getAttribute('data-atlas-if-perm');
+      var show = perm ? root.getAttribute('data-atlas-perm-' + perm) === '1' : getPref(el.getAttribute('data-atlas-if-pref')) === '1';
       el.hidden = !show;
       if (!show && el.getAttribute('aria-selected') === 'true') {
         var group = el.getAttribute('data-atlas-tabs');

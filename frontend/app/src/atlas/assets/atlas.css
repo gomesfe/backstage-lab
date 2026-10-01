@@ -1552,6 +1552,13 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 .atlas-sideNavFoot { padding-top: 12px; border-top: 1px solid var(--border-color); }
 .atlas-sideNavFoot .atlas-navRight { display: flex; justify-content: space-between; gap: 4px; }
 .atlas-sideNavFoot .atlas-navDropdownMenu { top: auto; bottom: calc(100% + 10px); left: 0; right: auto; }
+/* ===== Seção "Atlas" do menu (v1.31): rótulo, não é botão ===== */
+.atlas-navSection {
+  display: inline-flex; align-items: center; flex-shrink: 0; margin: 0 4px 0 6px; padding: 0 2px 0 12px; height: 22px;
+  border-left: 1px solid var(--border-light); font-size: 0.66rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--lime-ink); cursor: default; user-select: none;
+}
+.atlas-sideNavLabelSection { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border-color); color: var(--lime-ink); }
 .atlas-iconActionQuietDanger:hover { color: var(--danger); background: rgba(255, 82, 82, 0.1); border-color: rgba(255, 82, 82, 0.6); }
 .atlas-iconActionAdd, .atlas-iconActionAdd:hover { background: transparent; }
 .atlas-iconActionAdd { color: var(--text-muted); border-style: dashed; border-color: var(--border-light); }

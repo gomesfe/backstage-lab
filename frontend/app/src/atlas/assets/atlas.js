@@ -14,20 +14,23 @@
 
   /* --------------------------------------------------------- navegação --- */
 
+  // Mesma ordem do portal (shell/nav/AtlasTopNav.tsx). ['-', 'Atlas'] é o
+  // rótulo da seção do time do Atlas; nas telas avulsas ela aparece sempre.
   var NAV = [
     ['home', 'Home'],
-    ['catalog', 'Catálogo'],
-    ['approvals', 'Aprovações'],
-    ['apis', 'APIs'],
-    ['docs', 'Docs'],
-    ['learning-paths', 'Trilhas'],
     ['create', 'Ofertas'],
+    ['skills', 'Skills'],
+    ['approvals', 'Aprovações'],
     ['provisioning-map', 'Mapa de provisionamento'],
+    ['learning-paths', 'Trilhas'],
+    ['docs', 'Docs'],
+    ['agent', 'Agente'],
     ['break-glass', 'Break Glass'],
     ['status', 'Status'],
+    ['-', 'Atlas'],
+    ['catalog', 'Catálogo'],
+    ['apis', 'APIs'],
     ['atlas-jira', 'Atlas × Jira'],
-    ['skills', 'Skills'],
-    ['agent', 'Agente'],
     ['api-keys', 'API Keys'],
     ['admin', 'Administração'],
   ];
@@ -76,6 +79,7 @@
     var current = document.body.getAttribute('data-screen');
 
     var pills = NAV.map(function (item) {
+      if (item[0] === '-') return '<span class="atlas-navSection" aria-hidden="true">' + item[1] + '</span>';
       var active = item[0] === current;
       return (
         '<a class="atlas-navPill' + (active ? ' atlas-navPillActive' : '') + '" href="' +

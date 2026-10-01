@@ -2,7 +2,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import type { NavContentComponentProps, NavContentNavItem } from '@backstage/plugin-app-react';
 import { AtlasLogo, EnvBadge } from '../../components';
 import type { ReactNode } from 'react';
-import { NavActions, NavSearch, PILL_ORDER, isActive, useNavIcons } from './AtlasTopNav';
+import { ATLAS_SECTION_ORDER, NavActions, NavSearch, PILL_ORDER, isActive, useAtlasTeam, useNavIcons } from './AtlasTopNav';
 
 /**
  * Menu lateral: a mesma navegação do topo, em coluna. Logo grande e busca em
@@ -36,6 +36,7 @@ function SideItemFor(item: NavContentNavItem) {
 export function AtlasSideNav({ navItems }: { navItems: NavContentComponentProps['navItems'] }) {
   const navigate = useNavigate();
   const items = navItems.withComponent(SideItemFor);
+  const atlasTeam = useAtlasTeam();
 
   return (
     <aside className="atlas-sideNav atlas-sideNav--fixed">
@@ -49,6 +50,8 @@ export function AtlasSideNav({ navItems }: { navItems: NavContentComponentProps[
       <span className="atlas-sideNavLabel">Navegação</span>
       <nav className="atlas-sideNavItems" aria-label="Navegação principal">
         {PILL_ORDER.map(id => items.take(id))}
+        {atlasTeam && <span className="atlas-sideNavLabel atlas-sideNavLabelSection">Atlas</span>}
+        {atlasTeam && ATLAS_SECTION_ORDER.map(id => items.take(id))}
       </nav>
       <div className="atlas-sideNavFoot">
         <NavActions withSearch={false} />

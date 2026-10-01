@@ -11,6 +11,8 @@ import { useApi, appThemeApiRef } from '@backstage/core-plugin-api';
 import type { NavContentComponentProps, NavContentNavItem } from '@backstage/plugin-app-react';
 import type { ReactNode } from 'react';
 import { usePref } from '../prefs';
+import { usePermission } from '@backstage/plugin-permission-react';
+import { atlasInternalViewPermission } from '../../permissions';
 import useObservable from 'react-use/lib/useObservable';
 import { AtlasLogo, EnvBadge } from '../../components';
 import { useUnreadCount } from '../../screens/notifications/useUnreadCount';
@@ -31,21 +33,34 @@ import { GroupsMenu } from './GroupsMenu';
  */
 export const PILL_ORDER = [
   'page:home',
-  'page:catalog',
-  'page:atlas-pages/approvals',
-  'page:api-docs',
-  'page:techdocs',
-  'page:atlas-pages/learning-paths',
   'page:scaffolder',
+  'page:atlas-pages/skills',
+  'page:atlas-pages/approvals',
   'page:atlas-pages/provisioning-map',
+  'page:atlas-pages/learning-paths',
+  'page:techdocs',
+  'page:atlas-pages/agent',
   'page:atlas-pages/break-glass',
   'page:atlas-pages/status',
+];
+
+/**
+ * Seção "Atlas": só para quem tem `atlas.internal.view` (o time do Atlas).
+ * O rótulo da seção não é clicável. As páginas continuam existindo pela URL.
+ */
+export const ATLAS_SECTION_ORDER = [
+  'page:catalog',
+  'page:api-docs',
   'page:atlas-pages/atlas-jira',
-  'page:atlas-pages/skills',
-  'page:atlas-pages/agent',
   'page:admin/api-keys',
   'page:admin',
 ];
+
+/** É do time do Atlas? (permissão `atlas.internal.view`, vinda do RBAC). */
+export function useAtlasTeam() {
+  const { allowed } = usePermission({ permission: atlasInternalViewPermission });
+  return allowed;
+}
 
 function useThemeToggle() {
   const appThemeApi = useApi(appThemeApiRef);
@@ -265,7 +280,8 @@ export function AtlasTopNav({ navItems }: { navItems: NavContentComponentProps['
   const navigate = useNavigate();
   const { ref, edges, scrollBy } = useScrollArrows();
   const showIcons = useNavIcons();
-  useVisiblePills(ref, [showIcons, navItems]);
+  const atlasTeam = useAtlasTeam();
+  useVisiblePills(ref, [showIcons, navItems, atlasTeam]);
 
   const pills = navItems.withComponent(NavPillItem);
 
@@ -303,6 +319,12 @@ export function AtlasTopNav({ navItems }: { navItems: NavContentComponentProps['
             style={edges.right ? undefined : { maskImage: 'none', WebkitMaskImage: 'none' }}
           >
             {PILL_ORDER.map(id => pills.take(id))}
+            {atlasTeam && (
+              <span className="atlas-navSection" aria-hidden="true">
+                Atlas
+              </span>
+            )}
+            {atlasTeam && ATLAS_SECTION_ORDER.map(id => pills.take(id))}
           </nav>
           <button
             type="button"

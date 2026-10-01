@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { Content, Page } from '@backstage/core-components';
 import { appThemeApiRef, identityApiRef, useApi } from '@backstage/core-plugin-api';
 import { ATLAS_HTML } from '../../screens/html.generated';
+import { usePermission } from '@backstage/plugin-permission-react';
+import { atlasInternalViewPermission } from '../../permissions';
 import { enhance, openHash } from './enhance';
 
 /**
@@ -38,6 +40,16 @@ export function AtlasHtmlScreen({ slug }: { slug: string }) {
       signOut: () => identityApi.signOut(),
     });
   }, [slug, search, appThemeApi, identityApi]);
+
+  // Área interna do Atlas: a tela mostra o que tem data-atlas-if-perm="internal"
+  // só para quem tem a permissão (o comportamento lê data-atlas-perm-internal).
+  const { allowed: internal } = usePermission({ permission: atlasInternalViewPermission });
+  useEffect(() => {
+    const root = ref.current;
+    if (!root) return;
+    root.setAttribute('data-atlas-perm-internal', internal ? '1' : '0');
+    window.dispatchEvent(new Event('atlas:prefs'));
+  }, [internal, slug]);
 
   // Primeiro nome do perfil de login, para a saudação (o guest fica sem nome).
   useEffect(() => {

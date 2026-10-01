@@ -31,6 +31,6 @@ catálogo; a página de cada entidade continua sendo a oficial.
 ## Aba "Interno do Atlas"
 
 Duas abas no topo: **Catálogo** e **Interno do Atlas**. A segunda só aparece
-quando a pessoa liga "Área interna do Atlas" em Configurações › Aparência e
+para quem tem a permissão `atlas.internal.view` (role `atlas-team`, o time do Atlas) e
 guarda as aplicações e os recursos que o próprio time do Atlas usa (portal,
 agente, RBAC, banco, fila, logs), separados do catálogo dos squads.

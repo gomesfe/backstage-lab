@@ -20,9 +20,7 @@ Três abas:
      ícone de cada tela nas pílulas do menu e no menu lateral. Preferência
      `navIcons` (`1`/`0`). O menu mostra no máximo 7 pílulas; o resto fica
      atrás da seta, e em tela menor cabem menos;
-   - **Área interna do Atlas:** interruptor que mostra, numa aba à parte do
-     Catálogo e do Mapa, o catálogo e os recursos que o time do Atlas usa.
-     Desligado (padrão), a aba não aparece. Preferência `internal`.
+
 2. **Identidade**
    - topo com **avatar de iniciais**, nome, e-mail (ou ref) e botão **Sair**;
    - linhas: usuário (a ref que o RBAC usa), nome de exibição, grupos,

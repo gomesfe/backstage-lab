@@ -41,6 +41,11 @@ p, role:default/guest, scaffolder-template, read, allow
 # provisionamento. Quem não tem a role vê só "Minhas solicitações".
 p, role:default/aprovador, atlas.approvals.review, update, allow
 
+# atlas-team: o time do Atlas. Vê a área interna — a seção "Atlas" do menu
+# (Catálogo, APIs, Atlas × Jira, API Keys, Administração) e as abas "Interno
+# do Atlas" do Catálogo e do Mapa de provisionamento. Soma-se às outras roles.
+p, role:default/atlas-team, atlas.internal.view, read, allow
+
 # O "Refresh admin" do mapa de provisionamento (atlas.provisioning.refresh)
 # não tem linha própria: fica só com admin, pelo curinga da role admin.
 
@@ -52,6 +57,9 @@ g, user:default/gomesfe, role:default/admin
 # Grupos vindos do catálogo (org.yaml) ou do GitHub.
 g, group:default/plataforma, role:default/admin
 g, group:default/desenvolvimento, role:default/atlas
+
+# O time do Atlas (no Atlas da empresa: NUCLEA-ATLAS-DEVTEAM).
+g, group:default/nuclea-atlas-devteam, role:default/atlas-team
 
 # O usuário guest do provider de desenvolvimento.
 g, user:development/guest, role:default/guest
@@ -66,3 +74,7 @@ g, user:development/guest, role:default/atlas
 # de Aprovações sem OAuth. Mesma regra da linha acima: comente em ambiente
 # compartilhado.
 g, user:development/guest, role:default/aprovador
+
+# O guest do lab também é do time do Atlas, para dar para ver a seção "Atlas"
+# do menu sem OAuth. Mesma regra: comente em ambiente compartilhado.
+g, user:development/guest, role:default/atlas-team
