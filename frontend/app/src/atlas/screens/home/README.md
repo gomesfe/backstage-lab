@@ -36,8 +36,9 @@ Quatro partes, cada uma com uma função (o resto está no menu do topo):
    As listas rolam por conta própria quando passam de ~400px.
 3. **Aplicações do time** (serviços catalogados; busca e tipo) ao lado de
    **Últimas transações** (os cinco pedidos mais recentes da tela de
-   Aprovações, com ambiente, data e situação), **Últimas atualizações** e
-   **Em breve** (poucas linhas, só entregas previstas).
+   Aprovações, com ambiente, data e situação). Logo abaixo, lado a lado,
+   **Últimas atualizações** e **Em breve** (poucas linhas, só entregas
+   previstas).
 4. **Links úteis** numa linha: Onboarding, Arquitetura, Runbooks, Catálogo de
    ofertas, Break Glass e Trilhas.
 
