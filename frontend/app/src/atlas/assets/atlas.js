@@ -28,6 +28,7 @@
     ['status', 'Status'],
     ['atlas-jira', 'Atlas × Jira'],
     ['agent', 'Agente'],
+    ['skills', 'Skills'],
     ['api-keys', 'API Keys'],
     ['admin', 'Administração'],
   ];

@@ -12,6 +12,7 @@ import * as breakGlass from './break-glass/page';
 import * as status from './status/page';
 import * as atlasJira from './atlas-jira/page';
 import * as agent from './agent/page';
+import * as skills from './skills/page';
 import * as entity from './entity/page';
 import * as apiKeys from './api-keys/page';
 import * as admin from './admin/page';
@@ -54,6 +55,7 @@ export const atlasPagesPlugin = createFrontendPlugin({
     provisioningMap: provisioningMap.provisioningMapRouteRef,
     atlasJira: atlasJira.atlasJiraRouteRef,
     agent: agent.agentRouteRef,
+    skills: skills.skillsRouteRef,
     learningPaths: learningPaths.learningPathsRouteRef,
     breakGlass: breakGlass.breakGlassRouteRef,
     status: status.statusRouteRef,
@@ -65,6 +67,7 @@ export const atlasPagesPlugin = createFrontendPlugin({
     provisioningMap.page,
     atlasJira.page,
     agent.page,
+    skills.page,
     learningPaths.page,
     learningPaths.detailPage,
     breakGlass.page,
