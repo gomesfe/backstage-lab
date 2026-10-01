@@ -1586,6 +1586,28 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 .atlas-sectionBare .atlas-tabBtn { white-space: nowrap; }
 .atlas-sectionBare .atlas-panelTools .atlas-searchFieldWrap { width: 280px; flex: 0 1 280px; }
 @media (max-width: 900px) { .atlas-sectionBare .atlas-panelTools { flex-wrap: wrap; } .atlas-sectionBare .atlas-panelTools .atlas-searchFieldWrap { width: 100%; flex-basis: 100%; } }
+/* ===== Home arejada como a referência (v1.20): coluna central, tipografia mais leve ===== */
+.atlas-appContainer.atlas-homeNarrow { max-width: 1240px; margin-left: auto; margin-right: auto; gap: 40px; }
+.atlas-homeNarrow .atlas-homeHero { padding-top: 24px; gap: 28px; }
+.atlas-homeNarrow .atlas-homeHero::before { display: none; }
+.atlas-homeNarrow .atlas-homeGreeting { font-size: clamp(1.9rem, 2.6vw, 2.5rem); font-weight: 700; letter-spacing: -0.025em; margin-top: 6px; }
+.atlas-homeNarrow .atlas-homeContext { font-size: 0.92rem; }
+.atlas-homeNarrow .atlas-heroLeft { gap: 12px; }
+.atlas-homeNarrow .atlas-heroLeft .atlas-askBox { margin-top: 8px; padding: 5px 5px 5px 16px; box-shadow: 0 0 0 3px var(--lime-bg); }
+.atlas-homeNarrow .atlas-heroLeft .atlas-askBox input { font-size: 0.9rem; padding: 9px 0; }
+.atlas-homeNarrow .atlas-askChip { font-size: 0.76rem; padding: 5px 12px; font-weight: 500; }
+.atlas-homeNarrow .atlas-teamPick { font-size: 0.8rem; }
+.atlas-homeNarrow .atlas-teamPick .atlas-teamSelect { font-size: 0.8rem; padding: 4px 30px 4px 12px; background-position: right 10px center; }
+.atlas-homeNarrow .atlas-teamPanel { padding: 24px; }
+.atlas-homeNarrow .atlas-teamPanelLabel { font-size: 0.68rem; font-weight: 600; }
+.atlas-homeNarrow .atlas-teamPanelChampion { padding-bottom: 18px; }
+.atlas-homeNarrow .atlas-teamAction { font-size: 0.82rem; padding: 14px; gap: 16px; }
+.atlas-homeNarrow .atlas-statCell { padding: 22px 24px; }
+.atlas-homeNarrow .atlas-statValue { font-size: 1.9rem; font-weight: 700; }
+.atlas-homeNarrow .atlas-statHead { font-size: 0.84rem; }
+.atlas-homeNarrow .atlas-panelTitle { font-weight: 700; font-size: 1.2rem; }
+.atlas-homeNarrow .atlas-panelTools { min-width: 0; }
+.atlas-homeNarrow .atlas-sectionBare .atlas-panelTools .atlas-searchFieldWrap { flex: 0 1 240px; width: 240px; min-width: 160px; }
 .atlas-iconActionQuietDanger:hover { color: var(--danger); background: rgba(255, 82, 82, 0.1); border-color: rgba(255, 82, 82, 0.6); }
 .atlas-iconActionAdd, .atlas-iconActionAdd:hover { background: transparent; }
 .atlas-iconActionAdd { color: var(--text-muted); border-style: dashed; border-color: var(--border-light); }

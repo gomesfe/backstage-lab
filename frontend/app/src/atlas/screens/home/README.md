@@ -12,7 +12,10 @@ e por onde eu começo?" em uma olhada.
 Segue a reunião com o William (boas-vindas enxuta e dinâmica, área central útil,
 sem repetir o menu) e a tela de antes nos blocos de baixo.
 
-1. **Hero aberto** (sem moldura, com uma luz verde discreta ao fundo):
+A tela fica numa **coluna central de até 1240px** (`atlas-homeNarrow`), com
+respiro nas laterais, como a referência arejada citada na reunião.
+
+1. **Hero aberto** (sem moldura):
    - **Seu time** — lista pequena acima da saudação (Todos, Plataforma,
      Pagamentos, Onboarding, Antifraude, Bitrago). A escolha fica no navegador
      (`atlas.team`, padrão `plataforma`) e muda o cartão do time, marca o
