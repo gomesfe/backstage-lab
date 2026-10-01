@@ -19,9 +19,11 @@ Quatro partes, cada uma com uma função (o resto está no menu do topo):
      Onboarding, Antifraude, Bitrago) com o champion. A escolha fica no
      navegador (`atlas.team`, padrão `plataforma`), marca o projeto com "seu
      time" e filtra "Aplicações do time".
-   - Cinco números: Aplicações, APIs, Sistemas, Repositórios e **Recursos
-     provisionados** (bloco verde, texto branco). Recursos e repositórios
-     abrem o mapa (`#repositorios` para a aba de repositórios).
+   - **Números em dois blocos** (ideia do chefe: menos cartões soltos):
+     **Catálogo** — Aplicações, APIs e Sistemas, uma linha cada, levando ao
+     catálogo; e **Provisionado pelo Atlas** (bloco verde, texto branco) —
+     Recursos e Repositórios, levando ao mapa (`#repositorios` para a aba de
+     repositórios), com o atalho "Abrir o mapa de provisionamento".
 2. **Provisionado no Atlas** — abas Recursos e Repositórios com contagem, busca
    de projeto e a lista por nome de projeto com as ofertas em uso; cada linha
    abre o mapa filtrado (`/provisioning-map?service=PAG`).

@@ -1429,6 +1429,32 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 .atlas-panelTools .atlas-tabBtn { white-space: nowrap; }
 .atlas-panelTools .atlas-searchFieldWrap { flex: 0 1 240px; width: 240px; min-width: 160px; }
 @media (max-width: 900px) { .atlas-panelTools { flex-wrap: wrap; } .atlas-panelTools .atlas-searchFieldWrap { flex-basis: 100%; width: 100%; } }
+/* ===== Números agrupados (v1.23): dois blocos em vez de cinco cartões ===== */
+.atlas-metricGroups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 900px) { .atlas-metricGroups { grid-template-columns: minmax(0, 1fr); } }
+.atlas-metricGroup {
+  display: flex; flex-direction: column; padding: 18px 20px 8px; border-radius: var(--atlas-radius-md);
+  background: var(--bg-card); border: 1px solid var(--border-color);
+}
+.atlas-metricGroupTitle { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+.atlas-metricRow { display: flex; align-items: center; gap: 14px; padding: 13px 0; text-decoration: none; color: inherit; border-top: 1px solid var(--border-color); }
+.atlas-metricGroupTitle + .atlas-metricRow { border-top: 0; }
+.atlas-metricRowIcon { width: 34px; height: 34px; border-radius: 10px; flex-shrink: 0; display: inline-flex; align-items: center; justify-content: center; background: var(--bg-pill); color: var(--text-secondary); }
+.atlas-metricRowText { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 1px; }
+.atlas-metricRowLabel { font-size: 0.9rem; font-weight: 600; color: var(--text-primary); }
+.atlas-metricRowSub { font-size: 0.75rem; color: var(--text-secondary); }
+.atlas-metricRowValue { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.03em; color: var(--text-primary); font-variant-numeric: tabular-nums; }
+.atlas-metricRow:hover .atlas-metricRowLabel { color: var(--lime-ink); }
+/* bloco verde: texto branco sobre o "verde pressionado" */
+.atlas-metricGroupHi { background: linear-gradient(135deg, #2e7d32 0%, #389338 100%); border-color: #389338; }
+.atlas-metricGroupHi .atlas-metricGroupTitle, .atlas-metricGroupHi .atlas-metricRowSub { color: rgba(255, 255, 255, 0.85); }
+.atlas-metricGroupHi .atlas-metricRowLabel, .atlas-metricGroupHi .atlas-metricRowValue { color: #ffffff; }
+.atlas-metricGroupHi .atlas-metricRow { border-top-color: rgba(255, 255, 255, 0.2); }
+.atlas-metricGroupHi .atlas-metricRowIcon { background: rgba(255, 255, 255, 0.18); color: #ffffff; }
+.atlas-metricGroupHi .atlas-metricRow:hover .atlas-metricRowLabel { color: #ffffff; text-decoration: underline; }
+.atlas-metricGroupFoot { margin-top: auto; padding: 14px 0 10px; display: flex; justify-content: flex-end; }
+.atlas-metricGroupHi .atlas-metricGroupFoot .atlas-btnPill { background: rgba(255, 255, 255, 0.16); border-color: rgba(255, 255, 255, 0.35); color: #ffffff; }
+.atlas-metricGroupHi .atlas-metricGroupFoot .atlas-btnPill:hover { background: rgba(255, 255, 255, 0.26); }
 .atlas-iconActionQuietDanger:hover { color: var(--danger); background: rgba(255, 82, 82, 0.1); border-color: rgba(255, 82, 82, 0.6); }
 .atlas-iconActionAdd, .atlas-iconActionAdd:hover { background: transparent; }
 .atlas-iconActionAdd { color: var(--text-muted); border-style: dashed; border-color: var(--border-light); }
