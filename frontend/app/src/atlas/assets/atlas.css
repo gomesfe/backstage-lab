@@ -1239,6 +1239,39 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 .atlas-personMeta { font-size: 0.78rem; color: var(--text-secondary); overflow-wrap: anywhere; }
 .atlas-envDate { font-size: 0.74rem; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
 .atlas-envEmpty { color: var(--text-muted); font-size: 0.8rem; }
+/* ===== Padrão de tabela (v1.9) =====
+   Linhas finas e translúcidas entre linhas e colunas; a tabela se ajusta à tela
+   (sem barra de rolagem em notebook): o texto quebra, o espaçamento encolhe e
+   só abaixo de 900px a moldura volta a rolar. */
+.atlas-root { --atlas-table-line: rgba(148, 163, 184, 0.2); }
+.atlas-recentTable { table-layout: auto; }
+.atlas-recentTable th, .atlas-recentTable td {
+  white-space: normal; overflow-wrap: anywhere; vertical-align: middle;
+  border-bottom: 1px solid var(--atlas-table-line); border-right: 1px solid var(--atlas-table-line);
+}
+.atlas-recentTable th:last-child, .atlas-recentTable td:last-child { border-right: 0; }
+.atlas-recentTable th { white-space: nowrap; overflow-wrap: normal; border-bottom-color: var(--border-light); }
+.atlas-recentTable tbody tr:last-child td { border-bottom: 0; }
+.atlas-recentTable .atlas-badgeTag, .atlas-recentTable .atlas-tagChip, .atlas-recentTable .atlas-envDate,
+.atlas-recentTable time { white-space: nowrap; }
+.atlas-recentTable .atlas-tableActionGroup { flex-wrap: wrap; }
+@media (max-width: 1500px) {
+  .atlas-recentTable th, .atlas-recentTable td { padding: 10px 8px; }
+  .atlas-recentTable td { font-size: 0.82rem; }
+  .atlas-recentTable th { font-size: 0.64rem; letter-spacing: 0.05em; }
+}
+@media (max-width: 900px) {
+  .atlas-recentTable th, .atlas-recentTable td { white-space: nowrap; }
+}
+/* Ações de ambiente, discretas: neutras até o cursor chegar (guia de identidade:
+   cor só para dizer algo). */
+.atlas-mapLegend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0; padding: 10px 16px; font-size: 0.76rem; color: var(--text-muted); }
+.atlas-mapLegend > span { display: inline-flex; align-items: center; gap: 6px; }
+.atlas-mapLegend .atlas-iconAction { height: 22px; min-width: 22px; border-radius: 6px; font-size: 0.8rem; pointer-events: none; }
+.atlas-iconActionQuietDanger:hover { color: var(--danger); background: rgba(255, 82, 82, 0.1); border-color: rgba(255, 82, 82, 0.6); }
+.atlas-iconActionAdd, .atlas-iconActionAdd:hover { background: transparent; }
+.atlas-iconActionAdd { color: var(--text-muted); border-style: dashed; border-color: var(--border-light); }
+.atlas-iconActionAdd:hover { color: var(--lime); border-color: var(--lime); }
 .atlas-recentTable .atlas-envTd { text-align: center; }
 /* Layout com menu lateral (ex.: Rascunhos / Cards abertos). */
 .atlas-sideLayout { display: grid; grid-template-columns: 220px minmax(0, 1fr); gap: 16px; align-items: start; }
