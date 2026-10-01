@@ -1478,6 +1478,27 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 .atlas-txMeta { font-size: 0.74rem; color: var(--text-secondary); }
 .atlas-txItem:hover .atlas-txName { color: var(--lime-ink); }
 .atlas-txItem .atlas-badgeTag { flex-shrink: 0; }
+/* ===== Catálogo de skills de IA (v1.27) ===== */
+.atlas-skillCard { text-decoration: none; color: inherit; gap: 12px; }
+.atlas-skillHead { display: flex; align-items: flex-start; gap: 12px; }
+.atlas-skillHead .atlas-featureCardTitle { margin-bottom: 4px; }
+.atlas-identicon { width: 44px; height: 44px; flex-shrink: 0; border-radius: 10px; }
+.atlas-envChip { display: inline-flex; align-items: center; padding: 1px 9px; border-radius: var(--atlas-radius-pill); font-size: 0.7rem; font-weight: 700; }
+.atlas-envChip[data-env="release"] { background: var(--lime-bg); color: var(--lime-ink); }
+.atlas-envChip[data-env="hml"] { background: rgba(251, 191, 36, 0.14); color: #d99a00; }
+.atlas-envChip[data-env="dev"] { background: rgba(96, 165, 250, 0.14); color: #60a5fa; }
+.atlas-root[data-theme="light"] .atlas-envChip[data-env="hml"] { color: #92400e; }
+.atlas-root[data-theme="light"] .atlas-envChip[data-env="dev"] { color: #1d4ed8; }
+.atlas-skillMeta { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 0.74rem; color: var(--text-secondary); padding-top: 10px; border-top: 1px solid var(--border-color); }
+.atlas-skillMeta strong { color: var(--text-primary); font-weight: 600; }
+.atlas-skillCard:hover .atlas-featureCardTitle { color: var(--lime-ink); }
+.atlas-helpEnvs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 8px 0 4px; }
+.atlas-helpEnv { padding: 12px; border-radius: var(--atlas-radius-md); border: 1px solid var(--border-color); background: var(--bg-surface); font-size: 0.8rem; color: var(--text-secondary); }
+.atlas-helpEnv strong { display: block; margin-bottom: 4px; color: var(--text-primary); font-size: 0.78rem; letter-spacing: 0.06em; }
+.atlas-codeInline { font-family: "JetBrains Mono", ui-monospace, monospace; font-size: 0.82em; padding: 1px 6px; border-radius: 5px; background: var(--bg-pill); color: var(--text-primary); }
+.atlas-modalBody h4 { margin: 18px 0 6px; font-size: 0.92rem; color: var(--text-primary); }
+.atlas-modalBody h4:first-child { margin-top: 0; }
+.atlas-modalBody ol { margin: 6px 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; font-size: 0.86rem; color: var(--text-secondary); }
 .atlas-iconActionQuietDanger:hover { color: var(--danger); background: rgba(255, 82, 82, 0.1); border-color: rgba(255, 82, 82, 0.6); }
 .atlas-iconActionAdd, .atlas-iconActionAdd:hover { background: transparent; }
 .atlas-iconActionAdd { color: var(--text-muted); border-style: dashed; border-color: var(--border-light); }
