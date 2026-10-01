@@ -1296,12 +1296,9 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 .atlas-mapLegend .atlas-iconAction { height: 22px; min-width: 22px; border-radius: 6px; font-size: 0.8rem; pointer-events: none; }
 /* ===== Home arejada (v1.11) ===== */
 .atlas-airy { gap: 28px; }
-.atlas-heroAsk {
-  display: flex; flex-direction: column; gap: 14px; padding: 26px 30px;
-  background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--atlas-radius-lg);
-}
+
 .atlas-greeting { margin: 0; font-size: 1.6rem; font-weight: 800; letter-spacing: -0.03em; color: var(--text-primary); }
-.atlas-greetingSub { margin: 0; color: var(--text-secondary); font-size: 0.9rem; }
+
 .atlas-askBox {
   display: flex; align-items: center; gap: 10px; padding: 6px 6px 6px 20px; max-width: 760px;
   border: 1px solid var(--border-light); border-radius: var(--atlas-radius-pill); background: var(--bg-surface);
@@ -1309,34 +1306,14 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 }
 .atlas-askBox:focus-within { border-color: var(--lime); box-shadow: 0 0 0 3px var(--lime-bg); }
 .atlas-askBox input { flex: 1; min-width: 0; background: transparent; border: 0; outline: 0; color: var(--text-primary); font: inherit; font-size: 0.95rem; padding: 10px 0; }
-.atlas-askChips { display: flex; flex-wrap: wrap; gap: 8px; }
-/* Blocos cinzas que pulsam enquanto um número carrega (nunca um rodinha girando). */
-.atlas-skeleton { display: inline-block; min-width: 2.2ch; border-radius: 6px; color: transparent; background: var(--bg-pill); animation: atlas-skelPulse 1.2s ease-in-out infinite; }
-@keyframes atlas-skelPulse { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
-@media (prefers-reduced-motion: reduce) { .atlas-skeleton { animation: none; } }
-/* Um cartão por serviço, com o que ele tem provisionado. */
-.atlas-serviceGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; padding: 4px 0 2px; }
-.atlas-serviceCard { display: flex; flex-direction: column; gap: 16px; padding: 20px; background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--atlas-radius-lg); }
-.atlas-serviceCardHead { display: flex; align-items: center; gap: 12px; }
-.atlas-serviceCardName { font-weight: 700; color: var(--text-primary); }
-.atlas-serviceCardSigla { font-size: 0.74rem; color: var(--text-muted); letter-spacing: 0.06em; }
-.atlas-serviceStats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-.atlas-serviceStat {
-  display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; text-decoration: none; color: inherit;
-  border: 1px solid var(--atlas-row-line, var(--border-color)); border-radius: var(--atlas-radius-md); background: var(--atlas-row-bg, transparent);
-  transition: border-color 0.15s ease, background-color 0.15s ease;
-}
-.atlas-serviceStat:hover { border-color: var(--lime-border); background: var(--bg-card-hover); }
-.atlas-serviceStatValue { font-size: 1.4rem; font-weight: 800; color: var(--text-primary); line-height: 1.1; }
-.atlas-serviceStatLabel { display: inline-flex; align-items: center; gap: 6px; font-size: 0.74rem; color: var(--text-muted); }
+
 /* Em breve: poucas linhas, cada uma com a etiqueta do que está por vir. */
 .atlas-soonList { display: flex; flex-direction: column; gap: 4px; }
 .atlas-soonItem { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--atlas-row-line, var(--border-color)); }
 .atlas-soonItem:last-child { border-bottom: 0; }
 .atlas-soonName { font-size: 0.88rem; font-weight: 600; color: var(--text-primary); }
 .atlas-soonDesc { font-size: 0.78rem; color: var(--text-secondary); }
-.atlas-twoCardsGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; width: 100%; }
-@media (max-width: 900px) { .atlas-twoCardsGrid { grid-template-columns: 1fr; } }
+
 /* ===== Menu lateral (v1.12): alternativa ao menu do topo ===== */
 .atlas-root { --atlas-sidebar-w: 236px; }
 .atlas-sideNav--fixed {
@@ -1356,35 +1333,8 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 }
 .atlas-sideNavItem:hover { background: var(--bg-pill); color: var(--text-primary); }
 .atlas-sideNavItemActive, .atlas-sideNavItemActive:hover { background: var(--lime); color: var(--lime-text); }
-/* ===== Home organizada (v1.13): faixa de números, duas colunas, uma coisa por bloco ===== */
-.atlas-kpiStrip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
-@media (max-width: 1000px) { .atlas-kpiStrip { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.atlas-homeMain { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 20px; align-items: start; }
-@media (max-width: 1100px) { .atlas-homeMain { grid-template-columns: minmax(0, 1fr); } }
-.atlas-stack { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
-.atlas-scopeBar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.atlas-scopeBar .atlas-groupViewSelector { margin: 0; }
-.atlas-serviceCell { display: flex; align-items: center; gap: 12px; }
-.atlas-serviceCell .atlas-avatar { width: 34px; height: 34px; border-radius: 10px; font-size: 0.78rem; }
-.atlas-serviceCellName { font-weight: 700; color: var(--text-primary); }
-.atlas-serviceCellSigla { font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.06em; }
 /* ===== Home com mais estrutura (v1.14) ===== */
-.atlas-heroBig {
-  display: grid; grid-template-columns: minmax(0, 1.7fr) minmax(280px, 1fr); gap: 36px; align-items: center;
-  min-height: 300px; padding: 38px 40px; border-radius: var(--atlas-radius-lg);
-}
-@media (max-width: 1000px) { .atlas-heroBig { grid-template-columns: minmax(0, 1fr); padding: 26px 22px; gap: 24px; } }
-.atlas-heroMain { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
-.atlas-heroBig .atlas-greeting { font-size: clamp(1.9rem, 3.2vw, 2.7rem); line-height: 1.08; }
-.atlas-heroBig .atlas-greetingSub { font-size: 1rem; }
-.atlas-heroBig .atlas-askBox { max-width: 100%; background: rgba(0, 0, 0, 0.28); border-color: var(--lime-border); }
-.atlas-root[data-theme="light"] .atlas-heroBig .atlas-askBox { background: rgba(255, 255, 255, 0.7); }
-.atlas-teamCard {
-  display: flex; flex-direction: column; gap: 14px; padding: 22px; border-radius: var(--atlas-radius-lg);
-  background: rgba(255, 255, 255, 0.045); border: 1px solid var(--border-light); backdrop-filter: blur(6px);
-}
-.atlas-root[data-theme="light"] .atlas-teamCard { background: rgba(255, 255, 255, 0.7); }
-.atlas-teamCardLabel { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); }
+
 .atlas-teamSelect {
   appearance: none; width: 100%; padding: 11px 40px 11px 18px; border-radius: var(--atlas-radius-pill); cursor: pointer;
   border: 1px solid var(--lime-border); background-color: var(--lime-bg); color: var(--text-primary); font: inherit; font-weight: 700; font-size: 1rem;
@@ -1393,22 +1343,9 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 }
 .atlas-teamSelect:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
 .atlas-teamSelect option { color: #0f172a; }
-.atlas-teamNote { margin: 0; font-size: 0.76rem; color: var(--text-muted); line-height: 1.4; }
-.atlas-sectionHeading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 0; font-size: 1.15rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text-primary); }
-.atlas-sectionHeadingNote { font-size: 0.8rem; font-weight: 500; color: var(--text-muted); letter-spacing: 0; }
-.atlas-tileGrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
-@media (max-width: 1000px) { .atlas-tileGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.atlas-tile {
-  display: flex; flex-direction: column; gap: 14px; padding: 22px; text-decoration: none; color: inherit;
-  background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--atlas-radius-lg);
-  transition: border-color 0.15s ease, transform 0.15s ease, background-color 0.15s ease;
-}
-.atlas-tile:hover { border-color: var(--lime-border); background: var(--bg-card-hover); transform: translateY(-2px); }
-.atlas-tileIcon { width: 44px; height: 44px; border-radius: 14px; display: inline-flex; align-items: center; justify-content: center; background: var(--lime-bg); color: var(--lime); }
-.atlas-tileTitle { font-weight: 700; font-size: 0.98rem; color: var(--text-primary); }
-.atlas-tileDesc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.45; margin-top: 2px; }
+
 /* ===== Home: área central (v1.15) ===== */
-.atlas-heroBig { min-height: 240px; padding: 30px 36px; }
+
 .atlas-badgeTag:empty { display: none; }
 .atlas-panelHead { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .atlas-panelTitle { margin: 0; font-size: 1.15rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text-primary); }
@@ -1425,59 +1362,14 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
    projetos com cor e barra de volume, novidades em linha do tempo. Tudo dentro do guia:
    verde pouco, outras cores só para diferenciar, cantos suaves, quase nenhum movimento. */
 .atlas-root { --atlas-mint: #34d399; --atlas-amber: #fbbf24; --atlas-violet: #907bff; --atlas-sky: #60a5fa; }
-.atlas-heroBig {
-  position: relative; isolation: isolate; border-color: var(--lime-border);
-  background:
-    radial-gradient(70% 120% at 0% 0%, rgba(68, 168, 68, 0.34) 0%, rgba(68, 168, 68, 0) 62%),
-    radial-gradient(55% 90% at 100% 100%, rgba(144, 123, 255, 0.16) 0%, rgba(144, 123, 255, 0) 70%),
-    linear-gradient(160deg, var(--bg-surface) 0%, var(--bg-card) 100%);
-  box-shadow: 0 30px 80px -40px rgba(68, 168, 68, 0.45), var(--shadow-md);
-}
-.atlas-heroOrbit { position: absolute; right: -90px; top: -110px; width: 520px; height: 520px; z-index: -1; pointer-events: none; color: var(--lime); opacity: 0.2; }
-.atlas-heroBig .atlas-welcomeEyebrow { display: inline-flex; align-items: center; gap: 8px; }
-.atlas-heroBig .atlas-welcomeEyebrow::before { content: ""; width: 18px; height: 2px; border-radius: 2px; background: var(--lime); }
+
 .atlas-greetingName { color: var(--lime-ink); }
-.atlas-heroBig .atlas-askBox { padding: 7px 7px 7px 22px; box-shadow: 0 14px 40px -18px rgba(0, 0, 0, 0.6); }
-.atlas-heroBig .atlas-askBox input { font-size: 1.02rem; padding: 12px 0; }
+
 .atlas-askSpark { color: var(--lime); flex-shrink: 0; margin-right: -2px; }
-.atlas-askChips { gap: 8px; }
-.atlas-askChip {
-  padding: 6px 14px; border-radius: var(--atlas-radius-pill); border: 1px solid var(--border-light); background: rgba(255, 255, 255, 0.04);
-  color: var(--text-secondary); font: inherit; font-size: 0.78rem; font-weight: 600; cursor: pointer; transition: border-color .15s, color .15s, background .15s;
-}
-.atlas-askChip:hover { border-color: var(--lime-border); color: var(--text-primary); background: var(--lime-bg); }
-.atlas-heroStats { display: flex; flex-wrap: wrap; gap: 0; margin-top: 6px; }
-.atlas-heroStat { display: flex; flex-direction: column; gap: 2px; padding: 4px 26px 4px 0; margin-right: 26px; border-right: 1px solid var(--border-light); text-decoration: none; color: inherit; }
-.atlas-heroStat:last-child { border-right: 0; margin-right: 0; padding-right: 0; }
-.atlas-heroStatValue { font-size: 1.75rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1; color: var(--text-primary); font-variant-numeric: tabular-nums; }
-.atlas-heroStatLabel { display: inline-flex; align-items: center; gap: 6px; font-size: 0.76rem; color: var(--text-secondary); }
-.atlas-heroStat:hover .atlas-heroStatLabel { color: var(--lime); }
-.atlas-teamCard .atlas-avatar { width: 46px; height: 46px; border-radius: 50%; box-shadow: 0 0 0 3px var(--lime-bg), 0 0 0 4px var(--lime-border); }
-.atlas-teamCard .atlas-person { gap: 14px; padding: 12px 0 2px; }
+
 /* projetos: cor por projeto e barra de volume */
-.atlas-avatarTone1 { background: var(--lime-bg); color: var(--lime); }
-.atlas-avatarTone2 { background: rgba(52, 211, 153, 0.14); color: var(--atlas-mint); }
-.atlas-avatarTone3 { background: rgba(251, 191, 36, 0.14); color: var(--atlas-amber); }
-.atlas-avatarTone4 { background: rgba(144, 123, 255, 0.16); color: var(--atlas-violet); }
-.atlas-avatarTone5 { background: rgba(96, 165, 250, 0.14); color: var(--atlas-sky); }
-.atlas-volume { display: flex; align-items: center; gap: 10px; min-width: 120px; }
-.atlas-volumeBar { flex: 1; height: 6px; border-radius: 6px; background: var(--bg-pill); overflow: hidden; }
-.atlas-volumeBar > span { display: block; height: 100%; border-radius: 6px; background: linear-gradient(90deg, var(--lime), #8be28b); }
-.atlas-volumeNum { font-weight: 800; font-variant-numeric: tabular-nums; color: var(--text-primary); min-width: 1.5ch; text-align: right; }
+
 .atlas-panelHead .atlas-panelTitle::before { content: ""; display: inline-block; width: 4px; height: 1em; margin-right: 10px; border-radius: 3px; background: var(--lime); vertical-align: -0.12em; }
-/* novidades em linha do tempo */
-.atlas-feed { display: flex; flex-direction: column; margin-top: 6px; }
-.atlas-feedItem { display: grid; grid-template-columns: 14px minmax(0, 1fr); gap: 14px; padding-bottom: 18px; position: relative; }
-.atlas-feedItem::before { content: ""; position: absolute; left: 6px; top: 16px; bottom: 0; width: 1px; background: var(--border-color); }
-.atlas-feedItem:last-child { padding-bottom: 0; }
-.atlas-feedItem:last-child::before { display: none; }
-.atlas-feedDot { width: 13px; height: 13px; margin-top: 3px; border-radius: 50%; border: 2px solid var(--lime); background: var(--bg-card); }
-.atlas-feedItem[data-kind="padrao"] .atlas-feedDot { border-color: var(--atlas-violet); }
-.atlas-feedItem[data-kind="aviso"] .atlas-feedDot { border-color: var(--atlas-amber); }
-.atlas-feedTag { font-size: 0.66rem; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--lime); }
-.atlas-feedItem[data-kind="padrao"] .atlas-feedTag { color: var(--atlas-violet); }
-.atlas-feedItem[data-kind="aviso"] .atlas-feedTag { color: var(--atlas-amber); }
-.atlas-feedText { margin: 2px 0 4px; font-size: 0.86rem; line-height: 1.45; color: var(--text-primary); }
 /* Em breve: tracejado, para parecer promessa e não entrega */
 .atlas-soonCard { border-style: dashed; border-color: var(--border-light); background: transparent; }
 .atlas-soonItem .atlas-badgeTag { flex-shrink: 0; }
@@ -1504,8 +1396,7 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
   --lime-bg: rgba(47, 133, 50, 0.12); --lime-border: rgba(47, 133, 50, 0.4);
   --text-muted: #5a6475;
 }
-.atlas-welcomeEyebrow, .atlas-badgeLime, .atlas-templateLink, .atlas-feedTag, .atlas-onboardingStepNum,
-.atlas-avatar:not([class*="Tone"]) { color: var(--lime-ink); }
+.atlas-welcomeEyebrow, .atlas-badgeLime, .atlas-templateLink, .atlas-onboardingStepNum, .atlas-avatar:not([class*="Tone"]) { color: var(--lime-ink); }
 .atlas-root[data-theme="light"] .atlas-badgeInfo { color: #1d4ed8; background: rgba(37, 99, 235, 0.12); }
 .atlas-root[data-theme="light"] .atlas-badgePurple { color: #5b3fd1; background: rgba(91, 63, 209, 0.12); }
 .atlas-root[data-theme="light"] .atlas-badgeWarning { color: #92400e; background: rgba(217, 119, 6, 0.16); }
@@ -1522,92 +1413,6 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 .atlas-expandMetricCardHighlighted .atlas-metricCardTitle { color: #ffffff; }
 .atlas-expandMetricCardHighlighted .atlas-metricCardSub { color: rgba(255, 255, 255, 0.92); }
 .atlas-expandMetricCardHighlighted .atlas-metricCardIcon { color: #ffffff; background: rgba(255, 255, 255, 0.18); }
-/* ===== Home aberta (v1.19): hero sem moldura, cartão do time, faixa de números ===== */
-.atlas-homeHero {
-  position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(320px, 1fr);
-  gap: 36px; align-items: start; padding: 8px 0 4px;
-}
-.atlas-homeHero::before {
-  content: ""; position: absolute; z-index: -1; pointer-events: none; left: -80px; top: -70px; width: 620px; height: 360px;
-  background: radial-gradient(closest-side, rgba(68, 168, 68, 0.16), rgba(68, 168, 68, 0));
-}
-@media (max-width: 1000px) { .atlas-homeHero { grid-template-columns: minmax(0, 1fr); gap: 24px; } }
-.atlas-heroLeft { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
-.atlas-teamPick { display: inline-flex; align-items: center; gap: 10px; font-size: 0.84rem; color: var(--text-secondary); }
-.atlas-teamPick .atlas-teamSelect { width: auto; min-width: 0; padding: 6px 34px 6px 14px; font-size: 0.84rem; background-color: var(--bg-card); border-color: var(--border-light); background-position: right 12px center; }
-.atlas-homeGreeting { margin: 4px 0 0; font-size: clamp(2rem, 3.4vw, 2.9rem); font-weight: 800; letter-spacing: -0.035em; line-height: 1.05; color: var(--text-primary); }
-.atlas-homeContext { margin: 0; font-size: 0.98rem; color: var(--text-secondary); }
-.atlas-homeContext strong { color: var(--text-primary); font-weight: 700; }
-.atlas-heroLeft .atlas-askBox { max-width: none; margin-top: 6px; padding: 6px 6px 6px 18px; border-color: var(--lime-border); box-shadow: 0 0 0 4px var(--lime-bg); }
-.atlas-heroLeft .atlas-askBox input { font-size: 0.98rem; padding: 11px 0; }
-.atlas-teamPanel {
-  display: flex; flex-direction: column; gap: 16px; padding: 22px; border-radius: var(--atlas-radius-lg);
-  background: var(--bg-card); border: 1px solid var(--border-color);
-}
-.atlas-teamPanelHead { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
-.atlas-teamPanelLabel { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); }
-.atlas-teamPanelLink { font-size: 0.8rem; font-weight: 700; color: var(--lime-ink); text-decoration: none; }
-.atlas-teamPanelLink:hover { text-decoration: underline; }
-.atlas-teamPanelChampion { display: flex; align-items: center; gap: 12px; padding-bottom: 16px; border-bottom: 1px solid var(--border-color); }
-.atlas-teamPanelChampion .atlas-avatar { width: 42px; height: 42px; border-radius: 50%; font-size: 0.85rem; }
-.atlas-teamPanelChampion > div { flex: 1; min-width: 0; }
-.atlas-teamActions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
-.atlas-teamAction {
-  display: flex; flex-direction: column; gap: 12px; padding: 14px; text-decoration: none; color: var(--text-primary);
-  font-size: 0.86rem; font-weight: 700; border-radius: var(--atlas-radius-md); border: 1px solid var(--border-color); background: var(--bg-surface);
-  transition: border-color 0.15s ease, background-color 0.15s ease;
-}
-.atlas-teamAction:hover { border-color: var(--lime-border); background: var(--bg-card-hover); }
-.atlas-teamActionIcon { width: 30px; height: 30px; border-radius: 9px; display: inline-flex; align-items: center; justify-content: center; background: var(--lime-bg); color: var(--lime-ink); }
-.atlas-teamActionIcon[data-tone="sky"] { background: rgba(96, 165, 250, 0.14); color: var(--atlas-sky, #60a5fa); }
-.atlas-teamActionIcon[data-tone="danger"] { background: rgba(255, 82, 82, 0.12); color: var(--danger); }
-.atlas-root[data-theme="light"] .atlas-teamActionIcon[data-tone="sky"] { color: #1d4ed8; }
-.atlas-statStrip {
-  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 1px; overflow: hidden;
-  border: 1px solid var(--border-color); border-radius: var(--atlas-radius-lg); background: var(--border-color);
-}
-@media (max-width: 1100px) { .atlas-statStrip { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-@media (max-width: 700px) { .atlas-statStrip { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.atlas-statCell { display: flex; flex-direction: column; gap: 6px; padding: 20px 22px; text-decoration: none; color: inherit; background: var(--bg-card); transition: background-color 0.15s ease; }
-.atlas-statCell:hover { background: var(--bg-card-hover); }
-.atlas-statCellHi { background: linear-gradient(var(--lime-bg), var(--lime-bg)), var(--bg-card); }
-.atlas-statCellHi:hover { background: linear-gradient(var(--lime-bg), var(--lime-bg)), var(--bg-card-hover); }
-.atlas-statHead { display: flex; align-items: center; gap: 10px; font-size: 0.88rem; color: var(--text-secondary); }
-.atlas-statIcon { width: 28px; height: 28px; border-radius: 8px; display: inline-flex; align-items: center; justify-content: center; background: var(--bg-pill); color: var(--text-secondary); }
-.atlas-statCellHi .atlas-statIcon { background: var(--lime); color: var(--lime-text); }
-.atlas-statValue { font-size: 2rem; font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; color: var(--text-primary); font-variant-numeric: tabular-nums; }
-.atlas-statCellHi .atlas-statValue { color: var(--lime-ink); }
-.atlas-statSub { font-size: 0.78rem; color: var(--text-secondary); }
-.atlas-sectionBare .atlas-panelHead { margin-bottom: 14px; }
-.atlas-sectionBare .atlas-panelTitle::before { display: none; }
-.atlas-sectionBare .atlas-panelHead { align-items: flex-end; }
-.atlas-sectionBare .atlas-panelTools { flex-wrap: nowrap; }
-.atlas-sectionBare .atlas-tabs { flex-wrap: nowrap; flex-shrink: 0; }
-.atlas-sectionBare .atlas-tabBtn { white-space: nowrap; }
-.atlas-sectionBare .atlas-panelTools .atlas-searchFieldWrap { width: 280px; flex: 0 1 280px; }
-@media (max-width: 900px) { .atlas-sectionBare .atlas-panelTools { flex-wrap: wrap; } .atlas-sectionBare .atlas-panelTools .atlas-searchFieldWrap { width: 100%; flex-basis: 100%; } }
-/* ===== Home arejada como a referência (v1.20): coluna central, tipografia mais leve ===== */
-.atlas-appContainer.atlas-homeNarrow { max-width: 1240px; margin-left: auto; margin-right: auto; gap: 40px; }
-.atlas-homeNarrow .atlas-homeHero { padding-top: 24px; gap: 28px; }
-.atlas-homeNarrow .atlas-homeHero::before { display: none; }
-.atlas-homeNarrow .atlas-homeGreeting { font-size: clamp(1.9rem, 2.6vw, 2.5rem); font-weight: 700; letter-spacing: -0.025em; margin-top: 6px; }
-.atlas-homeNarrow .atlas-homeContext { font-size: 0.92rem; }
-.atlas-homeNarrow .atlas-heroLeft { gap: 12px; }
-.atlas-homeNarrow .atlas-heroLeft .atlas-askBox { margin-top: 8px; padding: 5px 5px 5px 16px; box-shadow: 0 0 0 3px var(--lime-bg); }
-.atlas-homeNarrow .atlas-heroLeft .atlas-askBox input { font-size: 0.9rem; padding: 9px 0; }
-.atlas-homeNarrow .atlas-askChip { font-size: 0.76rem; padding: 5px 12px; font-weight: 500; }
-.atlas-homeNarrow .atlas-teamPick { font-size: 0.8rem; }
-.atlas-homeNarrow .atlas-teamPick .atlas-teamSelect { font-size: 0.8rem; padding: 4px 30px 4px 12px; background-position: right 10px center; }
-.atlas-homeNarrow .atlas-teamPanel { padding: 24px; }
-.atlas-homeNarrow .atlas-teamPanelLabel { font-size: 0.68rem; font-weight: 600; }
-.atlas-homeNarrow .atlas-teamPanelChampion { padding-bottom: 18px; }
-.atlas-homeNarrow .atlas-teamAction { font-size: 0.82rem; padding: 14px; gap: 16px; }
-.atlas-homeNarrow .atlas-statCell { padding: 22px 24px; }
-.atlas-homeNarrow .atlas-statValue { font-size: 1.9rem; font-weight: 700; }
-.atlas-homeNarrow .atlas-statHead { font-size: 0.84rem; }
-.atlas-homeNarrow .atlas-panelTitle { font-weight: 700; font-size: 1.2rem; }
-.atlas-homeNarrow .atlas-panelTools { min-width: 0; }
-.atlas-homeNarrow .atlas-sectionBare .atlas-panelTools .atlas-searchFieldWrap { flex: 0 1 240px; width: 240px; min-width: 160px; }
 .atlas-iconActionQuietDanger:hover { color: var(--danger); background: rgba(255, 82, 82, 0.1); border-color: rgba(255, 82, 82, 0.6); }
 .atlas-iconActionAdd, .atlas-iconActionAdd:hover { background: transparent; }
 .atlas-iconActionAdd { color: var(--text-muted); border-style: dashed; border-color: var(--border-light); }
