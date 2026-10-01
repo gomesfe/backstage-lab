@@ -9,28 +9,29 @@ e por onde eu começo?" em uma olhada.
 
 ## Deve conter, nesta ordem
 
-1. **Hero com degradê verde** (`atlas-welcomeCard atlas-heroBig`), em duas partes:
+Segue a reunião com o William: boas-vindas enxuta, área central útil, sem
+repetir o menu do topo (por isso não há "ações rápidas").
+
+1. **Hero com degradê verde** (`atlas-welcomeCard atlas-heroBig`):
    - **Boas-vindas:** saudação dinâmica ("Bom dia, {nome}"; o guest vê
      "Bem-vindo ao Atlas") e a caixa **Perguntar**, que leva ao Agente com o
      texto (`?q=`).
    - **Seu time** (cartão à direita): lista para **trocar de time** (Todos,
      Plataforma, Pagamentos, Onboarding, Antifraude, Bitrago), com o champion
-     (nome e e-mail) e o link para Meus grupos. A escolha fica guardada no
-     navegador (`atlas.team`, padrão `plataforma`) e vale para o resto da tela.
-2. **Por onde começar** — quatro atalhos com ícone, nome e uma linha:
-   Provisionar recurso, Mapa de provisionamento, Aprovações e Catálogo.
-3. **"{Time} em números"** — Aplicações, APIs, Recursos provisionados e
-   Repositórios do time escolhido. Cada cartão abre a tela certa já filtrada
-   (`/provisioning-map?service=PAG`, `…#repositorios`, `/catalog?owner=pagamentos`).
-   Os números e links mudam por `data-atlas-by-pref="team"` (`data-v-<time>`,
-   `data-h-<time>`); com dado real viriam de um endpoint de contagem, com
-   `atlas-skeleton` até chegar.
-4. **Duas colunas:** **Aplicações** do time (busca e tipo; `<tr data-atlas-row
-   data-squad data-type>`) ao lado de **Em breve** (poucas linhas) e
-   **Últimas atualizações**.
-
-Sem repetir o menu: saíram "Serviços no catálogo", "Ferramentas" (use o
-Toolkit), "Links úteis", "Learning Paths" e "Comece por aqui".
+     (nome e e-mail) e o link para Meus grupos. A escolha fica no navegador
+     (`atlas.team`, padrão `plataforma`), marca o projeto com "seu time" e
+     filtra as aplicações.
+2. **Provisionado no Atlas** (área central): abas **Recursos** e
+   **Repositórios**, cada uma com a contagem, e **busca de projeto**. A lista
+   usa nomes de projeto (Pagamentos, não PAG) com as ofertas em uso; o botão de
+   cada linha abre o mapa já filtrado (`/provisioning-map?service=PAG`, e
+   `#repositorios` na outra aba). Os nomes e contagens são os do próprio mapa.
+   Com dado real as contagens viriam de um endpoint, com `atlas-skeleton`
+   até chegarem, sem travar a abertura da home.
+3. **Duas colunas, na parte de baixo:** **Aplicações** do time (busca e tipo;
+   `<tr data-atlas-row data-squad data-type>`) ao lado de **Últimas
+   atualizações**, **Em breve** (poucas linhas, só entregas previstas) e
+   **Links úteis**.
 
 ## Toolkit
 

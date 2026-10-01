@@ -1407,6 +1407,19 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 .atlas-tileIcon { width: 44px; height: 44px; border-radius: 14px; display: inline-flex; align-items: center; justify-content: center; background: var(--lime-bg); color: var(--lime); }
 .atlas-tileTitle { font-weight: 700; font-size: 0.98rem; color: var(--text-primary); }
 .atlas-tileDesc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.45; margin-top: 2px; }
+/* ===== Home: área central (v1.15) ===== */
+.atlas-heroBig { min-height: 240px; padding: 30px 36px; }
+.atlas-badgeTag:empty { display: none; }
+.atlas-panelHead { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.atlas-panelTitle { margin: 0; font-size: 1.15rem; font-weight: 800; letter-spacing: -0.02em; color: var(--text-primary); }
+.atlas-panelSub { margin: 2px 0 0; font-size: 0.82rem; color: var(--text-secondary); }
+.atlas-panelTools { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.atlas-tabBtn svg { vertical-align: -3px; margin-right: 6px; }
+.atlas-tabBtn .atlas-groupHeadingCount { margin-left: 6px; }
+.atlas-projectCell { display: flex; align-items: center; gap: 12px; }
+.atlas-projectCell .atlas-avatar { width: 36px; height: 36px; border-radius: 10px; font-size: 0.8rem; }
+.atlas-projectName { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--text-primary); }
+.atlas-projectMeta { font-size: 0.74rem; color: var(--text-muted); letter-spacing: 0.04em; }
 .atlas-iconActionQuietDanger:hover { color: var(--danger); background: rgba(255, 82, 82, 0.1); border-color: rgba(255, 82, 82, 0.6); }
 .atlas-iconActionAdd, .atlas-iconActionAdd:hover { background: transparent; }
 .atlas-iconActionAdd { color: var(--text-muted); border-style: dashed; border-color: var(--border-light); }
