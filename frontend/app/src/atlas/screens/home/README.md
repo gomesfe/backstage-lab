@@ -9,46 +9,28 @@ e por onde eu começo?" em uma olhada.
 
 ## Deve conter, nesta ordem
 
-1. **Seletor de escopo** — Todos / Pagamentos / Onboarding / Antifraude.
-   Filtra os serviços e as aplicações pelo squad dono (`data-squad` de cada
-   linha). As métricas são fixas na versão HTML.
-2. **Boas-vindas com pergunta** — uma faixa só, sem bloco gigante:
-   - **Saudação dinâmica:** "Bom dia/Boa tarde/Boa noite, {primeiro nome}"
-     (o nome vem do perfil de login; o guest vê "Bem-vindo ao Atlas").
-   - **Caixa de pergunta:** escreva "quero provisionar…" e **Perguntar** leva
-     ao Agente já com o texto (`?q=`). Três atalhos: Provisionar recurso,
-     Mapa de provisionamento, Aprovações.
-3. **Métricas** (cinco cartões clicáveis, com respiro): Aplicações, APIs,
-   Sistemas, **Recursos provisionados** e **Repositórios**. Os dois últimos
-   levam ao mapa (`/provisioning-map`, e `#repositorios` para a aba de
-   repositórios). As contagens vêm da mesma fonte do mapa; com dado real
-   viriam de um endpoint de contagem, mostrando `atlas-skeleton` até chegar,
-   sem travar a abertura da home.
-   **Provisionado por serviço:** um cartão por serviço (nome do projeto, não a
-   sigla técnica) com recursos e repositórios; cada número abre o mapa já
-   filtrado por aquele serviço (`?service=PAG`). O escopo do topo também
-   filtra estes cartões.
-4. **Três cartões lado a lado**
-   - **Serviços no catálogo:** aplicações do escopo, cada uma um link para a
-     tela de Entidade, com ponto e badge de ciclo de vida. "Ver todos (N)"
-     quando houver mais.
-   - **Últimas atualizações:** comunicados (no `index.html`).
-   - **Ferramentas:** links externos, abrem em nova aba. A lista é a mesma do
-     menu **Toolkit** (`toolkit.tsx` no portal, `assets/atlas.js` na versão
-     avulsa — mude nos dois).
-5. **Aplicações** (largura maior) e, ao lado, **Links úteis** e **Em dúvida?**
-   - **Aplicações:** as aplicações numa tabela com
-     **Nome · Tipo · Repositório · Sonar**. Busca por nome ("Buscar
-     workload…") e filtro por tipo: Todos / Microsserviço / Site Estático /
-     Serverless. Cada linha é um `<tr data-atlas-row data-type="…">` —
-     `microservice`, `static-site` ou `serverless` — e é esse atributo que o
-     filtro lê. Sem repositório ou sem Sonar, a célula mostra "—". Com dado
-     real, o tipo viria de `spec.type` e os links das anotações
-     `github.com/project-slug` e `sonarqube.org/project-key`.
-   - **Links úteis:** cinco links para Docs e Ofertas.
-   - **Em dúvida? Aprenda mais com Learning Paths:** três trilhas (links
-     para a seção de cada uma em Trilhas) e o botão "Ver todas as trilhas".
-6. **Comece por aqui** (3 passos, com atalho para Trilhas).
+Uma coisa por bloco, sem repetir o que já está no menu:
+
+1. **Boas-vindas com pergunta** — saudação dinâmica ("Bom dia, {nome}"; o
+   guest vê "Bem-vindo ao Atlas"), caixa **Perguntar** (leva ao Agente com o
+   texto, `?q=`) e quatro atalhos: Provisionar recurso, Mapa de provisionamento,
+   Aprovações e Trilhas.
+2. **Quatro números** clicáveis: Aplicações, APIs, **Recursos provisionados**
+   e **Repositórios** (os dois últimos abrem o mapa; `#repositorios` abre a
+   aba de repositórios). Com dado real as contagens viriam de um endpoint e
+   mostrariam `atlas-skeleton` até chegar, sem travar a abertura da home.
+3. **Escopo** — Todos / Pagamentos / Onboarding / Antifraude. Filtra as linhas
+   de "Provisionado por serviço" e de "Aplicações" (`data-squad`).
+4. **Duas colunas** (2/3 e 1/3):
+   - **Provisionado por serviço** (tabela: nome do projeto, recursos,
+     repositórios; cada número abre o mapa já filtrado, `?service=PAG`) ao
+     lado de **Seu time** (champion; proposta a validar) e **Em breve**
+     (poucas linhas, só entregas previstas).
+   - **Aplicações** (busca e filtro por tipo; `<tr data-atlas-row
+     data-type="…">`) ao lado de **Últimas atualizações**.
+
+Saíram, por repetirem o menu ou o Toolkit: "Serviços no catálogo", "Ferramentas",
+"Links úteis", "Learning Paths" e "Comece por aqui".
 
 ## Toolkit
 
@@ -69,10 +51,3 @@ de avisos.
 ## Não faz
 
 - Não mostra custos nem alertas: o lab não tem essas fontes.
-
-## Seu time e Em breve
-
-Antes de "Comece por aqui": **Seu time** (champion, time, quantos recursos e
-repositórios tem — proposta para a área central, a validar) e **Em breve**
-(poucas linhas, só entregas previstas: provisionar pelo chat, solicitar
-acesso, menu lateral opcional). Mantenha a lista curta.

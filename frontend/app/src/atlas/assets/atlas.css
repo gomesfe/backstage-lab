@@ -1356,6 +1356,18 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 }
 .atlas-sideNavItem:hover { background: var(--bg-pill); color: var(--text-primary); }
 .atlas-sideNavItemActive, .atlas-sideNavItemActive:hover { background: var(--lime); color: var(--lime-text); }
+/* ===== Home organizada (v1.13): faixa de números, duas colunas, uma coisa por bloco ===== */
+.atlas-kpiStrip { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 1000px) { .atlas-kpiStrip { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.atlas-homeMain { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (max-width: 1100px) { .atlas-homeMain { grid-template-columns: minmax(0, 1fr); } }
+.atlas-stack { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+.atlas-scopeBar { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.atlas-scopeBar .atlas-groupViewSelector { margin: 0; }
+.atlas-serviceCell { display: flex; align-items: center; gap: 12px; }
+.atlas-serviceCell .atlas-avatar { width: 34px; height: 34px; border-radius: 10px; font-size: 0.78rem; }
+.atlas-serviceCellName { font-weight: 700; color: var(--text-primary); }
+.atlas-serviceCellSigla { font-size: 0.72rem; color: var(--text-muted); letter-spacing: 0.06em; }
 .atlas-iconActionQuietDanger:hover { color: var(--danger); background: rgba(255, 82, 82, 0.1); border-color: rgba(255, 82, 82, 0.6); }
 .atlas-iconActionAdd, .atlas-iconActionAdd:hover { background: transparent; }
 .atlas-iconActionAdd { color: var(--text-muted); border-style: dashed; border-color: var(--border-light); }
