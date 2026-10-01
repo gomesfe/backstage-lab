@@ -12,25 +12,22 @@ e por onde eu começo?" em uma olhada.
 1. **Seletor de escopo** — Todos / Pagamentos / Onboarding / Antifraude.
    Filtra os serviços e as aplicações pelo squad dono (`data-squad` de cada
    linha). As métricas são fixas na versão HTML.
-2. **Hero**
-   - **Boas-vindas:** "Olá, {primeiro nome}" (do perfil de login; o guest vê
-     "Bem-vindo ao Atlas"), uma frase e duas ações: **Provisionar recurso**
-     (principal, vai para Create) e **Explorar catálogo**.
-   - **Cinco métricas clicáveis**, cada uma com uma linha de contexto real e
-     levando ao catálogo já filtrado:
-
-     | Métrica | Contexto | Leva para |
-     |---|---|---|
-     | Aplicações | quantas em produção / experimentais | `/catalog?kind=Component` |
-     | APIs | idem | `/api-docs` |
-     | Sistemas | quantas aplicações vinculadas a um sistema | `/catalog?kind=System` |
-     | Squads no escopo | — | `/catalog?kind=Group` |
-     | **Recursos provisionados** (destaque, largura dupla) | o que são, ou como criar o primeiro | `/catalog?kind=Resource` |
-
-     Só uma métrica em destaque: recursos, porque provisionar é a ação
-     principal do Atlas.
-3. **Ações rápidas** — sete atalhos com ícone por significado. A que ainda
-   não tem tela no lab (Solicitar acesso) aparece desabilitada, com dica.
+2. **Boas-vindas com pergunta** — uma faixa só, sem bloco gigante:
+   - **Saudação dinâmica:** "Bom dia/Boa tarde/Boa noite, {primeiro nome}"
+     (o nome vem do perfil de login; o guest vê "Bem-vindo ao Atlas").
+   - **Caixa de pergunta:** escreva "quero provisionar…" e **Perguntar** leva
+     ao Agente já com o texto (`?q=`). Três atalhos: Provisionar recurso,
+     Mapa de provisionamento, Aprovações.
+3. **Métricas** (cinco cartões clicáveis, com respiro): Aplicações, APIs,
+   Sistemas, **Recursos provisionados** e **Repositórios**. Os dois últimos
+   levam ao mapa (`/provisioning-map`, e `#repositorios` para a aba de
+   repositórios). As contagens vêm da mesma fonte do mapa; com dado real
+   viriam de um endpoint de contagem, mostrando `atlas-skeleton` até chegar,
+   sem travar a abertura da home.
+   **Provisionado por serviço:** um cartão por serviço (nome do projeto, não a
+   sigla técnica) com recursos e repositórios; cada número abre o mapa já
+   filtrado por aquele serviço (`?service=PAG`). O escopo do topo também
+   filtra estes cartões.
 4. **Três cartões lado a lado**
    - **Serviços no catálogo:** aplicações do escopo, cada uma um link para a
      tela de Entidade, com ponto e badge de ciclo de vida. "Ver todos (N)"
@@ -72,3 +69,10 @@ de avisos.
 ## Não faz
 
 - Não mostra custos nem alertas: o lab não tem essas fontes.
+
+## Seu time e Em breve
+
+Antes de "Comece por aqui": **Seu time** (champion, time, quantos recursos e
+repositórios tem — proposta para a área central, a validar) e **Em breve**
+(poucas linhas, só entregas previstas: provisionar pelo chat, solicitar
+acesso, menu lateral opcional). Mantenha a lista curta.

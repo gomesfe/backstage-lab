@@ -1294,6 +1294,49 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 .atlas-mapLegend { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0; padding: 10px 16px; font-size: 0.76rem; color: var(--text-muted); }
 .atlas-mapLegend > span { display: inline-flex; align-items: center; gap: 6px; }
 .atlas-mapLegend .atlas-iconAction { height: 22px; min-width: 22px; border-radius: 6px; font-size: 0.8rem; pointer-events: none; }
+/* ===== Home arejada (v1.11) ===== */
+.atlas-airy { gap: 28px; }
+.atlas-heroAsk {
+  display: flex; flex-direction: column; gap: 14px; padding: 26px 30px;
+  background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--atlas-radius-lg);
+}
+.atlas-greeting { margin: 0; font-size: 1.6rem; font-weight: 800; letter-spacing: -0.03em; color: var(--text-primary); }
+.atlas-greetingSub { margin: 0; color: var(--text-secondary); font-size: 0.9rem; }
+.atlas-askBox {
+  display: flex; align-items: center; gap: 10px; padding: 6px 6px 6px 20px; max-width: 760px;
+  border: 1px solid var(--border-light); border-radius: var(--atlas-radius-pill); background: var(--bg-surface);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.atlas-askBox:focus-within { border-color: var(--lime); box-shadow: 0 0 0 3px var(--lime-bg); }
+.atlas-askBox input { flex: 1; min-width: 0; background: transparent; border: 0; outline: 0; color: var(--text-primary); font: inherit; font-size: 0.95rem; padding: 10px 0; }
+.atlas-askChips { display: flex; flex-wrap: wrap; gap: 8px; }
+/* Blocos cinzas que pulsam enquanto um número carrega (nunca um rodinha girando). */
+.atlas-skeleton { display: inline-block; min-width: 2.2ch; border-radius: 6px; color: transparent; background: var(--bg-pill); animation: atlas-skelPulse 1.2s ease-in-out infinite; }
+@keyframes atlas-skelPulse { 0%, 100% { opacity: 0.45; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .atlas-skeleton { animation: none; } }
+/* Um cartão por serviço, com o que ele tem provisionado. */
+.atlas-serviceGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 16px; padding: 4px 0 2px; }
+.atlas-serviceCard { display: flex; flex-direction: column; gap: 16px; padding: 20px; background: var(--bg-surface); border: 1px solid var(--border-color); border-radius: var(--atlas-radius-lg); }
+.atlas-serviceCardHead { display: flex; align-items: center; gap: 12px; }
+.atlas-serviceCardName { font-weight: 700; color: var(--text-primary); }
+.atlas-serviceCardSigla { font-size: 0.74rem; color: var(--text-muted); letter-spacing: 0.06em; }
+.atlas-serviceStats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.atlas-serviceStat {
+  display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; text-decoration: none; color: inherit;
+  border: 1px solid var(--atlas-row-line, var(--border-color)); border-radius: var(--atlas-radius-md); background: var(--atlas-row-bg, transparent);
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+.atlas-serviceStat:hover { border-color: var(--lime-border); background: var(--bg-card-hover); }
+.atlas-serviceStatValue { font-size: 1.4rem; font-weight: 800; color: var(--text-primary); line-height: 1.1; }
+.atlas-serviceStatLabel { display: inline-flex; align-items: center; gap: 6px; font-size: 0.74rem; color: var(--text-muted); }
+/* Em breve: poucas linhas, cada uma com a etiqueta do que está por vir. */
+.atlas-soonList { display: flex; flex-direction: column; gap: 4px; }
+.atlas-soonItem { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--atlas-row-line, var(--border-color)); }
+.atlas-soonItem:last-child { border-bottom: 0; }
+.atlas-soonName { font-size: 0.88rem; font-weight: 600; color: var(--text-primary); }
+.atlas-soonDesc { font-size: 0.78rem; color: var(--text-secondary); }
+.atlas-twoCardsGrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; width: 100%; }
+@media (max-width: 900px) { .atlas-twoCardsGrid { grid-template-columns: 1fr; } }
 .atlas-iconActionQuietDanger:hover { color: var(--danger); background: rgba(255, 82, 82, 0.1); border-color: rgba(255, 82, 82, 0.6); }
 .atlas-iconActionAdd, .atlas-iconActionAdd:hover { background: transparent; }
 .atlas-iconActionAdd { color: var(--text-muted); border-style: dashed; border-color: var(--border-light); }

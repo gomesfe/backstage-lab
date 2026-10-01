@@ -50,6 +50,13 @@
  *   (data-atlas-filter-key). ../entity/index.html#payments-api abre a aba
  *   "payments-api" (links para a mesma tela também, sem recarregar).
  *
+ * SAUDAÇÃO E PERGUNTA (home)
+ *   <h1 data-atlas-greeting>Bem-vindo ao Atlas</h1>   vira "Bom dia, Ana" conforme a hora;
+ *   o nome vem de data-atlas-user na raiz (o portal preenche com o perfil de login).
+ *   <input data-atlas-ask-input> + <a data-atlas-ask-go href="../agent/index.html">:
+ *   ao clicar (ou Enter), o texto vai na ?q= do link. <textarea data-atlas-prefill="q">
+ *   na tela de destino recebe esse q.
+ *
  * TEMPO DECORRIDO
  *   <time datetime="2026-09-29T11:00" data-atlas-ago>29/09/26 11:00</time>
  *   vira "há 3 h" (e se atualiza ao abrir um diálogo). O HTML fica estático;
@@ -83,6 +90,15 @@
     all(root, '[data-atlas-ago]').forEach(function (el) {
       var text = ago(el.getAttribute('datetime'));
       if (text) el.textContent = text;
+    });
+  }
+
+  function greet(root) {
+    var user = (root.getAttribute('data-atlas-user') || '').trim();
+    var hour = new Date().getHours();
+    var period = hour < 5 ? 'Boa noite' : hour < 12 ? 'Bom dia' : hour < 18 ? 'Boa tarde' : 'Boa noite';
+    all(root, '[data-atlas-greeting]').forEach(function (el) {
+      if (user) el.textContent = period + ', ' + user;
     });
   }
 
@@ -302,6 +318,7 @@
       params[decodeURIComponent(kv[0])] = decodeURIComponent((kv[1] || '').replace(/\+/g, ' '));
     });
     if (params.q !== undefined) {
+      all(root, '[data-atlas-prefill="q"]').forEach(function (el) { el.value = params.q; });
       all(root, '[data-atlas-search]').forEach(function (s) { s.value = params.q; reveal(root, s); });
     }
     all(root, '[data-atlas-filter]').forEach(function (control) {
@@ -337,6 +354,15 @@
 
     function onClick(event) {
       if (!(event.target.closest && event.target.closest('.atlas-thFilter'))) closePopovers(root);
+      var go = event.target.closest && event.target.closest('[data-atlas-ask-go]');
+      if (go && root.contains(go)) {
+        var box = root.querySelector('[data-atlas-ask-input]');
+        var base = (go.getAttribute('data-atlas-ask-base') || go.getAttribute('href') || '').split('?')[0];
+        go.setAttribute('data-atlas-ask-base', base);
+        var text = box ? box.value.trim() : '';
+        go.setAttribute('href', text ? base + '?q=' + encodeURIComponent(text) : base);
+        return;
+      }
       var el = event.target.closest && event.target.closest(
         '[data-atlas-colfilter],[data-atlas-colclear],[data-atlas-colclose],[data-atlas-value],[data-atlas-tab],[data-atlas-open],[data-atlas-close],[data-atlas-toggle],[data-atlas-reset],[data-atlas-set-theme],[data-atlas-signout]',
       );
@@ -405,6 +431,15 @@
     }
 
     setupColumnFilters(root);
+    function onAskKey(event) {
+      if (event.key !== 'Enter' || !event.target.hasAttribute || !event.target.hasAttribute('data-atlas-ask-input')) return;
+      event.preventDefault();
+      var go = root.querySelector('[data-atlas-ask-go]');
+      if (go) go.click();
+    }
+    root.addEventListener('keydown', onAskKey);
+    root.addEventListener('atlas:user', function () { greet(root); });
+    greet(root);
     root.addEventListener('input', onInput);
     root.addEventListener('change', onInput);
     root.addEventListener('click', onClick);
@@ -426,6 +461,7 @@
       root.removeEventListener('input', onInput);
       root.removeEventListener('change', onInput);
       root.removeEventListener('click', onClick);
+      root.removeEventListener('keydown', onAskKey);
       global.removeEventListener('hashchange', onHash);
     };
   }

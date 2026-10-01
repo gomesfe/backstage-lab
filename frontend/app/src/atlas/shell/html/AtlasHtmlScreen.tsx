@@ -39,6 +39,25 @@ export function AtlasHtmlScreen({ slug }: { slug: string }) {
     });
   }, [slug, search, appThemeApi, identityApi]);
 
+  // Primeiro nome do perfil de login, para a saudação (o guest fica sem nome).
+  useEffect(() => {
+    const root = ref.current;
+    if (!root) return undefined;
+    let active = true;
+    identityApi
+      .getProfileInfo()
+      .then(profile => {
+        const first = (profile.displayName ?? '').trim().split(/\s+/)[0];
+        if (!active || !first || first.toLowerCase() === 'guest') return;
+        root.setAttribute('data-atlas-user', first);
+        root.dispatchEvent(new Event('atlas:user'));
+      })
+      .catch(() => undefined);
+    return () => {
+      active = false;
+    };
+  }, [slug, identityApi]);
+
   // #aba dentro da mesma tela: o React Router não dispara `hashchange`.
   useEffect(() => {
     if (ref.current && hash) openHash(ref.current, hash);
