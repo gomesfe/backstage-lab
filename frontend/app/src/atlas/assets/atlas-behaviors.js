@@ -64,8 +64,9 @@
  *   e/ou o link (data-h-<valor>) conforme a preferência: números e links "do meu time".
  *
  * SAUDAÇÃO E PERGUNTA (home)
- *   <h1 data-atlas-greeting>Bem-vindo ao Atlas</h1>   vira "Bom dia, Ana" conforme a hora;
- *   o nome vem de data-atlas-user na raiz (o portal preenche com o perfil de login).
+ *   <h1 data-atlas-greeting>Bem-vindo ao Atlas</h1>   vira "Bom dia/Boa tarde/Boa noite, bem-vindo
+ *   ao Atlas" conforme a hora; <span data-atlas-greeting-user hidden> ganha "Olá, {nome}." quando o
+ *   portal preenche data-atlas-user na raiz (nome do perfil de login).
  *   <button data-atlas-ask-fill="texto"> sugestão: preenche a caixa e põe o foco nela.
  *   <input data-atlas-ask-input> + <a data-atlas-ask-go href="../agent/index.html">:
  *   ao clicar (ou Enter), o texto vai na ?q= do link. <textarea data-atlas-prefill="q">
@@ -162,12 +163,15 @@
     var hour = new Date().getHours();
     var period = hour < 5 ? 'Boa noite' : hour < 12 ? 'Bom dia' : hour < 18 ? 'Boa tarde' : 'Boa noite';
     all(root, '[data-atlas-greeting]').forEach(function (el) {
-      if (!user) return;
-      el.textContent = period + ', ';
-      var name = global.document.createElement('span');
-      name.className = 'atlas-greetingName';
-      name.textContent = user;
-      el.appendChild(name);
+      el.textContent = period + ', bem-vindo ao ';
+      var brand = global.document.createElement('span');
+      brand.className = 'atlas-greetingName';
+      brand.textContent = 'Atlas';
+      el.appendChild(brand);
+    });
+    all(root, '[data-atlas-greeting-user]').forEach(function (el) {
+      el.hidden = !user;
+      el.textContent = user ? 'Olá, ' + user + '. ' : '';
     });
   }
 

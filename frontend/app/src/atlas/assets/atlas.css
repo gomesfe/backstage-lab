@@ -1483,6 +1483,18 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 .atlas-soonItem .atlas-badgeTag { flex-shrink: 0; }
 .atlas-sectionCard { transition: border-color 0.15s ease; }
 .atlas-sectionCard:hover { border-color: var(--border-light); }
+/* ===== Home: junta a tela de antes com as ideias da reunião (v1.17) ===== */
+.atlas-heroAskLayout { grid-template-columns: minmax(340px, 1.15fr) 2fr; }
+@media (max-width: 1100px) { .atlas-heroAskLayout { grid-template-columns: minmax(0, 1fr); } }
+.atlas-heroAskLayout .atlas-welcomeCard { padding: 26px 26px 24px; gap: 0; }
+.atlas-heroAskLayout .atlas-welcomeTitle { font-size: clamp(1.5rem, 2.1vw, 2rem); margin: 10px 0 8px; }
+.atlas-heroAskLayout .atlas-welcomeSub { max-width: none; }
+.atlas-heroAskLayout .atlas-askBox { margin-top: 18px; max-width: none; padding: 5px 5px 5px 16px; }
+.atlas-heroAskLayout .atlas-askBox input { font-size: 0.9rem; padding: 9px 0; }
+.atlas-teamBar { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; padding: 12px 16px; }
+.atlas-teamBar .atlas-teamSelect { width: auto; min-width: 190px; padding: 8px 38px 8px 16px; font-size: 0.9rem; }
+.atlas-teamChampion { display: flex; align-items: center; gap: 10px; margin-right: auto; }
+.atlas-teamChampion .atlas-avatar { width: 34px; height: 34px; border-radius: 50%; font-size: 0.72rem; }
 .atlas-iconActionQuietDanger:hover { color: var(--danger); background: rgba(255, 82, 82, 0.1); border-color: rgba(255, 82, 82, 0.6); }
 .atlas-iconActionAdd, .atlas-iconActionAdd:hover { background: transparent; }
 .atlas-iconActionAdd { color: var(--text-muted); border-style: dashed; border-color: var(--border-light); }
