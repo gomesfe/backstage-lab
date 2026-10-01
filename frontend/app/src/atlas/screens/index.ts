@@ -9,6 +9,7 @@ import * as learningPaths from './learning-paths/page';
 import * as create from './create/page';
 import * as provisioningMap from './provisioning-map/page';
 import * as breakGlass from './break-glass/page';
+import * as status from './status/page';
 import * as atlasJira from './atlas-jira/page';
 import * as agent from './agent/page';
 import * as entity from './entity/page';
@@ -55,6 +56,7 @@ export const atlasPagesPlugin = createFrontendPlugin({
     agent: agent.agentRouteRef,
     learningPaths: learningPaths.learningPathsRouteRef,
     breakGlass: breakGlass.breakGlassRouteRef,
+    status: status.statusRouteRef,
     entity: entity.entityRouteRef,
   },
   extensions: [
@@ -66,6 +68,7 @@ export const atlasPagesPlugin = createFrontendPlugin({
     learningPaths.page,
     learningPaths.detailPage,
     breakGlass.page,
+    status.page,
     entity.page,
   ],
 });

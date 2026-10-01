@@ -25,6 +25,7 @@
     ['create', 'Ofertas'],
     ['provisioning-map', 'Mapa de provisionamento'],
     ['break-glass', 'Break Glass'],
+    ['status', 'Status'],
     ['atlas-jira', 'Atlas × Jira'],
     ['agent', 'Agente'],
     ['api-keys', 'API Keys'],

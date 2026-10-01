@@ -37,6 +37,7 @@ export const PILL_ORDER = [
   'page:scaffolder',
   'page:atlas-pages/provisioning-map',
   'page:atlas-pages/break-glass',
+  'page:atlas-pages/status',
   'page:atlas-pages/atlas-jira',
   'page:atlas-pages/agent',
   'page:admin/api-keys',
