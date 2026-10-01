@@ -9,28 +9,28 @@ e por onde eu começo?" em uma olhada.
 
 ## Deve conter, nesta ordem
 
-Uma coisa por bloco, sem repetir o que já está no menu:
+1. **Hero com degradê verde** (`atlas-welcomeCard atlas-heroBig`), em duas partes:
+   - **Boas-vindas:** saudação dinâmica ("Bom dia, {nome}"; o guest vê
+     "Bem-vindo ao Atlas") e a caixa **Perguntar**, que leva ao Agente com o
+     texto (`?q=`).
+   - **Seu time** (cartão à direita): lista para **trocar de time** (Todos,
+     Plataforma, Pagamentos, Onboarding, Antifraude, Bitrago), com o champion
+     (nome e e-mail) e o link para Meus grupos. A escolha fica guardada no
+     navegador (`atlas.team`, padrão `plataforma`) e vale para o resto da tela.
+2. **Por onde começar** — quatro atalhos com ícone, nome e uma linha:
+   Provisionar recurso, Mapa de provisionamento, Aprovações e Catálogo.
+3. **"{Time} em números"** — Aplicações, APIs, Recursos provisionados e
+   Repositórios do time escolhido. Cada cartão abre a tela certa já filtrada
+   (`/provisioning-map?service=PAG`, `…#repositorios`, `/catalog?owner=pagamentos`).
+   Os números e links mudam por `data-atlas-by-pref="team"` (`data-v-<time>`,
+   `data-h-<time>`); com dado real viriam de um endpoint de contagem, com
+   `atlas-skeleton` até chegar.
+4. **Duas colunas:** **Aplicações** do time (busca e tipo; `<tr data-atlas-row
+   data-squad data-type>`) ao lado de **Em breve** (poucas linhas) e
+   **Últimas atualizações**.
 
-1. **Boas-vindas com pergunta** — saudação dinâmica ("Bom dia, {nome}"; o
-   guest vê "Bem-vindo ao Atlas"), caixa **Perguntar** (leva ao Agente com o
-   texto, `?q=`) e quatro atalhos: Provisionar recurso, Mapa de provisionamento,
-   Aprovações e Trilhas.
-2. **Quatro números** clicáveis: Aplicações, APIs, **Recursos provisionados**
-   e **Repositórios** (os dois últimos abrem o mapa; `#repositorios` abre a
-   aba de repositórios). Com dado real as contagens viriam de um endpoint e
-   mostrariam `atlas-skeleton` até chegar, sem travar a abertura da home.
-3. **Escopo** — Todos / Pagamentos / Onboarding / Antifraude. Filtra as linhas
-   de "Provisionado por serviço" e de "Aplicações" (`data-squad`).
-4. **Duas colunas** (2/3 e 1/3):
-   - **Provisionado por serviço** (tabela: nome do projeto, recursos,
-     repositórios; cada número abre o mapa já filtrado, `?service=PAG`) ao
-     lado de **Seu time** (champion; proposta a validar) e **Em breve**
-     (poucas linhas, só entregas previstas).
-   - **Aplicações** (busca e filtro por tipo; `<tr data-atlas-row
-     data-type="…">`) ao lado de **Últimas atualizações**.
-
-Saíram, por repetirem o menu ou o Toolkit: "Serviços no catálogo", "Ferramentas",
-"Links úteis", "Learning Paths" e "Comece por aqui".
+Sem repetir o menu: saíram "Serviços no catálogo", "Ferramentas" (use o
+Toolkit), "Links úteis", "Learning Paths" e "Comece por aqui".
 
 ## Toolkit
 

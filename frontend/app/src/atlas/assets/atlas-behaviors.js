@@ -59,6 +59,10 @@
  *   Quem grava avisa o portal com o evento "atlas:prefs" na janela (o menu lateral
  *   do portal escuta o mesmo).
  *
+ *   <select data-atlas-pref-select="team" data-atlas-pref-default="plataforma">  lista que grava a preferência.
+ *   <span|a data-atlas-by-pref="team" data-v-pagamentos="6" data-h-pagamentos="/x">  muda o texto (data-v-<valor>)
+ *   e/ou o link (data-h-<valor>) conforme a preferência: números e links "do meu time".
+ *
  * SAUDAÇÃO E PERGUNTA (home)
  *   <h1 data-atlas-greeting>Bem-vindo ao Atlas</h1>   vira "Bom dia, Ana" conforme a hora;
  *   o nome vem de data-atlas-user na raiz (o portal preenche com o perfil de login).
@@ -121,6 +125,20 @@
       var on = current ? current === kv[1] : btn.hasAttribute('data-atlas-pref-default');
       btn.setAttribute('aria-pressed', String(on));
       btn.classList.toggle('atlas-modalActionOptionChecked', on);
+    });
+    all(root, '[data-atlas-pref-select]').forEach(function (sel) {
+      var cur = getPref(sel.getAttribute('data-atlas-pref-select')) || sel.getAttribute('data-atlas-pref-default');
+      if (cur && sel.value !== cur) sel.value = cur;
+    });
+    all(root, '[data-atlas-by-pref]').forEach(function (el) {
+      var key = el.getAttribute('data-atlas-by-pref');
+      var sel = root.querySelector('[data-atlas-pref-select="' + key + '"]');
+      var cur = getPref(key) || (sel && sel.getAttribute('data-atlas-pref-default'));
+      if (!cur) return;
+      var text = el.getAttribute('data-v-' + cur);
+      var href = el.getAttribute('data-h-' + cur);
+      if (text !== null) el.textContent = text;
+      if (href !== null) el.setAttribute('href', href);
     });
     all(root, '[data-atlas-pref-switch]').forEach(function (btn) {
       var on = getPref(btn.getAttribute('data-atlas-pref-switch')) === '1';
@@ -390,6 +408,7 @@
     function onInput(event) {
       var el = event.target;
       if (!el.getAttribute) return;
+      if (el.hasAttribute('data-atlas-pref-select')) setPref(el.getAttribute('data-atlas-pref-select'), el.value);
       if (el.hasAttribute('data-atlas-colinput')) {
         var owner = el.parentNode.parentNode.querySelector('[data-atlas-colfilter]');
         if (owner) setColumnFilter(root, owner, el.value);
