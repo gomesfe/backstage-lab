@@ -16,7 +16,8 @@ para promover ou excluir em cada ambiente.
 3. **Aviso de regras:** "Deleções solicitadas em até 72 horas não exigem
    aprovação. Alguns recursos podem exigir aprovação do time de cloud antes
    da execução."
-4. **Tabela de recursos**
+4. **Troca Recursos · com IaC / Repositórios · sem IaC** (abas em pílula, com
+   contagem; `#repositorios` abre direto a segunda) e, abaixo, a **tabela de recursos**
    - Barra: botão **Filtros** (abre Nome, Template, Ambiente, Serviço, e
      mostra quantos filtros estão ativos), **Itens** por página (10, 15, 25,
      50).

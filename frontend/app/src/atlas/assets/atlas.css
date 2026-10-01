@@ -1223,6 +1223,20 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 .atlas-iconActionDanger { color: var(--danger); border-color: rgba(255, 82, 82, 0.35); }
 .atlas-iconActionDanger:hover { color: var(--danger); background: rgba(255, 82, 82, 0.1); border-color: rgba(255, 82, 82, 0.6); }
 .atlas-iconAction:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
+/* Colunas centralizadas e células de ambiente de altura fixa: tudo na mesma linha. */
+.atlas-cellCenter { text-align: center; }
+.atlas-cellCenter .atlas-thFilter { justify-content: center; }
+.atlas-envCell { min-height: 60px; justify-content: center; }
+.atlas-envDateEmpty { opacity: 0.45; }
+.atlas-iconActionAdd { color: var(--lime); border-color: var(--lime-border); background: var(--lime-bg); }
+.atlas-iconActionAdd:hover { color: var(--lime); background: var(--lime-bg); border-color: var(--lime); }
+.atlas-iconActionWarn, .atlas-iconActionWarn:hover { color: var(--warning); border-color: rgba(251, 191, 36, 0.4); background: rgba(251, 191, 36, 0.12); cursor: default; }
+.atlas-srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+/* Pessoa: avatar com iniciais, nome e e-mail. */
+.atlas-person { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+.atlas-person .atlas-avatar { width: 40px; height: 40px; border-radius: 50%; font-size: 0.85rem; }
+.atlas-personName { font-weight: 700; font-size: 0.9rem; color: var(--text-primary); }
+.atlas-personMeta { font-size: 0.78rem; color: var(--text-secondary); overflow-wrap: anywhere; }
 .atlas-envDate { font-size: 0.74rem; color: var(--text-secondary); font-variant-numeric: tabular-nums; }
 .atlas-envEmpty { color: var(--text-muted); font-size: 0.8rem; }
 .atlas-recentTable .atlas-envTd { text-align: center; }
