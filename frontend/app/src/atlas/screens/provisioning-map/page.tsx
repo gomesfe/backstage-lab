@@ -16,8 +16,10 @@ export const page = PageBlueprint.make({
     icon: <MapIcon />,
     noHeader: true,
     loader: async () => {
-      const { AtlasHtmlScreen } = await import('../../shell/html/AtlasHtmlScreen');
-      return <AtlasHtmlScreen slug="provisioning-map" />;
+      // Tela em React (components/provisioningMap), no padrão do repositório do
+      // Atlas. O index.html desta pasta fica como referência visual avulsa.
+      const { ProvisioningMapPage } = await import('../../../components/provisioningMap');
+      return <ProvisioningMapPage />;
     },
   },
 });

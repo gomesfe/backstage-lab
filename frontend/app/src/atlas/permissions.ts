@@ -11,3 +11,12 @@ export const atlasInternalViewPermission = createPermission({
   name: 'atlas.internal.view',
   attributes: { action: 'read' },
 });
+
+/**
+ * "Refresh admin" do Mapa de provisionamento (relê o inventário). Sem linha
+ * própria no RBAC: fica com a role admin, pelo curinga dela.
+ */
+export const atlasProvisioningRefreshPermission = createPermission({
+  name: 'atlas.provisioning.refresh',
+  attributes: { action: 'update' },
+});
