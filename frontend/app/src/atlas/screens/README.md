@@ -74,6 +74,7 @@ reage ao clique para mostrar o visual.
 |---|---|
 | `data-atlas-search="lista"` | busca por texto nas linhas `data-atlas-row` de `#lista` |
 | _(automático)_ funil por coluna | toda tabela com `<tbody id>` e linhas `data-atlas-row` ganha um funil em cada título (menos "Ações"/"Detalhes"); exclua com `data-atlas-nofilter` no `th` ou `data-atlas-nocolfilters` na tabela |
+| _(automático)_ campo de filtro com busca | todo `<select class="atlas-filterSelect">` vira um campo no estilo react-select (busca ao digitar, × para limpar, ↑ ↓ Enter Esc); o `<select>` fica escondido e continua guardando o valor |
 | `data-atlas-filter="lista"` + `data-atlas-filter-key="type"` | num `<select>` ou num grupo de botões `data-atlas-value` (abas, pílulas): mostra só as linhas com `data-type` igual |
 | `data-atlas-empty-for="lista"` | aparece quando nada sobra |
 | `data-atlas-reset="lista"` | "Limpar filtros" |

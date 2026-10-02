@@ -26,6 +26,12 @@
  *   "Ações" e "Detalhes", ou qualquer <th data-atlas-nofilter>. A tabela
  *   inteira sai com <table data-atlas-nocolfilters>. "Limpar filtros" limpa também.
  *
+ * CAMPOS DE FILTRO COM BUSCA (automático)
+ *   Todo <select class="atlas-filterSelect"> vira um campo no estilo react-select:
+ *   digita para buscar na lista, × para limpar (volta à primeira opção, "Todos"),
+ *   seta para abrir, ↑ ↓ Enter Esc no teclado. O <select> continua no DOM, escondido:
+ *   é ele que guarda o valor e dispara o "change" que os filtros já escutam.
+ *
  * ABAS
  *   <button data-atlas-tabs="g" data-atlas-tab="a">  <div data-atlas-tabs="g" data-atlas-panel="a">
  *   A aba ativa ganha atlas-tabBtnActive (ou a classe em data-atlas-active-class).
@@ -139,6 +145,7 @@
     all(root, '[data-atlas-pref-select]').forEach(function (sel) {
       var cur = getPref(sel.getAttribute('data-atlas-pref-select')) || sel.getAttribute('data-atlas-pref-default');
       if (cur && sel.value !== cur) sel.value = cur;
+      if (sel.__combo) sel.__combo.sync();
     });
     all(root, '[data-atlas-by-pref]').forEach(function (el) {
       var key = el.getAttribute('data-atlas-by-pref');
@@ -303,6 +310,160 @@
     if (body) applyFilters(root, body.id);
   }
 
+  /* ------------------------------------------------ campo de filtro com busca --- */
+  var comboSeq = 0;
+  var CHEVRON = '<svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M4.5 7.5 10 13l5.5-5.5-1.4-1.4L10 10.2 5.9 6.1z"/></svg>';
+  var CROSS = '<svg viewBox="0 0 20 20" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M14.3 4.3 10 8.6 5.7 4.3 4.3 5.7 8.6 10l-4.3 4.3 1.4 1.4 4.3-4.3 4.3 4.3 1.4-1.4-4.3-4.3 4.3-4.3z"/></svg>';
+
+  function fold(text) {
+    return String(text || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  }
+
+  function labelFor(select) {
+    if (select.getAttribute('aria-label')) return select.getAttribute('aria-label');
+    var wrapper = select.closest('label');
+    var span = wrapper && wrapper.querySelector('.atlas-labeledSelectLabel');
+    return span ? span.textContent.trim() : 'Filtro';
+  }
+
+  function buildCombo(select) {
+    if (select.__combo) return;
+    var doc = select.ownerDocument;
+    var id = 'atlas-combo-' + (++comboSeq);
+    var wrap = doc.createElement('div');
+    wrap.className = 'atlas-combo';
+    wrap.innerHTML =
+      '<div class="atlas-comboControl">' +
+      '<input class="atlas-comboInput" type="text" role="combobox" autocomplete="off" spellcheck="false" aria-autocomplete="list" aria-expanded="false" aria-controls="' + id + '">' +
+      '<button type="button" class="atlas-comboClear" aria-label="Limpar" title="Limpar" hidden>' + CROSS + '</button>' +
+      '<span class="atlas-comboSep" aria-hidden="true"></span>' +
+      '<button type="button" class="atlas-comboToggle" tabindex="-1" aria-label="Abrir opções">' + CHEVRON + '</button>' +
+      '</div><ul class="atlas-comboMenu" role="listbox" id="' + id + '" hidden></ul>';
+    select.parentNode.insertBefore(wrap, select);
+    wrap.appendChild(select);
+    select.hidden = true;
+    select.tabIndex = -1;
+
+    var input = wrap.querySelector('.atlas-comboInput');
+    var clear = wrap.querySelector('.atlas-comboClear');
+    var toggleBtn = wrap.querySelector('.atlas-comboToggle');
+    var menu = wrap.querySelector('.atlas-comboMenu');
+    input.setAttribute('aria-label', labelFor(select));
+    var open = false;
+    var active = -1;
+    var shown = [];
+
+    function current() { return select.options[select.selectedIndex]; }
+
+    function sync() {
+      var opt = current();
+      if (!open) input.value = opt ? opt.textContent.trim() : '';
+      clear.hidden = select.selectedIndex <= 0 || select.disabled;
+      input.disabled = select.disabled;
+      wrap.classList.toggle('atlas-comboDisabled', select.disabled);
+    }
+
+    function render(query) {
+      var q = fold(query);
+      var all_ = Array.prototype.slice.call(select.options);
+      shown = q ? all_.filter(function (o) { return fold(o.textContent).indexOf(q) !== -1; }) : all_;
+      if (active >= shown.length) active = shown.length - 1;
+      if (active < 0 && shown.length) active = Math.max(0, shown.indexOf(current()));
+      menu.innerHTML = shown.length ? '' : '<li class="atlas-comboEmpty">Nada encontrado</li>';
+      shown.forEach(function (opt, i) {
+        var li = doc.createElement('li');
+        li.className = 'atlas-comboOption' + (opt === current() ? ' atlas-comboOptionSelected' : '') + (i === active ? ' atlas-comboOptionActive' : '');
+        li.setAttribute('role', 'option');
+        li.id = id + '-' + i;
+        li.setAttribute('aria-selected', String(opt === current()));
+        li.textContent = opt.textContent.trim();
+        li.addEventListener('mousedown', function (event) { event.preventDefault(); choose(opt); });
+        li.addEventListener('mousemove', function () { if (active !== i) { active = i; paint(); } });
+        menu.appendChild(li);
+      });
+      paint();
+    }
+
+    function paint() {
+      Array.prototype.forEach.call(menu.children, function (li, i) {
+        li.classList.toggle('atlas-comboOptionActive', i === active);
+        if (i === active && li.scrollIntoView) li.scrollIntoView({ block: 'nearest' });
+      });
+      if (active >= 0 && shown[active]) input.setAttribute('aria-activedescendant', id + '-' + active);
+      else input.removeAttribute('aria-activedescendant');
+    }
+
+    function show() {
+      if (open || select.disabled) return;
+      open = true;
+      active = -1;
+      wrap.classList.add('atlas-comboOpen');
+      input.setAttribute('aria-expanded', 'true');
+      menu.hidden = false;
+      render('');
+      input.select();
+    }
+
+    function hide() {
+      if (!open) return;
+      open = false;
+      wrap.classList.remove('atlas-comboOpen');
+      input.setAttribute('aria-expanded', 'false');
+      menu.hidden = true;
+      sync();
+    }
+
+    function choose(opt) {
+      if (opt && select.value !== opt.value) {
+        select.value = opt.value;
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+      }
+      hide();
+      sync();
+    }
+
+    input.addEventListener('mousedown', function () { if (!open) setTimeout(show, 0); });
+    input.addEventListener('input', function () { if (!open) show(); active = 0; render(input.value); });
+    input.addEventListener('keydown', function (event) {
+      if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+        event.preventDefault();
+        if (!open) { show(); return; }
+        var step = event.key === 'ArrowDown' ? 1 : -1;
+        active = shown.length ? (active + step + shown.length) % shown.length : -1;
+        paint();
+      } else if (event.key === 'Enter') {
+        if (open) { event.preventDefault(); choose(shown[active]); }
+      } else if (event.key === 'Escape') {
+        if (open) { event.preventDefault(); event.stopPropagation(); hide(); }
+      } else if (event.key === 'Tab') {
+        hide();
+      }
+    });
+    wrap.addEventListener('focusout', function (event) { if (!wrap.contains(event.relatedTarget)) hide(); });
+    toggleBtn.addEventListener('mousedown', function (event) {
+      event.preventDefault();
+      if (open) hide(); else { input.focus(); show(); }
+    });
+    clear.addEventListener('click', function (event) {
+      event.preventDefault();
+      choose(select.options[0]);
+      input.focus();
+    });
+    select.addEventListener('change', sync);
+    select.__combo = { sync: sync };
+    sync();
+  }
+
+  function enhanceSelects(root) {
+    all(root, 'select.atlas-filterSelect').forEach(buildCombo);
+  }
+
+  function syncCombos(root) {
+    all(root, 'select.atlas-filterSelect').forEach(function (select) {
+      if (select.__combo) select.__combo.sync();
+    });
+  }
+
   function applyFilters(root, targetId) {
     var target = root.querySelector('#' + targetId);
     if (!target) return;
@@ -331,6 +492,7 @@
     all(root, '[data-atlas-empty-for="' + targetId + '"]').forEach(function (empty) {
       empty.hidden = visible !== 0;
     });
+    syncCombos(root);
   }
 
   function refilter(root, control, attr) {
@@ -554,6 +716,7 @@
     }
 
     setupColumnFilters(root);
+    enhanceSelects(root);
     function onAskKey(event) {
       if (event.key !== 'Enter' || !event.target.hasAttribute || !event.target.hasAttribute('data-atlas-ask-input')) return;
       event.preventDefault();

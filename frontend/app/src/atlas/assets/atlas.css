@@ -1561,6 +1561,36 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
   color: var(--lime-ink); cursor: default; user-select: none;
 }
 .atlas-sideNavLabelSection { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border-color); color: var(--lime-ink); }
+/* ===== Campo de filtro com busca, no estilo react-select (v1.32) ===== */
+.atlas-combo { position: relative; display: inline-flex; min-width: 170px; font-size: 0.84rem; }
+.atlas-filtersBar .atlas-combo, .atlas-labeledSelect .atlas-combo { min-width: 180px; }
+.atlas-comboControl {
+  display: flex; align-items: center; width: 100%; min-height: 36px; padding: 0 4px 0 14px;
+  border: 1px solid var(--border-color); border-radius: var(--atlas-radius-pill); background: var(--bg-surface);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.atlas-combo:hover .atlas-comboControl { border-color: var(--border-light); }
+.atlas-combo:focus-within .atlas-comboControl, .atlas-comboOpen .atlas-comboControl { border-color: var(--lime); box-shadow: 0 0 0 3px var(--lime-bg); }
+.atlas-comboInput { flex: 1; min-width: 0; padding: 7px 0; border: 0; outline: 0; background: transparent; color: var(--text-primary); font: inherit; cursor: pointer; text-overflow: ellipsis; }
+.atlas-comboOpen .atlas-comboInput { cursor: text; }
+.atlas-comboClear, .atlas-comboToggle {
+  flex-shrink: 0; width: 26px; height: 26px; display: inline-flex; align-items: center; justify-content: center;
+  border: 0; border-radius: 50%; background: transparent; color: var(--text-muted); cursor: pointer; transition: color 0.15s ease, background-color 0.15s ease;
+}
+.atlas-comboClear:hover, .atlas-comboToggle:hover { color: var(--text-primary); background: var(--bg-pill); }
+.atlas-comboClear[hidden] { display: none; }
+.atlas-comboOpen .atlas-comboToggle svg { transform: rotate(180deg); }
+.atlas-comboSep { width: 1px; align-self: stretch; margin: 8px 2px; background: var(--border-color); }
+.atlas-comboMenu {
+  position: absolute; top: calc(100% + 6px); left: 0; z-index: 1300; min-width: 100%; max-height: 260px; overflow-y: auto;
+  margin: 0; padding: 6px; list-style: none; background: var(--bg-card); border: 1px solid var(--border-light);
+  border-radius: var(--atlas-radius-md); box-shadow: var(--shadow-lg);
+}
+.atlas-comboOption { padding: 8px 10px; border-radius: 8px; color: var(--text-secondary); white-space: nowrap; cursor: pointer; }
+.atlas-comboOptionActive { background: var(--bg-pill); color: var(--text-primary); }
+.atlas-comboOptionSelected { color: var(--lime-ink); font-weight: 700; }
+.atlas-comboEmpty { padding: 8px 10px; color: var(--text-muted); }
+.atlas-comboDisabled { opacity: 0.55; pointer-events: none; }
 .atlas-iconActionQuietDanger:hover { color: var(--danger); background: rgba(255, 82, 82, 0.1); border-color: rgba(255, 82, 82, 0.6); }
 .atlas-iconActionAdd, .atlas-iconActionAdd:hover { background: transparent; }
 .atlas-iconActionAdd { color: var(--text-muted); border-style: dashed; border-color: var(--border-light); }
