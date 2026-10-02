@@ -27,8 +27,7 @@ para promover ou excluir em cada ambiente.
    - **Funil por coluna** em Nome, Serviço e Template: abre um campo de
      pesquisa com **Limpar** e **Fechar**.
    - Célula de ambiente:
-     - provisionado → data, e **Excluir** (até 72 h) ou **Solicitar
-       exclusão** (depois de 72 h, vai para aprovação);
+     - provisionado → data, e **Excluir** (até 72 h sai direto; depois de 72 h vira pedido de aprovação — o botão é o mesmo);
      - não provisionado → **Promover**;
      - pedido em andamento → selo "exclusão pendente" ou "aguardando cloud";
      - recursos sem IaC não entram aqui: quem não é IaC é repositório, na tabela de baixo (**sem IaC**).
@@ -37,7 +36,7 @@ para promover ou excluir em cada ambiente.
      **versão da oferta** e quem promoveu (nome, e-mail e ID). Se há pedido de
      exclusão, mostra "Pendente · solicitação registrada"; sem pedido, não
      mostra linha de deleção e sim a regra (direto até 72 h, depois aprovação).
-     O rodapé oferece Excluir ou Solicitar exclusão.
+     O rodapé oferece Excluir.
 5. **Tabela de repositórios**, com a mesma barra e os mesmos funis:
    Repositório, Serviço Núclea, Oferta e **Excluir / Detalhes**. O pop-up
    "Detalhe do repositório" traz serviço, oferta, versão, criado por (nome,

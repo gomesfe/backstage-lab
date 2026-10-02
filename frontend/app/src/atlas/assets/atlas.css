@@ -1277,6 +1277,9 @@ a.atlas-expandMetricCard:focus-visible, a.atlas-serviceRow:focus-visible { outli
 .atlas-pillSmWarn, .atlas-pillSmWarn:hover { color: var(--warning); border-color: rgba(251, 191, 36, 0.45); background: rgba(251, 191, 36, 0.1); cursor: default; }
 .atlas-pillSmGhost { border-style: dashed; color: var(--text-muted); }
 .atlas-pillSmGhost:hover { color: var(--lime); border-color: var(--lime); background: transparent; }
+/* Ação de criar (ex.: Promover no mapa): verde para ser vista de longe. */
+.atlas-pillSmAdd { color: var(--lime-ink); border-color: var(--lime-border); background: var(--lime-bg); }
+.atlas-pillSmAdd:hover { color: var(--lime-text); border-color: var(--lime); background: var(--lime); }
 .atlas-pillSm:focus-visible { outline: 2px solid var(--lime); outline-offset: 2px; }
 @media (max-width: 1500px) {
   .atlas-recentTable th { padding: 6px 8px; font-size: 0.64rem; letter-spacing: 0.05em; }
