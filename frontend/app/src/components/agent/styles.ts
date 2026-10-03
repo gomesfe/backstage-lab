@@ -1,0 +1,151 @@
+import { makeStyles } from '@material-ui/core/styles';
+import { atlasTokens } from '../../atlas/components/tokens';
+import { cores, textoStatus, useAtlasStyles, verdeTexto } from '../shared/styles';
+
+const { brand, status, radius } = atlasTokens;
+
+/** O que só o Agente tem: histórico, balões, campo de mensagem. */
+const useAgenteStyles = makeStyles(theme => {
+  const c = cores(theme);
+  const avatar = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 30,
+    height: 30,
+    flexShrink: 0,
+    borderRadius: 10,
+    fontSize: '0.72rem',
+    fontWeight: 800,
+    background: c.bgPill,
+    color: c.textSecondary,
+  };
+  return {
+    layout: {
+      display: 'grid',
+      gridTemplateColumns: '260px minmax(0, 1fr)',
+      gap: 16,
+      alignItems: 'start',
+      [theme.breakpoints.down('sm')]: { gridTemplateColumns: 'minmax(0, 1fr)' },
+    },
+    historico: { padding: 12, gap: 10 },
+    rotulo: { padding: '4px 4px 0', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: c.textMuted },
+    lista: { display: 'flex', flexDirection: 'column', gap: 2, overflowY: 'auto', maxHeight: 'calc(100vh - 330px)', [theme.breakpoints.down('sm')]: { maxHeight: 220 } },
+    item: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 8,
+      width: '100%',
+      padding: '8px 10px',
+      borderRadius: radius.sm,
+      border: '1px solid transparent',
+      color: c.textSecondary,
+      cursor: 'pointer',
+      '&:hover': { background: c.bgSurface, color: c.textPrimary },
+      '&:hover $apagar, &:focus-within $apagar': { opacity: 1 },
+    },
+    itemAtivo: { background: brand.limeBg, borderColor: brand.limeBorder, color: c.textPrimary, '&:hover': { background: brand.limeBg }, '& $apagar': { opacity: 1 } },
+    itemTexto: { flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 1 },
+    itemTitulo: { fontSize: '0.82rem', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' },
+    meta: { fontSize: '0.7rem', color: c.textMuted },
+    apagar: { opacity: 0, padding: 4, border: 0, borderRadius: 6, background: 'none', color: textoStatus(theme, 'danger'), cursor: 'pointer', display: 'inline-flex' },
+    // ---- conversa
+    chat: { height: 'calc(100vh - 250px)', minHeight: 460, [theme.breakpoints.down('sm')]: { height: 'auto', minHeight: 520 } },
+    chatHead: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, minHeight: 32 },
+    chatTitulo: { minWidth: 0, fontSize: '0.98rem', fontWeight: 700, color: c.textPrimary, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' },
+    mensagens: { flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 16, padding: '4px 4px 8px' },
+    linha: { display: 'flex', gap: 10, alignItems: 'flex-start' },
+    linhaVoce: { flexDirection: 'row-reverse', '& $pilha': { alignItems: 'flex-end' } },
+    avatar,
+    avatarAgente: { ...avatar, background: `linear-gradient(145deg, #5cc45c 0%, ${brand.lime} 55%, #2f852f 100%)`, color: '#fff', '& svg': { width: '62%', height: 'auto', color: '#fff' } },
+    pilha: { display: 'flex', flexDirection: 'column', gap: 6, maxWidth: 'min(760px, 85%)', minWidth: 0 },
+    balao: {
+      padding: '10px 14px',
+      borderRadius: 16,
+      fontSize: '0.88rem',
+      lineHeight: 1.6,
+      background: c.bgSurface,
+      border: `1px solid ${c.border}`,
+      color: c.textPrimary,
+      overflowWrap: 'anywhere',
+      '& > :first-child, & > * > :first-child': { marginTop: 0 },
+      '& > :last-child, & > * > :last-child': { marginBottom: 0 },
+      '& a': { color: verdeTexto(theme), fontWeight: 600 },
+    },
+    balaoVoce: { background: brand.limeBg, borderColor: brand.limeBorder, borderTopRightRadius: 6, whiteSpace: 'pre-wrap' },
+    balaoAgente: { borderTopLeftRadius: 6 },
+    balaoErro: { borderColor: `${status.danger}59`, background: `${status.danger}0f`, color: c.textSecondary },
+    consultas: { display: 'flex', flexWrap: 'wrap', gap: 6 },
+    consulta: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 6,
+      padding: '3px 10px',
+      borderRadius: radius.pill,
+      border: `1px solid ${c.border}`,
+      background: c.bgPill,
+      fontSize: '0.72rem',
+      fontWeight: 600,
+      color: c.textSecondary,
+    },
+    digitando: {
+      display: 'inline-flex',
+      gap: 4,
+      padding: '4px 0',
+      '& span': { width: 6, height: 6, borderRadius: '50%', background: c.textMuted, animation: '$digitando 1.2s infinite ease-in-out' },
+      '& span:nth-child(2)': { animationDelay: '0.15s' },
+      '& span:nth-child(3)': { animationDelay: '0.3s' },
+    },
+    '@keyframes digitando': {
+      '0%, 80%, 100%': { opacity: 0.25, transform: 'translateY(0)' },
+      '40%': { opacity: 1, transform: 'translateY(-3px)' },
+    },
+    esqueleto: { height: 14, borderRadius: 7, background: c.bgPill },
+    vazio: { margin: 'auto', maxWidth: 640, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14, padding: '20px 0', textAlign: 'center' },
+    sugestoes: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 8, width: '100%' },
+    sugestao: {
+      padding: '12px 14px',
+      borderRadius: radius.md,
+      border: `1px solid ${c.border}`,
+      background: c.bgSurface,
+      color: c.textPrimary,
+      font: 'inherit',
+      fontSize: '0.82rem',
+      textAlign: 'left',
+      cursor: 'pointer',
+      '&:hover': { borderColor: brand.limeBorder, background: c.bgCardHover },
+      '&:disabled': { opacity: 0.55, cursor: 'not-allowed' },
+    },
+    campo: {
+      display: 'flex',
+      alignItems: 'flex-end',
+      gap: 8,
+      padding: '8px 8px 8px 14px',
+      borderRadius: 16,
+      border: `1px solid ${c.borderLight}`,
+      background: c.bgSurface,
+      '&:focus-within': { borderColor: brand.lime, boxShadow: `0 0 0 3px ${brand.limeBg}` },
+      '& textarea': {
+        flex: 1,
+        minHeight: 24,
+        maxHeight: 160,
+        padding: '6px 0',
+        border: 0,
+        outline: 'none',
+        resize: 'none',
+        background: 'transparent',
+        color: c.textPrimary,
+        font: 'inherit',
+        fontSize: '0.9rem',
+        lineHeight: 1.5,
+      },
+    },
+    dica: { padding: '0 4px', fontSize: '0.7rem', color: c.textMuted, textAlign: 'right' },
+    codigo: { fontFamily: '"JetBrains Mono", ui-monospace, monospace', fontSize: '0.84em' },
+  };
+});
+
+/** Estilos comuns do Atlas + os do Agente. */
+export function useStyles() {
+  return { ...useAtlasStyles(), ...useAgenteStyles() };
+}

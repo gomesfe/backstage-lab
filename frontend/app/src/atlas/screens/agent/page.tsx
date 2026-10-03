@@ -16,8 +16,10 @@ export const page = PageBlueprint.make({
     icon: <AgentIcon />,
     noHeader: true,
     loader: async () => {
-      const { AtlasHtmlScreen } = await import('../../shell/html/AtlasHtmlScreen');
-      return <AtlasHtmlScreen slug="agent" />;
+      // Tela em React (components/agent), no padrão do repositório do
+      // Atlas. O index.html desta pasta fica como referência visual avulsa.
+      const { AgentPage } = await import('../../../components/agent');
+      return <AgentPage />;
     },
   },
 });
