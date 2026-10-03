@@ -15,8 +15,10 @@ export const page = PageBlueprint.make({
     icon: <CreateIcon />,
     noHeader: true,
     loader: async () => {
-      const { AtlasCreatePage } = await import('./CreatePage');
-      return <AtlasCreatePage />;
+      // Galeria em React (components/offers); as sub-rotas seguem com o
+      // scaffolder. O index.html desta pasta fica como referência visual.
+      const { CreatePage } = await import('../../../components/offers');
+      return <CreatePage />;
     },
   },
 });
