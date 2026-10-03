@@ -3,7 +3,7 @@
 A primeira tela do portal. Responde a "o que está acontecendo no meu escopo
 e por onde eu começo?" em uma olhada.
 
-**Arquivos:** a tela do portal é React, em `components/home/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota; `index.html` fica como referência visual avulsa (abre direto no navegador).
+**Arquivos:** a tela do portal é React, em `components/home/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota.
 
 
 ## Deve conter, nesta ordem
@@ -22,11 +22,8 @@ Quatro partes, cada uma com uma função (o resto está no menu do topo):
      **Aplicações + Squads no escopo**; **APIs + Recursos provisionados** (bloco
      verde, texto branco); **Sistemas + Repositórios**. Cada linha abre a tela
      certa; Recursos e Repositórios abrem o mapa (`#repositorios`).
-   - **Carga em segundo plano:** cada número tem `data-atlas-count`
-     (`apps`, `squads`, `apis`, `resources`, `systems`, `repos`). A tela abre
-     com um skeleton no lugar do número e pede os valores ao portal
-     (`hooks.loadCounts(chaves) → Promise<{chave: número}>`) sem travar nada.
-     Enquanto o endpoint de contagem não existe, vale o número escrito no HTML.
+   - **Carga em segundo plano:** enquanto o catálogo responde, cada número
+     mostra um skeleton; o resto da tela não espera.
 2. **Provisionado no Atlas** — abas Recursos e Repositórios com contagem, busca
    de projeto e a lista por nome de projeto com as ofertas em uso; cada linha
    abre o mapa filtrado (`/provisioning-map?service=PAG`). Na aba Recursos,
@@ -50,16 +47,20 @@ por aqui (viraram o link "Trilhas").
 Botão na barra do topo, ao lado de Buscar, que abre uma grade 3×2 com as
 ferramentas externas: Release Notes, GitHub, AWS, SonarQube, Veracode e
 Indicadores DevOps. Cada uma abre em nova aba; o menu fecha ao clicar fora,
-com Esc ou ao escolher uma. No portal, o componente e a lista moram em
-`toolkit.tsx` e a barra (`shell/nav/AtlasTopNav.tsx`) só o posiciona; na
-versão avulsa, a barra inteira (Toolkit incluído) vem de `assets/atlas.js`.
+com Esc ou ao escolher uma. O componente e a lista moram em
+`shell/nav/ToolkitMenu.tsx`; a barra (`shell/nav/AtlasTopNav.tsx`) só o
+posiciona.
 
 ## Fontes de dados
 
-Na versão HTML, tudo está escrito no `index.html`: números, serviços,
-comunicados e aplicações são exemplo. No Atlas real, números e listas viriam
-do catálogo e o editorial (comunicados, links) de Confluence ou de um backend
-de avisos.
+- **Catálogo** (`hooks/useHomeCatalogo.ts`): os números de aplicações, squads,
+  APIs e sistemas, e as aplicações do time, com Repo e Sonar das anotações
+  `github.com/project-slug` e `sonarqube.org/project-key`.
+- **Mapa de provisionamento** (mesmo hook da tela do mapa): recursos e
+  repositórios por serviço.
+- **Aprovações** (mesmo hook da tela): últimas transações.
+- **Editorial** (`data.ts`): times e champions, atualizações, Em breve e links
+  úteis. No Atlas real viriam de Confluence ou de um backend de avisos.
 
 ## Não faz
 

@@ -4,7 +4,7 @@ Visão de quem administra o portal: credenciais emitidas em todo o portal e
 uso. Separada de API Keys de propósito — ver as próprias chaves e ver as de
 todo mundo são permissões diferentes.
 
-**Arquivos:** a tela do portal é React, em `components/admin/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota; `index.html` fica como referência visual avulsa (abre direto no navegador).
+**Arquivos:** a tela do portal é React, em `components/admin/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota.
 
 
 ## Deve conter

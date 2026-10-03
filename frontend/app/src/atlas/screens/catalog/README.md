@@ -4,7 +4,7 @@ Lista, em tabela, tudo o que está registrado: aplicações, sistemas, recursos
 e squads. É o índice do portal — substitui a página de índice do plugin de
 catálogo; a página de cada entidade continua sendo a oficial.
 
-**Arquivos:** a tela do portal é React, em `components/catalog/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota; `index.html` fica como referência visual avulsa (abre direto no navegador).
+**Arquivos:** a tela do portal é React, em `components/catalog/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota.
 
 
 ## Deve conter

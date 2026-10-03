@@ -16,8 +16,7 @@ export const page = PageBlueprint.make({
     icon: <SkillsIcon />,
     noHeader: true,
     loader: async () => {
-      // Tela em React (components/skills), no padrão do repositório do
-      // Atlas. O index.html desta pasta fica como referência visual avulsa.
+      // Tela em React, em components/skills.
       const { SkillsPage } = await import('../../../components/skills');
       return <SkillsPage />;
     },

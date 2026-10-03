@@ -16,8 +16,7 @@ export const page = PageBlueprint.make({
     icon: <ApprovalIcon />,
     noHeader: true,
     loader: async () => {
-      // Tela em React (components/approvals), no padrão do repositório do
-      // Atlas. O index.html desta pasta fica como referência visual avulsa.
+      // Tela em React, em components/approvals.
       const { ApprovalsPage } = await import('../../../components/approvals');
       return <ApprovalsPage />;
     },

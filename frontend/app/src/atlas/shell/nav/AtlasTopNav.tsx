@@ -16,7 +16,7 @@ import { atlasInternalViewPermission } from '../../permissions';
 import useObservable from 'react-use/lib/useObservable';
 import { AtlasLogo, EnvBadge } from '../../components';
 import { useUnreadCount } from '../../../components/notifications/hooks/useUnreadCount';
-import { ToolkitMenu } from '../../screens/home/toolkit';
+import { ToolkitMenu } from './ToolkitMenu';
 import { GroupsMenu } from './GroupsMenu';
 
 /**

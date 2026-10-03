@@ -2,12 +2,13 @@ import { useSyncExternalStore } from 'react';
 
 /**
  * Preferências do usuário guardadas no navegador (`localStorage`, chave
- * `atlas.<nome>`). As telas HTML gravam pelo mesmo caminho
- * (`assets/atlas-behaviors.js`, `data-atlas-pref`) e avisam com o evento
- * `atlas:prefs`; quem usa `usePref` se atualiza na hora.
+ * `atlas.<nome>`). `setPref` avisa com o evento `atlas:prefs`; quem usa
+ * `usePref` se atualiza na hora, em qualquer tela.
  *
  * - `nav`: `top` (padrão) ou `side` — posição do menu.
- * - `internal`: `1` mostra a área interna do Atlas no Catálogo e no Mapa.
+ * - `navIcons`: `1` (padrão) ou `0` — ícones nas pílulas do menu.
+ * - `team`: time escolhido na Home (padrão `plataforma`).
+ * - `env`: ambiente do painel "Provisionado no Atlas" da Home.
  */
 const EVENT = 'atlas:prefs';
 

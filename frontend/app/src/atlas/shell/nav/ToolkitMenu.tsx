@@ -27,7 +27,12 @@ export const TOOLKIT_TOOLS: ToolkitTool[] = [
     url: 'https://github.com/gomesfe/backstage-lab/releases',
     icon: <ReleaseNotesIcon />,
   },
-  { id: 'github', label: 'GitHub', url: 'https://github.com', icon: <GitHubIcon /> },
+  {
+    id: 'github',
+    label: 'GitHub',
+    url: 'https://github.com',
+    icon: <GitHubIcon />,
+  },
   {
     id: 'aws',
     label: 'AWS',
@@ -108,12 +113,18 @@ export function ToolkitMenu() {
           className="atlas-navDropdownMenu"
           role="menu"
           aria-label="Toolkit"
-          style={{ width: 'min(360px, calc(100vw - 32px))', padding: '8px 0 14px' }}
+          style={{
+            width: 'min(360px, calc(100vw - 32px))',
+            padding: '8px 0 14px',
+          }}
         >
           <div className="atlas-dropdownHeader">Toolkit</div>
           <div
             className="atlas-appDockGridCompact"
-            style={{ gridTemplateColumns: 'repeat(3, 1fr)', padding: '8px 14px 0' }}
+            style={{
+              gridTemplateColumns: 'repeat(3, 1fr)',
+              padding: '8px 14px 0',
+            }}
           >
             {TOOLKIT_TOOLS.map(tool => (
               <a
@@ -125,7 +136,10 @@ export function ToolkitMenu() {
                 rel="noreferrer noopener"
                 onClick={() => setOpen(false)}
               >
-                <span className="atlas-appDockIcon" style={tool.color ? { color: tool.color } : undefined}>
+                <span
+                  className="atlas-appDockIcon"
+                  style={tool.color ? { color: tool.color } : undefined}
+                >
                   {tool.icon}
                 </span>
                 <span className="atlas-appDockName">{tool.label}</span>

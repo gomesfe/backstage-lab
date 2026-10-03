@@ -15,8 +15,7 @@ export const page = PageBlueprint.make({
     icon: <KeyIcon />,
     noHeader: true,
     loader: async () => {
-      // Tela em React (components/apiKeys), no padrão do repositório do
-      // Atlas. O index.html desta pasta fica como referência visual avulsa.
+      // Tela em React, em components/apiKeys.
       const { ApiKeysPage } = await import('../../../components/apiKeys');
       return <ApiKeysPage />;
     },

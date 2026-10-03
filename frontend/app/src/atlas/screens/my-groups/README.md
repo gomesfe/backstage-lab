@@ -3,7 +3,7 @@
 Os grupos e squads de que o usuário faz parte, e o que cada um mantém.
 Responde "a que times eu pertenço e o que é nosso?".
 
-**Arquivos:** a tela do portal é React, em `components/myGroups/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota; `index.html` fica como referência visual avulsa (abre direto no navegador).
+**Arquivos:** a tela do portal é React, em `components/myGroups/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota.
 
 
 ## Deve conter

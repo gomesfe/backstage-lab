@@ -1,4 +1,7 @@
-import { createFrontendModule, PageBlueprint } from '@backstage/frontend-plugin-api';
+import {
+  createFrontendModule,
+  PageBlueprint,
+} from '@backstage/frontend-plugin-api';
 import CatalogIcon from '@material-ui/icons/ViewModule';
 import catalogPlugin from '@backstage/plugin-catalog/alpha';
 
@@ -15,8 +18,7 @@ export const page = PageBlueprint.make({
     icon: <CatalogIcon />,
     noHeader: true,
     loader: async () => {
-      // Tela em React (components/catalog), no padrão do repositório do
-      // Atlas. O index.html desta pasta fica como referência visual avulsa.
+      // Tela em React, em components/catalog.
       const { CatalogPage } = await import('../../../components/catalog');
       return <CatalogPage />;
     },

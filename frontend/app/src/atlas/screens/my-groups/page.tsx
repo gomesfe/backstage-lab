@@ -16,8 +16,7 @@ export const page = PageBlueprint.make({
     icon: <GroupsIcon />,
     noHeader: true,
     loader: async () => {
-      // Tela em React (components/myGroups), no padrão do repositório do
-      // Atlas. O index.html desta pasta fica como referência visual avulsa.
+      // Tela em React, em components/myGroups.
       const { MyGroupsPage } = await import('../../../components/myGroups');
       return <MyGroupsPage />;
     },

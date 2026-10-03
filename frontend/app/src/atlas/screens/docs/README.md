@@ -3,7 +3,7 @@
 O índice da documentação técnica (TechDocs). Lista só o que publica
 documentação.
 
-**Arquivos:** a tela do portal é React, em `components/docs/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota; `index.html` fica como referência visual avulsa (abre direto no navegador).
+**Arquivos:** a tela do portal é React, em `components/docs/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota.
 
 
 ## Deve conter

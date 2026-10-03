@@ -3,7 +3,7 @@
 Trilhas guiadas para aprender o Atlas e as práticas da casa, com o progresso
 de cada pessoa.
 
-**Arquivos:** a tela do portal é React, em `components/learningPaths/` (lista em `/learning-paths`, detalhe em `/learning-paths/<id>`; o endereço antigo `/learning-paths#<id>` leva ao detalhe). `index.html` fica como referência visual avulsa e `page.tsx` registra as rotas.
+**Arquivos:** a tela do portal é React, em `components/learningPaths/` (lista em `/learning-paths`, detalhe em `/learning-paths/<id>`; o endereço antigo `/learning-paths#<id>` leva ao detalhe). `page.tsx` registra as rotas.
 
 
 ## Lista — deve conter

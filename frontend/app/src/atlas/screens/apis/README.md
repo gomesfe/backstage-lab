@@ -4,7 +4,7 @@ As APIs publicadas no portal. Substitui o índice do plugin `api-docs`; a
 página de cada API (com a especificação renderizada) continua sendo a
 oficial.
 
-**Arquivos:** a tela do portal é React, em `components/apis/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota; `index.html` fica como referência visual avulsa (abre direto no navegador).
+**Arquivos:** a tela do portal é React, em `components/apis/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota.
 
 
 ## Deve conter

@@ -16,8 +16,7 @@ export const page = PageBlueprint.make({
     icon: <StatusIcon />,
     noHeader: true,
     loader: async () => {
-      // Tela em React (components/status), no padrão do repositório do
-      // Atlas. O index.html desta pasta fica como referência visual avulsa.
+      // Tela em React, em components/status.
       const { StatusPage } = await import('../../../components/status');
       return <StatusPage />;
     },

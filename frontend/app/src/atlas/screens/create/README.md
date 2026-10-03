@@ -6,7 +6,7 @@ entidades. O endereço continua `/create`, para links antigos não quebrarem. S�
 (formulário do template, execução da tarefa, editor) continua sendo o do
 scaffolder.
 
-**Arquivos:** a tela do portal é React, em `components/offers/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota; `index.html` fica como referência visual avulsa (abre direto no navegador).
+**Arquivos:** a tela do portal é React, em `components/offers/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota.
 
 
 ## Deve conter

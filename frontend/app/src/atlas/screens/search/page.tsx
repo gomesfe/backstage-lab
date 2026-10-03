@@ -1,4 +1,7 @@
-import { createFrontendModule, PageBlueprint } from '@backstage/frontend-plugin-api';
+import {
+  createFrontendModule,
+  PageBlueprint,
+} from '@backstage/frontend-plugin-api';
 import SearchIcon from '@material-ui/icons/Search';
 import searchPlugin from '@backstage/plugin-search/alpha';
 
@@ -15,8 +18,7 @@ export const page = PageBlueprint.make({
     icon: <SearchIcon />,
     noHeader: true,
     loader: async () => {
-      // Tela em React (components/search), no padrão do repositório do
-      // Atlas. O index.html desta pasta fica como referência visual avulsa.
+      // Tela em React, em components/search.
       const { SearchPage } = await import('../../../components/search');
       return <SearchPage />;
     },

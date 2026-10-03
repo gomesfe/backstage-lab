@@ -3,7 +3,7 @@
 Preferências e identidade do usuário. Substitui a página do plugin
 user-settings.
 
-**Arquivos:** a tela do portal é React, em `components/settings/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota; `index.html` fica como referência visual avulsa (abre direto no navegador).
+**Arquivos:** a tela do portal é React, em `components/settings/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota.
 
 
 ## Deve conter

@@ -6,9 +6,10 @@ Tudo o que o navegador roda: as telas do Atlas, o visual e as telas estáticas.
 ```
 frontend/
 ├── app/             o portal (React + Backstage)
-│   ├── src/atlas/       TUDO do front do Atlas numa pasta só: as telas em
-│   │                    HTML estático (abrem sozinhas ou dentro do portal),
-│   │                    CSS, barra e tema — veja app/src/atlas/README.md
+│   ├── src/atlas/       moldura do Atlas: rotas das telas, barra, tema, login,
+│   │                    CSS — veja app/src/atlas/README.md
+│   ├── src/components/  as telas do Atlas em React (uma pasta por tela) e a
+│   │                    base comum em shared/
 │   ├── src/modules/     só o que é deste repositório (telas estáticas)
 │   └── public/brand/    logos oficiais (horizontal, vertical, símbolo; claro e escuro)
 └── static-pages/    telas em HTML/CSS puro que viram rotas do portal
@@ -20,12 +21,12 @@ em `app/src/atlas/assets/atlas.css` por `yarn ds:sync`.
 
 ## Dados
 
-As telas do Atlas são HTML estático com **dados de exemplo** escritos no
-próprio `index.html` de cada uma. O que continua falando com o backend é a
-moldura do portal: login (`auth`), o contador do sino (`notifications`), o
-selo de ambiente (`atlas.env` e `atlas.version` do `app-config.yaml`) e as
-páginas internas dos plugins — entidade do catálogo, leitor do TechDocs e o
-formulário e as tarefas das ofertas (`scaffolder`).
+Cada tela lê os dados por um hook (`components/<tela>/hooks/`). Catálogo,
+APIs, Docs, Entidade, Home, Ofertas, Meus grupos, Busca, Notificações e
+Configurações usam as APIs do Backstage; API Keys, Administração e Agente, os
+backends do lab. Mapa, Aprovações, Skills, Status e Atlas × Jira ainda leem
+um `data.ts` de exemplo — o hook é o único ponto a trocar quando a fonte
+existir.
 
 ## Rodar
 
@@ -33,7 +34,6 @@ Da raiz do repositório:
 
 ```bash
 yarn start          # backend + front, na ordem certa
-yarn screens:sync   # depois de editar um index.html de tela
 yarn start:app      # só o front (precisa do backend já rodando em :7007)
 ```
 
@@ -48,9 +48,10 @@ Três níveis, do mais leve ao mais completo:
 2. **Tela nova dentro do portal, sem escrever React** — solte uma pasta em
    `static-pages/` (veja [static-pages/README.md](static-pages/README.md)).
    `yarn pages:new <slug> "Título"` cria o esqueleto.
-3. **Tela nova do Atlas** — copie uma pasta de `app/src/atlas/screens/`
-   (`index.html` + `page.tsx`), edite o HTML, ajuste a rota, acrescente em
-   `app/src/atlas/screens/index.ts` e rode `yarn screens:sync`.
+3. **Tela nova do Atlas** — crie `app/src/components/<tela>/` no formato das
+   outras (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`), um
+   `page.tsx` em `app/src/atlas/screens/<tela>/` e acrescente em
+   `app/src/atlas/screens/index.ts`.
 4. **O front inteiro em outro app Backstage** — copie `app/src/atlas/` e siga
    [app/src/atlas/README.md](app/src/atlas/README.md).
 

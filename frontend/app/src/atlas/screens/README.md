@@ -43,77 +43,54 @@ URL, mas não ganha pílula.
 
 ## Onde cada coisa mora
 
-**Toda tela é um HTML estático.** Cada pasta tem:
+**Toda tela é React** (TypeScript, MUI v4, `makeStyles` com os tokens do
+Atlas), no padrão do repositório do Atlas. São duas partes:
 
 ```
-screens/home/
-├── README.md    o que a tela deve conter
-├── index.html   a tela — documento completo, abre direto no navegador
-└── page.tsx     registro no portal: rota, título, ícone
+atlas/screens/home/            components/home/
+├── README.md  o que a tela    ├── HomePage.tsx   a página: guarda o estado
+│              deve conter     ├── WelcomeCard.tsx, …  pedaços que só desenham
+└── page.tsx   rota, título,   ├── hooks/         de onde vêm os dados
+               ícone           ├── helpers.ts     regras puras (filtros, contas)
+                               ├── types.ts · data.ts (quando há exemplo)
+                               └── styles.ts      makeStyles da tela
 ```
 
-O mesmo `index.html` vale para os dois lugares:
-
-- **Avulso** (duplo clique, ou qualquer servidor): carrega
-  `../../assets/atlas.css` e `../../assets/atlas.js`, que desenha a barra, o
-  menu Toolkit, o tema claro/escuro e liga busca, filtros, abas e diálogos.
-  Links entre telas são `../<tela>/index.html`.
-- **No portal Backstage**: `yarn screens:sync` pega só o `<main
-  data-atlas-screen>` de cada tela, troca os links `../<tela>/index.html`
-  pelas rotas do portal (`/catalog`…) e grava `html.generated.ts`. O
-  `shell/html/AtlasHtmlScreen.tsx` mostra esse HTML na rota da tela, com a
-  barra do portal em volta. Nada de `<script>` dentro do `<main>`: o
-  sync reprova (mesmo contrato de `frontend/static-pages`).
-
-Interação sem JavaScript na tela, por atributo. A lógica é uma só,
-`../assets/atlas-behaviors.js`, usada pela versão avulsa e pelo portal; a
-documentação completa está no topo desse arquivo. Nada grava dado: a tela
-reage ao clique para mostrar o visual.
-
-| Atributo | Faz |
-|---|---|
-| `data-atlas-search="lista"` | busca por texto nas linhas `data-atlas-row` de `#lista` |
-| _(automático)_ funil por coluna | toda tabela com `<tbody id>` e linhas `data-atlas-row` ganha um funil em cada título (menos "Ações"/"Detalhes"); exclua com `data-atlas-nofilter` no `th` ou `data-atlas-nocolfilters` na tabela |
-| _(automático)_ campo de filtro com busca | todo `<select class="atlas-filterSelect">` vira um campo no estilo react-select (busca ao digitar, × para limpar, ↑ ↓ Enter Esc); o `<select>` fica escondido e continua guardando o valor |
-| `data-atlas-filter="lista"` + `data-atlas-filter-key="type"` | num `<select>` ou num grupo de botões `data-atlas-value` (abas, pílulas): mostra só as linhas com `data-type` igual |
-| `data-atlas-empty-for="lista"` | aparece quando nada sobra |
-| `data-atlas-reset="lista"` | "Limpar filtros" |
-| `data-atlas-tabs` + `data-atlas-tab` / `data-atlas-panel` | abas; `#id` no endereço abre a aba `id` |
-| `data-atlas-open="id"` / `data-atlas-close` | abre / fecha um `<dialog class="atlas-dialog" id="id">` |
-| `data-atlas-toggle` | liga/desliga (estrela, lida, salvar, copiar, "Filtros"); `.atlas-whenOn` / `.atlas-whenOff` trocam o conteúdo |
-| `data-atlas-set-theme` / `data-atlas-signout` | tema e sair (no portal, usam o Backstage) |
-| `data-portal-href="/rota"` | num `<a>`: link que só existe no portal (ex.: formulário de uma oferta) |
-
-**As telas conversam entre si.** Todo link interno é `../<tela>/index.html`,
-com `?filtro=valor` e `#aba` quando faz sentido — o destino chega filtrado
-ou na aba certa, avulso ou no portal. Exemplos: um grupo leva ao Catálogo com
-`?owner=pagamentos`; um nome de serviço leva a `../entity/index.html#component-payments-api`;
-um recurso do Mapa leva a Aprovações com `?q=<recurso>&status=all#approver`.
-
-- **`screens/index.ts`** — junta os `page.tsx` de todas as telas.
-  **Tela nova:** copie uma pasta, edite o `index.html`, ajuste rota e nome
-  no `page.tsx`, acrescente aqui e rode `yarn screens:sync`.
-- **`../shell/`** — a moldura do portal: barra, tema, login, selo de
-  ambiente, traduções e o `html/` que mostra as telas.
-- **Visual** — só classes do design system (`atlas-*`), de
-  `../assets/atlas.css`, gerado do repositório
+- **`screens/<tela>/page.tsx`** registra a rota e carrega a página de
+  `components/<tela>/` sob demanda.
+- **`components/shared/`** tem o que todas usam: `useAtlasStyles` (cabeçalho,
+  números, abas, cartão, tabela em faixas, cápsulas, selos, diálogos),
+  `FilterSelect` (campo de filtro com busca, no estilo react-select),
+  `ColumnFilter` (funil por coluna), `SeloAmbiente`, `SeloCiclo`, ambientes e
+  paginação. Cada tela soma os estilos próprios em `styles.ts`.
+- **Dados:** o hook de cada tela é o único ponto de troca. As que já têm
+  fonte usam as APIs do Backstage (`catalogApi`, `identityApi`,
+  `notificationsApi`, `searchApi`, `storageApi`) ou os backends do lab
+  (`api-keys`, `atlas-agent`); as outras leem um `data.ts` de exemplo.
+- **`screens/index.ts`** junta os `page.tsx`. **Tela nova:** crie
+  `components/<tela>/` no mesmo formato, um `page.tsx` em `screens/<tela>/`
+  e acrescente aqui.
+- **`../shell/`** — a moldura do portal: barra (e menu Toolkit), tema,
+  login, selo de ambiente, preferências e traduções.
+- **Visual** — tokens em `../components/tokens.ts`; a barra ainda usa as
+  classes de `../assets/atlas.css`, gerado do repositório
   [atlas-design-system](https://github.com/gomesfe/atlas-design-system) com
-  `yarn ds:sync`. `../assets/atlas-html.css` tem só os complementos das
-  telas HTML (diálogo, `[hidden]`, logo da barra avulsa).
+  `yarn ds:sync`.
+
+**As telas conversam entre si** pelo endereço: `?filtro=valor` e `#aba`
+chegam aplicados. Exemplos: um grupo leva ao Catálogo com `?owner=`; um nome
+leva a `/entidade#component-payments-api`; um recurso do Mapa leva a
+Aprovações com `?q=<recurso>&status=all#approver`; a Home leva ao Mapa com
+`?service=PAG#repositorios`.
 
 ## Regras que valem para todas as telas
 
-1. **Cabeçalho** com sobretítulo, título e subtítulo (`atlas-pageHeader`),
-   exceto a Home, que abre direto no conteúdo.
-2. **Exemplo avisado.** Os dados são de exemplo, escritos no HTML. Telas que
-   imitam uma ação (aprovar, criar chave, pedir acesso) avisam no topo que
-   nada é gravado.
-3. **Vazio tratado:** toda lista filtrável tem um `data-atlas-empty-for`
-   que explica que nada casou com o filtro.
-4. **Link é link.** Navegação é `<a href>`, nunca `onclick` em `div`/`span`
-   — abre em nova aba, funciona no teclado e no leitor de tela.
+1. **Cabeçalho** com sobretítulo, título e subtítulo, exceto a Home.
+2. **Ação que não existe não finge que gravou.** Sem backend, a tela diz o
+   que aconteceria (ex.: Break Glass) ou muda só a sessão (Aprovações).
+3. **Vazio tratado:** toda lista diz por que está vazia.
+4. **Link é link** (`Link` do Backstage ou `<a>`), nunca clique em `div`.
 5. **Um botão principal (verde) por área.** Ações destrutivas pedem
-   confirmação (diálogo).
-6. **Sem `<script>` e sem `on*=` dentro do `<main>`.** Interação só pelos
-   atributos `data-atlas-*`; é o que deixa a mesma tela rodar avulsa e no
-   portal.
+   confirmação.
+6. **Tabelas** em faixas, com funil por coluna e sem rolagem lateral num
+   notebook (1366px).

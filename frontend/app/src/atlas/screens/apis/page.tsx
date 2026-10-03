@@ -1,4 +1,7 @@
-import { createFrontendModule, PageBlueprint } from '@backstage/frontend-plugin-api';
+import {
+  createFrontendModule,
+  PageBlueprint,
+} from '@backstage/frontend-plugin-api';
 import ApiIcon from '@material-ui/icons/Extension';
 import apiDocsPlugin from '@backstage/plugin-api-docs/alpha';
 
@@ -15,8 +18,7 @@ export const page = PageBlueprint.make({
     icon: <ApiIcon />,
     noHeader: true,
     loader: async () => {
-      // Tela em React (components/apis), no padrão do repositório do
-      // Atlas. O index.html desta pasta fica como referência visual avulsa.
+      // Tela em React, em components/apis.
       const { ApisPage } = await import('../../../components/apis');
       return <ApisPage />;
     },

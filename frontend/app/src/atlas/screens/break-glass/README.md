@@ -3,7 +3,7 @@
 Solicitação de acesso privilegiado, temporário e auditado a uma conta AWS
 durante um incidente.
 
-**Arquivos:** a tela do portal é React, em `components/breakGlass/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota; `index.html` fica como referência visual avulsa (abre direto no navegador).
+**Arquivos:** a tela do portal é React, em `components/breakGlass/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota.
 
 
 ## Deve conter

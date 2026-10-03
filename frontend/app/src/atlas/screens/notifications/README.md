@@ -4,7 +4,7 @@ A caixa de entrada do portal: tarefas do Create que terminaram, aprovações,
 comunicados. Substitui a página do plugin de notificações do Backstage.
 Abre pelo **sino** da barra, que mostra quantas não lidas existem.
 
-**Arquivos:** a tela do portal é React, em `components/notifications/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota; `index.html` fica como referência visual avulsa (abre direto no navegador).
+**Arquivos:** a tela do portal é React, em `components/notifications/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota.
 
 
 ## Deve conter

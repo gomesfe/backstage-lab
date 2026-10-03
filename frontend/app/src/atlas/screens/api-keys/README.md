@@ -3,7 +3,7 @@
 Chaves de API para integrações e automações. Tela de quem desenvolve: cada
 um vê e gerencia as próprias chaves.
 
-**Arquivos:** a tela do portal é React, em `components/apiKeys/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota; `index.html` fica como referência visual avulsa (abre direto no navegador).
+**Arquivos:** a tela do portal é React, em `components/apiKeys/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota.
 
 
 ## Deve conter

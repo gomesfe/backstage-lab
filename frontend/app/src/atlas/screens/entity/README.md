@@ -6,7 +6,7 @@ Meus grupos. Cada entidade é uma aba; o `#` do endereço escolhe qual
 (ex.: `#component-payments-api`, `#api-payments-api`, `#group-pagamentos`).
 Sem `#`, mostra a lista de todas.
 
-**Arquivos:** a tela do portal é React, em `components/entity/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota; `index.html` fica como referência visual avulsa (abre direto no navegador).
+**Arquivos:** a tela do portal é React, em `components/entity/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota.
 
 
 ## Deve conter

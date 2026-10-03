@@ -3,7 +3,7 @@
 Minhas aprovações e minhas solicitações **numa tela só**. É a mesma tabela:
 o que muda é de que lado do pedido você está.
 
-**Arquivos:** a tela do portal é React, em `components/approvals/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota; `index.html` fica como referência visual avulsa (abre direto no navegador).
+**Arquivos:** a tela do portal é React, em `components/approvals/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota.
 
 
 ## Quem vê o quê
@@ -37,8 +37,7 @@ o que muda é de que lado do pedido você está.
      recurso foi **excluído** ou não.
    - **Situação em destaque**, colorida pelo estado, com a barra de aprovações.
    - Cards **Recurso** (nome, tipo, grupo dono, dono, ambiente) e
-     **Solicitação** (solicitante, time, data e "aberta há X", calculado por
-     `data-atlas-ago` em `atlas-behaviors.js`).
+     **Solicitação** (solicitante, time, data e "aberta há X").
    - **Grupos aprovadores** (admin, DevOps…), cada um com aprovou/pendente.
    - **Andamento** completo: solicitação criada, aprovação necessária,
      automática, concedida, concluída, deleção iniciada, workflow disparado e

@@ -1,4 +1,7 @@
-import { createFrontendModule, PageBlueprint } from '@backstage/frontend-plugin-api';
+import {
+  createFrontendModule,
+  PageBlueprint,
+} from '@backstage/frontend-plugin-api';
 import HomeIcon from '@material-ui/icons/Home';
 import homePlugin from '@backstage/plugin-home/alpha';
 
@@ -19,8 +22,7 @@ export const page = PageBlueprint.make({
     routeRef: homePlugin.routes.root,
     noHeader: true,
     loader: async () => {
-      // Tela em React (components/home), no padrão do repositório do
-      // Atlas. O index.html desta pasta fica como referência visual avulsa.
+      // Tela em React, em components/home.
       const { HomePage } = await import('../../../components/home');
       return <HomePage />;
     },

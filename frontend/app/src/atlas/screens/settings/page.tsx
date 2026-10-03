@@ -1,4 +1,7 @@
-import { createFrontendModule, PageBlueprint } from '@backstage/frontend-plugin-api';
+import {
+  createFrontendModule,
+  PageBlueprint,
+} from '@backstage/frontend-plugin-api';
 import SettingsIcon from '@material-ui/icons/Settings';
 
 /**
@@ -13,8 +16,7 @@ export const page = PageBlueprint.make({
     icon: <SettingsIcon />,
     noHeader: true,
     loader: async () => {
-      // Tela em React (components/settings), no padrão do repositório do
-      // Atlas. O index.html desta pasta fica como referência visual avulsa.
+      // Tela em React, em components/settings.
       const { SettingsPage } = await import('../../../components/settings');
       return <SettingsPage />;
     },

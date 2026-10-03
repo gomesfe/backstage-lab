@@ -3,7 +3,7 @@
 Catálogo de IA: as skills do repositório **nuclea-ia-skills** — instruções e
 fluxos de automação reutilizáveis para agentes e assistentes de IA.
 
-**Arquivos:** a tela do portal é React, em `components/skills/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota; `index.html` fica como referência visual avulsa (abre direto no navegador).
+**Arquivos:** a tela do portal é React, em `components/skills/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota.
 
 
 ## Deve conter

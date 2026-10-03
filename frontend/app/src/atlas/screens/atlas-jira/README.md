@@ -4,7 +4,7 @@ A ponte entre as issues do GitHub e o Jira. Issues abertas a partir do
 Atlas (em repositórios de templates e do portal) chegam aqui como
 **rascunho**; quem cuida da fila decide o que vira card no Jira.
 
-**Arquivos:** a tela do portal é React, em `components/atlasJira/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota; `index.html` fica como referência visual avulsa (abre direto no navegador).
+**Arquivos:** a tela do portal é React, em `components/atlasJira/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota.
 
 
 ## Deve conter

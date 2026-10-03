@@ -4,7 +4,7 @@ Chat com o agente do portal, com histórico. O agente responde com o Claude e
 consulta o catálogo **com as permissões de quem está conversando** — enxerga
 exatamente o que a pessoa enxergaria no portal.
 
-**Arquivos:** a tela do portal é React, em `components/agent/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota; `index.html` fica como referência visual avulsa (abre direto no navegador).
+**Arquivos:** a tela do portal é React, em `components/agent/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota.
 
 
 ## Deve conter

@@ -1,4 +1,7 @@
-import { createFrontendModule, PageBlueprint } from '@backstage/frontend-plugin-api';
+import {
+  createFrontendModule,
+  PageBlueprint,
+} from '@backstage/frontend-plugin-api';
 import NotificationsIcon from '@material-ui/icons/NotificationsNone';
 import notificationsPlugin from '@backstage/plugin-notifications/alpha';
 
@@ -15,9 +18,10 @@ export const page = PageBlueprint.make({
     icon: <NotificationsIcon />,
     noHeader: true,
     loader: async () => {
-      // Tela em React (components/notifications), no padrão do repositório do
-      // Atlas. O index.html desta pasta fica como referência visual avulsa.
-      const { NotificationsPage } = await import('../../../components/notifications');
+      // Tela em React, em components/notifications.
+      const { NotificationsPage } = await import(
+        '../../../components/notifications'
+      );
       return <NotificationsPage />;
     },
   },

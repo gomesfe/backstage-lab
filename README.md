@@ -8,8 +8,8 @@ portal.
 
 ```
 frontend/          tudo o que roda no navegador  →  frontend/README.md
-  app/src/atlas/   TODO o front do Atlas numa pasta: telas em HTML estático
-                   (abrem sozinhas ou no portal), CSS, barra  →  README.md dela
+  app/src/atlas/   moldura do Atlas: rotas das telas, barra, tema, CSS  →  README.md dela
+  app/src/components/  as telas do Atlas em React, uma pasta por tela
   static-pages/    telas em HTML/CSS puro  ←  trabalho do dia a dia
 backend/           tudo o que roda no servidor   →  backend/README.md
   server/          o processo do backend
@@ -31,7 +31,8 @@ O visual vem do **Atlas Design System**, que mora no próprio repositório:
   mesmos tokens em TypeScript, para o tema do MUI e o `@backstage/ui`.
 
 **Para levar o front para outro app Backstage**, copie
-[`frontend/app/src/atlas/`](frontend/app/src/atlas/README.md) inteira.
+[`frontend/app/src/atlas/`](frontend/app/src/atlas/README.md) e
+`frontend/app/src/components/` inteiras.
 
 **Cada tela mora numa pasta própria**, com um `README.md` dizendo o que ela
 deve conter: [`frontend/app/src/atlas/screens/`](frontend/app/src/atlas/screens/README.md).

@@ -3,7 +3,7 @@
 Busca global em catálogo e documentação, pelo índice de busca do Backstage.
 O botão de lupa da barra de navegação leva para cá.
 
-**Arquivos:** a tela do portal é React, em `components/search/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota; `index.html` fica como referência visual avulsa (abre direto no navegador).
+**Arquivos:** a tela do portal é React, em `components/search/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota.
 
 
 ## Deve conter

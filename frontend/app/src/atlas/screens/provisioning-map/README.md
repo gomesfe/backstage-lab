@@ -3,7 +3,7 @@
 Onde cada recurso está provisionado, por qual template e serviço, e o que dá
 para promover ou excluir em cada ambiente.
 
-**Arquivos:** a tela do portal é React, em `components/provisioningMap/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota; `index.html` fica como referência visual avulsa (abre direto no navegador).
+**Arquivos:** a tela do portal é React, em `components/provisioningMap/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota.
 
 
 ## Deve conter

@@ -1,4 +1,7 @@
-import { createFrontendModule, PageBlueprint } from '@backstage/frontend-plugin-api';
+import {
+  createFrontendModule,
+  PageBlueprint,
+} from '@backstage/frontend-plugin-api';
 import DocsIcon from '@material-ui/icons/MenuBook';
 import techdocsPlugin from '@backstage/plugin-techdocs/alpha';
 
@@ -15,8 +18,7 @@ export const page = PageBlueprint.make({
     icon: <DocsIcon />,
     noHeader: true,
     loader: async () => {
-      // Tela em React (components/docs), no padrão do repositório do
-      // Atlas. O index.html desta pasta fica como referência visual avulsa.
+      // Tela em React, em components/docs.
       const { DocsPage } = await import('../../../components/docs');
       return <DocsPage />;
     },

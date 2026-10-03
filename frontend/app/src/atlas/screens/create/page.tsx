@@ -1,4 +1,7 @@
-import { createFrontendModule, PageBlueprint } from '@backstage/frontend-plugin-api';
+import {
+  createFrontendModule,
+  PageBlueprint,
+} from '@backstage/frontend-plugin-api';
 import CreateIcon from '@material-ui/icons/AddCircleOutline';
 import scaffolderPlugin from '@backstage/plugin-scaffolder/alpha';
 
@@ -15,8 +18,8 @@ export const page = PageBlueprint.make({
     icon: <CreateIcon />,
     noHeader: true,
     loader: async () => {
-      // Galeria em React (components/offers); as sub-rotas seguem com o
-      // scaffolder. O index.html desta pasta fica como referência visual.
+      // Galeria em React, em components/offers; as sub-rotas seguem com o
+      // scaffolder.
       const { CreatePage } = await import('../../../components/offers');
       return <CreatePage />;
     },
