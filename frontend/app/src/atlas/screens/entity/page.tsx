@@ -14,8 +14,10 @@ export const page = PageBlueprint.make({
     routeRef: entityRouteRef,
     noHeader: true,
     loader: async () => {
-      const { AtlasHtmlScreen } = await import('../../shell/html/AtlasHtmlScreen');
-      return <AtlasHtmlScreen slug="entity" />;
+      // Tela em React (components/entity), no padrão do repositório do
+      // Atlas. O index.html desta pasta fica como referência visual avulsa.
+      const { EntityPage } = await import('../../../components/entity');
+      return <EntityPage />;
     },
   },
 });
