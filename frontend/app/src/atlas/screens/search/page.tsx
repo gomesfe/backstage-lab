@@ -15,8 +15,10 @@ export const page = PageBlueprint.make({
     icon: <SearchIcon />,
     noHeader: true,
     loader: async () => {
-      const { AtlasHtmlScreen } = await import('../../shell/html/AtlasHtmlScreen');
-      return <AtlasHtmlScreen slug="search" />;
+      // Tela em React (components/search), no padrão do repositório do
+      // Atlas. O index.html desta pasta fica como referência visual avulsa.
+      const { SearchPage } = await import('../../../components/search');
+      return <SearchPage />;
     },
   },
 });
