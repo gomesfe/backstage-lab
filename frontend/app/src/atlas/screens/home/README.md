@@ -3,9 +3,8 @@
 A primeira tela do portal. Responde a "o que está acontecendo no meu escopo
 e por onde eu começo?" em uma olhada.
 
-**Arquivos:** `index.html` (a tela, em HTML estático — abre direto no navegador) e `page.tsx` (rota no portal). `toolkit.tsx` é o menu Toolkit da barra do portal (a versão avulsa tem o seu em `assets/atlas.js`).
+**Arquivos:** a tela do portal é React, em `components/home/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota; `index.html` fica como referência visual avulsa (abre direto no navegador).
 
-> **Versão HTML.** Os dados são de exemplo, escritos no próprio `index.html`, e os botões que gravariam algo só abrem o diálogo. O que este README descreve como vindo do catálogo ou de uma API é o que a tela deve mostrar quando essa fonte existir.
 
 ## Deve conter, nesta ordem
 

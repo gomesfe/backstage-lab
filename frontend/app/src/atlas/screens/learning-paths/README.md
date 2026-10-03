@@ -5,7 +5,6 @@ de cada pessoa.
 
 **Arquivos:** a tela do portal é React, em `components/learningPaths/` (lista em `/learning-paths`, detalhe em `/learning-paths/<id>`; o endereço antigo `/learning-paths#<id>` leva ao detalhe). `index.html` fica como referência visual avulsa e `page.tsx` registra as rotas.
 
-> **Versão HTML.** Os dados são de exemplo, escritos no próprio `index.html`, e os botões que gravariam algo só abrem o diálogo. O que este README descreve como vindo do catálogo ou de uma API é o que a tela deve mostrar quando essa fonte existir.
 
 ## Lista — deve conter
 

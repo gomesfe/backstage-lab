@@ -4,9 +4,8 @@ Visão de quem administra o portal: credenciais emitidas em todo o portal e
 uso. Separada de API Keys de propósito — ver as próprias chaves e ver as de
 todo mundo são permissões diferentes.
 
-**Arquivos:** `index.html` (a tela, em HTML estático — abre direto no navegador) e `page.tsx` (rota no portal).
+**Arquivos:** a tela do portal é React, em `components/admin/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota; `index.html` fica como referência visual avulsa (abre direto no navegador).
 
-> **Versão HTML.** Os dados são de exemplo, escritos no próprio `index.html`, e os botões que gravariam algo só abrem o diálogo. O que este README descreve como vindo do catálogo ou de uma API é o que a tela deve mostrar quando essa fonte existir.
 
 ## Deve conter
 

@@ -4,9 +4,8 @@ Saúde dos serviços do portal Atlas: o que está no ar, disponibilidade dos
 últimos 30 dias e incidentes recentes. Veio da tela `status-plataforma` do
 [atlas-design-system](https://github.com/gomesfe/atlas-design-system) (branch `telas`).
 
-**Arquivos:** `index.html` (a tela, em HTML estático — abre direto no navegador) e `page.tsx` (rota no portal).
+**Arquivos:** a tela do portal é React, em `components/status/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota; `index.html` fica como referência visual avulsa (abre direto no navegador).
 
-> **Versão HTML.** Os dados são de exemplo, escritos no próprio `index.html`. O que este README descreve como vindo de uma API é o que a tela deve mostrar quando essa fonte existir.
 
 ## Deve conter
 

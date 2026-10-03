@@ -6,10 +6,8 @@ Meus grupos. Cada entidade é uma aba; o `#` do endereço escolhe qual
 (ex.: `#component-payments-api`, `#api-payments-api`, `#group-pagamentos`).
 Sem `#`, mostra a lista de todas.
 
-**Arquivos:** `index.html` (a tela, em HTML estático — abre direto no navegador) e `page.tsx` (rota no portal).
+**Arquivos:** a tela do portal é React, em `components/entity/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota; `index.html` fica como referência visual avulsa (abre direto no navegador).
 
-> **Versão HTML.** Os dados são de exemplo, escritos no próprio `index.html`. No
-> Atlas com dado real, este papel é da página de entidade do plugin de catálogo.
 
 ## Deve conter
 

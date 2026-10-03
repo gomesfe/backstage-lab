@@ -4,9 +4,8 @@ A caixa de entrada do portal: tarefas do Create que terminaram, aprovações,
 comunicados. Substitui a página do plugin de notificações do Backstage.
 Abre pelo **sino** da barra, que mostra quantas não lidas existem.
 
-**Arquivos:** `index.html` (a tela, em HTML estático — abre direto no navegador) e `page.tsx` (rota no portal). `useUnreadCount.ts` alimenta o contador do sino na barra do portal.
+**Arquivos:** a tela do portal é React, em `components/notifications/` (página, componentes, `hooks/`, `helpers.ts`, `styles.ts`). `page.tsx` registra a rota; `index.html` fica como referência visual avulsa (abre direto no navegador).
 
-> **Versão HTML.** Os dados são de exemplo, escritos no próprio `index.html`, e os botões que gravariam algo só abrem o diálogo. O que este README descreve como vindo do catálogo ou de uma API é o que a tela deve mostrar quando essa fonte existir.
 
 ## Deve conter
 
