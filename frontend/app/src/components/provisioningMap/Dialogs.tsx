@@ -18,10 +18,21 @@ type Props = {
 
 function iniciais(nome: string): string {
   const partes = nome.split(' ').filter(Boolean);
-  return ((partes[0]?.[0] ?? '') + (partes.length > 1 ? partes[partes.length - 1][0] : '')).toUpperCase();
+  return (
+    (partes[0]?.[0] ?? '') +
+    (partes.length > 1 ? partes[partes.length - 1][0] : '')
+  ).toUpperCase();
 }
 
-function Cabecalho({ eyebrow, titulo, children }: { eyebrow: string; titulo: string; children?: ReactNode }) {
+function Cabecalho({
+  eyebrow,
+  titulo,
+  children,
+}: {
+  eyebrow: string;
+  titulo: string;
+  children?: ReactNode;
+}) {
   const classes = useStyles();
   return (
     <div style={{ padding: '22px 24px 8px' }}>
@@ -34,10 +45,26 @@ function Cabecalho({ eyebrow, titulo, children }: { eyebrow: string; titulo: str
 
 function SeloAmbiente({ ambiente }: { ambiente: Ambiente }) {
   const classes = useStyles();
-  return <span className={`${classes.envBadge} ${precisaDoCloud(ambiente) ? classes.envBadgeHot : ''}`}>{ambiente}</span>;
+  return (
+    <span
+      className={`${classes.envBadge} ${
+        precisaDoCloud(ambiente) ? classes.envBadgeHot : ''
+      }`}
+    >
+      {ambiente}
+    </span>
+  );
 }
 
-function PessoaBloco({ titulo, pessoa, extra }: { titulo: string; pessoa: Pessoa; extra: [string, string][] }) {
+function PessoaBloco({
+  titulo,
+  pessoa,
+  extra,
+}: {
+  titulo: string;
+  pessoa: Pessoa;
+  extra: [string, string][];
+}) {
   const classes = useStyles();
   return (
     <div className={classes.block}>
@@ -61,7 +88,13 @@ function PessoaBloco({ titulo, pessoa, extra }: { titulo: string; pessoa: Pessoa
   );
 }
 
-function Lista({ titulo, itens }: { titulo: string; itens: [string, ReactNode][] }) {
+function Lista({
+  titulo,
+  itens,
+}: {
+  titulo: string;
+  itens: [string, ReactNode][];
+}) {
   const classes = useStyles();
   return (
     <div className={classes.block}>
@@ -97,17 +130,25 @@ export function Dialogs({ dialogo, servicos, onClose, onOpen }: Props) {
     if (estado.tipo !== 'vazio') {
       const pendente = estado.tipo !== 'provisionado';
       let sub = `Provisionado em ${estado.data}.`;
-      if (estado.tipo === 'provisionado') sub += estado.exclusaoLivre ? ' Pode ser excluído direto.' : ' A exclusão precisa de aprovação.';
+      if (estado.tipo === 'provisionado')
+        sub += estado.exclusaoLivre
+          ? ' Pode ser excluído direto.'
+          : ' A exclusão precisa de aprovação.';
       if (estado.tipo === 'exclusaoPendente') sub = 'Solicitação registrada.';
-      if (estado.tipo === 'aguardandoCloud') sub = 'Solicitação registrada, aguardando aprovação do time de cloud.';
+      if (estado.tipo === 'aguardandoCloud')
+        sub = 'Solicitação registrada, aguardando aprovação do time de cloud.';
       conteudo = (
         <>
           <Cabecalho eyebrow="Detalhes da promoção" titulo={recurso.nome}>
             <SeloAmbiente ambiente={ambiente} /> · {recurso.oferta}
           </Cabecalho>
           <DialogContent>
-            <div className={`${classes.hero} ${pendente ? classes.heroWarn : ''}`}>
-              <strong className={classes.heroTitle}>{pendente ? 'Deleção pendente' : 'Ativo neste ambiente'}</strong>
+            <div
+              className={`${classes.hero} ${pendente ? classes.heroWarn : ''}`}
+            >
+              <strong className={classes.heroTitle}>
+                {pendente ? 'Deleção pendente' : 'Ativo neste ambiente'}
+              </strong>
               <span className={classes.heroSub}>{sub}</span>
             </div>
             <div className={classes.blocks}>
@@ -121,7 +162,11 @@ export function Dialogs({ dialogo, servicos, onClose, onOpen }: Props) {
                   ['Promovido em', estado.data],
                 ]}
               />
-              <PessoaBloco titulo="Promovido por" pessoa={estado.promovidoPor} extra={[['ID do usuário', estado.promovidoPor.id]]} />
+              <PessoaBloco
+                titulo="Promovido por"
+                pessoa={estado.promovidoPor}
+                extra={[['ID do usuário', estado.promovidoPor.id]]}
+              />
             </div>
           </DialogContent>
           <DialogActions className={classes.dialogActions}>
@@ -130,11 +175,19 @@ export function Dialogs({ dialogo, servicos, onClose, onOpen }: Props) {
             </Link>
             <span className={classes.dialogButtons}>
               {!pendente && (
-                <button type="button" className={classes.buttonDanger} onClick={() => onOpen({ tipo: 'excluir', recurso, ambiente })}>
+                <button
+                  type="button"
+                  className={classes.buttonDanger}
+                  onClick={() => onOpen({ tipo: 'excluir', recurso, ambiente })}
+                >
                   Excluir
                 </button>
               )}
-              <button type="button" className={classes.button} onClick={onClose}>
+              <button
+                type="button"
+                className={classes.button}
+                onClick={onClose}
+              >
                 Fechar
               </button>
             </span>
@@ -153,26 +206,39 @@ export function Dialogs({ dialogo, servicos, onClose, onOpen }: Props) {
         <DialogContent>
           <p className={classes.heroSub}>
             <strong>{recurso.nome}</strong> em <strong>{ambiente}</strong>
-            {estado.tipo !== 'vazio' ? `, provisionado em ${estado.data}.` : '.'}
+            {estado.tipo !== 'vazio'
+              ? `, provisionado em ${estado.data}.`
+              : '.'}
           </p>
           {livre ? (
             <div className={`${classes.alert} ${classes.alertDanger}`}>
               <strong className={classes.alertTitle}>Sai sem aprovação</strong>
-              Provisionado há menos de {FREE_DELETE_WINDOW_HOURS} horas: a exclusão é executada direto. Não dá para desfazer.
+              Provisionado há menos de {FREE_DELETE_WINDOW_HOURS} horas: a
+              exclusão é executada direto. Não dá para desfazer.
             </div>
           ) : (
             <div className={`${classes.alert} ${classes.alertWarn}`}>
-              <strong className={classes.alertTitle}>Precisa de aprovação</strong>
-              Provisionado há mais de {FREE_DELETE_WINDOW_HOURS} horas: a exclusão vira uma solicitação e aparece em Aprovações.
+              <strong className={classes.alertTitle}>
+                Precisa de aprovação
+              </strong>
+              Provisionado há mais de {FREE_DELETE_WINDOW_HOURS} horas: a
+              exclusão vira uma solicitação e aparece em Aprovações.
             </div>
           )}
         </DialogContent>
-        <DialogActions className={classes.dialogActions} style={{ justifyContent: 'flex-end' }}>
+        <DialogActions
+          className={classes.dialogActions}
+          style={{ justifyContent: 'flex-end' }}
+        >
           <span className={classes.dialogButtons}>
             <button type="button" className={classes.button} onClick={onClose}>
               Voltar
             </button>
-            <button type="button" className={classes.buttonDanger} onClick={onClose}>
+            <button
+              type="button"
+              className={classes.buttonDanger}
+              onClick={onClose}
+            >
               Excluir
             </button>
           </span>
@@ -184,24 +250,38 @@ export function Dialogs({ dialogo, servicos, onClose, onOpen }: Props) {
     const { recurso, ambiente } = dialogo;
     conteudo = (
       <>
-        <Cabecalho eyebrow="Mapa de provisionamento" titulo="Promover recurso" />
+        <Cabecalho
+          eyebrow="Mapa de provisionamento"
+          titulo="Promover recurso"
+        />
         <DialogContent>
           <p className={classes.heroSub}>
-            Provisionar <strong>{recurso.nome}</strong> em <strong>{ambiente}</strong>, com a mesma oferta ({recurso.oferta}).
+            Provisionar <strong>{recurso.nome}</strong> em{' '}
+            <strong>{ambiente}</strong>, com a mesma oferta ({recurso.oferta}).
           </p>
           {precisaDoCloud(ambiente) && (
             <div className={`${classes.alert} ${classes.alertWarn}`}>
-              <strong className={classes.alertTitle}>Aprovação do time de cloud</strong>
-              Promoções para {ambiente} esperam a aprovação do time de cloud antes de executar.
+              <strong className={classes.alertTitle}>
+                Aprovação do time de cloud
+              </strong>
+              Promoções para {ambiente} esperam a aprovação do time de cloud
+              antes de executar.
             </div>
           )}
         </DialogContent>
-        <DialogActions className={classes.dialogActions} style={{ justifyContent: 'flex-end' }}>
+        <DialogActions
+          className={classes.dialogActions}
+          style={{ justifyContent: 'flex-end' }}
+        >
           <span className={classes.dialogButtons}>
             <button type="button" className={classes.button} onClick={onClose}>
               Voltar
             </button>
-            <button type="button" className={classes.buttonPrimary} onClick={onClose}>
+            <button
+              type="button"
+              className={classes.buttonPrimary}
+              onClick={onClose}
+            >
               Pedir promoção
             </button>
           </span>
@@ -231,9 +311,12 @@ export function Dialogs({ dialogo, servicos, onClose, onOpen }: Props) {
               itens={AMBIENTES.map(ambiente => {
                 const estado = recurso.ambientes[ambiente];
                 let situacao = 'não provisionado';
-                if (estado.tipo === 'provisionado') situacao = `ativo · ${estado.data}`;
-                if (estado.tipo === 'exclusaoPendente') situacao = 'exclusão pendente';
-                if (estado.tipo === 'aguardandoCloud') situacao = 'aguardando cloud';
+                if (estado.tipo === 'provisionado')
+                  situacao = `ativo · ${estado.data}`;
+                if (estado.tipo === 'exclusaoPendente')
+                  situacao = 'exclusão pendente';
+                if (estado.tipo === 'aguardandoCloud')
+                  situacao = 'aguardando cloud';
                 return [ambiente, situacao];
               })}
             />
@@ -278,12 +361,21 @@ export function Dialogs({ dialogo, servicos, onClose, onOpen }: Props) {
             />
           </div>
         </DialogContent>
-        <DialogActions className={classes.dialogActions} style={{ justifyContent: 'flex-end' }}>
+        <DialogActions
+          className={classes.dialogActions}
+          style={{ justifyContent: 'flex-end' }}
+        >
           <span className={classes.dialogButtons}>
             <Link to="/create/tasks" className={classes.button}>
               Ver execução
             </Link>
-            <button type="button" className={classes.buttonDanger} onClick={() => onOpen({ tipo: 'excluirRepositorio', repositorio })}>
+            <button
+              type="button"
+              className={classes.buttonDanger}
+              onClick={() =>
+                onOpen({ tipo: 'excluirRepositorio', repositorio })
+              }
+            >
               Excluir repositório
             </button>
             <button type="button" className={classes.button} onClick={onClose}>
@@ -298,28 +390,44 @@ export function Dialogs({ dialogo, servicos, onClose, onOpen }: Props) {
     const { repositorio } = dialogo;
     conteudo = (
       <>
-        <Cabecalho eyebrow="Mapa de provisionamento" titulo="Excluir repositório" />
+        <Cabecalho
+          eyebrow="Mapa de provisionamento"
+          titulo="Excluir repositório"
+        />
         <DialogContent>
           <p className={classes.heroSub}>
-            <strong>{repositorio.nome}</strong> ({repositorio.oferta}, {repositorio.servico}).
+            <strong>{repositorio.nome}</strong> ({repositorio.oferta},{' '}
+            {repositorio.servico}).
           </p>
           {repositorio.recursos > 0 && (
             <div className={`${classes.alert} ${classes.alertWarn}`}>
-              <strong className={classes.alertTitle}>Há recursos ligados</strong>
-              Este repositório tem {repositorio.recursos} recurso{repositorio.recursos !== 1 ? 's' : ''} provisionado
-              {repositorio.recursos !== 1 ? 's' : ''} pelo Atlas. Confira antes de excluir.
+              <strong className={classes.alertTitle}>
+                Há recursos ligados
+              </strong>
+              Este repositório tem {repositorio.recursos} recurso
+              {repositorio.recursos !== 1 ? 's' : ''} provisionado
+              {repositorio.recursos !== 1 ? 's' : ''} pelo Atlas. Confira antes
+              de excluir.
             </div>
           )}
           <div className={`${classes.alert} ${classes.alertDanger}`}>
-            <strong className={classes.alertTitle}>Não dá para desfazer</strong>O repositório e o histórico dele serão removidos.
+            <strong className={classes.alertTitle}>Não dá para desfazer</strong>
+            O repositório e o histórico dele serão removidos.
           </div>
         </DialogContent>
-        <DialogActions className={classes.dialogActions} style={{ justifyContent: 'flex-end' }}>
+        <DialogActions
+          className={classes.dialogActions}
+          style={{ justifyContent: 'flex-end' }}
+        >
           <span className={classes.dialogButtons}>
             <button type="button" className={classes.button} onClick={onClose}>
               Voltar
             </button>
-            <button type="button" className={classes.buttonDanger} onClick={onClose}>
+            <button
+              type="button"
+              className={classes.buttonDanger}
+              onClick={onClose}
+            >
               Excluir repositório
             </button>
           </span>
@@ -329,7 +437,13 @@ export function Dialogs({ dialogo, servicos, onClose, onOpen }: Props) {
   }
 
   return (
-    <Dialog open onClose={onClose} maxWidth={largo ? 'md' : 'sm'} fullWidth PaperProps={{ className: classes.dialogPaper }}>
+    <Dialog
+      open
+      onClose={onClose}
+      maxWidth={largo ? 'md' : 'sm'}
+      fullWidth
+      PaperProps={{ className: classes.dialogPaper }}
+    >
       {conteudo}
     </Dialog>
   );

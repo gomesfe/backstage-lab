@@ -4,7 +4,12 @@ import TablePagination from '@material-ui/core/TablePagination';
 import { Content, Page, Progress } from '@backstage/core-components';
 import { usePermission } from '@backstage/plugin-permission-react';
 import { atlasApprovalsReviewPermission } from '../../atlas/permissions';
-import { distintos, ITENS_POR_PAGINA, paginar, type FiltrosColuna } from '../shared/filtros';
+import {
+  distintos,
+  ITENS_POR_PAGINA,
+  paginar,
+  type FiltrosColuna,
+} from '../shared/filtros';
 import { Dialogs } from './Dialogs';
 import { Filters } from './Filters';
 import { Header } from './Header';
@@ -27,7 +32,10 @@ const ROTULO_LADO: Record<Lado, string> = {
   solicitacao: 'Minhas solicitações',
 };
 
-function filtrosIniciais(busca: string, status: FiltroStatus): Record<Lado, Filtros> {
+function filtrosIniciais(
+  busca: string,
+  status: FiltroStatus,
+): Record<Lado, Filtros> {
   const base: Filtros = { busca, status, ambiente: '', grupo: '' };
   return { aprovacao: base, solicitacao: base };
 }
@@ -41,15 +49,25 @@ export function ApprovalsPage() {
   const classes = useStyles();
   const { search, hash } = useLocation();
   const { solicitacoes, loading, aprovar, rejeitar, cancelar } = useApprovals();
-  const { allowed: aprovador, loading: carregandoPermissao } = usePermission({ permission: atlasApprovalsReviewPermission });
+  const { allowed: aprovador, loading: carregandoPermissao } = usePermission({
+    permission: atlasApprovalsReviewPermission,
+  });
 
   const parametros = new URLSearchParams(search);
   const buscaDoEndereco = parametros.get('q') ?? '';
-  const statusDoEndereco = STATUS_DO_ENDERECO[parametros.get('status') ?? ''] ?? 'pendentes';
+  const statusDoEndereco =
+    STATUS_DO_ENDERECO[parametros.get('status') ?? ''] ?? 'pendentes';
 
-  const [ladoEscolhido, setLadoEscolhido] = useState<Lado>(hash === '#requester' ? 'solicitacao' : 'aprovacao');
-  const [filtros, setFiltros] = useState(() => filtrosIniciais(buscaDoEndereco, statusDoEndereco));
-  const [colunas, setColunas] = useState<Record<Lado, FiltrosColuna>>({ aprovacao: {}, solicitacao: {} });
+  const [ladoEscolhido, setLadoEscolhido] = useState<Lado>(
+    hash === '#requester' ? 'solicitacao' : 'aprovacao',
+  );
+  const [filtros, setFiltros] = useState(() =>
+    filtrosIniciais(buscaDoEndereco, statusDoEndereco),
+  );
+  const [colunas, setColunas] = useState<Record<Lado, FiltrosColuna>>({
+    aprovacao: {},
+    solicitacao: {},
+  });
   const [porPagina, setPorPagina] = useState(ITENS_POR_PAGINA[0]);
   const [pagina, setPagina] = useState(0);
   const [dialogo, setDialogo] = useState<Dialogo | null>(null);
@@ -70,18 +88,37 @@ export function ApprovalsPage() {
     setPagina(0);
   }, [lado, filtros, colunas, porPagina]);
 
-  const doLado = useMemo(() => solicitacoes.filter(item => item.lado === lado), [solicitacoes, lado]);
-  const filtradas = useMemo(() => filtrar(doLado, filtros[lado], colunas[lado]), [doLado, filtros, colunas, lado]);
+  const doLado = useMemo(
+    () => solicitacoes.filter(item => item.lado === lado),
+    [solicitacoes, lado],
+  );
+  const filtradas = useMemo(
+    () => filtrar(doLado, filtros[lado], colunas[lado]),
+    [doLado, filtros, colunas, lado],
+  );
   const contagens = useMemo(() => contar(doLado), [doLado]);
-  const grupos = useMemo(() => distintos(doLado.map(item => item.grupo)), [doLado]);
+  const grupos = useMemo(
+    () => distintos(doLado.map(item => item.grupo)),
+    [doLado],
+  );
   const pendentesParaVoce = useMemo(
-    () => solicitacoes.filter(item => item.lado === 'aprovacao' && item.status === 'aguardando').length,
+    () =>
+      solicitacoes.filter(
+        item => item.lado === 'aprovacao' && item.status === 'aguardando',
+      ).length,
     [solicitacoes],
   );
 
-  const mudarFiltros = useCallback((novos: Filtros) => setFiltros(atuais => ({ ...atuais, [lado]: novos })), [lado]);
+  const mudarFiltros = useCallback(
+    (novos: Filtros) => setFiltros(atuais => ({ ...atuais, [lado]: novos })),
+    [lado],
+  );
   const mudarColuna = useCallback(
-    (coluna: string, valor: string) => setColunas(atuais => ({ ...atuais, [lado]: { ...atuais[lado], [coluna]: valor } })),
+    (coluna: string, valor: string) =>
+      setColunas(atuais => ({
+        ...atuais,
+        [lado]: { ...atuais[lado], [coluna]: valor },
+      })),
     [lado],
   );
 
@@ -93,24 +130,38 @@ export function ApprovalsPage() {
             <div>
               <span className={classes.eyebrow}>Governança</span>
               <h1 className={classes.title}>Aprovações</h1>
-              <p className={classes.subtitle}>Aprove o que pedem para você e acompanhe o que você pediu.</p>
+              <p className={classes.subtitle}>
+                Aprove o que pedem para você e acompanhe o que você pediu.
+              </p>
             </div>
           </div>
 
           {aprovador && (
-            <div className={classes.tabs} role="tablist" aria-label="Lado do pedido">
+            <div
+              className={classes.tabs}
+              role="tablist"
+              aria-label="Lado do pedido"
+            >
               {(['aprovacao', 'solicitacao'] as Lado[]).map(item => (
                 <button
                   key={item}
                   type="button"
                   role="tab"
                   aria-selected={lado === item}
-                  className={`${classes.tab} ${lado === item ? classes.tabActive : ''}`}
+                  className={`${classes.tab} ${
+                    lado === item ? classes.tabActive : ''
+                  }`}
                   onClick={() => setLadoEscolhido(item)}
                 >
                   {ROTULO_LADO[item]}
                   {item === 'aprovacao' && (
-                    <span className={`${classes.tabCount} ${lado === item ? classes.tabCountActive : ''}`}>{pendentesParaVoce}</span>
+                    <span
+                      className={`${classes.tabCount} ${
+                        lado === item ? classes.tabCountActive : ''
+                      }`}
+                    >
+                      {pendentesParaVoce}
+                    </span>
                   )}
                 </button>
               ))}
@@ -121,7 +172,9 @@ export function ApprovalsPage() {
             lado={lado}
             contagens={contagens}
             filtroStatus={filtros[lado].status}
-            onFiltroStatus={status => mudarFiltros({ ...filtros[lado], status })}
+            onFiltroStatus={status =>
+              mudarFiltros({ ...filtros[lado], status })
+            }
           />
 
           <section className={classes.card}>
@@ -153,7 +206,9 @@ export function ApprovalsPage() {
 
             {!loading && filtradas.length === 0 && (
               <div className={classes.empty}>
-                {lado === 'aprovacao' ? 'Nada esperando a sua aprovação com esses filtros.' : 'Nenhuma solicitação com esses filtros.'}
+                {lado === 'aprovacao'
+                  ? 'Nada esperando a sua aprovação com esses filtros.'
+                  : 'Nenhuma solicitação com esses filtros.'}
               </div>
             )}
             {!loading && filtradas.length > 0 && (
@@ -161,11 +216,16 @@ export function ApprovalsPage() {
                 component="div"
                 className={classes.pagination}
                 count={filtradas.length}
-                page={Math.min(pagina, Math.max(0, Math.ceil(filtradas.length / porPagina) - 1))}
+                page={Math.min(
+                  pagina,
+                  Math.max(0, Math.ceil(filtradas.length / porPagina) - 1),
+                )}
                 rowsPerPage={porPagina}
                 rowsPerPageOptions={[]}
                 onPageChange={(_, nova) => setPagina(nova)}
-                labelDisplayedRows={({ from, to, count }) => `${from}–${to} de ${count}`}
+                labelDisplayedRows={({ from, to, count }) =>
+                  `${from}–${to} de ${count}`
+                }
               />
             )}
           </section>

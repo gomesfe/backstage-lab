@@ -7,8 +7,19 @@ export type Pessoa = { nome: string; email: string; id: string };
 /** O que um recurso tem em um ambiente. `data` vem como "dd/mm/aa hh:mm". */
 export type EstadoAmbiente =
   | { tipo: 'vazio' }
-  | { tipo: 'provisionado'; data: string; versao: string; promovidoPor: Pessoa; exclusaoLivre: boolean }
-  | { tipo: 'exclusaoPendente' | 'aguardandoCloud'; data: string; versao: string; promovidoPor: Pessoa };
+  | {
+      tipo: 'provisionado';
+      data: string;
+      versao: string;
+      promovidoPor: Pessoa;
+      exclusaoLivre: boolean;
+    }
+  | {
+      tipo: 'exclusaoPendente' | 'aguardandoCloud';
+      data: string;
+      versao: string;
+      promovidoPor: Pessoa;
+    };
 
 export type EstadoProvisionado = Exclude<EstadoAmbiente, { tipo: 'vazio' }>;
 
@@ -33,13 +44,26 @@ export type Repositorio = {
   criadoPor: Pessoa;
 };
 
-export type ItemInterno = { nome: string; tipo: string; oferta: string; ambientes: string[] };
+export type ItemInterno = {
+  nome: string;
+  tipo: string;
+  oferta: string;
+  ambientes: string[];
+};
 
 export type Aba = 'recursos' | 'repositorios' | 'interno';
 
 /** Filtros da barra (o "Todos" é `''`). */
-export type FiltrosRecursos = { busca: string; oferta: string; servico: string };
-export type FiltrosRepositorios = { busca: string; oferta: string; servico: string };
+export type FiltrosRecursos = {
+  busca: string;
+  oferta: string;
+  servico: string;
+};
+export type FiltrosRepositorios = {
+  busca: string;
+  oferta: string;
+  servico: string;
+};
 
 /** Filtro por coluna: chave da coluna → texto procurado. */
 export type { FiltrosColuna } from '../shared/filtros';

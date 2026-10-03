@@ -12,7 +12,13 @@ type Props = {
 };
 
 /** Barra de filtros (abre pelo botão "Filtros" da Toolbar): nome, oferta e serviço. */
-export function Filters({ filtros, ofertas, servicos, buscaPlaceholder, onChange }: Props) {
+export function Filters({
+  filtros,
+  ofertas,
+  servicos,
+  buscaPlaceholder,
+  onChange,
+}: Props) {
   const classes = useStyles();
 
   return (
@@ -24,11 +30,23 @@ export function Filters({ filtros, ofertas, servicos, buscaPlaceholder, onChange
           placeholder={buscaPlaceholder}
           aria-label={buscaPlaceholder}
           value={filtros.busca}
-          onChange={event => onChange({ ...filtros, busca: event.target.value })}
+          onChange={event =>
+            onChange({ ...filtros, busca: event.target.value })
+          }
         />
       </label>
-      <FilterSelect label="Oferta" value={filtros.oferta} options={ofertas} onChange={oferta => onChange({ ...filtros, oferta })} />
-      <FilterSelect label="Serviço" value={filtros.servico} options={servicos} onChange={servico => onChange({ ...filtros, servico })} />
+      <FilterSelect
+        label="Oferta"
+        value={filtros.oferta}
+        options={ofertas}
+        onChange={oferta => onChange({ ...filtros, oferta })}
+      />
+      <FilterSelect
+        label="Serviço"
+        value={filtros.servico}
+        options={servicos}
+        onChange={servico => onChange({ ...filtros, servico })}
+      />
     </div>
   );
 }

@@ -6,7 +6,11 @@ import type { AmbienteSkill, Skill } from './types';
 /** Marcador de ambiente: release em verde, hml em âmbar, dev em azul. */
 export function MarcadorAmbiente({ ambiente }: { ambiente: AmbienteSkill }) {
   const classes = useStyles();
-  const porAmbiente: Record<AmbienteSkill, string> = { release: classes.envRelease, hml: classes.envHml, dev: classes.envDev };
+  const porAmbiente: Record<AmbienteSkill, string> = {
+    release: classes.envRelease,
+    hml: classes.envHml,
+    dev: classes.envDev,
+  };
   return <span className={porAmbiente[ambiente]}>{ambiente}</span>;
 }
 
@@ -14,12 +18,27 @@ export function MarcadorAmbiente({ ambiente }: { ambiente: AmbienteSkill }) {
 export function SkillCard({ skill }: { skill: Skill }) {
   const classes = useStyles();
   const matiz = matizDoNome(skill.nome);
-  const ambientes = ORDEM_AMBIENTES.filter(ambiente => skill.ambientes.includes(ambiente));
+  const ambientes = ORDEM_AMBIENTES.filter(ambiente =>
+    skill.ambientes.includes(ambiente),
+  );
 
   return (
-    <a className={classes.card} href={linkDaSkill(skill)} target="_blank" rel="noopener noreferrer" title="Abrir o SKILL.md no GitHub">
+    <a
+      className={classes.card}
+      href={linkDaSkill(skill)}
+      target="_blank"
+      rel="noopener noreferrer"
+      title="Abrir o SKILL.md no GitHub"
+    >
       <div className={classes.cardHead}>
-        <Avatar variant="rounded" className={classes.icon} style={{ background: `hsla(${matiz}, 70%, 55%, 0.18)`, color: `hsl(${matiz}, 70%, 60%)` }}>
+        <Avatar
+          variant="rounded"
+          className={classes.icon}
+          style={{
+            background: `hsla(${matiz}, 70%, 55%, 0.18)`,
+            color: `hsl(${matiz}, 70%, 60%)`,
+          }}
+        >
           {iniciais(skill.nome)}
         </Avatar>
         <div>

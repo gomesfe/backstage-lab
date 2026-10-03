@@ -1,6 +1,11 @@
 import { makeStyles } from '@material-ui/core/styles';
 import { atlasTokens } from '../../atlas/components/tokens';
-import { cores, textoStatus, useAtlasStyles, verdeTexto } from '../shared/styles';
+import {
+  cores,
+  textoStatus,
+  useAtlasStyles,
+  verdeTexto,
+} from '../shared/styles';
 
 const { brand, status, radius } = atlasTokens;
 
@@ -29,8 +34,22 @@ const useAgenteStyles = makeStyles(theme => {
       [theme.breakpoints.down('sm')]: { gridTemplateColumns: 'minmax(0, 1fr)' },
     },
     historico: { padding: 12, gap: 10 },
-    rotulo: { padding: '4px 4px 0', fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: c.textMuted },
-    lista: { display: 'flex', flexDirection: 'column', gap: 2, overflowY: 'auto', maxHeight: 'calc(100vh - 330px)', [theme.breakpoints.down('sm')]: { maxHeight: 220 } },
+    rotulo: {
+      padding: '4px 4px 0',
+      fontSize: '0.68rem',
+      fontWeight: 700,
+      letterSpacing: '0.08em',
+      textTransform: 'uppercase',
+      color: c.textMuted,
+    },
+    lista: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 2,
+      overflowY: 'auto',
+      maxHeight: 'calc(100vh - 330px)',
+      [theme.breakpoints.down('sm')]: { maxHeight: 220 },
+    },
     item: {
       display: 'flex',
       alignItems: 'center',
@@ -44,21 +63,87 @@ const useAgenteStyles = makeStyles(theme => {
       '&:hover': { background: c.bgSurface, color: c.textPrimary },
       '&:hover $apagar, &:focus-within $apagar': { opacity: 1 },
     },
-    itemAtivo: { background: brand.limeBg, borderColor: brand.limeBorder, color: c.textPrimary, '&:hover': { background: brand.limeBg }, '& $apagar': { opacity: 1 } },
-    itemTexto: { flex: 1, minWidth: 0, display: 'flex', flexDirection: 'column', gap: 1 },
-    itemTitulo: { fontSize: '0.82rem', fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' },
+    itemAtivo: {
+      background: brand.limeBg,
+      borderColor: brand.limeBorder,
+      color: c.textPrimary,
+      '&:hover': { background: brand.limeBg },
+      '& $apagar': { opacity: 1 },
+    },
+    itemTexto: {
+      flex: 1,
+      minWidth: 0,
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 1,
+    },
+    itemTitulo: {
+      fontSize: '0.82rem',
+      fontWeight: 600,
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
     meta: { fontSize: '0.7rem', color: c.textMuted },
-    apagar: { opacity: 0, padding: 4, border: 0, borderRadius: 6, background: 'none', color: textoStatus(theme, 'danger'), cursor: 'pointer', display: 'inline-flex' },
+    apagar: {
+      opacity: 0,
+      padding: 4,
+      border: 0,
+      borderRadius: 6,
+      background: 'none',
+      color: textoStatus(theme, 'danger'),
+      cursor: 'pointer',
+      display: 'inline-flex',
+    },
     // ---- conversa
-    chat: { height: 'calc(100vh - 250px)', minHeight: 460, [theme.breakpoints.down('sm')]: { height: 'auto', minHeight: 520 } },
-    chatHead: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 10, minHeight: 32 },
-    chatTitulo: { minWidth: 0, fontSize: '0.98rem', fontWeight: 700, color: c.textPrimary, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' },
-    mensagens: { flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 16, padding: '4px 4px 8px' },
+    chat: {
+      height: 'calc(100vh - 250px)',
+      minHeight: 460,
+      [theme.breakpoints.down('sm')]: { height: 'auto', minHeight: 520 },
+    },
+    chatHead: {
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: 10,
+      minHeight: 32,
+    },
+    chatTitulo: {
+      minWidth: 0,
+      fontSize: '0.98rem',
+      fontWeight: 700,
+      color: c.textPrimary,
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textOverflow: 'ellipsis',
+    },
+    mensagens: {
+      flex: 1,
+      overflowY: 'auto',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 16,
+      padding: '4px 4px 8px',
+    },
     linha: { display: 'flex', gap: 10, alignItems: 'flex-start' },
-    linhaVoce: { flexDirection: 'row-reverse', '& $pilha': { alignItems: 'flex-end' } },
+    linhaVoce: {
+      flexDirection: 'row-reverse',
+      '& $pilha': { alignItems: 'flex-end' },
+    },
     avatar,
-    avatarAgente: { ...avatar, background: `linear-gradient(145deg, #5cc45c 0%, ${brand.lime} 55%, #2f852f 100%)`, color: '#fff', '& svg': { width: '62%', height: 'auto', color: '#fff' } },
-    pilha: { display: 'flex', flexDirection: 'column', gap: 6, maxWidth: 'min(760px, 85%)', minWidth: 0 },
+    avatarAgente: {
+      ...avatar,
+      background: `linear-gradient(145deg, #5cc45c 0%, ${brand.lime} 55%, #2f852f 100%)`,
+      color: '#fff',
+      '& svg': { width: '62%', height: 'auto', color: '#fff' },
+    },
+    pilha: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 6,
+      maxWidth: 'min(760px, 85%)',
+      minWidth: 0,
+    },
     balao: {
       padding: '10px 14px',
       borderRadius: 16,
@@ -72,9 +157,18 @@ const useAgenteStyles = makeStyles(theme => {
       '& > :last-child, & > * > :last-child': { marginBottom: 0 },
       '& a': { color: verdeTexto(theme), fontWeight: 600 },
     },
-    balaoVoce: { background: brand.limeBg, borderColor: brand.limeBorder, borderTopRightRadius: 6, whiteSpace: 'pre-wrap' },
+    balaoVoce: {
+      background: brand.limeBg,
+      borderColor: brand.limeBorder,
+      borderTopRightRadius: 6,
+      whiteSpace: 'pre-wrap',
+    },
     balaoAgente: { borderTopLeftRadius: 6 },
-    balaoErro: { borderColor: `${status.danger}59`, background: `${status.danger}0f`, color: c.textSecondary },
+    balaoErro: {
+      borderColor: `${status.danger}59`,
+      background: `${status.danger}0f`,
+      color: c.textSecondary,
+    },
     consultas: { display: 'flex', flexWrap: 'wrap', gap: 6 },
     consulta: {
       display: 'inline-flex',
@@ -92,7 +186,13 @@ const useAgenteStyles = makeStyles(theme => {
       display: 'inline-flex',
       gap: 4,
       padding: '4px 0',
-      '& span': { width: 6, height: 6, borderRadius: '50%', background: c.textMuted, animation: '$digitando 1.2s infinite ease-in-out' },
+      '& span': {
+        width: 6,
+        height: 6,
+        borderRadius: '50%',
+        background: c.textMuted,
+        animation: '$digitando 1.2s infinite ease-in-out',
+      },
       '& span:nth-child(2)': { animationDelay: '0.15s' },
       '& span:nth-child(3)': { animationDelay: '0.3s' },
     },
@@ -101,8 +201,23 @@ const useAgenteStyles = makeStyles(theme => {
       '40%': { opacity: 1, transform: 'translateY(-3px)' },
     },
     esqueleto: { height: 14, borderRadius: 7, background: c.bgPill },
-    vazio: { margin: 'auto', maxWidth: 640, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 14, padding: '20px 0', textAlign: 'center' },
-    sugestoes: { display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 8, width: '100%' },
+    vazio: {
+      margin: 'auto',
+      maxWidth: 640,
+      width: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: 14,
+      padding: '20px 0',
+      textAlign: 'center',
+    },
+    sugestoes: {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+      gap: 8,
+      width: '100%',
+    },
     sugestao: {
       padding: '12px 14px',
       borderRadius: radius.md,
@@ -124,7 +239,10 @@ const useAgenteStyles = makeStyles(theme => {
       borderRadius: 16,
       border: `1px solid ${c.borderLight}`,
       background: c.bgSurface,
-      '&:focus-within': { borderColor: brand.lime, boxShadow: `0 0 0 3px ${brand.limeBg}` },
+      '&:focus-within': {
+        borderColor: brand.lime,
+        boxShadow: `0 0 0 3px ${brand.limeBg}`,
+      },
       '& textarea': {
         flex: 1,
         minHeight: 24,
@@ -140,8 +258,16 @@ const useAgenteStyles = makeStyles(theme => {
         lineHeight: 1.5,
       },
     },
-    dica: { padding: '0 4px', fontSize: '0.7rem', color: c.textMuted, textAlign: 'right' },
-    codigo: { fontFamily: '"JetBrains Mono", ui-monospace, monospace', fontSize: '0.84em' },
+    dica: {
+      padding: '0 4px',
+      fontSize: '0.7rem',
+      color: c.textMuted,
+      textAlign: 'right',
+    },
+    codigo: {
+      fontFamily: '"JetBrains Mono", ui-monospace, monospace',
+      fontSize: '0.84em',
+    },
   };
 });
 

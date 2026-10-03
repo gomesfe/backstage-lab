@@ -22,7 +22,10 @@ export function SkillsPage() {
   const [busca, setBusca] = useState('');
   const [dialogo, setDialogo] = useState<Dialogo | null>(null);
 
-  const filtradas = useMemo(() => filtrarSkills(skills, ambiente, busca), [skills, ambiente, busca]);
+  const filtradas = useMemo(
+    () => filtrarSkills(skills, ambiente, busca),
+    [skills, ambiente, busca],
+  );
 
   return (
     <Page themeId="tool">
@@ -32,16 +35,32 @@ export function SkillsPage() {
             <div>
               <span className={classes.eyebrow}>Catálogo de IA</span>
               <h1 className={classes.title}>Skills</h1>
-              <p className={classes.subtitle}>Instruções especializadas e fluxos de automação reutilizáveis para agentes e assistentes de IA.</p>
+              <p className={classes.subtitle}>
+                Instruções especializadas e fluxos de automação reutilizáveis
+                para agentes e assistentes de IA.
+              </p>
             </div>
             <div className={classes.headerActions}>
-              <button type="button" className={classes.button} onClick={() => setDialogo('ajuda')}>
+              <button
+                type="button"
+                className={classes.button}
+                onClick={() => setDialogo('ajuda')}
+              >
                 <HelpIcon style={{ fontSize: 16 }} /> Ajuda
               </button>
-              <button type="button" className={classes.buttonPrimary} onClick={() => setDialogo('cadastrar')}>
+              <button
+                type="button"
+                className={classes.buttonPrimary}
+                onClick={() => setDialogo('cadastrar')}
+              >
                 <AddIcon style={{ fontSize: 16 }} /> Cadastrar Skill
               </button>
-              <button type="button" className={classes.button} title="Busca as skills de novo no repositório" onClick={refresh}>
+              <button
+                type="button"
+                className={classes.button}
+                title="Busca as skills de novo no repositório"
+                onClick={refresh}
+              >
                 <RefreshIcon style={{ fontSize: 16 }} /> Atualizar
               </button>
             </div>
@@ -57,7 +76,9 @@ export function SkillsPage() {
                   key={aba.id}
                   type="button"
                   aria-pressed={ambiente === aba.id}
-                  className={`${classes.tab} ${ambiente === aba.id ? classes.tabActive : ''}`}
+                  className={`${classes.tab} ${
+                    ambiente === aba.id ? classes.tabActive : ''
+                  }`}
                   onClick={() => setAmbiente(aba.id)}
                 >
                   {aba.rotulo}
@@ -84,7 +105,11 @@ export function SkillsPage() {
               ))}
             </div>
           )}
-          {!loading && filtradas.length === 0 && <div className={classes.empty}>Nenhuma skill encontrada com esses filtros.</div>}
+          {!loading && filtradas.length === 0 && (
+            <div className={classes.empty}>
+              Nenhuma skill encontrada com esses filtros.
+            </div>
+          )}
         </div>
         <Dialogs dialogo={dialogo} onClose={() => setDialogo(null)} />
       </Content>

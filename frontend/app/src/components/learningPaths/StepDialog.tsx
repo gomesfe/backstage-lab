@@ -17,12 +17,27 @@ type Props = {
 };
 
 /** O texto completo de uma etapa, com marcar como concluída e seguir. */
-export function StepDialog({ etapa, numero, total, feita, onAlternar, onAnterior, onConcluirESeguir, onClose }: Props) {
+export function StepDialog({
+  etapa,
+  numero,
+  total,
+  feita,
+  onAlternar,
+  onAnterior,
+  onConcluirESeguir,
+  onClose,
+}: Props) {
   const classes = useStyles();
   const ultima = numero === total;
 
   return (
-    <Dialog open onClose={onClose} maxWidth="md" fullWidth PaperProps={{ className: classes.dialogPaper }}>
+    <Dialog
+      open
+      onClose={onClose}
+      maxWidth="md"
+      fullWidth
+      PaperProps={{ className: classes.dialogPaper }}
+    >
       <div className={classes.dialogHead}>
         <span className={classes.dialogEyebrow}>
           Etapa {numero} de {total}
@@ -63,7 +78,11 @@ export function StepDialog({ etapa, numero, total, feita, onAlternar, onAnterior
           <button type="button" className={classes.button} onClick={onAlternar}>
             {feita ? 'Desmarcar' : 'Marcar como concluída'}
           </button>
-          <button type="button" className={classes.buttonPrimary} onClick={onConcluirESeguir}>
+          <button
+            type="button"
+            className={classes.buttonPrimary}
+            onClick={onConcluirESeguir}
+          >
             {ultima ? 'Concluir trilha' : 'Concluir e seguir'}
           </button>
         </span>

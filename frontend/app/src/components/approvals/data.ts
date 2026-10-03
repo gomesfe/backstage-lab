@@ -103,7 +103,8 @@ export const SOLICITACOES: Solicitacao[] = [
     },
     status: 'aguardando',
     excluido: false,
-    justificativa: 'Banco da conciliação diária. Plano de capacidade aprovado no ADR-042.',
+    justificativa:
+      'Banco da conciliação diária. Plano de capacidade aprovado no ADR-042.',
     aprovadores: [
       {
         nome: 'admin',

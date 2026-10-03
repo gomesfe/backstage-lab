@@ -1,0 +1,516 @@
+# Catálogo de exemplo do Atlas: os mesmos sistemas, aplicações, APIs e
+# recursos que as telas mostravam em HTML. Com eles no catálogo do lab, as
+# telas em React (Catálogo, APIs, Docs, Home) leem dados de verdade pelo
+# catalogApi. Os itens internos do time do Atlas ficam no namespace `atlas`.
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: pagamentos
+  description: "Tudo que movimenta dinheiro."
+  tags: [dominio]
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  owner: pagamentos
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: payments-api
+  description: "API de pagamentos: Pix, boleto e cartão."
+  tags: [java, pix, pagamentos]
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: service
+  lifecycle: production
+  owner: pagamentos
+  system: pagamentos
+  providesApis: [payments-api]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: SRO-4722
+  description: "Consulta de registros de operações."
+  tags: [java, sro]
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: service
+  lifecycle: production
+  owner: antifraude
+  system: antifraude
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: anf-eventos-fila
+  description: "Fila de eventos para o motor antifraude."
+  tags: [aws, fila]
+spec:
+  type: sqs
+  lifecycle: production
+  owner: antifraude
+  system: antifraude
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: antifraude
+  description: "Prevenção a fraude."
+  tags: [dominio]
+spec:
+  owner: antifraude
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: antifraude-core
+  description: "Motor de regras antifraude em tempo real."
+  tags: [java, regras]
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: service
+  lifecycle: production
+  owner: antifraude
+  system: antifraude
+  providesApis: [antifraude-grpc]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: atlas-agent
+  description: "Agente do Atlas: chat sobre o catálogo."
+  tags: [ia, node]
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: service
+  lifecycle: experimental
+  owner: plataforma
+  providesApis: [atlas-agent-api]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: checkout-gateway
+  description: "Gateway de checkout legado, substituído pelo payments-api."
+  tags: [node, legado]
+spec:
+  type: service
+  lifecycle: deprecated
+  owner: pagamentos
+  system: pagamentos
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ledger-service
+  description: "Razão contábil das transações."
+  tags: [kotlin, contabil]
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: service
+  lifecycle: production
+  owner: pagamentos
+  system: pagamentos
+  providesApis: [ledger-api]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: notificacoes-lambda
+  description: "Envia e-mail e push a partir de eventos."
+  tags: [lambda, eventos]
+spec:
+  type: serverless
+  lifecycle: production
+  owner: plataforma
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: onb-documentos-bucket
+  description: "Bucket dos documentos enviados no cadastro."
+  tags: [aws, storage]
+spec:
+  type: s3
+  lifecycle: production
+  owner: onboarding
+  system: onboarding
+---
+apiVersion: backstage.io/v1alpha1
+kind: System
+metadata:
+  name: onboarding
+  description: "Cadastro e ativação de clientes."
+  tags: [dominio]
+spec:
+  owner: onboarding
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: onboarding-web
+  description: "Site de cadastro de novos clientes."
+  tags: [react, web]
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: website
+  lifecycle: production
+  owner: onboarding
+  system: onboarding
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: onboarding-worker
+  description: "Processa cadastros e validação de documentos."
+  tags: [python, fila]
+spec:
+  type: worker
+  lifecycle: experimental
+  owner: onboarding
+  system: onboarding
+  providesApis: [onboarding-events]
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: pag-cache-sessoes
+  description: "Cache de sessões do checkout."
+  tags: [aws, cache]
+spec:
+  type: valkey
+  lifecycle: experimental
+  owner: pagamentos
+  system: pagamentos
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: pag-conciliacao-db
+  description: "Banco PostgreSQL da conciliação diária."
+  tags: [aws, dados]
+spec:
+  type: rds
+  lifecycle: production
+  owner: pagamentos
+  system: pagamentos
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: portal
+  description: "O próprio Atlas (Backstage)."
+  tags: [backstage, web]
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: website
+  lifecycle: production
+  owner: plataforma
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: PREVCAP-2001
+  description: "Cálculo de contribuição da previdência."
+  tags: [java, previdencia]
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: service
+  lifecycle: production
+  owner: pagamentos
+  system: pagamentos
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: PREVCAP-2018
+  description: "Gera extratos de previdência sob demanda."
+  tags: [lambda, previdencia]
+spec:
+  type: serverless
+  lifecycle: production
+  owner: pagamentos
+  system: pagamentos
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: PREVCAP-2025
+  description: "Notifica vencimento de aportes."
+  tags: [lambda, eventos]
+spec:
+  type: serverless
+  lifecycle: experimental
+  owner: pagamentos
+  system: pagamentos
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: risk-scoring
+  description: "Modelo de score de risco por transação."
+  tags: [python, ml]
+spec:
+  type: service
+  lifecycle: experimental
+  owner: antifraude
+  system: antifraude
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: SRO-4740
+  description: "Importa arquivos de registro da B3."
+  tags: [lambda, sro]
+spec:
+  type: serverless
+  lifecycle: production
+  owner: antifraude
+  system: antifraude
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: SRO-4755
+  description: "Portal estático de consulta do SRO."
+  tags: [web, sro]
+spec:
+  type: website
+  lifecycle: production
+  owner: onboarding
+  system: onboarding
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: SRO-4760
+  description: "Cadastro de participantes do SRO."
+  tags: [kotlin, sro]
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: service
+  lifecycle: production
+  owner: onboarding
+  system: onboarding
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: SRO-4777
+  description: "Conciliação de registros entre sistemas."
+  tags: [java, sro]
+spec:
+  type: service
+  lifecycle: experimental
+  owner: plataforma
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: SRO-4790
+  description: "Documentação pública do SRO."
+  tags: [web, docs]
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: website
+  lifecycle: production
+  owner: plataforma
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: SRO-4821
+  description: "Motor de validação de registros."
+  tags: [java, sro]
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: service
+  lifecycle: production
+  owner: antifraude
+  system: antifraude
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: payments-api
+  description: "Pagamentos: cobranças, estornos e consulta."
+  tags: [rest, pix]
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: openapi
+  lifecycle: production
+  owner: pagamentos
+  system: pagamentos
+  definition: "# Definição de exemplo de payments-api"
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: antifraude-grpc
+  description: "Avaliação síncrona de risco de transação."
+  tags: [grpc]
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: grpc
+  lifecycle: production
+  owner: antifraude
+  system: antifraude
+  definition: "# Definição de exemplo de antifraude-grpc"
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: atlas-agent-api
+  description: "Chat do agente do Atlas."
+  tags: [ia]
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: openapi
+  lifecycle: experimental
+  owner: plataforma
+  definition: "# Definição de exemplo de atlas-agent-api"
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: ledger-api
+  description: "Lançamentos e saldos do razão contábil."
+  tags: [rest]
+  annotations:
+    backstage.io/techdocs-ref: dir:.
+spec:
+  type: openapi
+  lifecycle: production
+  owner: pagamentos
+  system: pagamentos
+  definition: "# Definição de exemplo de ledger-api"
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: onboarding-events
+  description: "Eventos de cadastro concluído e documento validado."
+  tags: [eventos]
+spec:
+  type: asyncapi
+  lifecycle: production
+  owner: onboarding
+  system: onboarding
+  definition: "# Definição de exemplo de onboarding-events"
+---
+apiVersion: backstage.io/v1alpha1
+kind: API
+metadata:
+  name: risk-events
+  description: "Eventos de score publicados no Kafka."
+  tags: [eventos]
+spec:
+  type: asyncapi
+  lifecycle: experimental
+  owner: antifraude
+  system: antifraude
+  definition: "# Definição de exemplo de risk-events"
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: atlas-portal
+  namespace: atlas
+  description: "Portal do Atlas (front e back)."
+spec:
+  type: website
+  lifecycle: production
+  owner: group:default/atlas
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: atlas-agent
+  namespace: atlas
+  description: "Agente do Atlas, com Claude."
+spec:
+  type: service
+  lifecycle: experimental
+  owner: group:default/atlas
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: atlas-rbac
+  namespace: atlas
+  description: "Permissões e papéis do portal."
+spec:
+  type: service
+  lifecycle: production
+  owner: group:default/atlas
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: atlas-design-system
+  namespace: atlas
+  description: "CSS e componentes do Atlas."
+spec:
+  type: library
+  lifecycle: production
+  owner: group:default/atlas
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: atlas-ofertas
+  namespace: atlas
+  description: "Ofertas e templates internos de desenvolvimento."
+spec:
+  type: service
+  lifecycle: production
+  owner: group:default/atlas
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: atlas-portal-db
+  namespace: atlas
+  description: "Banco do portal."
+spec:
+  type: database
+  lifecycle: production
+  owner: group:default/atlas
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: atlas-eventos-fila
+  namespace: atlas
+  description: "Fila de eventos do portal."
+spec:
+  type: queue
+  lifecycle: production
+  owner: group:default/atlas
+---
+apiVersion: backstage.io/v1alpha1
+kind: Resource
+metadata:
+  name: atlas-logs-bucket
+  namespace: atlas
+  description: "Logs de auditoria."
+spec:
+  type: bucket
+  lifecycle: production
+  owner: group:default/atlas

@@ -21,7 +21,9 @@ export function ColumnFilter({ label, value, onChange }: Props) {
   return (
     <>
       <IconButton
-        className={`${classes.columnFilterButton} ${value ? classes.columnFilterActive : ''}`}
+        className={`${classes.columnFilterButton} ${
+          value ? classes.columnFilterActive : ''
+        }`}
         aria-label={`Filtrar por ${label}`}
         title={`Filtrar por ${label}`}
         onClick={event => setAnchor(event.currentTarget)}
@@ -67,7 +69,11 @@ export function ColumnFilter({ label, value, onChange }: Props) {
           >
             Limpar
           </button>
-          <button type="button" className={classes.button} onClick={() => setAnchor(null)}>
+          <button
+            type="button"
+            className={classes.button}
+            onClick={() => setAnchor(null)}
+          >
             Fechar
           </button>
         </div>

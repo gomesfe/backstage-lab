@@ -50,3 +50,41 @@ metadata:
 spec:
   type: team
   children: []
+# Squads de exemplo do Atlas (donos das entidades de atlas-catalog.yaml) e o
+# time do Atlas, dono dos itens internos.
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: pagamentos
+  description: "Squad de pagamentos."
+spec:
+  type: team
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: antifraude
+  description: "Squad de antifraude."
+spec:
+  type: team
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: onboarding
+  description: "Squad de onboarding."
+spec:
+  type: team
+  children: []
+---
+apiVersion: backstage.io/v1alpha1
+kind: Group
+metadata:
+  name: atlas
+  description: "Time do Atlas: o portal, o agente e as ofertas internas."
+spec:
+  type: team
+  children: []

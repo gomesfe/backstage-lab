@@ -1,6 +1,11 @@
 import type { Pedido } from './types';
 
-export const PERFIS = ['ReadOnlyAccess', 'PowerUserAccess', 'DatabaseAdmin', 'NetworkAdmin'];
+export const PERFIS = [
+  'ReadOnlyAccess',
+  'PowerUserAccess',
+  'DatabaseAdmin',
+  'NetworkAdmin',
+];
 
 export const DURACOES: { horas: number; rotulo: string }[] = [
   { horas: 1, rotulo: '1 hora' },
@@ -12,7 +17,12 @@ export const DURACOES: { horas: number; rotulo: string }[] = [
 /** A justificativa vai para a auditoria: precisa dizer o incidente e o que fazer. */
 export const JUSTIFICATIVA_MINIMA = 20;
 
-export const PEDIDO_VAZIO: Pedido = { perfil: PERFIS[0], horas: 1, conta: '', justificativa: '' };
+export const PEDIDO_VAZIO: Pedido = {
+  perfil: PERFIS[0],
+  horas: 1,
+  conta: '',
+  justificativa: '',
+};
 
 export type Erros = { conta?: string; justificativa?: string };
 

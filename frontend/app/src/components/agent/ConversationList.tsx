@@ -15,17 +15,32 @@ type Props = {
 };
 
 /** Histórico: Nova conversa e as conversas da pessoa, da mais recente para a mais antiga. */
-export function ConversationList({ conversas, carregando, ativaId, onNova, onAbrir, onApagar }: Props) {
+export function ConversationList({
+  conversas,
+  carregando,
+  ativaId,
+  onNova,
+  onAbrir,
+  onApagar,
+}: Props) {
   const classes = useStyles();
 
   return (
-    <aside className={`${classes.card} ${classes.historico}`} aria-label="Histórico de conversas">
+    <aside
+      className={`${classes.card} ${classes.historico}`}
+      aria-label="Histórico de conversas"
+    >
       <button type="button" className={classes.buttonPrimary} onClick={onNova}>
         <AddIcon style={{ fontSize: 16 }} /> Nova conversa
       </button>
       <div className={classes.rotulo}>Histórico</div>
       <div className={classes.lista}>
-        {carregando && <div className={classes.esqueleto} style={{ width: '80%', margin: 8 }} />}
+        {carregando && (
+          <div
+            className={classes.esqueleto}
+            style={{ width: '80%', margin: 8 }}
+          />
+        )}
         {!carregando && conversas.length === 0 && (
           <p className={classes.meta} style={{ padding: '4px 8px', margin: 0 }}>
             Nenhuma conversa ainda. A primeira pergunta cria uma.
@@ -37,7 +52,9 @@ export function ConversationList({ conversas, carregando, ativaId, onNova, onAbr
             role="button"
             tabIndex={0}
             aria-current={conversa.id === ativaId ? 'true' : undefined}
-            className={`${classes.item} ${conversa.id === ativaId ? classes.itemAtivo : ''}`}
+            className={`${classes.item} ${
+              conversa.id === ativaId ? classes.itemAtivo : ''
+            }`}
             onClick={() => onAbrir(conversa.id)}
             onKeyDown={evento => evento.key === 'Enter' && onAbrir(conversa.id)}
           >

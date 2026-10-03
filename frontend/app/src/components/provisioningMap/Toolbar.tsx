@@ -16,7 +16,16 @@ type Props = {
 };
 
 /** Título + contador + botão de filtros + itens por página. */
-export function Toolbar({ titulo, total, selo, filtrosAbertos, filtrosAtivos, onToggleFiltros, porPagina, onPorPagina }: Props) {
+export function Toolbar({
+  titulo,
+  total,
+  selo,
+  filtrosAbertos,
+  filtrosAtivos,
+  onToggleFiltros,
+  porPagina,
+  onPorPagina,
+}: Props) {
   const classes = useStyles();
 
   return (
@@ -24,16 +33,27 @@ export function Toolbar({ titulo, total, selo, filtrosAbertos, filtrosAtivos, on
       <h3 className={classes.toolbarTitle}>
         {titulo}
         <span className={classes.count}>{total}</span>
-        {selo && <span className={selo.tipo === 'iac' ? classes.badgeIac : classes.badgeSemIac}>{selo.texto}</span>}
+        {selo && (
+          <span
+            className={
+              selo.tipo === 'iac' ? classes.badgeIac : classes.badgeSemIac
+            }
+          >
+            {selo.texto}
+          </span>
+        )}
       </h3>
       <div className={classes.toolbarActions}>
         <button
           type="button"
-          className={`${classes.filtersButton} ${filtrosAbertos || filtrosAtivos ? classes.filtersButtonActive : ''}`}
+          className={`${classes.filtersButton} ${
+            filtrosAbertos || filtrosAtivos ? classes.filtersButtonActive : ''
+          }`}
           aria-pressed={filtrosAbertos}
           onClick={onToggleFiltros}
         >
-          <FilterIcon style={{ fontSize: 16 }} /> Filtros{filtrosAtivos ? ` (${filtrosAtivos})` : ''}
+          <FilterIcon style={{ fontSize: 16 }} /> Filtros
+          {filtrosAtivos ? ` (${filtrosAtivos})` : ''}
         </button>
         <FilterSelect
           label="Itens"

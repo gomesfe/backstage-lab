@@ -31,21 +31,33 @@ type CelulaProps = {
 };
 
 /** Um ambiente de um recurso: data + Excluir + Detalhes, pendente, ou Promover. */
-function CelulaAmbiente({ estado, ambiente, onPromover, onExcluir, onDetalhes }: CelulaProps) {
+function CelulaAmbiente({
+  estado,
+  ambiente,
+  onPromover,
+  onExcluir,
+  onDetalhes,
+}: CelulaProps) {
   const classes = useStyles();
 
   if (estado.tipo === 'vazio') {
     return (
       <span className={classes.envCell}>
         <span className={classes.envEmpty}>—</span>
-        <button type="button" className={classes.pillAdd} onClick={onPromover} title={`Promover para ${ambiente}`}>
+        <button
+          type="button"
+          className={classes.pillAdd}
+          onClick={onPromover}
+          title={`Promover para ${ambiente}`}
+        >
           <AddIcon style={{ fontSize: 13 }} /> Promover
         </button>
       </span>
     );
   }
 
-  const pendente = estado.tipo === 'exclusaoPendente' || estado.tipo === 'aguardandoCloud';
+  const pendente =
+    estado.tipo === 'exclusaoPendente' || estado.tipo === 'aguardandoCloud';
   return (
     <span className={classes.envCell}>
       <span className={classes.envDate} title={estado.data}>
@@ -55,10 +67,19 @@ function CelulaAmbiente({ estado, ambiente, onPromover, onExcluir, onDetalhes }:
         <span
           className={classes.pillWarn}
           role="img"
-          aria-label={estado.tipo === 'exclusaoPendente' ? 'Exclusão pendente' : 'Aguardando aprovação do time de cloud'}
-          title={estado.tipo === 'exclusaoPendente' ? 'Exclusão pendente: solicitação registrada' : 'Aguardando aprovação do time de cloud'}
+          aria-label={
+            estado.tipo === 'exclusaoPendente'
+              ? 'Exclusão pendente'
+              : 'Aguardando aprovação do time de cloud'
+          }
+          title={
+            estado.tipo === 'exclusaoPendente'
+              ? 'Exclusão pendente: solicitação registrada'
+              : 'Aguardando aprovação do time de cloud'
+          }
         >
-          <PendingIcon style={{ fontSize: 13 }} /> {estado.tipo === 'exclusaoPendente' ? 'Pendente' : 'Aguard. cloud'}
+          <PendingIcon style={{ fontSize: 13 }} />{' '}
+          {estado.tipo === 'exclusaoPendente' ? 'Pendente' : 'Aguard. cloud'}
         </span>
       ) : (
         <button
@@ -74,7 +95,12 @@ function CelulaAmbiente({ estado, ambiente, onPromover, onExcluir, onDetalhes }:
           <DeleteIcon style={{ fontSize: 13 }} /> Excluir
         </button>
       )}
-      <button type="button" className={classes.pill} onClick={onDetalhes} title="Detalhes da promoção">
+      <button
+        type="button"
+        className={classes.pill}
+        onClick={onDetalhes}
+        title="Detalhes da promoção"
+      >
         Detalhes
       </button>
     </span>
@@ -82,13 +108,35 @@ function CelulaAmbiente({ estado, ambiente, onPromover, onExcluir, onDetalhes }:
 }
 
 /** Tabela de recursos com IaC: uma coluna por ambiente. */
-export function Table({ recursos, servicos, colunas, onColuna, onPromover, onExcluir, onDetalhesAmbiente, onDetalhes }: Props) {
+export function Table({
+  recursos,
+  servicos,
+  colunas,
+  onColuna,
+  onPromover,
+  onExcluir,
+  onDetalhesAmbiente,
+  onDetalhes,
+}: Props) {
   const classes = useStyles();
-  const cabecalho = (chave: string, rotulo: string, alinhamento: 'left' | 'center' = 'left') => (
-    <TableCell key={chave} className={`${classes.th} ${alinhamento === 'center' ? classes.center : ''}`}>
+  const cabecalho = (
+    chave: string,
+    rotulo: string,
+    alinhamento: 'left' | 'center' = 'left',
+  ) => (
+    <TableCell
+      key={chave}
+      className={`${classes.th} ${
+        alinhamento === 'center' ? classes.center : ''
+      }`}
+    >
       <span className={classes.thInner}>
         {rotulo}
-        <ColumnFilter label={rotulo} value={colunas[chave] ?? ''} onChange={valor => onColuna(chave, valor)} />
+        <ColumnFilter
+          label={rotulo}
+          value={colunas[chave] ?? ''}
+          onChange={valor => onColuna(chave, valor)}
+        />
       </span>
     </TableCell>
   );
@@ -102,7 +150,9 @@ export function Table({ recursos, servicos, colunas, onColuna, onPromover, onExc
             {cabecalho('servico', 'Serviço Núclea')}
             {cabecalho('oferta', 'Oferta')}
             {AMBIENTES.map(ambiente => cabecalho(ambiente, ambiente, 'center'))}
-            <TableCell className={`${classes.th} ${classes.right}`}>Ações</TableCell>
+            <TableCell className={`${classes.th} ${classes.right}`}>
+              Ações
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -112,13 +162,19 @@ export function Table({ recursos, servicos, colunas, onColuna, onPromover, onExc
                 <span className={classes.name}>{recurso.nome}</span>
               </TableCell>
               <TableCell className={classes.td}>
-                <span className={classes.sigla} title={servicos[recurso.servico]}>
+                <span
+                  className={classes.sigla}
+                  title={servicos[recurso.servico]}
+                >
                   {recurso.servico}
                 </span>
               </TableCell>
               <TableCell className={classes.td}>{recurso.oferta}</TableCell>
               {AMBIENTES.map(ambiente => (
-                <TableCell key={ambiente} className={`${classes.td} ${classes.center}`}>
+                <TableCell
+                  key={ambiente}
+                  className={`${classes.td} ${classes.center}`}
+                >
                   <CelulaAmbiente
                     estado={recurso.ambientes[ambiente]}
                     ambiente={ambiente}
@@ -129,7 +185,11 @@ export function Table({ recursos, servicos, colunas, onColuna, onPromover, onExc
                 </TableCell>
               ))}
               <TableCell className={`${classes.td} ${classes.right}`}>
-                <button type="button" className={classes.pill} onClick={() => onDetalhes(recurso)}>
+                <button
+                  type="button"
+                  className={classes.pill}
+                  onClick={() => onDetalhes(recurso)}
+                >
                   Detalhes
                 </button>
               </TableCell>

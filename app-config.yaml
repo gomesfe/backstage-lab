@@ -156,6 +156,11 @@ catalog:
       rules:
         - allow: [User, Group]
 
+    # Catálogo de exemplo do Atlas (sistemas, aplicações, APIs, recursos) e os
+    # squads donos deles (em org.yaml): o que as telas de Catálogo, APIs, Docs e Home leem.
+    - type: file
+      target: ../examples/atlas-catalog.yaml
+
     # Todos os software templates, via uma Location única gerada por
     # `yarn templates:sync`. Adicionar um template novo não mexe neste arquivo.
     - type: file

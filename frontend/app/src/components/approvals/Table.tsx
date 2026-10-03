@@ -7,7 +7,12 @@ import { Link } from '@backstage/core-components';
 import { ColumnFilter } from '../shared/ColumnFilter';
 import type { FiltrosColuna } from '../shared/filtros';
 import { SeloAmbiente } from '../shared/SeloAmbiente';
-import { podeAprovar, podeCancelar, quemAprovou, textoAprovacoes } from './helpers';
+import {
+  podeAprovar,
+  podeCancelar,
+  quemAprovou,
+  textoAprovacoes,
+} from './helpers';
 import { StatusBadge } from './StatusBadge';
 import { useStyles } from './styles';
 import type { Dialogo, Solicitacao } from './types';
@@ -36,7 +41,13 @@ export function linkDoMapa(solicitacao: Solicitacao): string {
 }
 
 /** Tabela de solicitações: a mesma nos dois lados, só mudam as ações. */
-export function Table({ titulo, solicitacoes, colunas, onColuna, onAbrir }: Props) {
+export function Table({
+  titulo,
+  solicitacoes,
+  colunas,
+  onColuna,
+  onAbrir,
+}: Props) {
   const classes = useStyles();
 
   return (
@@ -48,11 +59,17 @@ export function Table({ titulo, solicitacoes, colunas, onColuna, onAbrir }: Prop
               <TableCell key={chave} className={classes.th}>
                 <span className={classes.thInner}>
                   {rotulo}
-                  <ColumnFilter label={rotulo} value={colunas[chave] ?? ''} onChange={valor => onColuna(chave, valor)} />
+                  <ColumnFilter
+                    label={rotulo}
+                    value={colunas[chave] ?? ''}
+                    onChange={valor => onColuna(chave, valor)}
+                  />
                 </span>
               </TableCell>
             ))}
-            <TableCell className={`${classes.th} ${classes.right}`}>Ações</TableCell>
+            <TableCell className={`${classes.th} ${classes.right}`}>
+              Ações
+            </TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -60,7 +77,11 @@ export function Table({ titulo, solicitacoes, colunas, onColuna, onAbrir }: Prop
             <TableRow key={solicitacao.id} className={classes.row}>
               <TableCell className={classes.td}>
                 {solicitacao.noMapa ? (
-                  <Link to={linkDoMapa(solicitacao)} className={classes.nameLink} title="Ver no mapa de provisionamento">
+                  <Link
+                    to={linkDoMapa(solicitacao)}
+                    className={classes.nameLink}
+                    title="Ver no mapa de provisionamento"
+                  >
                     {solicitacao.recurso}
                   </Link>
                 ) : (
@@ -73,32 +94,61 @@ export function Table({ titulo, solicitacoes, colunas, onColuna, onAbrir }: Prop
               </TableCell>
               <TableCell className={classes.td}>{solicitacao.grupo}</TableCell>
               <TableCell className={classes.td}>{solicitacao.dono}</TableCell>
-              <TableCell className={classes.td}>{solicitacao.solicitante}</TableCell>
-              <TableCell className={`${classes.td} ${classes.nowrap}`}>{solicitacao.data}</TableCell>
+              <TableCell className={classes.td}>
+                {solicitacao.solicitante}
+              </TableCell>
               <TableCell className={`${classes.td} ${classes.nowrap}`}>
-                <span title={quemAprovou(solicitacao)}>{textoAprovacoes(solicitacao)}</span>
+                {solicitacao.data}
+              </TableCell>
+              <TableCell className={`${classes.td} ${classes.nowrap}`}>
+                <span title={quemAprovou(solicitacao)}>
+                  {textoAprovacoes(solicitacao)}
+                </span>
               </TableCell>
               <TableCell className={classes.td}>
                 <StatusBadge status={solicitacao.status} />
               </TableCell>
               <TableCell className={`${classes.td} ${classes.right}`}>
-                <span className={classes.actions} style={{ flexWrap: 'nowrap' }}>
+                <span
+                  className={classes.actions}
+                  style={{ flexWrap: 'nowrap' }}
+                >
                   {podeAprovar(solicitacao) && (
                     <>
-                      <button type="button" className={classes.pillPrimary} onClick={() => onAbrir({ tipo: 'aprovar', solicitacao })}>
+                      <button
+                        type="button"
+                        className={classes.pillPrimary}
+                        onClick={() =>
+                          onAbrir({ tipo: 'aprovar', solicitacao })
+                        }
+                      >
                         Aprovar
                       </button>
-                      <button type="button" className={classes.pillDanger} onClick={() => onAbrir({ tipo: 'rejeitar', solicitacao })}>
+                      <button
+                        type="button"
+                        className={classes.pillDanger}
+                        onClick={() =>
+                          onAbrir({ tipo: 'rejeitar', solicitacao })
+                        }
+                      >
                         Rejeitar
                       </button>
                     </>
                   )}
                   {podeCancelar(solicitacao) && (
-                    <button type="button" className={classes.pillDanger} onClick={() => onAbrir({ tipo: 'cancelar', solicitacao })}>
+                    <button
+                      type="button"
+                      className={classes.pillDanger}
+                      onClick={() => onAbrir({ tipo: 'cancelar', solicitacao })}
+                    >
                       Cancelar
                     </button>
                   )}
-                  <button type="button" className={classes.pill} onClick={() => onAbrir({ tipo: 'detalhes', solicitacao })}>
+                  <button
+                    type="button"
+                    className={classes.pill}
+                    onClick={() => onAbrir({ tipo: 'detalhes', solicitacao })}
+                  >
                     Detalhes
                   </button>
                 </span>

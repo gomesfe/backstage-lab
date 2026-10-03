@@ -14,10 +14,16 @@ const CHAVE = 'progress';
  */
 export function useProgresso() {
   const bucket = useApi(storageApiRef).forBucket('atlas-learning-paths');
-  const snapshot = useObservable(bucket.observe$<Progresso>(CHAVE), bucket.snapshot<Progresso>(CHAVE));
+  const snapshot = useObservable(
+    bucket.observe$<Progresso>(CHAVE),
+    bucket.snapshot<Progresso>(CHAVE),
+  );
   const progresso: Progresso = useMemo(() => snapshot?.value ?? {}, [snapshot]);
 
-  const feitasEm = useCallback((trilhaId: string) => new Set(progresso[trilhaId] ?? []), [progresso]);
+  const feitasEm = useCallback(
+    (trilhaId: string) => new Set(progresso[trilhaId] ?? []),
+    [progresso],
+  );
 
   const definir = useCallback(
     (trilhaId: string, etapaId: string, feita: boolean) => {

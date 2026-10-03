@@ -3,12 +3,22 @@ import type { Ambiente } from '../shared/ambientes';
 /** De que lado do pedido você está: quem aprova ou quem pediu. */
 export type Lado = 'aprovacao' | 'solicitacao';
 
-export type Status = 'aguardando' | 'execucao' | 'concluido' | 'rejeitado' | 'cancelado' | 'falhou';
+export type Status =
+  | 'aguardando'
+  | 'execucao'
+  | 'concluido'
+  | 'rejeitado'
+  | 'cancelado'
+  | 'falhou';
 
 /** Abas de status da tabela. "Histórico" junta tudo o que já terminou. */
 export type FiltroStatus = 'pendentes' | 'execucao' | 'historico' | 'todos';
 
-export type SituacaoAprovador = 'aprovou' | 'pendente' | 'rejeitou' | 'sem resposta';
+export type SituacaoAprovador =
+  | 'aprovou'
+  | 'pendente'
+  | 'rejeitou'
+  | 'sem resposta';
 
 export type Aprovador = {
   /** Grupo aprovador (admin, DevOps…). */
@@ -17,7 +27,12 @@ export type Aprovador = {
   situacao: SituacaoAprovador;
 };
 
-export type EstadoEtapa = 'feito' | 'agora' | 'falhou' | 'cancelado' | 'pendente';
+export type EstadoEtapa =
+  | 'feito'
+  | 'agora'
+  | 'falhou'
+  | 'cancelado'
+  | 'pendente';
 
 export type Etapa = {
   titulo: string;

@@ -2,7 +2,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import useAsync from 'react-use/lib/useAsync';
 import useAsyncRetry from 'react-use/lib/useAsyncRetry';
-import { discoveryApiRef, fetchApiRef, useApi } from '@backstage/core-plugin-api';
+import {
+  discoveryApiRef,
+  fetchApiRef,
+  useApi,
+} from '@backstage/core-plugin-api';
 import { AgenteClient, type Conversa } from '../api';
 import { mensagemDeErro, type MensagemLocal, type Pendente } from '../helpers';
 
@@ -15,11 +19,17 @@ import { mensagemDeErro, type MensagemLocal, type Pendente } from '../helpers';
 export function useAgente() {
   const discovery = useApi(discoveryApiRef);
   const fetchApi = useApi(fetchApiRef);
-  const cliente = useMemo(() => new AgenteClient(discovery, fetchApi), [discovery, fetchApi]);
+  const cliente = useMemo(
+    () => new AgenteClient(discovery, fetchApi),
+    [discovery, fetchApi],
+  );
   const [parametros, setParametros] = useSearchParams();
   const ativaId = parametros.get('c');
 
-  const { value: status, loading: carregandoStatus } = useAsync(() => cliente.status(), [cliente]);
+  const { value: status, loading: carregandoStatus } = useAsync(
+    () => cliente.status(),
+    [cliente],
+  );
   const conversas = useAsyncRetry(() => cliente.listar(), [cliente]);
   const [mensagens, setMensagens] = useState<MensagemLocal[]>([]);
   const [carregandoConversa, setCarregandoConversa] = useState(false);
@@ -31,10 +41,16 @@ export function useAgente() {
   // a conversa pela URL (apagaria a mensagem otimista).
   const criandoRef = useRef(false);
 
-  const setPendente = useCallback((mudanca: Pendente | null | ((atual: Pendente | null) => Pendente | null)) => {
-    pendenteRef.current = typeof mudanca === 'function' ? mudanca(pendenteRef.current) : mudanca;
-    setPendenteEstado(pendenteRef.current);
-  }, []);
+  const setPendente = useCallback(
+    (
+      mudanca: Pendente | null | ((atual: Pendente | null) => Pendente | null),
+    ) => {
+      pendenteRef.current =
+        typeof mudanca === 'function' ? mudanca(pendenteRef.current) : mudanca;
+      setPendenteEstado(pendenteRef.current);
+    },
+    [],
+  );
 
   const abrirConversa = useCallback(
     (id: string | null) => {
@@ -85,7 +101,13 @@ export function useAgente() {
 
       setMensagens(atuais => [
         ...atuais,
-        { id: `local-${Date.now()}`, role: 'user', content: conteudo, activity: [], createdAt: new Date().toISOString() },
+        {
+          id: `local-${Date.now()}`,
+          role: 'user',
+          content: conteudo,
+          activity: [],
+          createdAt: new Date().toISOString(),
+        },
       ]);
       setPendente({ texto: '', atividade: [] });
 
@@ -97,10 +119,24 @@ export function useAgente() {
           id,
           conteudo,
           evento => {
-            if (evento.type === 'delta') setPendente(atual => atual && { ...atual, texto: atual.texto + evento.text });
-            if (evento.type === 'reset') setPendente(atual => atual && { ...atual, texto: '' });
+            if (evento.type === 'delta')
+              setPendente(
+                atual =>
+                  atual && { ...atual, texto: atual.texto + evento.text },
+              );
+            if (evento.type === 'reset')
+              setPendente(atual => atual && { ...atual, texto: '' });
             if (evento.type === 'activity') {
-              setPendente(atual => atual && { ...atual, atividade: [...atual.atividade, { tool: '', label: evento.label }] });
+              setPendente(
+                atual =>
+                  atual && {
+                    ...atual,
+                    atividade: [
+                      ...atual.atividade,
+                      { tool: '', label: evento.label },
+                    ],
+                  },
+              );
             }
             if (evento.type === 'done') {
               terminou = true;
@@ -109,7 +145,10 @@ export function useAgente() {
             }
             if (evento.type === 'failed') {
               terminou = true;
-              setMensagens(atuais => [...atuais, mensagemDeErro(evento.message)]);
+              setMensagens(atuais => [
+                ...atuais,
+                mensagemDeErro(evento.message),
+              ]);
               setPendente(null);
             }
           },
@@ -117,7 +156,14 @@ export function useAgente() {
         );
       } catch (erro) {
         if (!controle.signal.aborted) {
-          setMensagens(atuais => [...atuais, mensagemDeErro(erro instanceof Error ? erro.message : 'O agente não conseguiu responder.')]);
+          setMensagens(atuais => [
+            ...atuais,
+            mensagemDeErro(
+              erro instanceof Error
+                ? erro.message
+                : 'O agente não conseguiu responder.',
+            ),
+          ]);
         }
       } finally {
         if (!terminou) {

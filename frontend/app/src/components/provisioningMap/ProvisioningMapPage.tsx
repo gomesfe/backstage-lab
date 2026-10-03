@@ -15,7 +15,14 @@ import { RepositoriesTable } from './RepositoriesTable';
 import { Table } from './Table';
 import { Toolbar } from './Toolbar';
 import { useProvisioningMap } from './hooks/useProvisioningMap';
-import { distintos, filtrarRecursos, filtrarRepositorios, filtrosAtivos, ITENS_POR_PAGINA, paginar } from './helpers';
+import {
+  distintos,
+  filtrarRecursos,
+  filtrarRepositorios,
+  filtrosAtivos,
+  ITENS_POR_PAGINA,
+  paginar,
+} from './helpers';
 import { useStyles } from './styles';
 import type { Aba, Dialogo, FiltrosColuna, FiltrosRecursos } from './types';
 
@@ -36,18 +43,30 @@ function abaDoEndereco(hash: string): Aba {
 export function ProvisioningMapPage() {
   const classes = useStyles();
   const { search, hash } = useLocation();
-  const { recursos, repositorios, internos, servicos, loading, refresh } = useProvisioningMap();
-  const { allowed: verInterno } = usePermission({ permission: atlasInternalViewPermission });
+  const { recursos, repositorios, internos, servicos, loading, refresh } =
+    useProvisioningMap();
+  const { allowed: verInterno } = usePermission({
+    permission: atlasInternalViewPermission,
+  });
 
   const parametros = new URLSearchParams(search);
   const servicoDoEndereco = parametros.get('service') ?? '';
   const buscaDoEndereco = parametros.get('q') ?? '';
   const [aba, setAba] = useState<Aba>(() => abaDoEndereco(hash));
-  const [filtrosRecursos, setFiltrosRecursos] = useState<FiltrosRecursos>({ ...SEM_FILTROS, busca: buscaDoEndereco, servico: servicoDoEndereco });
-  const [filtrosRepositorios, setFiltrosRepositorios] = useState<FiltrosRecursos>({ ...SEM_FILTROS, servico: servicoDoEndereco });
-  const [filtrosAbertos, setFiltrosAbertos] = useState(Boolean(servicoDoEndereco || buscaDoEndereco));
+  const [filtrosRecursos, setFiltrosRecursos] = useState<FiltrosRecursos>({
+    ...SEM_FILTROS,
+    busca: buscaDoEndereco,
+    servico: servicoDoEndereco,
+  });
+  const [filtrosRepositorios, setFiltrosRepositorios] =
+    useState<FiltrosRecursos>({ ...SEM_FILTROS, servico: servicoDoEndereco });
+  const [filtrosAbertos, setFiltrosAbertos] = useState(
+    Boolean(servicoDoEndereco || buscaDoEndereco),
+  );
   const [colunasRecursos, setColunasRecursos] = useState<FiltrosColuna>({});
-  const [colunasRepositorios, setColunasRepositorios] = useState<FiltrosColuna>({});
+  const [colunasRepositorios, setColunasRepositorios] = useState<FiltrosColuna>(
+    {},
+  );
   const [porPagina, setPorPagina] = useState(ITENS_POR_PAGINA[0]);
   const [pagina, setPagina] = useState(0);
   const [dialogo, setDialogo] = useState<Dialogo | null>(null);
@@ -69,23 +88,47 @@ export function ProvisioningMapPage() {
   // Volta para a primeira página quando o que está na tela muda.
   useEffect(() => {
     setPagina(0);
-  }, [aba, filtrosRecursos, filtrosRepositorios, colunasRecursos, colunasRepositorios, porPagina]);
+  }, [
+    aba,
+    filtrosRecursos,
+    filtrosRepositorios,
+    colunasRecursos,
+    colunasRepositorios,
+    porPagina,
+  ]);
 
   const recursosFiltrados = useMemo(
     () => filtrarRecursos(recursos, filtrosRecursos, colunasRecursos, servicos),
     [recursos, filtrosRecursos, colunasRecursos, servicos],
   );
   const repositoriosFiltrados = useMemo(
-    () => filtrarRepositorios(repositorios, filtrosRepositorios, colunasRepositorios, servicos),
+    () =>
+      filtrarRepositorios(
+        repositorios,
+        filtrosRepositorios,
+        colunasRepositorios,
+        servicos,
+      ),
     [repositorios, filtrosRepositorios, colunasRepositorios, servicos],
   );
-  const ofertasRecursos = useMemo(() => distintos(recursos.map(recurso => recurso.oferta)), [recursos]);
-  const ofertasRepositorios = useMemo(() => distintos(repositorios.map(repositorio => repositorio.oferta)), [repositorios]);
+  const ofertasRecursos = useMemo(
+    () => distintos(recursos.map(recurso => recurso.oferta)),
+    [recursos],
+  );
+  const ofertasRepositorios = useMemo(
+    () => distintos(repositorios.map(repositorio => repositorio.oferta)),
+    [repositorios],
+  );
   const siglas = useMemo(() => distintos(Object.keys(servicos)), [servicos]);
 
-  const onColunaRecurso = useCallback((coluna: string, valor: string) => setColunasRecursos(atual => ({ ...atual, [coluna]: valor })), []);
+  const onColunaRecurso = useCallback(
+    (coluna: string, valor: string) =>
+      setColunasRecursos(atual => ({ ...atual, [coluna]: valor })),
+    [],
+  );
   const onColunaRepositorio = useCallback(
-    (coluna: string, valor: string) => setColunasRepositorios(atual => ({ ...atual, [coluna]: valor })),
+    (coluna: string, valor: string) =>
+      setColunasRepositorios(atual => ({ ...atual, [coluna]: valor })),
     [],
   );
 
@@ -96,31 +139,69 @@ export function ProvisioningMapPage() {
   };
   const total = totais[aba];
 
-  const abas: { id: Aba; rotulo: string; contagem: number; icone: JSX.Element }[] = [
-    { id: 'recursos', rotulo: 'Recursos · com IaC', contagem: recursos.length, icone: <CloudIcon style={{ fontSize: 16 }} /> },
-    { id: 'repositorios', rotulo: 'Repositórios · sem IaC', contagem: repositorios.length, icone: <FolderIcon style={{ fontSize: 16 }} /> },
+  const abas: {
+    id: Aba;
+    rotulo: string;
+    contagem: number;
+    icone: JSX.Element;
+  }[] = [
+    {
+      id: 'recursos',
+      rotulo: 'Recursos · com IaC',
+      contagem: recursos.length,
+      icone: <CloudIcon style={{ fontSize: 16 }} />,
+    },
+    {
+      id: 'repositorios',
+      rotulo: 'Repositórios · sem IaC',
+      contagem: repositorios.length,
+      icone: <FolderIcon style={{ fontSize: 16 }} />,
+    },
   ];
-  if (verInterno) abas.push({ id: 'interno', rotulo: 'Interno do Atlas', contagem: internos.length, icone: <LockIcon style={{ fontSize: 16 }} /> });
+  if (verInterno)
+    abas.push({
+      id: 'interno',
+      rotulo: 'Interno do Atlas',
+      contagem: internos.length,
+      icone: <LockIcon style={{ fontSize: 16 }} />,
+    });
 
   return (
     <Page themeId="tool">
       <Content>
         <div className={classes.page}>
-          <Header totalRecursos={recursos.length} totalServicos={siglas.length} totalOfertas={ofertasRecursos.length} onRefresh={refresh} />
+          <Header
+            totalRecursos={recursos.length}
+            totalServicos={siglas.length}
+            totalOfertas={ofertasRecursos.length}
+            onRefresh={refresh}
+          />
 
-          <div className={classes.tabs} role="tablist" aria-label="O que mostrar no mapa">
+          <div
+            className={classes.tabs}
+            role="tablist"
+            aria-label="O que mostrar no mapa"
+          >
             {abas.map(item => (
               <button
                 key={item.id}
                 type="button"
                 role="tab"
                 aria-selected={aba === item.id}
-                className={`${classes.tab} ${aba === item.id ? classes.tabActive : ''}`}
+                className={`${classes.tab} ${
+                  aba === item.id ? classes.tabActive : ''
+                }`}
                 onClick={() => setAba(item.id)}
               >
                 {item.icone}
                 {item.rotulo}
-                <span className={`${classes.tabCount} ${aba === item.id ? classes.tabCountActive : ''}`}>{item.contagem}</span>
+                <span
+                  className={`${classes.tabCount} ${
+                    aba === item.id ? classes.tabCountActive : ''
+                  }`}
+                >
+                  {item.contagem}
+                </span>
               </button>
             ))}
           </div>
@@ -191,9 +272,15 @@ export function ProvisioningMapPage() {
                 servicos={servicos}
                 colunas={colunasRecursos}
                 onColuna={onColunaRecurso}
-                onPromover={(recurso, ambiente) => setDialogo({ tipo: 'promover', recurso, ambiente })}
-                onExcluir={(recurso, ambiente) => setDialogo({ tipo: 'excluir', recurso, ambiente })}
-                onDetalhesAmbiente={(recurso, ambiente) => setDialogo({ tipo: 'promocao', recurso, ambiente })}
+                onPromover={(recurso, ambiente) =>
+                  setDialogo({ tipo: 'promover', recurso, ambiente })
+                }
+                onExcluir={(recurso, ambiente) =>
+                  setDialogo({ tipo: 'excluir', recurso, ambiente })
+                }
+                onDetalhesAmbiente={(recurso, ambiente) =>
+                  setDialogo({ tipo: 'promocao', recurso, ambiente })
+                }
                 onDetalhes={recurso => setDialogo({ tipo: 'recurso', recurso })}
               />
             )}
@@ -203,28 +290,48 @@ export function ProvisioningMapPage() {
                 servicos={servicos}
                 colunas={colunasRepositorios}
                 onColuna={onColunaRepositorio}
-                onDetalhes={repositorio => setDialogo({ tipo: 'repositorio', repositorio })}
-                onExcluir={repositorio => setDialogo({ tipo: 'excluirRepositorio', repositorio })}
+                onDetalhes={repositorio =>
+                  setDialogo({ tipo: 'repositorio', repositorio })
+                }
+                onExcluir={repositorio =>
+                  setDialogo({ tipo: 'excluirRepositorio', repositorio })
+                }
               />
             )}
-            {!loading && aba === 'interno' && <InternalTable itens={paginar(internos, pagina, porPagina)} />}
+            {!loading && aba === 'interno' && (
+              <InternalTable itens={paginar(internos, pagina, porPagina)} />
+            )}
 
-            {!loading && total === 0 && <div className={classes.empty}>Nada encontrado com esses filtros.</div>}
+            {!loading && total === 0 && (
+              <div className={classes.empty}>
+                Nada encontrado com esses filtros.
+              </div>
+            )}
             {!loading && total > 0 && (
               <TablePagination
                 component="div"
                 className={classes.pagination}
                 count={total}
-                page={Math.min(pagina, Math.max(0, Math.ceil(total / porPagina) - 1))}
+                page={Math.min(
+                  pagina,
+                  Math.max(0, Math.ceil(total / porPagina) - 1),
+                )}
                 rowsPerPage={porPagina}
                 rowsPerPageOptions={[]}
                 onPageChange={(_, nova) => setPagina(nova)}
-                labelDisplayedRows={({ from, to, count }) => `${from}–${to} de ${count}`}
+                labelDisplayedRows={({ from, to, count }) =>
+                  `${from}–${to} de ${count}`
+                }
               />
             )}
           </section>
         </div>
-        <Dialogs dialogo={dialogo} servicos={servicos} onClose={() => setDialogo(null)} onOpen={setDialogo} />
+        <Dialogs
+          dialogo={dialogo}
+          servicos={servicos}
+          onClose={() => setDialogo(null)}
+          onOpen={setDialogo}
+        />
       </Content>
     </Page>
   );

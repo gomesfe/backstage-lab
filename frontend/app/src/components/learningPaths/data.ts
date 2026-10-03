@@ -16,7 +16,8 @@ const PRIMEIROS_PASSOS: Etapa[] = [
   {
     id: 'cadastro-acesso',
     titulo: 'Cadastro e acesso ao Atlas',
-    resumo: 'Aprenda como se cadastrar e acessar o Atlas para começar a explorar seus recursos.',
+    resumo:
+      'Aprenda como se cadastrar e acessar o Atlas para começar a explorar seus recursos.',
     conteudo: [
       {
         titulo: 'Onboard no Atlas',
@@ -57,7 +58,8 @@ const PRIMEIROS_PASSOS: Etapa[] = [
   {
     id: 'canais-teams',
     titulo: 'Canais de comunicação do Teams',
-    resumo: 'Saiba onde pedir ajuda, acompanhar avisos e falar com o time de plataforma.',
+    resumo:
+      'Saiba onde pedir ajuda, acompanhar avisos e falar com o time de plataforma.',
     conteudo: [
       {
         titulo: 'Para que servem os canais',
@@ -92,7 +94,8 @@ const PRIMEIROS_PASSOS: Etapa[] = [
   {
     id: 'vdi-linux',
     titulo: 'Solicitação de VDI Linux',
-    resumo: 'Peça a sua VDI Linux, o ambiente de desenvolvimento padrão para trabalhar com os serviços.',
+    resumo:
+      'Peça a sua VDI Linux, o ambiente de desenvolvimento padrão para trabalhar com os serviços.',
     conteudo: [
       {
         titulo: 'O que é a VDI',
@@ -110,7 +113,10 @@ const PRIMEIROS_PASSOS: Etapa[] = [
       },
       {
         titulo: 'Pré-requisitos',
-        itens: ['Cadastro e acesso ao Atlas concluídos.', 'Aprovação do líder do squad, quando exigida.'],
+        itens: [
+          'Cadastro e acesso ao Atlas concluídos.',
+          'Aprovação do líder do squad, quando exigida.',
+        ],
       },
       {
         titulo: 'Depois da liberação',
@@ -128,12 +134,14 @@ const ONBOARDING: Etapa[] = [
   {
     id: '1',
     titulo: 'Solicite seu acesso',
-    resumo: 'Peça acesso ao grupo do seu squad. Sem estar num Group do catálogo, o RBAC não encontra suas permissões.',
+    resumo:
+      'Peça acesso ao grupo do seu squad. Sem estar num Group do catálogo, o RBAC não encontra suas permissões.',
   },
   {
     id: '2',
     titulo: 'Explore o catálogo',
-    resumo: 'Encontre os serviços do seu time e entenda as dependências entre eles.',
+    resumo:
+      'Encontre os serviços do seu time e entenda as dependências entre eles.',
   },
   {
     id: '3',
@@ -151,22 +159,26 @@ const PROVISIONAMENTO: Etapa[] = [
   {
     id: '1',
     titulo: 'Entenda os tipos de oferta',
-    resumo: 'Recurso AWS, entidade de catálogo, repositório novo e tela do portal — cada uma tem um molde.',
+    resumo:
+      'Recurso AWS, entidade de catálogo, repositório novo e tela do portal — cada uma tem um molde.',
   },
   {
     id: '2',
     titulo: 'Rode uma oferta em modo local',
-    resumo: 'Com atlas.provisioning.mode=local, o fluxo inteiro roda sem token e sem repositório alvo.',
+    resumo:
+      'Com atlas.provisioning.mode=local, o fluxo inteiro roda sem token e sem repositório alvo.',
   },
   {
     id: '3',
     titulo: 'Leia o Terraform gerado',
-    resumo: 'Confira backend, convenção de nome e tags antes de abrir o PR de verdade.',
+    resumo:
+      'Confira backend, convenção de nome e tags antes de abrir o PR de verdade.',
   },
   {
     id: '4',
     titulo: 'Abra o PR',
-    resumo: 'O portal não aplica nada: quem roda o apply é o pipeline do repositório de infraestrutura.',
+    resumo:
+      'O portal não aplica nada: quem roda o apply é o pipeline do repositório de infraestrutura.',
   },
 ];
 
@@ -174,17 +186,20 @@ const SEGURANCA: Etapa[] = [
   {
     id: '1',
     titulo: 'Entenda o rbac-policy.csv',
-    resumo: 'Deny ganha de allow e o padrão é fechado — é o que torna o arquivo auditável.',
+    resumo:
+      'Deny ganha de allow e o padrão é fechado — é o que torna o arquivo auditável.',
   },
   {
     id: '2',
     titulo: 'Emita uma API key',
-    resumo: 'Chaves têm TTL e só o hash é guardado. O segredo aparece uma única vez.',
+    resumo:
+      'Chaves têm TTL e só o hash é guardado. O segredo aparece uma única vez.',
   },
   {
     id: '3',
     titulo: 'Conheça o Break Glass',
-    resumo: 'Acesso privilegiado temporário, sempre auditado, apenas durante incidentes.',
+    resumo:
+      'Acesso privilegiado temporário, sempre auditado, apenas durante incidentes.',
   },
 ];
 
@@ -192,7 +207,8 @@ export const TRILHAS: Trilha[] = [
   {
     id: 'primeiros-passos',
     titulo: 'Primeiros passos',
-    descricao: 'Cadastro e acesso ao Atlas, canais do Teams e a sua VDI Linux — o básico da primeira semana.',
+    descricao:
+      'Cadastro e acesso ao Atlas, canais do Teams e a sua VDI Linux — o básico da primeira semana.',
     dificuldade: 'Iniciante',
     temas: ['Onboarding'],
     etapas: PRIMEIROS_PASSOS,

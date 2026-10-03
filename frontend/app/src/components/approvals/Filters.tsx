@@ -16,7 +16,14 @@ type Props = {
 };
 
 /** Busca, abas de status (com contagem), ambiente, grupo e itens por página. */
-export function Filters({ filtros, contagens, grupos, porPagina, onChange, onPorPagina }: Props) {
+export function Filters({
+  filtros,
+  contagens,
+  grupos,
+  porPagina,
+  onChange,
+  onPorPagina,
+}: Props) {
   const classes = useStyles();
 
   return (
@@ -29,18 +36,26 @@ export function Filters({ filtros, contagens, grupos, porPagina, onChange, onPor
             placeholder="Buscar por recurso ou solicitante"
             aria-label="Buscar por recurso ou solicitante"
             value={filtros.busca}
-            onChange={event => onChange({ ...filtros, busca: event.target.value })}
+            onChange={event =>
+              onChange({ ...filtros, busca: event.target.value })
+            }
           />
         </label>
       </div>
       <div className={classes.statusBar}>
-        <div className={`${classes.tabs} ${classes.statusTabs}`} role="group" aria-label="Status">
+        <div
+          className={`${classes.tabs} ${classes.statusTabs}`}
+          role="group"
+          aria-label="Status"
+        >
           {ABAS_STATUS.map(aba => (
             <button
               key={aba.id}
               type="button"
               aria-pressed={filtros.status === aba.id}
-              className={`${classes.tab} ${classes.statusTab} ${filtros.status === aba.id ? classes.tabActive : ''}`}
+              className={`${classes.tab} ${classes.statusTab} ${
+                filtros.status === aba.id ? classes.tabActive : ''
+              }`}
               onClick={() => onChange({ ...filtros, status: aba.id })}
             >
               {aba.rotulo}
@@ -49,15 +64,27 @@ export function Filters({ filtros, contagens, grupos, porPagina, onChange, onPor
           ))}
         </div>
         <div className={classes.filters}>
-          <FilterSelect label="Ambiente" value={filtros.ambiente} options={AMBIENTES} onChange={ambiente => onChange({ ...filtros, ambiente })} />
-          <FilterSelect label="Grupo" value={filtros.grupo} options={grupos} onChange={grupo => onChange({ ...filtros, grupo })} />
+          <FilterSelect
+            label="Ambiente"
+            value={filtros.ambiente}
+            options={AMBIENTES}
+            onChange={ambiente => onChange({ ...filtros, ambiente })}
+          />
+          <FilterSelect
+            label="Grupo"
+            value={filtros.grupo}
+            options={grupos}
+            onChange={grupo => onChange({ ...filtros, grupo })}
+          />
           <FilterSelect
             label="Itens"
             value={porPagina === ITENS_POR_PAGINA[0] ? '' : String(porPagina)}
             options={ITENS_POR_PAGINA.slice(1).map(String)}
             allLabel={String(ITENS_POR_PAGINA[0])}
             clearable={false}
-            onChange={valor => onPorPagina(Number(valor || ITENS_POR_PAGINA[0]))}
+            onChange={valor =>
+              onPorPagina(Number(valor || ITENS_POR_PAGINA[0]))
+            }
           />
         </div>
       </div>

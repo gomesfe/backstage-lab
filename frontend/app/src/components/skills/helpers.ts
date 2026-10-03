@@ -15,15 +15,22 @@ export const ABAS_AMBIENTE: { id: FiltroAmbiente; rotulo: string }[] = [
 
 /** O `SKILL.md` no GitHub, na versão mais estável que existir (release > hml > dev). */
 export function linkDaSkill(skill: Skill): string {
-  const branch = ORDEM_AMBIENTES.find(ambiente => skill.ambientes.includes(ambiente)) ?? 'dev';
+  const branch =
+    ORDEM_AMBIENTES.find(ambiente => skill.ambientes.includes(ambiente)) ??
+    'dev';
   return `${REPOSITORIO}/blob/${branch}/skills/${skill.slug}/SKILL.md`;
 }
 
-export function filtrarSkills(skills: Skill[], ambiente: FiltroAmbiente, busca: string): Skill[] {
+export function filtrarSkills(
+  skills: Skill[],
+  ambiente: FiltroAmbiente,
+  busca: string,
+): Skill[] {
   return skills.filter(
     skill =>
       (ambiente === 'todos' || skill.ambientes.includes(ambiente)) &&
-      (!busca.trim() || contem(`${skill.nome} ${skill.descricao} ${skill.slug}`, busca)),
+      (!busca.trim() ||
+        contem(`${skill.nome} ${skill.descricao} ${skill.slug}`, busca)),
   );
 }
 

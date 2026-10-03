@@ -13,5 +13,7 @@ export function StatusBadge({ status }: { status: Status }) {
     purple: classes.badgePurple,
     neutral: classes.badge,
   };
-  return <span className={porTom[TOM_STATUS[status]]}>{ROTULO_STATUS[status]}</span>;
+  return (
+    <span className={porTom[TOM_STATUS[status]]}>{ROTULO_STATUS[status]}</span>
+  );
 }

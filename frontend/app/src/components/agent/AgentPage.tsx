@@ -23,7 +23,10 @@ export function AgentPage() {
   const identityApi = useApi(identityApiRef);
   const [parametros] = useSearchParams();
   const agente = useAgente();
-  const { value: perfil } = useAsync(() => identityApi.getProfileInfo(), [identityApi]);
+  const { value: perfil } = useAsync(
+    () => identityApi.getProfileInfo(),
+    [identityApi],
+  );
 
   // `?q=` (caixa "Pergunte ao Atlas" da Home) já chega escrito no campo.
   const [texto, setTexto] = useState(() => parametros.get('q') ?? '');
@@ -52,19 +55,31 @@ export function AgentPage() {
               <span className={classes.eyebrow}>Assistente</span>
               <h1 className={classes.title}>Agente do Atlas</h1>
               <p className={classes.subtitle}>
-                Pergunte sobre serviços, APIs, ofertas e telas do portal. As conversas ficam salvas no seu histórico.
+                Pergunte sobre serviços, APIs, ofertas e telas do portal. As
+                conversas ficam salvas no seu histórico.
               </p>
             </div>
           </div>
 
-          {!agente.carregandoStatus && agente.status && !agente.status.configured && (
-            <div className={`${classes.alert} ${classes.alertWarn}`} role="status" style={{ marginTop: 0 }}>
-              <strong className={classes.alertTitle}>Agente ainda não configurado</strong>
-              Falta a credencial da Anthropic no backend ({agente.status.reason}). Defina{' '}
-              <code className={classes.codigo}>ANTHROPIC_API_KEY</code> no <code className={classes.codigo}>.env</code> do portal e
-              reinicie o backend. O histórico continua disponível para leitura.
-            </div>
-          )}
+          {!agente.carregandoStatus &&
+            agente.status &&
+            !agente.status.configured && (
+              <div
+                className={`${classes.alert} ${classes.alertWarn}`}
+                role="status"
+                style={{ marginTop: 0 }}
+              >
+                <strong className={classes.alertTitle}>
+                  Agente ainda não configurado
+                </strong>
+                Falta a credencial da Anthropic no backend (
+                {agente.status.reason}). Defina{' '}
+                <code className={classes.codigo}>ANTHROPIC_API_KEY</code> no{' '}
+                <code className={classes.codigo}>.env</code> do portal e
+                reinicie o backend. O histórico continua disponível para
+                leitura.
+              </div>
+            )}
 
           <div className={classes.layout}>
             <ConversationList
@@ -79,10 +94,17 @@ export function AgentPage() {
               onApagar={setParaApagar}
             />
 
-            <section className={`${classes.card} ${classes.chat}`} aria-label="Conversa">
+            <section
+              className={`${classes.card} ${classes.chat}`}
+              aria-label="Conversa"
+            >
               <div className={classes.chatHead}>
-                <span className={classes.chatTitulo}>{agente.ativa?.title ?? 'Nova conversa'}</span>
-                {agente.status?.configured && <span className={classes.meta}>{agente.status.model}</span>}
+                <span className={classes.chatTitulo}>
+                  {agente.ativa?.title ?? 'Nova conversa'}
+                </span>
+                {agente.status?.configured && (
+                  <span className={classes.meta}>{agente.status.model}</span>
+                )}
               </div>
               <ChatMessages
                 ref={rolagemRef}
@@ -106,19 +128,33 @@ export function AgentPage() {
           </div>
         </div>
 
-        <Dialog open={Boolean(paraApagar)} onClose={() => setParaApagar(null)} maxWidth="xs" fullWidth PaperProps={{ className: classes.dialogPaper }}>
+        <Dialog
+          open={Boolean(paraApagar)}
+          onClose={() => setParaApagar(null)}
+          maxWidth="xs"
+          fullWidth
+          PaperProps={{ className: classes.dialogPaper }}
+        >
           <div className={classes.dialogHead}>
             <span className={classes.dialogEyebrow}>Agente</span>
             <h3 className={classes.dialogTitle}>Apagar conversa</h3>
           </div>
           <DialogContent>
             <p className={classes.heroSub}>
-              Apagar <strong>{paraApagar?.title}</strong> e todas as mensagens dela? Não dá para desfazer.
+              Apagar <strong>{paraApagar?.title}</strong> e todas as mensagens
+              dela? Não dá para desfazer.
             </p>
           </DialogContent>
-          <DialogActions className={classes.dialogActions} style={{ justifyContent: 'flex-end' }}>
+          <DialogActions
+            className={classes.dialogActions}
+            style={{ justifyContent: 'flex-end' }}
+          >
             <span className={classes.dialogButtons}>
-              <button type="button" className={classes.button} onClick={() => setParaApagar(null)}>
+              <button
+                type="button"
+                className={classes.button}
+                onClick={() => setParaApagar(null)}
+              >
                 Voltar
               </button>
               <button

@@ -12,9 +12,16 @@ type Props = {
 };
 
 /** Título, os três números e a regra de exclusão. "Refresh admin" só para quem tem a permissão. */
-export function Header({ totalRecursos, totalServicos, totalOfertas, onRefresh }: Props) {
+export function Header({
+  totalRecursos,
+  totalServicos,
+  totalOfertas,
+  onRefresh,
+}: Props) {
   const classes = useStyles();
-  const { allowed: canRefresh } = usePermission({ permission: atlasProvisioningRefreshPermission });
+  const { allowed: canRefresh } = usePermission({
+    permission: atlasProvisioningRefreshPermission,
+  });
 
   return (
     <>
@@ -22,10 +29,18 @@ export function Header({ totalRecursos, totalServicos, totalOfertas, onRefresh }
         <div>
           <span className={classes.eyebrow}>Provisionamento</span>
           <h1 className={classes.title}>Mapa de provisionamento</h1>
-          <p className={classes.subtitle}>Onde cada recurso está provisionado, por qual oferta, e o que dá para promover ou excluir.</p>
+          <p className={classes.subtitle}>
+            Onde cada recurso está provisionado, por qual oferta, e o que dá
+            para promover ou excluir.
+          </p>
         </div>
         {canRefresh && (
-          <button type="button" className={classes.button} title="Relê o inventário. Só administradores." onClick={onRefresh}>
+          <button
+            type="button"
+            className={classes.button}
+            title="Relê o inventário. Só administradores."
+            onClick={onRefresh}
+          >
             <RefreshIcon style={{ fontSize: 16 }} /> Refresh admin
           </button>
         )}
@@ -51,8 +66,9 @@ export function Header({ totalRecursos, totalServicos, totalOfertas, onRefresh }
 
       <div className={classes.rule} role="note">
         <strong className={classes.ruleTitle}>Regras</strong>
-        Deleções solicitadas em até {FREE_DELETE_WINDOW_HOURS} horas não exigem aprovação. Alguns recursos podem exigir aprovação do time
-        de cloud antes da execução — promoções para prod e prdnv passam por ele.
+        Deleções solicitadas em até {FREE_DELETE_WINDOW_HOURS} horas não exigem
+        aprovação. Alguns recursos podem exigir aprovação do time de cloud antes
+        da execução — promoções para prod e prdnv passam por ele.
       </div>
     </>
   );

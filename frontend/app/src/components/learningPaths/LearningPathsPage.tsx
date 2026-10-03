@@ -16,14 +16,22 @@ export function LearningPathsPage() {
   const classes = useStyles();
   const { hash } = useLocation();
   const { feitasEm } = useProgresso();
-  const [filtros, setFiltros] = useState<Filtros>({ busca: '', dificuldade: '', tema: '' });
+  const [filtros, setFiltros] = useState<Filtros>({
+    busca: '',
+    dificuldade: '',
+    tema: '',
+  });
 
-  const temas = useMemo(() => distintos(TRILHAS.flatMap(trilha => trilha.temas)), []);
+  const temas = useMemo(
+    () => distintos(TRILHAS.flatMap(trilha => trilha.temas)),
+    [],
+  );
   const filtradas = useMemo(() => filtrarTrilhas(TRILHAS, filtros), [filtros]);
 
   // Links antigos (/learning-paths#<id>) vão para o detalhe da trilha.
   const daAncora = TRILHAS.find(trilha => `#${trilha.id}` === hash);
-  if (daAncora) return <Navigate to={`/learning-paths/${daAncora.id}`} replace />;
+  if (daAncora)
+    return <Navigate to={`/learning-paths/${daAncora.id}`} replace />;
 
   return (
     <Page themeId="tool">
@@ -34,7 +42,8 @@ export function LearningPathsPage() {
               <span className={classes.eyebrow}>Aprendizado</span>
               <h1 className={classes.title}>Trilhas de aprendizado</h1>
               <p className={classes.subtitle}>
-                Trilhas guiadas para dominar o Atlas e as práticas de engenharia da casa. Seu progresso fica salvo.
+                Trilhas guiadas para dominar o Atlas e as práticas de engenharia
+                da casa. Seu progresso fica salvo.
               </p>
             </div>
           </div>
@@ -48,7 +57,9 @@ export function LearningPathsPage() {
                   placeholder="Buscar trilha"
                   aria-label="Buscar trilha"
                   value={filtros.busca}
-                  onChange={event => setFiltros({ ...filtros, busca: event.target.value })}
+                  onChange={event =>
+                    setFiltros({ ...filtros, busca: event.target.value })
+                  }
                 />
               </label>
               <FilterSelect
@@ -56,19 +67,33 @@ export function LearningPathsPage() {
                 value={filtros.dificuldade}
                 options={DIFICULDADES}
                 allLabel="Todas"
-                onChange={dificuldade => setFiltros({ ...filtros, dificuldade })}
+                onChange={dificuldade =>
+                  setFiltros({ ...filtros, dificuldade })
+                }
               />
-              <FilterSelect label="Tema" value={filtros.tema} options={temas} allLabel="Todos" onChange={tema => setFiltros({ ...filtros, tema })} />
+              <FilterSelect
+                label="Tema"
+                value={filtros.tema}
+                options={temas}
+                allLabel="Todos"
+                onChange={tema => setFiltros({ ...filtros, tema })}
+              />
             </div>
 
             {filtradas.length > 0 ? (
               <div className={classes.grid}>
                 {filtradas.map(trilha => (
-                  <PathCard key={trilha.id} trilha={trilha} feitas={contarFeitas(trilha, feitasEm(trilha.id))} />
+                  <PathCard
+                    key={trilha.id}
+                    trilha={trilha}
+                    feitas={contarFeitas(trilha, feitasEm(trilha.id))}
+                  />
                 ))}
               </div>
             ) : (
-              <div className={classes.empty}>Nenhuma trilha com esses filtros.</div>
+              <div className={classes.empty}>
+                Nenhuma trilha com esses filtros.
+              </div>
             )}
           </section>
         </div>

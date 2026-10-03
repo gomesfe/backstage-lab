@@ -11,8 +11,14 @@ export function contem(texto: string, busca: string): boolean {
 }
 
 /** Passa em todos os funis preenchidos? `valor` diz o texto de cada coluna do item. */
-export function passaColunas<T>(item: T, colunas: FiltrosColuna, valor: (item: T, coluna: string) => string): boolean {
-  return Object.entries(colunas).every(([coluna, busca]) => !busca.trim() || contem(valor(item, coluna), busca));
+export function passaColunas<T>(
+  item: T,
+  colunas: FiltrosColuna,
+  valor: (item: T, coluna: string) => string,
+): boolean {
+  return Object.entries(colunas).every(
+    ([coluna, busca]) => !busca.trim() || contem(valor(item, coluna), busca),
+  );
 }
 
 export function paginar<T>(itens: T[], pagina: number, porPagina: number): T[] {
@@ -21,5 +27,7 @@ export function paginar<T>(itens: T[], pagina: number, porPagina: number): T[] {
 
 /** Valores distintos, em ordem alfabética — opções dos filtros. */
 export function distintos(valores: string[]): string[] {
-  return Array.from(new Set(valores)).sort((a, b) => a.localeCompare(b, 'pt-BR'));
+  return Array.from(new Set(valores)).sort((a, b) =>
+    a.localeCompare(b, 'pt-BR'),
+  );
 }

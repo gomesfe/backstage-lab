@@ -15,7 +15,15 @@ type Props = {
 };
 
 /** Campo de mensagem: Enter envia, Shift + Enter quebra linha; durante a resposta vira Parar. */
-export function Composer({ texto, podeConversar, ocupado, focarEm, onTexto, onEnviar, onParar }: Props) {
+export function Composer({
+  texto,
+  podeConversar,
+  ocupado,
+  focarEm,
+  onTexto,
+  onEnviar,
+  onParar,
+}: Props) {
   const classes = useStyles();
   const campoRef = useRef<HTMLTextAreaElement>(null);
 
@@ -45,7 +53,11 @@ export function Composer({ texto, podeConversar, ocupado, focarEm, onTexto, onEn
           rows={1}
           value={texto}
           disabled={!podeConversar}
-          placeholder={podeConversar ? 'Pergunte ao agente do Atlas' : 'Agente indisponível até a credencial ser configurada'}
+          placeholder={
+            podeConversar
+              ? 'Pergunte ao agente do Atlas'
+              : 'Agente indisponível até a credencial ser configurada'
+          }
           aria-label="Mensagem para o agente"
           onChange={evento => onTexto(evento.target.value)}
           onKeyDown={evento => {
@@ -56,16 +68,28 @@ export function Composer({ texto, podeConversar, ocupado, focarEm, onTexto, onEn
           }}
         />
         {ocupado ? (
-          <button type="button" className={classes.button} onClick={onParar} aria-label="Parar resposta">
+          <button
+            type="button"
+            className={classes.button}
+            onClick={onParar}
+            aria-label="Parar resposta"
+          >
             <StopIcon style={{ fontSize: 16 }} /> Parar
           </button>
         ) : (
-          <button type="submit" className={classes.buttonPrimary} disabled={!podeConversar || !texto.trim()} aria-label="Enviar">
+          <button
+            type="submit"
+            className={classes.buttonPrimary}
+            disabled={!podeConversar || !texto.trim()}
+            aria-label="Enviar"
+          >
             <SendIcon style={{ fontSize: 16 }} /> Enviar
           </button>
         )}
       </form>
-      <div className={classes.dica}>Enter envia · Shift + Enter quebra a linha</div>
+      <div className={classes.dica}>
+        Enter envia · Shift + Enter quebra a linha
+      </div>
     </div>
   );
 }

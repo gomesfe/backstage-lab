@@ -28,7 +28,14 @@ type Props = {
  * Filtro de seleção com busca, no estilo react-select: digita para filtrar a
  * lista, × volta para "Todos", ↑ ↓ Enter Esc no teclado. Só MUI v4 core.
  */
-export function FilterSelect({ label, value, options, onChange, allLabel = 'Todos', clearable = true }: Props) {
+export function FilterSelect({
+  label,
+  value,
+  options,
+  onChange,
+  allLabel = 'Todos',
+  clearable = true,
+}: Props) {
   const classes = useStyles();
   const anchorRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -37,8 +44,17 @@ export function FilterSelect({ label, value, options, onChange, allLabel = 'Todo
   const [active, setActive] = useState(0);
   const [menuId] = useState(() => `filtro-opcoes-${++sequencia}`);
 
-  const all = useMemo(() => [{ value: '', label: allLabel }, ...options.map(option => ({ value: option, label: option }))], [options, allLabel]);
-  const shown = useMemo(() => (query ? all.filter(option => contem(option.label, query)) : all), [all, query]);
+  const all = useMemo(
+    () => [
+      { value: '', label: allLabel },
+      ...options.map(option => ({ value: option, label: option })),
+    ],
+    [options, allLabel],
+  );
+  const shown = useMemo(
+    () => (query ? all.filter(option => contem(option.label, query)) : all),
+    [all, query],
+  );
   const selected = all.find(option => option.value === value) ?? all[0];
 
   const close = () => {
@@ -51,7 +67,12 @@ export function FilterSelect({ label, value, options, onChange, allLabel = 'Todo
   };
   const openMenu = () => {
     setOpen(true);
-    setActive(Math.max(0, all.findIndex(option => option.value === value)));
+    setActive(
+      Math.max(
+        0,
+        all.findIndex(option => option.value === value),
+      ),
+    );
   };
 
   const onKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
@@ -62,7 +83,9 @@ export function FilterSelect({ label, value, options, onChange, allLabel = 'Todo
         return;
       }
       const step = event.key === 'ArrowDown' ? 1 : -1;
-      setActive(current => (shown.length ? (current + step + shown.length) % shown.length : 0));
+      setActive(current =>
+        shown.length ? (current + step + shown.length) % shown.length : 0,
+      );
     } else if (event.key === 'Enter' && open && shown[active]) {
       event.preventDefault();
       choose(shown[active].value);
@@ -123,11 +146,25 @@ export function FilterSelect({ label, value, options, onChange, allLabel = 'Todo
               }
             }}
           >
-            <ExpandMoreIcon style={{ fontSize: 18, transform: open ? 'rotate(180deg)' : undefined }} />
+            <ExpandMoreIcon
+              style={{
+                fontSize: 18,
+                transform: open ? 'rotate(180deg)' : undefined,
+              }}
+            />
           </IconButton>
         </div>
-        <Popper open={open} anchorEl={anchorRef.current} placement="bottom-start" className={classes.selectMenu} disablePortal>
-          <Paper className={classes.selectPaper} style={{ minWidth: anchorRef.current?.offsetWidth }}>
+        <Popper
+          open={open}
+          anchorEl={anchorRef.current}
+          placement="bottom-start"
+          className={classes.selectMenu}
+          disablePortal
+        >
+          <Paper
+            className={classes.selectPaper}
+            style={{ minWidth: anchorRef.current?.offsetWidth }}
+          >
             {shown.length === 0 ? (
               <div className={classes.selectEmpty}>Nada encontrado</div>
             ) : (
@@ -137,7 +174,11 @@ export function FilterSelect({ label, value, options, onChange, allLabel = 'Todo
                     key={option.value || '__todos'}
                     className={classes.selectOption}
                     selected={option.value === value}
-                    style={index === active ? { background: 'rgba(148,163,184,0.16)' } : undefined}
+                    style={
+                      index === active
+                        ? { background: 'rgba(148,163,184,0.16)' }
+                        : undefined
+                    }
                     onMouseEnter={() => setActive(index)}
                     onMouseDown={event => {
                       event.preventDefault();

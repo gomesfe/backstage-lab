@@ -11,7 +11,7 @@ export const SERVICOS: Record<string, string> = {
   BTG: 'Bitrago',
   ONB: 'Onboarding',
   PAG: 'Pagamentos',
-  PLT: 'Plataforma'
+  PLT: 'Plataforma',
 };
 
 export const RECURSOS: Recurso[] = [
@@ -30,8 +30,8 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Bruno Lima',
           email: 'bruno.lima@nuclea.com.br',
-          id: 'bruno.lima'
-        }
+          id: 'bruno.lima',
+        },
       },
       perf: {
         tipo: 'provisionado',
@@ -41,8 +41,8 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Carla Mendes',
           email: 'carla.mendes@nuclea.com.br',
-          id: 'carla.mendes'
-        }
+          id: 'carla.mendes',
+        },
       },
       int: {
         tipo: 'provisionado',
@@ -52,8 +52,8 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Larissa Prado',
           email: 'larissa.prado@nuclea.com.br',
-          id: 'larissa.prado'
-        }
+          id: 'larissa.prado',
+        },
       },
       ext: {
         tipo: 'provisionado',
@@ -63,16 +63,16 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Carla Mendes',
           email: 'carla.mendes@nuclea.com.br',
-          id: 'carla.mendes'
-        }
+          id: 'carla.mendes',
+        },
       },
       prod: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       prdnv: {
-        tipo: 'vazio'
-      }
-    }
+        tipo: 'vazio',
+      },
+    },
   },
   {
     nome: 'anf-modelo-lambda',
@@ -89,8 +89,8 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Matheus da Costa',
           email: 'matheus.costa@nuclea.com.br',
-          id: 'matheus.costa'
-        }
+          id: 'matheus.costa',
+        },
       },
       perf: {
         tipo: 'provisionado',
@@ -100,22 +100,22 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Bruno Lima',
           email: 'bruno.lima@nuclea.com.br',
-          id: 'bruno.lima'
-        }
+          id: 'bruno.lima',
+        },
       },
       int: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       ext: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       prod: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       prdnv: {
-        tipo: 'vazio'
-      }
-    }
+        tipo: 'vazio',
+      },
+    },
   },
   {
     nome: 'bitrago-teste-0004',
@@ -132,25 +132,25 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Diego Rocha',
           email: 'diego.rocha@nuclea.com.br',
-          id: 'diego.rocha'
-        }
+          id: 'diego.rocha',
+        },
       },
       perf: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       int: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       ext: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       prod: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       prdnv: {
-        tipo: 'vazio'
-      }
-    }
+        tipo: 'vazio',
+      },
+    },
   },
   {
     nome: 'onb-documentos-bucket',
@@ -167,11 +167,11 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Ana Souza',
           email: 'ana.souza@nuclea.com.br',
-          id: 'ana.souza'
-        }
+          id: 'ana.souza',
+        },
       },
       perf: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       int: {
         tipo: 'exclusaoPendente',
@@ -180,19 +180,19 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Carla Mendes',
           email: 'carla.mendes@nuclea.com.br',
-          id: 'carla.mendes'
-        }
+          id: 'carla.mendes',
+        },
       },
       ext: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       prod: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       prdnv: {
-        tipo: 'vazio'
-      }
-    }
+        tipo: 'vazio',
+      },
+    },
   },
   {
     nome: 'onb-notificacoes-topico',
@@ -209,25 +209,25 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Bruno Lima',
           email: 'bruno.lima@nuclea.com.br',
-          id: 'bruno.lima'
-        }
+          id: 'bruno.lima',
+        },
       },
       perf: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       int: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       ext: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       prod: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       prdnv: {
-        tipo: 'vazio'
-      }
-    }
+        tipo: 'vazio',
+      },
+    },
   },
   {
     nome: 'pag-cache-sessoes',
@@ -244,8 +244,8 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Carla Mendes',
           email: 'carla.mendes@nuclea.com.br',
-          id: 'carla.mendes'
-        }
+          id: 'carla.mendes',
+        },
       },
       perf: {
         tipo: 'provisionado',
@@ -255,8 +255,8 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Carla Mendes',
           email: 'carla.mendes@nuclea.com.br',
-          id: 'carla.mendes'
-        }
+          id: 'carla.mendes',
+        },
       },
       int: {
         tipo: 'provisionado',
@@ -266,8 +266,8 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Carla Mendes',
           email: 'carla.mendes@nuclea.com.br',
-          id: 'carla.mendes'
-        }
+          id: 'carla.mendes',
+        },
       },
       ext: {
         tipo: 'provisionado',
@@ -277,8 +277,8 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Diego Rocha',
           email: 'diego.rocha@nuclea.com.br',
-          id: 'diego.rocha'
-        }
+          id: 'diego.rocha',
+        },
       },
       prod: {
         tipo: 'provisionado',
@@ -288,8 +288,8 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Larissa Prado',
           email: 'larissa.prado@nuclea.com.br',
-          id: 'larissa.prado'
-        }
+          id: 'larissa.prado',
+        },
       },
       prdnv: {
         tipo: 'provisionado',
@@ -299,10 +299,10 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Bruno Lima',
           email: 'bruno.lima@nuclea.com.br',
-          id: 'bruno.lima'
-        }
-      }
-    }
+          id: 'bruno.lima',
+        },
+      },
+    },
   },
   {
     nome: 'pag-conciliacao-db',
@@ -319,8 +319,8 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Carla Mendes',
           email: 'carla.mendes@nuclea.com.br',
-          id: 'carla.mendes'
-        }
+          id: 'carla.mendes',
+        },
       },
       perf: {
         tipo: 'provisionado',
@@ -330,8 +330,8 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Diego Rocha',
           email: 'diego.rocha@nuclea.com.br',
-          id: 'diego.rocha'
-        }
+          id: 'diego.rocha',
+        },
       },
       int: {
         tipo: 'provisionado',
@@ -341,8 +341,8 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Matheus da Costa',
           email: 'matheus.costa@nuclea.com.br',
-          id: 'matheus.costa'
-        }
+          id: 'matheus.costa',
+        },
       },
       ext: {
         tipo: 'provisionado',
@@ -352,8 +352,8 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Diego Rocha',
           email: 'diego.rocha@nuclea.com.br',
-          id: 'diego.rocha'
-        }
+          id: 'diego.rocha',
+        },
       },
       prod: {
         tipo: 'aguardandoCloud',
@@ -362,13 +362,13 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Matheus da Costa',
           email: 'matheus.costa@nuclea.com.br',
-          id: 'matheus.costa'
-        }
+          id: 'matheus.costa',
+        },
       },
       prdnv: {
-        tipo: 'vazio'
-      }
-    }
+        tipo: 'vazio',
+      },
+    },
   },
   {
     nome: 'pag-extratos-tabela',
@@ -385,11 +385,11 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Matheus da Costa',
           email: 'matheus.costa@nuclea.com.br',
-          id: 'matheus.costa'
-        }
+          id: 'matheus.costa',
+        },
       },
       perf: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       int: {
         tipo: 'provisionado',
@@ -399,19 +399,19 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Matheus da Costa',
           email: 'matheus.costa@nuclea.com.br',
-          id: 'matheus.costa'
-        }
+          id: 'matheus.costa',
+        },
       },
       ext: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       prod: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       prdnv: {
-        tipo: 'vazio'
-      }
-    }
+        tipo: 'vazio',
+      },
+    },
   },
   {
     nome: 'plt-cache-portal',
@@ -428,25 +428,25 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Ana Souza',
           email: 'ana.souza@nuclea.com.br',
-          id: 'ana.souza'
-        }
+          id: 'ana.souza',
+        },
       },
       perf: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       int: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       ext: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       prod: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       prdnv: {
-        tipo: 'vazio'
-      }
-    }
+        tipo: 'vazio',
+      },
+    },
   },
   {
     nome: 'plt-logs-bucket',
@@ -463,8 +463,8 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Matheus da Costa',
           email: 'matheus.costa@nuclea.com.br',
-          id: 'matheus.costa'
-        }
+          id: 'matheus.costa',
+        },
       },
       perf: {
         tipo: 'provisionado',
@@ -474,8 +474,8 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Bruno Lima',
           email: 'bruno.lima@nuclea.com.br',
-          id: 'bruno.lima'
-        }
+          id: 'bruno.lima',
+        },
       },
       int: {
         tipo: 'provisionado',
@@ -485,8 +485,8 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Matheus da Costa',
           email: 'matheus.costa@nuclea.com.br',
-          id: 'matheus.costa'
-        }
+          id: 'matheus.costa',
+        },
       },
       ext: {
         tipo: 'provisionado',
@@ -496,8 +496,8 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Diego Rocha',
           email: 'diego.rocha@nuclea.com.br',
-          id: 'diego.rocha'
-        }
+          id: 'diego.rocha',
+        },
       },
       prod: {
         tipo: 'provisionado',
@@ -507,8 +507,8 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Carla Mendes',
           email: 'carla.mendes@nuclea.com.br',
-          id: 'carla.mendes'
-        }
+          id: 'carla.mendes',
+        },
       },
       prdnv: {
         tipo: 'provisionado',
@@ -518,10 +518,10 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Ana Souza',
           email: 'ana.souza@nuclea.com.br',
-          id: 'ana.souza'
-        }
-      }
-    }
+          id: 'ana.souza',
+        },
+      },
+    },
   },
   {
     nome: 'plt-metricas-db',
@@ -538,11 +538,11 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Ana Souza',
           email: 'ana.souza@nuclea.com.br',
-          id: 'ana.souza'
-        }
+          id: 'ana.souza',
+        },
       },
       perf: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       int: {
         tipo: 'provisionado',
@@ -552,19 +552,19 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Matheus da Costa',
           email: 'matheus.costa@nuclea.com.br',
-          id: 'matheus.costa'
-        }
+          id: 'matheus.costa',
+        },
       },
       ext: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       prod: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       prdnv: {
-        tipo: 'vazio'
-      }
-    }
+        tipo: 'vazio',
+      },
+    },
   },
   {
     nome: 'bitrago-arquivos',
@@ -581,8 +581,8 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Matheus da Costa',
           email: 'matheus.costa@nuclea.com.br',
-          id: 'matheus.costa'
-        }
+          id: 'matheus.costa',
+        },
       },
       perf: {
         tipo: 'provisionado',
@@ -592,8 +592,8 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Carla Mendes',
           email: 'carla.mendes@nuclea.com.br',
-          id: 'carla.mendes'
-        }
+          id: 'carla.mendes',
+        },
       },
       int: {
         tipo: 'provisionado',
@@ -603,11 +603,11 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Matheus da Costa',
           email: 'matheus.costa@nuclea.com.br',
-          id: 'matheus.costa'
-        }
+          id: 'matheus.costa',
+        },
       },
       ext: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       prod: {
         tipo: 'provisionado',
@@ -617,13 +617,13 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Larissa Prado',
           email: 'larissa.prado@nuclea.com.br',
-          id: 'larissa.prado'
-        }
+          id: 'larissa.prado',
+        },
       },
       prdnv: {
-        tipo: 'vazio'
-      }
-    }
+        tipo: 'vazio',
+      },
+    },
   },
   {
     nome: 'btg-relatorios-fila',
@@ -640,8 +640,8 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Diego Rocha',
           email: 'diego.rocha@nuclea.com.br',
-          id: 'diego.rocha'
-        }
+          id: 'diego.rocha',
+        },
       },
       perf: {
         tipo: 'provisionado',
@@ -651,23 +651,23 @@ export const RECURSOS: Recurso[] = [
         promovidoPor: {
           nome: 'Bruno Lima',
           email: 'bruno.lima@nuclea.com.br',
-          id: 'bruno.lima'
-        }
+          id: 'bruno.lima',
+        },
       },
       int: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       ext: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       prod: {
-        tipo: 'vazio'
+        tipo: 'vazio',
       },
       prdnv: {
-        tipo: 'vazio'
-      }
-    }
-  }
+        tipo: 'vazio',
+      },
+    },
+  },
 ];
 
 export const REPOSITORIOS: Repositorio[] = [
@@ -682,8 +682,8 @@ export const REPOSITORIOS: Repositorio[] = [
     criadoPor: {
       nome: 'Ana Souza',
       email: 'ana.souza@nuclea.com.br',
-      id: 'ana.souza'
-    }
+      id: 'ana.souza',
+    },
   },
   {
     nome: 'btg-bitrago-api',
@@ -696,8 +696,8 @@ export const REPOSITORIOS: Repositorio[] = [
     criadoPor: {
       nome: 'Diego Rocha',
       email: 'diego.rocha@nuclea.com.br',
-      id: 'diego.rocha'
-    }
+      id: 'diego.rocha',
+    },
   },
   {
     nome: 'btg-bitrago-infra',
@@ -710,8 +710,8 @@ export const REPOSITORIOS: Repositorio[] = [
     criadoPor: {
       nome: 'Diego Rocha',
       email: 'diego.rocha@nuclea.com.br',
-      id: 'diego.rocha'
-    }
+      id: 'diego.rocha',
+    },
   },
   {
     nome: 'onb-cadastro-infra',
@@ -724,8 +724,8 @@ export const REPOSITORIOS: Repositorio[] = [
     criadoPor: {
       nome: 'Ana Souza',
       email: 'ana.souza@nuclea.com.br',
-      id: 'ana.souza'
-    }
+      id: 'ana.souza',
+    },
   },
   {
     nome: 'onb-cadastro-web',
@@ -738,8 +738,8 @@ export const REPOSITORIOS: Repositorio[] = [
     criadoPor: {
       nome: 'Matheus da Costa',
       email: 'matheus.costa@nuclea.com.br',
-      id: 'matheus.costa'
-    }
+      id: 'matheus.costa',
+    },
   },
   {
     nome: 'pag-conciliacao-infra',
@@ -752,8 +752,8 @@ export const REPOSITORIOS: Repositorio[] = [
     criadoPor: {
       nome: 'Bruno Lima',
       email: 'bruno.lima@nuclea.com.br',
-      id: 'bruno.lima'
-    }
+      id: 'bruno.lima',
+    },
   },
   {
     nome: 'pag-conciliacao-worker',
@@ -766,8 +766,8 @@ export const REPOSITORIOS: Repositorio[] = [
     criadoPor: {
       nome: 'Carla Mendes',
       email: 'carla.mendes@nuclea.com.br',
-      id: 'carla.mendes'
-    }
+      id: 'carla.mendes',
+    },
   },
   {
     nome: 'pag-extratos-infra',
@@ -780,8 +780,8 @@ export const REPOSITORIOS: Repositorio[] = [
     criadoPor: {
       nome: 'Carla Mendes',
       email: 'carla.mendes@nuclea.com.br',
-      id: 'carla.mendes'
-    }
+      id: 'carla.mendes',
+    },
   },
   {
     nome: 'plt-observabilidade-infra',
@@ -794,8 +794,8 @@ export const REPOSITORIOS: Repositorio[] = [
     criadoPor: {
       nome: 'Diego Rocha',
       email: 'diego.rocha@nuclea.com.br',
-      id: 'diego.rocha'
-    }
+      id: 'diego.rocha',
+    },
   },
   {
     nome: 'plt-portal-infra',
@@ -808,9 +808,9 @@ export const REPOSITORIOS: Repositorio[] = [
     criadoPor: {
       nome: 'Larissa Prado',
       email: 'larissa.prado@nuclea.com.br',
-      id: 'larissa.prado'
-    }
-  }
+      id: 'larissa.prado',
+    },
+  },
 ];
 
 /** Recursos e repositórios que o próprio time do Atlas usa (aba "Interno do Atlas"). */
@@ -819,49 +819,36 @@ export const INTERNOS: ItemInterno[] = [
     nome: 'atlas-portal-db',
     tipo: 'Recurso',
     oferta: 'Amazon RDS',
-    ambientes: [
-      'dev',
-      'int',
-      'prod'
-    ]
+    ambientes: ['dev', 'int', 'prod'],
   },
   {
     nome: 'atlas-eventos-fila',
     tipo: 'Recurso',
     oferta: 'Amazon SQS',
-    ambientes: [
-      'dev',
-      'prod'
-    ]
+    ambientes: ['dev', 'prod'],
   },
   {
     nome: 'atlas-logs-bucket',
     tipo: 'Recurso',
     oferta: 'Amazon S3',
-    ambientes: [
-      'dev',
-      'int',
-      'prod'
-    ]
+    ambientes: ['dev', 'int', 'prod'],
   },
   {
     nome: 'atlas-agent-cache',
     tipo: 'Recurso',
     oferta: 'ElastiCache Valkey',
-    ambientes: [
-      'dev'
-    ]
+    ambientes: ['dev'],
   },
   {
     nome: 'atlas-portal',
     tipo: 'Repositório',
     oferta: 'Serviço Node.js',
-    ambientes: []
+    ambientes: [],
   },
   {
     nome: 'atlas-ofertas',
     tipo: 'Repositório',
     oferta: 'Repositório de IaC',
-    ambientes: []
-  }
+    ambientes: [],
+  },
 ];

@@ -8,8 +8,17 @@ import type {
 } from './types';
 import { contem, passaColunas, type FiltrosColuna } from '../shared/filtros';
 
-export { AMBIENTES, AMBIENTES_COM_CLOUD, precisaDoCloud } from '../shared/ambientes';
-export { contem, distintos, ITENS_POR_PAGINA, paginar } from '../shared/filtros';
+export {
+  AMBIENTES,
+  AMBIENTES_COM_CLOUD,
+  precisaDoCloud,
+} from '../shared/ambientes';
+export {
+  contem,
+  distintos,
+  ITENS_POR_PAGINA,
+  paginar,
+} from '../shared/filtros';
 
 /** Exclusão dentro desta janela sai direto; depois dela vira pedido de aprovação. */
 export const FREE_DELETE_WINDOW_HOURS = 72;
@@ -34,16 +43,26 @@ export function textoDoAmbiente(estado: EstadoAmbiente): string {
 }
 
 /** Valor de cada coluna da tabela de recursos, para o filtro por coluna. */
-export function valorDaColunaRecurso(recurso: Recurso, coluna: string, servicos: Record<string, string>): string {
+export function valorDaColunaRecurso(
+  recurso: Recurso,
+  coluna: string,
+  servicos: Record<string, string>,
+): string {
   if (coluna === 'nome') return recurso.nome;
-  if (coluna === 'servico') return `${recurso.servico} ${servicos[recurso.servico] ?? ''}`;
+  if (coluna === 'servico')
+    return `${recurso.servico} ${servicos[recurso.servico] ?? ''}`;
   if (coluna === 'oferta') return recurso.oferta;
   return textoDoAmbiente(recurso.ambientes[coluna as Ambiente]);
 }
 
-export function valorDaColunaRepositorio(repositorio: Repositorio, coluna: string, servicos: Record<string, string>): string {
+export function valorDaColunaRepositorio(
+  repositorio: Repositorio,
+  coluna: string,
+  servicos: Record<string, string>,
+): string {
   if (coluna === 'nome') return repositorio.nome;
-  if (coluna === 'servico') return `${repositorio.servico} ${servicos[repositorio.servico] ?? ''}`;
+  if (coluna === 'servico')
+    return `${repositorio.servico} ${servicos[repositorio.servico] ?? ''}`;
   return repositorio.oferta;
 }
 
@@ -58,7 +77,9 @@ export function filtrarRecursos(
       (!filtros.busca || contem(recurso.nome, filtros.busca)) &&
       (!filtros.oferta || recurso.oferta === filtros.oferta) &&
       (!filtros.servico || recurso.servico === filtros.servico) &&
-      passaColunas(recurso, colunas, (item, coluna) => valorDaColunaRecurso(item, coluna, servicos)),
+      passaColunas(recurso, colunas, (item, coluna) =>
+        valorDaColunaRecurso(item, coluna, servicos),
+      ),
   );
 }
 
@@ -73,11 +94,16 @@ export function filtrarRepositorios(
       (!filtros.busca || contem(repositorio.nome, filtros.busca)) &&
       (!filtros.oferta || repositorio.oferta === filtros.oferta) &&
       (!filtros.servico || repositorio.servico === filtros.servico) &&
-      passaColunas(repositorio, colunas, (item, coluna) => valorDaColunaRepositorio(item, coluna, servicos)),
+      passaColunas(repositorio, colunas, (item, coluna) =>
+        valorDaColunaRepositorio(item, coluna, servicos),
+      ),
   );
 }
 
 /** Quantos filtros da barra estão ativos (para o rótulo do botão Filtros). */
-export function filtrosAtivos(filtros: FiltrosRecursos | FiltrosRepositorios): number {
-  return [filtros.busca, filtros.oferta, filtros.servico].filter(Boolean).length;
+export function filtrosAtivos(
+  filtros: FiltrosRecursos | FiltrosRepositorios,
+): number {
+  return [filtros.busca, filtros.oferta, filtros.servico].filter(Boolean)
+    .length;
 }

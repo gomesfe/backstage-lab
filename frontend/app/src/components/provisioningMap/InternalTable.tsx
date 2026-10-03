@@ -12,7 +12,11 @@ export function InternalTable({ itens }: { itens: ItemInterno[] }) {
 
   return (
     <div className={classes.tableWrap}>
-      <MuiTable className={classes.table} size="small" aria-label="Interno do Atlas">
+      <MuiTable
+        className={classes.table}
+        size="small"
+        aria-label="Interno do Atlas"
+      >
         <TableHead>
           <TableRow>
             {['Nome', 'Tipo', 'Oferta', 'Ambientes'].map(titulo => (
@@ -32,7 +36,9 @@ export function InternalTable({ itens }: { itens: ItemInterno[] }) {
               <TableCell className={classes.td}>{item.oferta}</TableCell>
               <TableCell className={classes.td}>
                 {item.ambientes.length ? (
-                  <span style={{ display: 'inline-flex', gap: 4, flexWrap: 'wrap' }}>
+                  <span
+                    style={{ display: 'inline-flex', gap: 4, flexWrap: 'wrap' }}
+                  >
                     {item.ambientes.map(ambiente => (
                       <span key={ambiente} className={classes.envBadge}>
                         {ambiente}

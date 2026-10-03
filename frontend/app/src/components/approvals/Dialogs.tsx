@@ -4,11 +4,25 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import { Link } from '@backstage/core-components';
 import { SeloAmbiente } from '../shared/SeloAmbiente';
-import { haQuanto, MOTIVO_MINIMO, podeAprovar, podeCancelar, ROTULO_STATUS, situacao, textoAprovacoes, type Tom } from './helpers';
+import {
+  haQuanto,
+  MOTIVO_MINIMO,
+  podeAprovar,
+  podeCancelar,
+  ROTULO_STATUS,
+  situacao,
+  textoAprovacoes,
+  type Tom,
+} from './helpers';
 import { StatusBadge } from './StatusBadge';
 import { linkDoMapa } from './Table';
 import { useStyles } from './styles';
-import type { Dialogo, EstadoEtapa, Solicitacao, SituacaoAprovador } from './types';
+import type {
+  Dialogo,
+  EstadoEtapa,
+  Solicitacao,
+  SituacaoAprovador,
+} from './types';
 
 type Props = {
   dialogo: Dialogo | null;
@@ -20,7 +34,15 @@ type Props = {
   onCancelar: (id: string, motivo: string) => void;
 };
 
-function Cabecalho({ eyebrow, titulo, children }: { eyebrow: string; titulo: string; children?: ReactNode }) {
+function Cabecalho({
+  eyebrow,
+  titulo,
+  children,
+}: {
+  eyebrow: string;
+  titulo: string;
+  children?: ReactNode;
+}) {
   const classes = useStyles();
   return (
     <div className={classes.dialogHead}>
@@ -35,7 +57,9 @@ function Cabecalho({ eyebrow, titulo, children }: { eyebrow: string; titulo: str
 function Resumo({ solicitacao }: { solicitacao: Solicitacao }) {
   const classes = useStyles();
   const aprovacoes = solicitacao.aprovacoes.por.length
-    ? `${textoAprovacoes(solicitacao)} (${solicitacao.aprovacoes.por.join(', ')})`
+    ? `${textoAprovacoes(solicitacao)} (${solicitacao.aprovacoes.por.join(
+        ', ',
+      )})`
     : textoAprovacoes(solicitacao);
   const campos: [string, string][] = [
     ['Recurso', solicitacao.recurso],
@@ -59,7 +83,9 @@ function Resumo({ solicitacao }: { solicitacao: Solicitacao }) {
       </div>
       <div className={classes.field}>
         <span className={classes.fieldLabel}>Justificativa</span>
-        <span className={classes.readonlyValue}>{solicitacao.justificativa}</span>
+        <span className={classes.readonlyValue}>
+          {solicitacao.justificativa}
+        </span>
       </div>
     </>
   );
@@ -92,7 +118,13 @@ function Andamento({ solicitacao }: { solicitacao: Solicitacao }) {
           <span className={ponto[etapa.estado].classe} aria-hidden>
             {ponto[etapa.estado].marca}
           </span>
-          <div className={`${classes.stepTitle} ${etapa.estado === 'pendente' ? classes.stepTitlePendente : ''}`}>{etapa.titulo}</div>
+          <div
+            className={`${classes.stepTitle} ${
+              etapa.estado === 'pendente' ? classes.stepTitlePendente : ''
+            }`}
+          >
+            {etapa.titulo}
+          </div>
           {etapa.nota && <div className={classes.stepNote}>{etapa.nota}</div>}
         </li>
       ))}
@@ -112,11 +144,15 @@ function Detalhes({ solicitacao }: { solicitacao: Solicitacao }) {
     neutral: classes.heroNeutral,
   };
   const { feitas, total } = solicitacao.aprovacoes;
-  const aberta = solicitacao.status === 'aguardando' || solicitacao.status === 'execucao';
+  const aberta =
+    solicitacao.status === 'aguardando' || solicitacao.status === 'execucao';
 
   return (
     <div className={classes.stack}>
-      <div className={`${classes.hero} ${faixa[tom]}`} style={{ marginBottom: 0 }}>
+      <div
+        className={`${classes.hero} ${faixa[tom]}`}
+        style={{ marginBottom: 0 }}
+      >
         <strong className={classes.heroTitle}>{titulo}</strong>
         <span className={classes.heroSub}>{texto}</span>
         {solicitacao.status === 'aguardando' && (
@@ -133,7 +169,10 @@ function Detalhes({ solicitacao }: { solicitacao: Solicitacao }) {
               aria-valuemax={total}
               aria-valuenow={feitas}
             >
-              <div className={classes.progressBar} style={{ width: `${total ? (feitas / total) * 100 : 0}%` }} />
+              <div
+                className={classes.progressBar}
+                style={{ width: `${total ? (feitas / total) * 100 : 0}%` }}
+              />
             </div>
           </>
         )}
@@ -165,7 +204,11 @@ function Detalhes({ solicitacao }: { solicitacao: Solicitacao }) {
             <dt>Solicitada em</dt>
             <dd>{solicitacao.data}</dd>
             <dt>{aberta ? 'Aberta' : 'Situação'}</dt>
-            <dd>{aberta ? haQuanto(solicitacao.data) : ROTULO_STATUS[solicitacao.status]}</dd>
+            <dd>
+              {aberta
+                ? haQuanto(solicitacao.data)
+                : ROTULO_STATUS[solicitacao.status]}
+            </dd>
           </dl>
         </div>
       </div>
@@ -199,7 +242,14 @@ function Detalhes({ solicitacao }: { solicitacao: Solicitacao }) {
 }
 
 /** Todos os diálogos de Aprovações; abre o que estiver em `dialogo`. */
-export function Dialogs({ dialogo, onClose, onOpen, onAprovar, onRejeitar, onCancelar }: Props) {
+export function Dialogs({
+  dialogo,
+  onClose,
+  onOpen,
+  onAprovar,
+  onRejeitar,
+  onCancelar,
+}: Props) {
   const classes = useStyles();
   const [motivo, setMotivo] = useState('');
   const [tentou, setTentou] = useState(false);
@@ -222,7 +272,10 @@ export function Dialogs({ dialogo, onClose, onOpen, onAprovar, onRejeitar, onCan
         <DialogContent>
           <Resumo solicitacao={solicitacao} />
         </DialogContent>
-        <DialogActions className={classes.dialogActions} style={{ justifyContent: 'flex-end' }}>
+        <DialogActions
+          className={classes.dialogActions}
+          style={{ justifyContent: 'flex-end' }}
+        >
           <span className={classes.dialogButtons}>
             <button type="button" className={classes.button} onClick={onClose}>
               Voltar
@@ -253,27 +306,47 @@ export function Dialogs({ dialogo, onClose, onOpen, onAprovar, onRejeitar, onCan
     };
     conteudo = (
       <>
-        <Cabecalho eyebrow="Aprovações" titulo={rejeitando ? 'Rejeitar solicitação' : 'Cancelar solicitação'} />
+        <Cabecalho
+          eyebrow="Aprovações"
+          titulo={rejeitando ? 'Rejeitar solicitação' : 'Cancelar solicitação'}
+        />
         <DialogContent>
           <Resumo solicitacao={solicitacao} />
           <label className={classes.field}>
-            <span className={classes.fieldLabel}>{rejeitando ? 'Motivo da rejeição' : 'Motivo (opcional)'}</span>
-            <textarea className={classes.textarea} value={motivo} onChange={event => setMotivo(event.target.value)} />
+            <span className={classes.fieldLabel}>
+              {rejeitando ? 'Motivo da rejeição' : 'Motivo (opcional)'}
+            </span>
+            <textarea
+              className={classes.textarea}
+              value={motivo}
+              onChange={event => setMotivo(event.target.value)}
+            />
             {tentou && curto ? (
-              <span className={classes.erro}>Escreva o motivo, com pelo menos {MOTIVO_MINIMO} caracteres.</span>
+              <span className={classes.erro}>
+                Escreva o motivo, com pelo menos {MOTIVO_MINIMO} caracteres.
+              </span>
             ) : (
               <span className={classes.fieldHint}>
-                {rejeitando ? `Vai para quem pediu. Mínimo de ${MOTIVO_MINIMO} caracteres.` : 'Fica registrado no andamento da solicitação.'}
+                {rejeitando
+                  ? `Vai para quem pediu. Mínimo de ${MOTIVO_MINIMO} caracteres.`
+                  : 'Fica registrado no andamento da solicitação.'}
               </span>
             )}
           </label>
         </DialogContent>
-        <DialogActions className={classes.dialogActions} style={{ justifyContent: 'flex-end' }}>
+        <DialogActions
+          className={classes.dialogActions}
+          style={{ justifyContent: 'flex-end' }}
+        >
           <span className={classes.dialogButtons}>
             <button type="button" className={classes.button} onClick={onClose}>
               Voltar
             </button>
-            <button type="button" className={classes.buttonDanger} onClick={confirmar}>
+            <button
+              type="button"
+              className={classes.buttonDanger}
+              onClick={confirmar}
+            >
               {rejeitando ? 'Rejeitar' : 'Cancelar solicitação'}
             </button>
           </span>
@@ -284,10 +357,18 @@ export function Dialogs({ dialogo, onClose, onOpen, onAprovar, onRejeitar, onCan
     largo = true;
     conteudo = (
       <>
-        <Cabecalho eyebrow="Detalhes da solicitação" titulo={solicitacao.recurso}>
+        <Cabecalho
+          eyebrow="Detalhes da solicitação"
+          titulo={solicitacao.recurso}
+        >
           <span className={classes.badgePurple}>Deleção</span>
-          ambiente <SeloAmbiente ambiente={solicitacao.ambiente} /> · {solicitacao.oferta} ·{' '}
-          <span className={solicitacao.excluido ? classes.badgeLime : classes.badge}>{solicitacao.excluido ? 'excluído' : 'não excluído'}</span>
+          ambiente <SeloAmbiente ambiente={solicitacao.ambiente} /> ·{' '}
+          {solicitacao.oferta} ·{' '}
+          <span
+            className={solicitacao.excluido ? classes.badgeLime : classes.badge}
+          >
+            {solicitacao.excluido ? 'excluído' : 'não excluído'}
+          </span>
           <StatusBadge status={solicitacao.status} />
         </Cabecalho>
         <DialogContent>
@@ -303,12 +384,20 @@ export function Dialogs({ dialogo, onClose, onOpen, onAprovar, onRejeitar, onCan
           )}
           <span className={classes.dialogButtons}>
             {podeAprovar(solicitacao) && (
-              <button type="button" className={classes.buttonDanger} onClick={() => onOpen({ tipo: 'rejeitar', solicitacao })}>
+              <button
+                type="button"
+                className={classes.buttonDanger}
+                onClick={() => onOpen({ tipo: 'rejeitar', solicitacao })}
+              >
                 Rejeitar
               </button>
             )}
             {podeCancelar(solicitacao) && (
-              <button type="button" className={classes.buttonDanger} onClick={() => onOpen({ tipo: 'cancelar', solicitacao })}>
+              <button
+                type="button"
+                className={classes.buttonDanger}
+                onClick={() => onOpen({ tipo: 'cancelar', solicitacao })}
+              >
                 Cancelar solicitação
               </button>
             )}
@@ -316,7 +405,11 @@ export function Dialogs({ dialogo, onClose, onOpen, onAprovar, onRejeitar, onCan
               Fechar
             </button>
             {podeAprovar(solicitacao) && (
-              <button type="button" className={classes.buttonPrimary} onClick={() => onOpen({ tipo: 'aprovar', solicitacao })}>
+              <button
+                type="button"
+                className={classes.buttonPrimary}
+                onClick={() => onOpen({ tipo: 'aprovar', solicitacao })}
+              >
                 Aprovar
               </button>
             )}
@@ -327,7 +420,13 @@ export function Dialogs({ dialogo, onClose, onOpen, onAprovar, onRejeitar, onCan
   }
 
   return (
-    <Dialog open onClose={onClose} maxWidth={largo ? 'md' : 'sm'} fullWidth PaperProps={{ className: classes.dialogPaper }}>
+    <Dialog
+      open
+      onClose={onClose}
+      maxWidth={largo ? 'md' : 'sm'}
+      fullWidth
+      PaperProps={{ className: classes.dialogPaper }}
+    >
       {conteudo}
     </Dialog>
   );

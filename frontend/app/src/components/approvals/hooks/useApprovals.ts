@@ -20,15 +20,29 @@ type Resultado = {
 export function useApprovals(): Resultado {
   const [solicitacoes, setSolicitacoes] = useState<Solicitacao[]>(SOLICITACOES);
 
-  const mudar = useCallback((id: string, mudanca: (solicitacao: Solicitacao) => Solicitacao) => {
-    setSolicitacoes(atuais => atuais.map(item => (item.id === id ? mudanca(item) : item)));
-  }, []);
+  const mudar = useCallback(
+    (id: string, mudanca: (solicitacao: Solicitacao) => Solicitacao) => {
+      setSolicitacoes(atuais =>
+        atuais.map(item => (item.id === id ? mudanca(item) : item)),
+      );
+    },
+    [],
+  );
 
   return {
     solicitacoes,
     loading: false,
-    aprovar: useCallback((id: string) => mudar(id, item => aprovar(item)), [mudar]),
-    rejeitar: useCallback((id: string, motivo: string) => mudar(id, item => rejeitar(item, motivo)), [mudar]),
-    cancelar: useCallback((id: string, motivo: string) => mudar(id, item => cancelar(item, motivo)), [mudar]),
+    aprovar: useCallback(
+      (id: string) => mudar(id, item => aprovar(item)),
+      [mudar],
+    ),
+    rejeitar: useCallback(
+      (id: string, motivo: string) => mudar(id, item => rejeitar(item, motivo)),
+      [mudar],
+    ),
+    cancelar: useCallback(
+      (id: string, motivo: string) => mudar(id, item => cancelar(item, motivo)),
+      [mudar],
+    ),
   };
 }
