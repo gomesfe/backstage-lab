@@ -1,4 +1,6 @@
-export type Ambiente = 'dev' | 'perf' | 'int' | 'ext' | 'prod' | 'prdnv';
+import type { Ambiente } from '../shared/ambientes';
+
+export type { Ambiente };
 
 export type Pessoa = { nome: string; email: string; id: string };
 
@@ -40,7 +42,7 @@ export type FiltrosRecursos = { busca: string; oferta: string; servico: string }
 export type FiltrosRepositorios = { busca: string; oferta: string; servico: string };
 
 /** Filtro por coluna: chave da coluna → texto procurado. */
-export type FiltrosColuna = Record<string, string>;
+export type { FiltrosColuna } from '../shared/filtros';
 
 /** Diálogo aberto no momento (um por vez). */
 export type Dialogo =

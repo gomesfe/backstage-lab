@@ -1,5 +1,5 @@
 import FilterIcon from '@material-ui/icons/FilterList';
-import { FilterSelect } from './FilterSelect';
+import { FilterSelect } from '../shared/FilterSelect';
 import { ITENS_POR_PAGINA } from './helpers';
 import { useStyles } from './styles';
 

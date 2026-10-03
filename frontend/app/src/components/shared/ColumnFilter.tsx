@@ -4,7 +4,7 @@ import Paper from '@material-ui/core/Paper';
 import Popover from '@material-ui/core/Popover';
 import TextField from '@material-ui/core/TextField';
 import FilterIcon from '@material-ui/icons/FilterList';
-import { useStyles } from './styles';
+import { useAtlasStyles as useStyles } from './styles';
 
 type Props = {
   label: string;

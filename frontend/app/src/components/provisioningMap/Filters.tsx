@@ -1,5 +1,5 @@
 import SearchIcon from '@material-ui/icons/Search';
-import { FilterSelect } from './FilterSelect';
+import { FilterSelect } from '../shared/FilterSelect';
 import { useStyles } from './styles';
 import type { FiltrosRecursos } from './types';
 

@@ -39,11 +39,13 @@ export function ProvisioningMapPage() {
   const { recursos, repositorios, internos, servicos, loading, refresh } = useProvisioningMap();
   const { allowed: verInterno } = usePermission({ permission: atlasInternalViewPermission });
 
-  const servicoDoEndereco = new URLSearchParams(search).get('service') ?? '';
+  const parametros = new URLSearchParams(search);
+  const servicoDoEndereco = parametros.get('service') ?? '';
+  const buscaDoEndereco = parametros.get('q') ?? '';
   const [aba, setAba] = useState<Aba>(() => abaDoEndereco(hash));
-  const [filtrosRecursos, setFiltrosRecursos] = useState<FiltrosRecursos>({ ...SEM_FILTROS, servico: servicoDoEndereco });
+  const [filtrosRecursos, setFiltrosRecursos] = useState<FiltrosRecursos>({ ...SEM_FILTROS, busca: buscaDoEndereco, servico: servicoDoEndereco });
   const [filtrosRepositorios, setFiltrosRepositorios] = useState<FiltrosRecursos>({ ...SEM_FILTROS, servico: servicoDoEndereco });
-  const [filtrosAbertos, setFiltrosAbertos] = useState(Boolean(servicoDoEndereco));
+  const [filtrosAbertos, setFiltrosAbertos] = useState(Boolean(servicoDoEndereco || buscaDoEndereco));
   const [colunasRecursos, setColunasRecursos] = useState<FiltrosColuna>({});
   const [colunasRepositorios, setColunasRepositorios] = useState<FiltrosColuna>({});
   const [porPagina, setPorPagina] = useState(ITENS_POR_PAGINA[0]);
@@ -59,6 +61,11 @@ export function ProvisioningMapPage() {
     setFiltrosRepositorios(atual => ({ ...atual, servico: servicoDoEndereco }));
     if (servicoDoEndereco) setFiltrosAbertos(true);
   }, [servicoDoEndereco]);
+  // `?q=nome` (link "Ver no mapa" de Aprovações) já abre buscando o recurso.
+  useEffect(() => {
+    setFiltrosRecursos(atual => ({ ...atual, busca: buscaDoEndereco }));
+    if (buscaDoEndereco) setFiltrosAbertos(true);
+  }, [buscaDoEndereco]);
   // Volta para a primeira página quando o que está na tela muda.
   useEffect(() => {
     setPagina(0);

@@ -1,0 +1,299 @@
+import { makeStyles, type Theme } from '@material-ui/core/styles';
+import { atlasTokens } from '../../atlas/components/tokens';
+
+const { brand, status, radius } = atlasTokens;
+
+/** Superfícies e textos do tema ativo (claro ou escuro). */
+export function cores(theme: Theme) {
+  return theme.palette.type === 'dark' ? atlasTokens.dark : atlasTokens.light;
+}
+
+/** Verde para texto: no claro, mais escuro, para o contraste fechar. */
+export function verdeTexto(theme: Theme) {
+  return theme.palette.type === 'dark' ? brand.lime : '#226a26';
+}
+
+/** Cor de texto de um status: no claro, um tom mais escuro do mesmo status. */
+export function textoStatus(theme: Theme, tom: 'info' | 'warning' | 'danger' | 'purple') {
+  const escuro = theme.palette.type === 'dark';
+  if (tom === 'info') return escuro ? status.info : '#1d4ed8';
+  if (tom === 'warning') return escuro ? status.warning : '#92400e';
+  if (tom === 'danger') return escuro ? status.danger : '#b91c1c';
+  return escuro ? '#c4b5fd' : '#6d28d9';
+}
+
+/**
+ * Peças visuais comuns às telas do Atlas em React: cabeçalho da página,
+ * números, abas, cartão com tabela, filtros, botões-cápsula, selos e
+ * diálogos. Cada tela soma os seus estilos próprios a estes.
+ */
+export const useAtlasStyles = makeStyles(theme => {
+  const c = cores(theme);
+  const verde = verdeTexto(theme);
+  const vermelho = textoStatus(theme, 'danger');
+  const ambar = textoStatus(theme, 'warning');
+  const pill = {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 5,
+    height: 26,
+    padding: '0 10px',
+    borderRadius: radius.pill,
+    border: `1px solid ${c.borderLight}`,
+    background: 'transparent',
+    color: c.textSecondary,
+    fontFamily: 'inherit',
+    fontSize: '0.72rem',
+    fontWeight: 700,
+    whiteSpace: 'nowrap' as const,
+    textDecoration: 'none',
+    cursor: 'pointer',
+    transition: 'background-color .15s, border-color .15s, color .15s',
+    '&:hover': { background: c.bgPill, color: c.textPrimary },
+    '&:disabled': { opacity: 0.5, cursor: 'not-allowed' },
+  };
+  const badge = {
+    display: 'inline-block',
+    padding: '2px 9px',
+    borderRadius: radius.pill,
+    fontSize: '0.72rem',
+    fontWeight: 700,
+    whiteSpace: 'nowrap' as const,
+    background: c.bgPill,
+    color: c.textSecondary,
+  };
+
+  return {
+    page: {
+      width: '100%',
+      maxWidth: atlasTokens.maxWidth,
+      margin: '0 auto',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 20,
+      paddingBottom: 40,
+    },
+    // ---- cabeçalho
+    header: { display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', gap: 16, flexWrap: 'wrap', padding: '12px 4px 4px' },
+    eyebrow: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 8,
+      fontSize: '0.7rem',
+      fontWeight: 700,
+      letterSpacing: '0.1em',
+      textTransform: 'uppercase',
+      color: verde,
+      '&::before': { content: '""', width: 16, height: 2, borderRadius: 2, background: brand.lime },
+    },
+    title: { margin: '6px 0 4px', fontSize: '1.9rem', fontWeight: 800, letterSpacing: '-0.03em', color: c.textPrimary },
+    subtitle: { margin: 0, fontSize: '0.92rem', color: c.textSecondary },
+    // ---- números
+    metrics: { display: 'grid', gridTemplateColumns: 'repeat(3, minmax(0, 1fr))', gap: 12, [theme.breakpoints.down('sm')]: { gridTemplateColumns: '1fr' } },
+    metric: {
+      padding: '18px 20px',
+      borderRadius: radius.md,
+      border: `1px solid ${c.border}`,
+      background: c.bgCard,
+      textAlign: 'left',
+      fontFamily: 'inherit',
+    },
+    metricClicavel: {
+      cursor: 'pointer',
+      transition: 'border-color .15s, background-color .15s',
+      '&:hover': { borderColor: brand.limeBorder, background: c.bgCardHover },
+    },
+    metricAtivo: { borderColor: brand.limeBorder, boxShadow: `inset 0 0 0 1px ${brand.limeBorder}` },
+    metricTitle: { fontSize: '0.82rem', fontWeight: 600, color: c.textSecondary },
+    metricValue: { margin: '6px 0 2px', fontSize: '2rem', fontWeight: 800, letterSpacing: '-0.03em', color: c.textPrimary },
+    metricSub: { fontSize: '0.76rem', color: c.textMuted },
+    // ---- abas (cápsula)
+    tabs: {
+      display: 'inline-flex',
+      flexWrap: 'wrap',
+      gap: 6,
+      padding: 4,
+      width: 'fit-content',
+      maxWidth: '100%',
+      borderRadius: radius.pill,
+      border: `1px solid ${c.border}`,
+      background: c.bgSurface,
+    },
+    tab: {
+      display: 'inline-flex',
+      alignItems: 'center',
+      gap: 8,
+      padding: '7px 16px',
+      border: 0,
+      borderRadius: radius.pill,
+      background: 'transparent',
+      color: c.textSecondary,
+      fontFamily: 'inherit',
+      fontSize: '0.82rem',
+      fontWeight: 700,
+      cursor: 'pointer',
+      '&:hover': { color: c.textPrimary },
+    },
+    tabActive: { background: brand.lime, color: brand.limeText, '&:hover': { color: brand.limeText } },
+    tabCount: { padding: '1px 8px', borderRadius: radius.pill, fontSize: '0.7rem', background: c.bgPill, color: c.textSecondary },
+    tabCountActive: { background: 'rgba(255,255,255,0.24)', color: '#fff' },
+    // ---- cartão da tabela + toolbar
+    card: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 14,
+      padding: '20px 22px',
+      borderRadius: radius.lg,
+      border: `1px solid ${c.border}`,
+      background: c.bgCard,
+    },
+    toolbar: { display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, flexWrap: 'wrap' },
+    toolbarTitle: { display: 'flex', alignItems: 'center', gap: 10, margin: 0, fontSize: '1.05rem', fontWeight: 700, color: c.textPrimary },
+    count: { padding: '1px 9px', borderRadius: radius.pill, fontSize: '0.74rem', fontWeight: 700, background: c.bgPill, color: c.textSecondary },
+    toolbarActions: { display: 'flex', alignItems: 'center', gap: 10, flexWrap: 'wrap' },
+    toolbarLabel: { fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: c.textMuted },
+    filtersButton: { ...pill, height: 34, padding: '0 14px', fontSize: '0.8rem' },
+    filtersButtonActive: { borderColor: brand.limeBorder, background: brand.limeBg, color: verde },
+    filters: { display: 'flex', alignItems: 'flex-end', gap: 10, flexWrap: 'wrap' },
+    search: {
+      display: 'flex',
+      alignItems: 'center',
+      gap: 8,
+      flex: '1 1 240px',
+      height: 36,
+      padding: '0 14px',
+      borderRadius: radius.pill,
+      border: `1px solid ${c.border}`,
+      background: c.bgSurface,
+      color: c.textMuted,
+      '&:focus-within': { borderColor: brand.lime, boxShadow: `0 0 0 3px ${brand.limeBg}` },
+      '& input': { flex: 1, minWidth: 0, border: 0, outline: 0, background: 'transparent', color: c.textPrimary, font: 'inherit', fontSize: '0.84rem' },
+    },
+    // ---- campo de seleção com busca (FilterSelect)
+    select: { position: 'relative', minWidth: 190 },
+    selectLabel: { display: 'block', marginBottom: 4, fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: c.textMuted },
+    selectControl: {
+      display: 'flex',
+      alignItems: 'center',
+      height: 36,
+      padding: '0 4px 0 14px',
+      borderRadius: radius.pill,
+      border: `1px solid ${c.border}`,
+      background: c.bgSurface,
+      '&:hover': { borderColor: c.borderLight },
+      '&:focus-within': { borderColor: brand.lime, boxShadow: `0 0 0 3px ${brand.limeBg}` },
+      '& input': { flex: 1, minWidth: 0, border: 0, outline: 0, background: 'transparent', color: c.textPrimary, font: 'inherit', fontSize: '0.84rem', cursor: 'pointer' },
+    },
+    selectIcon: { width: 26, height: 26, padding: 0, color: c.textMuted, '&:hover': { color: c.textPrimary, background: c.bgPill } },
+    selectSep: { width: 1, alignSelf: 'stretch', margin: '8px 2px', background: c.border },
+    selectMenu: { zIndex: 1300, minWidth: 190 },
+    selectPaper: { marginTop: 6, padding: 6, maxHeight: 260, overflowY: 'auto', borderRadius: radius.md, border: `1px solid ${c.borderLight}`, background: c.bgCard },
+    selectOption: { borderRadius: 8, fontSize: '0.84rem', color: c.textSecondary, '&.Mui-selected': { color: verde, fontWeight: 700, background: 'transparent' }, '&.Mui-focusVisible, &:hover': { background: c.bgPill, color: c.textPrimary } },
+    selectEmpty: { padding: '8px 10px', fontSize: '0.84rem', color: c.textMuted },
+    // ---- tabela (linhas em faixas, sem rolagem lateral no notebook)
+    tableWrap: { overflowX: 'auto' },
+    table: { borderCollapse: 'separate', borderSpacing: '0 6px' },
+    th: {
+      padding: '6px 10px',
+      border: 0,
+      fontSize: '0.66rem',
+      fontWeight: 700,
+      letterSpacing: '0.06em',
+      textTransform: 'uppercase',
+      whiteSpace: 'nowrap',
+      color: c.textMuted,
+    },
+    thInner: { display: 'inline-flex', alignItems: 'center', gap: 4 },
+    td: {
+      padding: '10px',
+      verticalAlign: 'middle',
+      fontSize: '0.84rem',
+      color: c.textSecondary,
+      background: theme.palette.type === 'dark' ? 'rgba(148,163,184,0.06)' : 'rgba(148,163,184,0.12)',
+      borderTop: `1px solid ${c.border}`,
+      borderBottom: `1px solid ${c.border}`,
+      '&:first-child': { borderLeft: `1px solid ${c.border}`, borderRadius: '12px 0 0 12px' },
+      '&:last-child': { borderRight: `1px solid ${c.border}`, borderRadius: '0 12px 12px 0' },
+    },
+    row: { '&:hover $td': { background: c.bgCardHover, borderColor: brand.limeBorder } },
+    center: { textAlign: 'center' },
+    right: { textAlign: 'right' },
+    name: { fontWeight: 700, color: c.textPrimary },
+    nameLink: { fontWeight: 700, color: c.textPrimary, textDecoration: 'none', '&:hover': { color: verde, textDecoration: 'underline' } },
+    sub: { display: 'block', marginTop: 2, fontSize: '0.74rem', color: c.textMuted },
+    nowrap: { whiteSpace: 'nowrap' },
+    actions: { display: 'inline-flex', alignItems: 'center', justifyContent: 'flex-end', gap: 6, flexWrap: 'wrap' },
+    sigla: { display: 'inline-block', padding: '2px 8px', borderRadius: radius.pill, fontSize: '0.72rem', fontWeight: 700, background: c.bgPill, color: c.textSecondary },
+    // ---- selos
+    badge,
+    badgeLime: { ...badge, background: brand.limeBg, color: verde },
+    badgeInfo: { ...badge, background: `${status.info}22`, color: textoStatus(theme, 'info') },
+    badgeWarn: { ...badge, background: `${status.warning}26`, color: textoStatus(theme, 'warning') },
+    badgeDanger: { ...badge, background: `${status.danger}1f`, color: textoStatus(theme, 'danger') },
+    badgePurple: { ...badge, background: 'rgba(139,92,246,0.16)', color: textoStatus(theme, 'purple') },
+    // ---- botões pequenos (cápsula)
+    pill,
+    pillPrimary: { ...pill, color: brand.limeText, borderColor: brand.lime, background: brand.lime, '&:hover': { background: brand.limeHover, color: brand.limeText } },
+    pillDanger: { ...pill, color: vermelho, borderColor: `${status.danger}73`, '&:hover': { background: `${status.danger}1a`, color: vermelho, borderColor: status.danger } },
+    pillAdd: { ...pill, color: verde, borderColor: brand.limeBorder, background: brand.limeBg, '&:hover': { background: brand.lime, color: brand.limeText, borderColor: brand.lime } },
+    pillWarn: { ...pill, cursor: 'default', color: ambar, borderColor: `${status.warning}73`, background: `${status.warning}1a`, '&:hover': { background: `${status.warning}1a`, color: ambar } },
+    // ---- filtro por coluna
+    columnFilterButton: { width: 22, height: 22, padding: 0, color: c.textMuted, '&:hover': { color: c.textPrimary, background: c.bgPill } },
+    columnFilterActive: { color: verde, background: brand.limeBg },
+    columnFilterPaper: { display: 'flex', flexDirection: 'column', gap: 10, padding: 12, minWidth: 240, borderRadius: radius.md, border: `1px solid ${c.borderLight}`, background: c.bgCard },
+    columnFilterActions: { display: 'flex', justifyContent: 'flex-end', gap: 6 },
+    // ---- vazio e paginação
+    empty: { padding: '28px 16px', textAlign: 'center', fontSize: '0.88rem', color: c.textMuted },
+    pagination: { color: c.textSecondary, borderBottom: 0, '& .MuiTablePagination-caption': { fontSize: '0.8rem' } },
+    // ---- diálogos
+    dialogPaper: { borderRadius: radius.lg, border: `1px solid ${c.borderLight}`, background: c.bgCard, backgroundImage: 'none' },
+    dialogHead: { padding: '22px 24px 8px' },
+    dialogEyebrow: { fontSize: '0.68rem', fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase', color: c.textMuted },
+    dialogTitle: { margin: '2px 0 6px', fontSize: '1.2rem', fontWeight: 800, color: c.textPrimary, overflowWrap: 'anywhere' },
+    chips: { display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', fontSize: '0.84rem', color: c.textSecondary },
+    envBadge: { padding: '1px 9px', borderRadius: radius.pill, fontSize: '0.72rem', fontWeight: 700, background: `${status.info}22`, color: textoStatus(theme, 'info') },
+    envBadgeHot: { background: `${status.warning}26`, color: textoStatus(theme, 'warning') },
+    hero: { padding: '14px 16px', borderRadius: radius.md, border: `1px solid ${brand.limeBorder}`, background: brand.limeBg, marginBottom: 14 },
+    heroWarn: { borderColor: `${status.warning}66`, background: `${status.warning}1a` },
+    heroInfo: { borderColor: `${status.info}66`, background: `${status.info}14` },
+    heroDanger: { borderColor: `${status.danger}66`, background: `${status.danger}14` },
+    heroNeutral: { borderColor: c.border, background: c.bgSurface },
+    heroTitle: { display: 'block', fontWeight: 800, color: c.textPrimary },
+    heroSub: { fontSize: '0.84rem', color: c.textSecondary },
+    blocks: { display: 'grid', gridTemplateColumns: 'repeat(2, minmax(0, 1fr))', gap: 12, [theme.breakpoints.down('xs')]: { gridTemplateColumns: '1fr' } },
+    block: { padding: 14, borderRadius: radius.md, border: `1px solid ${c.border}`, background: c.bgSurface },
+    blockTitle: { margin: '0 0 10px', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: c.textMuted },
+    dl: { display: 'grid', gridTemplateColumns: 'auto minmax(0, 1fr)', gap: '8px 14px', margin: 0, fontSize: '0.84rem', '& dt': { color: c.textMuted }, '& dd': { margin: 0, justifySelf: 'end', textAlign: 'right', fontWeight: 600, color: c.textPrimary, overflowWrap: 'anywhere' } },
+    person: { display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 },
+    avatar: { width: 40, height: 40, fontSize: '0.85rem', fontWeight: 800, background: brand.limeBg, color: verde },
+    personName: { fontWeight: 700, color: c.textPrimary },
+    personMeta: { fontSize: '0.78rem', color: c.textSecondary },
+    alert: { padding: '12px 14px', borderRadius: radius.md, fontSize: '0.84rem', color: c.textSecondary, border: `1px solid ${c.border}`, marginTop: 12 },
+    alertDanger: { borderColor: `${status.danger}66`, background: `${status.danger}14` },
+    alertWarn: { borderColor: `${status.warning}66`, background: `${status.warning}14` },
+    alertTitle: { display: 'block', fontWeight: 700, color: c.textPrimary },
+    field: { display: 'flex', flexDirection: 'column', gap: 6, marginTop: 14 },
+    fieldLabel: { fontSize: '0.72rem', fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase', color: c.textMuted },
+    fieldHint: { fontSize: '0.76rem', color: c.textMuted },
+    textarea: {
+      minHeight: 90,
+      padding: '10px 12px',
+      borderRadius: radius.md,
+      border: `1px solid ${c.border}`,
+      background: c.bgSurface,
+      color: c.textPrimary,
+      font: 'inherit',
+      fontSize: '0.86rem',
+      resize: 'vertical',
+      outline: 0,
+      '&:focus': { borderColor: brand.lime, boxShadow: `0 0 0 3px ${brand.limeBg}` },
+    },
+    dialogActions: { justifyContent: 'space-between', padding: '12px 24px 18px', flexWrap: 'wrap', gap: 8 },
+    dialogButtons: { display: 'flex', gap: 8, flexWrap: 'wrap' },
+    button: { ...pill, height: 34, padding: '0 16px', fontSize: '0.82rem' },
+    buttonPrimary: { ...pill, height: 34, padding: '0 16px', fontSize: '0.82rem', background: brand.lime, borderColor: brand.lime, color: brand.limeText, '&:hover': { background: brand.limeHover, color: brand.limeText } },
+    buttonDanger: { ...pill, height: 34, padding: '0 16px', fontSize: '0.82rem', color: vermelho, borderColor: `${status.danger}73`, '&:hover': { background: `${status.danger}1a`, color: vermelho } },
+    link: { fontSize: '0.8rem', fontWeight: 700, color: verde, textDecoration: 'none', '&:hover': { textDecoration: 'underline' } },
+  };
+});

@@ -9,8 +9,8 @@ import Paper from '@material-ui/core/Paper';
 import Popper from '@material-ui/core/Popper';
 import ClearIcon from '@material-ui/icons/Close';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { contem } from './helpers';
-import { useStyles } from './styles';
+import { contem } from './filtros';
+import { useAtlasStyles as useStyles } from './styles';
 
 type Props = {
   label: string;

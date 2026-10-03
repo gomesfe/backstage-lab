@@ -4,7 +4,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
-import { ColumnFilter } from './ColumnFilter';
+import { ColumnFilter } from '../shared/ColumnFilter';
 import { useStyles } from './styles';
 import type { FiltrosColuna, Repositorio } from './types';
 

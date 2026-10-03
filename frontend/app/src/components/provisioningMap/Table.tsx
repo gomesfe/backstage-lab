@@ -6,7 +6,7 @@ import TableRow from '@material-ui/core/TableRow';
 import DeleteIcon from '@material-ui/icons/DeleteOutline';
 import PendingIcon from '@material-ui/icons/Schedule';
 import AddIcon from '@material-ui/icons/Add';
-import { ColumnFilter } from './ColumnFilter';
+import { ColumnFilter } from '../shared/ColumnFilter';
 import { AMBIENTES, FREE_DELETE_WINDOW_HOURS, soData } from './helpers';
 import { useStyles } from './styles';
 import type { Ambiente, EstadoAmbiente, FiltrosColuna, Recurso } from './types';

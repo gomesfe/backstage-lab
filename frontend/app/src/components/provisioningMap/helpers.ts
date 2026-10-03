@@ -1,37 +1,22 @@
 import type {
   Ambiente,
   EstadoAmbiente,
-  FiltrosColuna,
   FiltrosRecursos,
   FiltrosRepositorios,
   Recurso,
   Repositorio,
 } from './types';
+import { contem, passaColunas, type FiltrosColuna } from '../shared/filtros';
 
-export const AMBIENTES: Ambiente[] = ['dev', 'perf', 'int', 'ext', 'prod', 'prdnv'];
+export { AMBIENTES, AMBIENTES_COM_CLOUD, precisaDoCloud } from '../shared/ambientes';
+export { contem, distintos, ITENS_POR_PAGINA, paginar } from '../shared/filtros';
 
 /** Exclusão dentro desta janela sai direto; depois dela vira pedido de aprovação. */
 export const FREE_DELETE_WINDOW_HOURS = 72;
 
-/** Promoções para estes ambientes passam pelo time de cloud. */
-export const AMBIENTES_COM_CLOUD: Ambiente[] = ['prod', 'prdnv'];
-
-export const ITENS_POR_PAGINA = [10, 15, 25, 50];
-
-export function precisaDoCloud(ambiente: Ambiente): boolean {
-  return AMBIENTES_COM_CLOUD.includes(ambiente);
-}
-
 /** "04/09/26 12:00" → "04/09/26" (a tabela mostra só o dia). */
 export function soData(data: string): string {
   return data.split(' ')[0];
-}
-
-/** Compara sem maiúsculas nem acentos. */
-export function contem(texto: string, busca: string): boolean {
-  const normaliza = (valor: string) =>
-    valor.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
-  return normaliza(texto).includes(normaliza(busca.trim()));
 }
 
 /** Texto que a célula de um ambiente mostra — é nele que o filtro da coluna procura. */
@@ -62,10 +47,6 @@ export function valorDaColunaRepositorio(repositorio: Repositorio, coluna: strin
   return repositorio.oferta;
 }
 
-function passaColunas<T>(item: T, colunas: FiltrosColuna, valor: (item: T, coluna: string) => string): boolean {
-  return Object.entries(colunas).every(([coluna, busca]) => !busca.trim() || contem(valor(item, coluna), busca));
-}
-
 export function filtrarRecursos(
   recursos: Recurso[],
   filtros: FiltrosRecursos,
@@ -94,15 +75,6 @@ export function filtrarRepositorios(
       (!filtros.servico || repositorio.servico === filtros.servico) &&
       passaColunas(repositorio, colunas, (item, coluna) => valorDaColunaRepositorio(item, coluna, servicos)),
   );
-}
-
-export function paginar<T>(itens: T[], pagina: number, porPagina: number): T[] {
-  return itens.slice(pagina * porPagina, pagina * porPagina + porPagina);
-}
-
-/** Valores distintos, em ordem alfabética — opções dos filtros. */
-export function distintos(valores: string[]): string[] {
-  return Array.from(new Set(valores)).sort((a, b) => a.localeCompare(b, 'pt-BR'));
 }
 
 /** Quantos filtros da barra estão ativos (para o rótulo do botão Filtros). */

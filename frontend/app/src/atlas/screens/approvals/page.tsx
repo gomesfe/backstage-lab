@@ -16,8 +16,10 @@ export const page = PageBlueprint.make({
     icon: <ApprovalIcon />,
     noHeader: true,
     loader: async () => {
-      const { AtlasHtmlScreen } = await import('../../shell/html/AtlasHtmlScreen');
-      return <AtlasHtmlScreen slug="approvals" />;
+      // Tela em React (components/approvals), no padrão do repositório do
+      // Atlas. O index.html desta pasta fica como referência visual avulsa.
+      const { ApprovalsPage } = await import('../../../components/approvals');
+      return <ApprovalsPage />;
     },
   },
 });
