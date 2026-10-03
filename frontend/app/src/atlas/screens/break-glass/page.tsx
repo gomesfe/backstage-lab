@@ -16,8 +16,10 @@ export const page = PageBlueprint.make({
     icon: <ShieldIcon />,
     noHeader: true,
     loader: async () => {
-      const { AtlasHtmlScreen } = await import('../../shell/html/AtlasHtmlScreen');
-      return <AtlasHtmlScreen slug="break-glass" />;
+      // Tela em React (components/breakGlass), no padrão do repositório do
+      // Atlas. O index.html desta pasta fica como referência visual avulsa.
+      const { BreakGlassPage } = await import('../../../components/breakGlass');
+      return <BreakGlassPage />;
     },
   },
 });
