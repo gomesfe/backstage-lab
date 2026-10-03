@@ -21,6 +21,8 @@ metadata:
   description: "API de pagamentos: Pix, boleto e cartão."
   tags: [java, pix, pagamentos]
   annotations:
+    github.com/project-slug: NucleaSA/payments-api
+    sonarqube.org/project-key: nuclea_payments-api
     backstage.io/techdocs-ref: dir:.
 spec:
   type: service
@@ -36,6 +38,8 @@ metadata:
   description: "Consulta de registros de operações."
   tags: [java, sro]
   annotations:
+    github.com/project-slug: NucleaSA/sro-4722
+    sonarqube.org/project-key: nuclea_sro-4722
     backstage.io/techdocs-ref: dir:.
 spec:
   type: service
@@ -71,6 +75,8 @@ metadata:
   description: "Motor de regras antifraude em tempo real."
   tags: [java, regras]
   annotations:
+    github.com/project-slug: NucleaSA/antifraude-core
+    sonarqube.org/project-key: nuclea_antifraude-core
     backstage.io/techdocs-ref: dir:.
 spec:
   type: service
@@ -86,6 +92,8 @@ metadata:
   description: "Agente do Atlas: chat sobre o catálogo."
   tags: [ia, node]
   annotations:
+    github.com/project-slug: NucleaSA/atlas-agent
+    sonarqube.org/project-key: nuclea_atlas-agent
     backstage.io/techdocs-ref: dir:.
 spec:
   type: service
@@ -99,6 +107,9 @@ metadata:
   name: checkout-gateway
   description: "Gateway de checkout legado, substituído pelo payments-api."
   tags: [node, legado]
+  annotations:
+    github.com/project-slug: NucleaSA/checkout-gateway
+    sonarqube.org/project-key: nuclea_checkout-gateway
 spec:
   type: service
   lifecycle: deprecated
@@ -112,6 +123,8 @@ metadata:
   description: "Razão contábil das transações."
   tags: [kotlin, contabil]
   annotations:
+    github.com/project-slug: NucleaSA/ledger-service
+    sonarqube.org/project-key: nuclea_ledger-service
     backstage.io/techdocs-ref: dir:.
 spec:
   type: service
@@ -126,6 +139,8 @@ metadata:
   name: notificacoes-lambda
   description: "Envia e-mail e push a partir de eventos."
   tags: [lambda, eventos]
+  annotations:
+    github.com/project-slug: NucleaSA/notificacoes-lambda
 spec:
   type: serverless
   lifecycle: production
@@ -159,6 +174,7 @@ metadata:
   description: "Site de cadastro de novos clientes."
   tags: [react, web]
   annotations:
+    github.com/project-slug: NucleaSA/onboarding-web
     backstage.io/techdocs-ref: dir:.
 spec:
   type: website
@@ -172,6 +188,8 @@ metadata:
   name: onboarding-worker
   description: "Processa cadastros e validação de documentos."
   tags: [python, fila]
+  annotations:
+    github.com/project-slug: NucleaSA/onboarding-worker
 spec:
   type: worker
   lifecycle: experimental
@@ -210,6 +228,7 @@ metadata:
   description: "O próprio Atlas (Backstage)."
   tags: [backstage, web]
   annotations:
+    github.com/project-slug: NucleaSA/portal
     backstage.io/techdocs-ref: dir:.
 spec:
   type: website
@@ -223,6 +242,8 @@ metadata:
   description: "Cálculo de contribuição da previdência."
   tags: [java, previdencia]
   annotations:
+    github.com/project-slug: NucleaSA/prevcap-2001
+    sonarqube.org/project-key: nuclea_prevcap-2001
     backstage.io/techdocs-ref: dir:.
 spec:
   type: service
@@ -236,6 +257,8 @@ metadata:
   name: PREVCAP-2018
   description: "Gera extratos de previdência sob demanda."
   tags: [lambda, previdencia]
+  annotations:
+    github.com/project-slug: NucleaSA/prevcap-2018
 spec:
   type: serverless
   lifecycle: production
@@ -248,6 +271,8 @@ metadata:
   name: PREVCAP-2025
   description: "Notifica vencimento de aportes."
   tags: [lambda, eventos]
+  annotations:
+    github.com/project-slug: NucleaSA/prevcap-2025
 spec:
   type: serverless
   lifecycle: experimental
@@ -260,6 +285,9 @@ metadata:
   name: risk-scoring
   description: "Modelo de score de risco por transação."
   tags: [python, ml]
+  annotations:
+    github.com/project-slug: NucleaSA/risk-scoring
+    sonarqube.org/project-key: nuclea_risk-scoring
 spec:
   type: service
   lifecycle: experimental
@@ -272,6 +300,8 @@ metadata:
   name: SRO-4740
   description: "Importa arquivos de registro da B3."
   tags: [lambda, sro]
+  annotations:
+    github.com/project-slug: NucleaSA/sro-4740
 spec:
   type: serverless
   lifecycle: production
@@ -284,6 +314,8 @@ metadata:
   name: SRO-4755
   description: "Portal estático de consulta do SRO."
   tags: [web, sro]
+  annotations:
+    github.com/project-slug: NucleaSA/sro-4755
 spec:
   type: website
   lifecycle: production
@@ -297,6 +329,8 @@ metadata:
   description: "Cadastro de participantes do SRO."
   tags: [kotlin, sro]
   annotations:
+    github.com/project-slug: NucleaSA/sro-4760
+    sonarqube.org/project-key: nuclea_sro-4760
     backstage.io/techdocs-ref: dir:.
 spec:
   type: service
@@ -310,6 +344,9 @@ metadata:
   name: SRO-4777
   description: "Conciliação de registros entre sistemas."
   tags: [java, sro]
+  annotations:
+    github.com/project-slug: NucleaSA/sro-4777
+    sonarqube.org/project-key: nuclea_sro-4777
 spec:
   type: service
   lifecycle: experimental
@@ -322,6 +359,7 @@ metadata:
   description: "Documentação pública do SRO."
   tags: [web, docs]
   annotations:
+    github.com/project-slug: NucleaSA/sro-4790
     backstage.io/techdocs-ref: dir:.
 spec:
   type: website
@@ -335,6 +373,8 @@ metadata:
   description: "Motor de validação de registros."
   tags: [java, sro]
   annotations:
+    github.com/project-slug: NucleaSA/sro-4821
+    sonarqube.org/project-key: nuclea_sro-4821
     backstage.io/techdocs-ref: dir:.
 spec:
   type: service

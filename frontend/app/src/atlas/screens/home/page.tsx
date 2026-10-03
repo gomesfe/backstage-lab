@@ -19,8 +19,10 @@ export const page = PageBlueprint.make({
     routeRef: homePlugin.routes.root,
     noHeader: true,
     loader: async () => {
-      const { AtlasHtmlScreen } = await import('../../shell/html/AtlasHtmlScreen');
-      return <AtlasHtmlScreen slug="home" />;
+      // Tela em React (components/home), no padrão do repositório do
+      // Atlas. O index.html desta pasta fica como referência visual avulsa.
+      const { HomePage } = await import('../../../components/home');
+      return <HomePage />;
     },
   },
 });
