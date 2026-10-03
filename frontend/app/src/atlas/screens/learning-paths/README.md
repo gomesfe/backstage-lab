@@ -3,7 +3,7 @@
 Trilhas guiadas para aprender o Atlas e as práticas da casa, com o progresso
 de cada pessoa.
 
-**Arquivos:** `index.html` (a tela, em HTML estático — abre direto no navegador) e `page.tsx` (rota no portal). Cada trilha é uma seção com âncora (`#provisioning`…); `LearningPathRedirect.tsx` leva o endereço antigo `/learning-paths/<id>` até ela.
+**Arquivos:** a tela do portal é React, em `components/learningPaths/` (lista em `/learning-paths`, detalhe em `/learning-paths/<id>`; o endereço antigo `/learning-paths#<id>` leva ao detalhe). `index.html` fica como referência visual avulsa e `page.tsx` registra as rotas.
 
 > **Versão HTML.** Os dados são de exemplo, escritos no próprio `index.html`, e os botões que gravariam algo só abrem o diálogo. O que este README descreve como vindo do catálogo ou de uma API é o que a tela deve mostrar quando essa fonte existir.
 
@@ -35,14 +35,14 @@ de cada pessoa.
 - **Primeiros passos** — Cadastro e acesso ao Atlas · Canais de comunicação
   do Teams · Solicitação de VDI Linux. **Texto provisório**: genérico de
   propósito, sem nomes de canal, links ou contatos. Troque pelo oficial em
-  `learningData.ts` (`FIRST_STEPS`, campo `content`).
+  `components/learningPaths/data.ts` (`PRIMEIROS_PASSOS`, campo `conteudo`).
 - Onboarding de desenvolvedor · Provisionamento com o scaffolder ·
   Permissões, chaves e break glass (só com resumo; sem `content`, o pop-up
   mostra o resumo).
 
 ## Fontes de dados
 
-- **Conteúdo:** `learningData.ts`. Quando houver um serviço de trilhas, é o
+- **Conteúdo:** `components/learningPaths/data.ts`. Quando houver um serviço de trilhas, é o
   único arquivo a trocar.
 - **Progresso:** `storageApi` do Backstage, por usuário. Hoje grava no
   navegador; com o backend de user-settings passa a seguir o usuário entre
