@@ -15,8 +15,10 @@ export const page = PageBlueprint.make({
     icon: <KeyIcon />,
     noHeader: true,
     loader: async () => {
-      const { AtlasHtmlScreen } = await import('../../shell/html/AtlasHtmlScreen');
-      return <AtlasHtmlScreen slug="api-keys" />;
+      // Tela em React (components/apiKeys), no padrão do repositório do
+      // Atlas. O index.html desta pasta fica como referência visual avulsa.
+      const { ApiKeysPage } = await import('../../../components/apiKeys');
+      return <ApiKeysPage />;
     },
   },
 });
